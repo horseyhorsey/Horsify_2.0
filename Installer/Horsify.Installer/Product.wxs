@@ -123,8 +123,14 @@
 
       <!--REPO-->
 			<Component Id="Horsesoft.Music.Horsify.Repositories.dll" Guid="158f9ffc-0983-4264-8201-2a78b90b2d9d">
-			  <File Id="Horsesoft.Music.Horsify.Repositories.dll" Name="Horsesoft.Music.Horsify.Repositories.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
-			</Component>						
+			  <File Id="Horsesoft.Music.Horsify.Repositories.dll" Name="Horsesoft.Music.Horsify.Repositories.dll" 
+              Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
+			</Component>
+      
+      <Component Id="GongSolutions.Wpf.DragDrop.dll" Guid="20DABD3B-BE0E-4709-9C81-C3A83C96D651">
+			  <File Id="GongSolutions.Wpf.DragDrop.dll" Name="GongSolutions.Wpf.DragDrop.dll" 
+              Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GongSolutions.Wpf.DragDrop.dll" />
+			</Component>
 			
 		  <!--INSTALL WINDOWS SERVICE-->			
       <Component Id="Horsesoft.Music.Horsify.Service.exe" Guid="de8dc4e2-878d-4a40-a8d3-eb7d5f62579c">

@@ -8,7 +8,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\x86\Release\netcoreapp2.0</OutputPath>
+    <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

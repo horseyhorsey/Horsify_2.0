@@ -16,7 +16,7 @@ build:
   project: Horsify 2.0.sln
 before_build:
   # Display .NET Core version
-  - cmd: nuget restore
+  - nuget restore Horsify 2.0.sln
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Model/Horsesoft.Music.Data.Model.csproj --verbosity m

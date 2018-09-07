@@ -11,7 +11,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
     {
         SqliteFixture _fixture;
 
-        private SqliteTests(SqliteFixture sqliteFixture)
+        public SqliteTests(SqliteFixture sqliteFixture)
         {
             _fixture = sqliteFixture;
         }
@@ -117,7 +117,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             Assert.True(songs.GetEnumerator().MoveNext());
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void Repo_GetNullSongTags()
         {
             var repo = _fixture._HorsifyDataSqliteRepo;

@@ -7,7 +7,7 @@ namespace Horsesoft.Music.EngineTests
     {
         ISongTagger _songTagger;
 
-        [Fact()]
+        [Fact(Skip = "Integration")]
         public void GetMp3TagWithId3()
         {
             _songTagger = new SongTaggerId3();

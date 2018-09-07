@@ -15,8 +15,8 @@ before_build:
   - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Model/Horsesoft.Music.Data.Model.csproj --verbosity m
   - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Sqlite/Horsesoft.Music.Data.Sqlite.csproj --verbosity m
   - cmd: dotnet restore ./Repo/Horsesoft.Music.Horsify.Repositories/Horsesoft.Music.Horsify.Repositories.csproj --verbosity m
-  - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj--verbosity m  
-  - cmd: dotnet restore ./Tests/Horsesoft.Music.EngineTests/Horsesoft.Music.EngineTests.csproj--verbosity m  
+  - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj --verbosity m  
+  - cmd: dotnet restore ./Tests/Horsesoft.Music.EngineTests/Horsesoft.Music.EngineTests.csproj --verbosity m  
 
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish

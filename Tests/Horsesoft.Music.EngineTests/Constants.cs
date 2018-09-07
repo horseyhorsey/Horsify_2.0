@@ -38,6 +38,6 @@
 
         public const string ALL_SONGS = @"I:\Media\Music";
 
-        public const string WAV_FOLDER = string.Empty;
+        public const string WAV_FOLDER = @"C:\Temp\Wav";
     }
 }

@@ -28,5 +28,5 @@
       <!--SQLLITE3 Dll-->
       <Component Id="e_sqlite3.dll" Guid="cfd8257f-b3ef-4bcb-b130-20dd5541918d">
         <File Id="e_sqlite3.dll" Name="e_sqlite3.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)/x86/e_sqlite3.dll" />
+              Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)/x86/e_sqlite3.dll" />
       </Component>

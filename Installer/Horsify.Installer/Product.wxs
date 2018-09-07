@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <?define Horsesoft.Music.Horsify.Importer.WPF_TargetDir=$(var.Horsesoft.Music.Horsify.Importer.WPF.TargetDir)?>
+  <?define Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir=$(var.Horsesoft.Music.Horsify.Importer.UI.WPF.TargetDir)?>
   <?define Horsesoft.Music.Horsify.Service_TargetDir=$(var.Horsesoft.Music.Horsify.Service.TargetDir)?>
   <?define Horsesoft.Horsify.SongService_TargetDir=$(var.Horsesoft.Horsify.SongService.TargetDir)?>
   <?define Horsesoft.Horsify.Resource_TargetDir=$(var.Horsesoft.Horsify.Resource.TargetDir)?>      
@@ -90,32 +90,32 @@
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">      
 			
 			<Component Id="Horsesoft.Music.Data.Model.dll" Guid="e8c21084-e89b-47d8-8559-57f24405e697">
-			  <File Id="Horsesoft.Music.Data.Model.dll" Name="Horsesoft.Music.Data.Model.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Horsesoft.Music.Data.Model.dll" />
+			  <File Id="Horsesoft.Music.Data.Model.dll" Name="Horsesoft.Music.Data.Model.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Data.Model.dll" />
 			</Component>
       
       <!--SQLITE3-->
 			<Component Id="Microsoft.Data.Sqlite.dll" Guid="a5f9e2fc-602a-447e-943d-be939eec30ae">
-			  <File Id="Microsoft.Data.Sqlite.dll" Name="Microsoft.Data.Sqlite.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Microsoft.Data.Sqlite.dll" />
+			  <File Id="Microsoft.Data.Sqlite.dll" Name="Microsoft.Data.Sqlite.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Microsoft.Data.Sqlite.dll" />
 			</Component>
 			<Component Id="SQLitePCLRaw.batteries_green.dll" Guid="278bb366-65fb-404e-b0a1-16a5cf3260ff">
-			  <File Id="SQLitePCLRaw.batteries_green.dll" Name="SQLitePCLRaw.batteries_green.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)SQLitePCLRaw.batteries_green.dll" />
+			  <File Id="SQLitePCLRaw.batteries_green.dll" Name="SQLitePCLRaw.batteries_green.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.batteries_green.dll" />
 			</Component>
 			<Component Id="SQLitePCLRaw.core.dll" Guid="7a2e12c4-c45f-4465-b72b-521c35f8a181">
-			  <File Id="SQLitePCLRaw.core.dll" Name="SQLitePCLRaw.core.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)SQLitePCLRaw.core.dll" />
+			  <File Id="SQLitePCLRaw.core.dll" Name="SQLitePCLRaw.core.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.core.dll" />
 			</Component>
 			<Component Id="SQLitePCLRaw.provider.e_sqlite3.dll" Guid="5775cb58-7121-494c-9cfe-8494fa533c1c">
-			  <File Id="SQLitePCLRaw.provider.e_sqlite3.dll" Name="SQLitePCLRaw.provider.e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)SQLitePCLRaw.provider.e_sqlite3.dll" />
+			  <File Id="SQLitePCLRaw.provider.e_sqlite3.dll" Name="SQLitePCLRaw.provider.e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.provider.e_sqlite3.dll" />
 			</Component>
 			<Component Id="SQLitePCLRaw.batteries_v2.dll" Guid="068a3a0c-a542-4907-b9ef-c445b55010b3">
-			  <File Id="SQLitePCLRaw.batteries_v2.dll" Name="SQLitePCLRaw.batteries_v2.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)SQLitePCLRaw.batteries_v2.dll" />
+			  <File Id="SQLitePCLRaw.batteries_v2.dll" Name="SQLitePCLRaw.batteries_v2.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.batteries_v2.dll" />
 			</Component>
       <!--E_SQLLITE3 Dll-->
       <Component Id="e_sqlite3.dll" Guid="cfd8257f-b3ef-4bcb-b130-20dd5541918d">
-        <File Id="e_sqlite3.dll" Name="e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)/x86/e_sqlite3.dll" />
+        <File Id="e_sqlite3.dll" Name="e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)/x86/e_sqlite3.dll" />
       </Component>
-      <Component Id="sqlite3.dll" Guid="93865e4e-da11-4a4b-a284-7507fbc2f317">
-        <File Id="sqlite3.dll" Name="sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)sqlite3.dll" />
-      </Component>
+      <!--<Component Id="sqlite3.dll" Guid="93865e4e-da11-4a4b-a284-7507fbc2f317">
+        <File Id="sqlite3.dll" Name="sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)sqlite3.dll" />
+      </Component>-->
       <!--Horsesoft.Music.Data.Sqlite.dll-->
       <Component Id="Horsesoft.Music.Data.Sqlite.dll" Guid="cfd8257f-b3ef-4bcb-b130-20365541918d">
         <File Id="Horsesoft.Music.Data.Sqlite.dll" Name="Horsesoft.Music.Data.Sqlite.dll" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Data.Sqlite.dll" />
@@ -123,7 +123,7 @@
 
       <!--REPO-->
 			<Component Id="Horsesoft.Music.Horsify.Repositories.dll" Guid="158f9ffc-0983-4264-8201-2a78b90b2d9d">
-			  <File Id="Horsesoft.Music.Horsify.Repositories.dll" Name="Horsesoft.Music.Horsify.Repositories.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
+			  <File Id="Horsesoft.Music.Horsify.Repositories.dll" Name="Horsesoft.Music.Horsify.Repositories.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
 			</Component>						
 			
 		  <!--INSTALL WINDOWS SERVICE-->			
@@ -195,40 +195,40 @@
 
 
       <Component Id="Horsify_Importer.exe" Guid="ca14b8e0-1f29-4c1a-a2fd-e96061610be3">
-			  <File Id="Horsify_Importer.exe" Name="Horsify Importer.exe" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Horsify Importer.exe" />
+			  <File Id="Horsify_Importer.exe" Name="Horsify Importer.exe" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsify Importer.exe" />
 			</Component>
 			<Component Id="Horsify_Importer.exe.config" Guid="fd9b983e-9850-4a1e-b5a1-31eb70cd7916">
-			  <File Id="Horsify_Importer.exe.config" Name="Horsify Importer.exe.config" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Horsify Importer.exe.config" />
+			  <File Id="Horsify_Importer.exe.config" Name="Horsify Importer.exe.config" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsify Importer.exe.config" />
 			</Component>
-			<Component Id="CommonServiceLocator.dll" Guid="e91436ca-264f-4e3c-bdc9-a4dee10ec053">
-			  <File Id="CommonServiceLocator.dll" Name="CommonServiceLocator.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)CommonServiceLocator.dll" />
+			<!--<Component Id="CommonServiceLocator.dll" Guid="e91436ca-264f-4e3c-bdc9-a4dee10ec053">
+			  <File Id="CommonServiceLocator.dll" Name="CommonServiceLocator.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)CommonServiceLocator.dll" />
 			</Component>
 			<Component Id="GalaSoft.MvvmLight.dll" Guid="da1c0af9-8941-4c2b-a7fb-a02a13e3f5dc">
-			  <File Id="GalaSoft.MvvmLight.dll" Name="GalaSoft.MvvmLight.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)GalaSoft.MvvmLight.dll" />
+			  <File Id="GalaSoft.MvvmLight.dll" Name="GalaSoft.MvvmLight.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GalaSoft.MvvmLight.dll" />
 			</Component>
 			<Component Id="GalaSoft.MvvmLight.Platform.dll" Guid="af519be2-bb4b-4b84-91b8-9db6344ef48d">
-			  <File Id="GalaSoft.MvvmLight.Platform.dll" Name="GalaSoft.MvvmLight.Platform.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)GalaSoft.MvvmLight.Platform.dll" />
+			  <File Id="GalaSoft.MvvmLight.Platform.dll" Name="GalaSoft.MvvmLight.Platform.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GalaSoft.MvvmLight.Platform.dll" />
 			</Component>
 			<Component Id="GalaSoft.MvvmLight.Extras.dll" Guid="f1dcba47-9387-4ee0-aecb-b66af6e2dc96">
-			  <File Id="GalaSoft.MvvmLight.Extras.dll" Name="GalaSoft.MvvmLight.Extras.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)GalaSoft.MvvmLight.Extras.dll" />
-			</Component>
+			  <File Id="GalaSoft.MvvmLight.Extras.dll" Name="GalaSoft.MvvmLight.Extras.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GalaSoft.MvvmLight.Extras.dll" />
+			</Component>-->
 			<Component Id="System.Windows.Interactivity.dll" Guid="9f2327c4-f7a0-4c57-9d10-8b0055211d4e">
-			  <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)System.Windows.Interactivity.dll" />
+			  <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)System.Windows.Interactivity.dll" />
 			</Component>
 			<Component Id="Id3.dll" Guid="6289d479-a4d5-4cc8-bb80-9fdab124e36c">
-			  <File Id="Id3.dll" Name="Id3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Id3.dll" />
+			  <File Id="Id3.dll" Name="Id3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Id3.dll" />
 			</Component>
 			<Component Id="taglib_sharp.dll" Guid="f5363431-6fd5-479e-8194-5811d38c4d33">
-			  <File Id="taglib_sharp.dll" Name="taglib-sharp.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)taglib-sharp.dll" />
+			  <File Id="taglib_sharp.dll" Name="taglib-sharp.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)taglib-sharp.dll" />
 			</Component>
 			<Component Id="Horsesoft.Music.Horsify.Base.dll" Guid="91758d97-c5de-450f-aa26-e4c2371fd505">
 			  <File Id="Horsesoft.Music.Horsify.Base.dll" Name="Horsesoft.Music.Horsify.Base.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Horsesoft.Music.Horsify.Base.dll" />
 			</Component>
 			<Component Id="Prism.dll" Guid="01577341-77f2-4ba4-8fea-20f9525c3e53">
-			  <File Id="Prism.dll" Name="Prism.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Prism.dll" />
+			  <File Id="Prism.dll" Name="Prism.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Prism.dll" />
 			</Component>
 			<Component Id="Prism.Wpf.dll" Guid="829b1ffe-0198-4f65-988c-734bb154d41e">
-			  <File Id="Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.WPF_TargetDir)Prism.Wpf.dll" />
+			  <File Id="Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Prism.Wpf.dll" />
 			</Component>
 			<Component Id="Horsesoft.Music.Engine.dll" Guid="922e417e-a9b7-4478-be93-afd744967555">
 			  <File Id="Horsesoft.Music.Engine.dll" Name="Horsesoft.Music.Engine.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)Horsesoft.Music.Engine.dll" />

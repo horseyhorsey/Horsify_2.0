@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{C5DAF414-9D26-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Importer", "Importer", "{DA1972B3-D821-4C5F-841B-127B229C0D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Music.Horsify.Importer.WPF", "UI\Horsesoft.Music.Horsify.Importer.WPF\Horsesoft.Music.Horsify.Importer.WPF.csproj", "{5F7193B6-3235-462F-B1F9-11550195F9D6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Music.Horsify.Base", "UI\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj", "{B4DABE47-1E17-486D-85FB-2A232612BCCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.Resource", "UI\Horsesoft.Horsify.Resource\Horsesoft.Horsify.Resource.csproj", "{F4D8055D-B9BB-4968-B3AA-F0C9E59A1C26}"
@@ -61,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.SideMenu"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.Statistics", "UI\Modules\Horsesoft.Horsify.Statistics\Horsesoft.Horsify.Statistics.csproj", "{8F3378AE-B4DA-4872-8C54-DC703522E220}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Music.Horsify.Importer.UI.WPF", "UI\Horsesoft.Music.Horsify.Importer.UI.WPF\Horsesoft.Music.Horsify.Importer.UI.WPF.csproj", "{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UI\Horsesoft.Shared\Horsesoft.Shared.projitems*{f4d8055d-b9bb-4968-b3aa-f0c9e59a1c26}*SharedItemsImports = 4
@@ -74,18 +74,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Debug|x64.Build.0 = Debug|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Debug|x86.ActiveCfg = Debug|x86
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Debug|x86.Build.0 = Debug|x86
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Release|x64.ActiveCfg = Release|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Release|x64.Build.0 = Release|Any CPU
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Release|x86.ActiveCfg = Release|x86
-		{5F7193B6-3235-462F-B1F9-11550195F9D6}.Release|x86.Build.0 = Release|x86
 		{B4DABE47-1E17-486D-85FB-2A232612BCCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4DABE47-1E17-486D-85FB-2A232612BCCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4DABE47-1E17-486D-85FB-2A232612BCCE}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -322,13 +310,24 @@ Global
 		{8F3378AE-B4DA-4872-8C54-DC703522E220}.Release|x64.Build.0 = Release|Any CPU
 		{8F3378AE-B4DA-4872-8C54-DC703522E220}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F3378AE-B4DA-4872-8C54-DC703522E220}.Release|x86.Build.0 = Release|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Debug|x86.Build.0 = Debug|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x64.Build.0 = Release|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DA1972B3-D821-4C5F-841B-127B229C0D74} = {C5DAF414-9D26-498A-B3CC-E2017A850E3A}
-		{5F7193B6-3235-462F-B1F9-11550195F9D6} = {DA1972B3-D821-4C5F-841B-127B229C0D74}
 		{B4DABE47-1E17-486D-85FB-2A232612BCCE} = {C5DAF414-9D26-498A-B3CC-E2017A850E3A}
 		{F4D8055D-B9BB-4968-B3AA-F0C9E59A1C26} = {C5DAF414-9D26-498A-B3CC-E2017A850E3A}
 		{AFE60C4D-8B71-4B87-9361-BDB07C369C15} = {0F1A3FBA-9F22-4AE9-9407-9157D2487743}
@@ -350,6 +349,7 @@ Global
 		{68CE62D3-2653-4BE3-ACD8-E56361A83D8D} = {E82BA2A4-1E9B-43E1-BD86-645AC814C51B}
 		{2A77C8F6-6553-4EAC-BEEE-24C6FCA542AD} = {E82BA2A4-1E9B-43E1-BD86-645AC814C51B}
 		{8F3378AE-B4DA-4872-8C54-DC703522E220} = {E82BA2A4-1E9B-43E1-BD86-645AC814C51B}
+		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0} = {DA1972B3-D821-4C5F-841B-127B229C0D74}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D063F5F-3122-4E5F-9CD3-04EE73DFBE06}

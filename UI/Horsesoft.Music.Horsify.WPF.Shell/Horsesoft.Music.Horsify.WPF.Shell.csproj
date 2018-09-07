@@ -154,10 +154,6 @@
       <Project>{2a77c8f6-6553-4eac-beee-24c6fca542ad}</Project>
       <Name>Horsesoft.Horsify.SideMenu</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\Horsesoft.Horsify.Statistics\Horsesoft.Horsify.Statistics.csproj">
-      <Project>{8f3378ae-b4da-4872-8c54-dc703522e220}</Project>
-      <Name>Horsesoft.Horsify.Statistics</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

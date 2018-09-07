@@ -47,8 +47,7 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             var moduleCatalog = (ModuleCatalog)ModuleCatalog;
             moduleCatalog.AddModule(typeof(ServicesModuleModule));
             moduleCatalog.AddModule(typeof(Horsesoft.Horsify.SearchModule.SearchModuleModule));
-            moduleCatalog.AddModule(typeof(Horsesoft.Horsify.MediaPlayer.MediaPlayerModule));
-            moduleCatalog.AddModule(typeof(Horsesoft.Horsify.Statistics.StatisticsModule));
+            moduleCatalog.AddModule(typeof(Horsesoft.Horsify.MediaPlayer.MediaPlayerModule));            
             moduleCatalog.AddModule(typeof(Horsesoft.Horsify.SideMenu.SideMenuModule));
             moduleCatalog.AddModule(typeof(Horsesoft.Horsify.QueueModule.QueueModule));
             moduleCatalog.AddModule(typeof(Horsesoft.Horsify.DjHorsify.DjHorsifyModule));

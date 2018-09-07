@@ -38,6 +38,6 @@
 
         public const string ALL_SONGS = @"I:\Media\Music";
 
-        public const string WAV_FOLDER = @"I:\Media\!SortingMusicNew\!D&B\Noisia - Old Shit We Never Finished (Part I)";
+        public const string WAV_FOLDER = string.Empty;
     }
 }

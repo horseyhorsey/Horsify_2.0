@@ -17,7 +17,7 @@ namespace Horsesoft.Music.EngineTests
             _fileImporter = new FileImport();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void ExportFilesWithoutYear_ToPlaylist()
         {
             var noYearFiles = _fileImporter.GetFilesWithoutYear();

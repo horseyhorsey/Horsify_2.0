@@ -1,14 +1,12 @@
-using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using Xunit;
 
 namespace Horsesoft.Music.Horsify.RepositoryTests
-{    
+{
     public class SqliteTests : IClassFixture<SqliteFixture>
     {
         SqliteFixture _fixture;
@@ -18,7 +16,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             _fixture = sqliteFixture;
         }
 
-        [Theory]
+        [Theory(Skip = "Integration")]
         [InlineData(SearchType.All, "198%")]
         [InlineData(SearchType.All, "%SKC%")]
         [InlineData(SearchType.Artist, "%Jackson%")]
@@ -38,7 +36,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             Assert.True(songs.GetEnumerator().MoveNext());
         }
 
-        [Theory]
+        [Theory(Skip = "Integration")]
         //[InlineData(SearchType.All, "ub40|noisia")]
         [InlineData(SearchType.All, "%can't%")]
         //[InlineData(SearchType.All, "%STIFF LITTLE%")]
@@ -52,7 +50,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             Assert.True(songs.GetEnumerator().MoveNext());
         }
 
-        [Theory]
+        [Theory(Skip = "Integration")]
         [InlineData(new byte[] { 105, 255 })]
         [InlineData(new byte[] { 0, 105 })]
         [InlineData(new byte[] { 0, 105 }, new byte[] { 150, 175 })]
@@ -93,7 +91,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             Assert.True(songs.Count > 0);
         }
 
-        [Theory]
+        [Theory(Skip = "Integration")]
         //[InlineData(new byte[] { 105, 255 } , null, "Label:Renegade Hardware")]
         //[InlineData(null, null, "Genre:%Neurofunk%")]
         //[InlineData(null, null, "Genre:%Pop%")]
@@ -135,7 +133,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
         /// <param name="searchType">Type of the search.</param>
         /// <param name="searchTerms">The search terms.</param>
         /// <param name="amount">The amount.</param>
-        [Theory]        
+        [Theory(Skip = "Integration")]
         [InlineData(SearchType.All, "%Renegade Hardware%|%Subtitle%", 0)]
         //[InlineData(SearchType.Artist, "%Jackson%", 20)]
         //[InlineData(SearchType.Genre, "%Neurofunk%", 20)]
@@ -147,35 +145,35 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             Assert.True(songs.GetEnumerator().MoveNext());
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void GetMostPlayed()
         {
             var repo = _fixture._HorsifyDataSqliteRepo;
             var results = repo.GetMostPlayed();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void GetRecentlyPlayed()
         {
             var repo = _fixture._HorsifyDataSqliteRepo;
             var results = repo.GetRecentlyPlayed();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void GetRecentlyAdded()
         {
             var repo = _fixture._HorsifyDataSqliteRepo;
             var results = repo.GetRecentlyAdded();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void GetFilterRowsFromDatabase()
         {
             var filters = _fixture._HorsifyDataSqliteRepo.FilterRepository.Get();
             var filter = GetFilterFromString(filters.ElementAt(0).SearchTerms);
         }
 
-        [Fact]
+        [Fact(Skip = "Integration")]
         public void AddFilterToDatabase()
         {
             var filter = new Data.Model.Filter();

@@ -1,11 +1,9 @@
-﻿using Horsesoft.Music.Data.Model;
-using Horsesoft.Music.Data.Model.Import;
+﻿using Horsesoft.Music.Data.Model.Import;
 using Horsesoft.Music.Data.Model.Tags;
 using Horsesoft.Music.Engine.Tagging;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Repositories;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -23,7 +21,7 @@ namespace Horsesoft.Music.Engine.Import
         SongTagFile GetTagInformation(Data.Model.File file, TagOption options = TagOption.All);
         SongTagFile GetTagInformation(string fileName, TagOption options = TagOption.All);
         event Action<string> OnTagUpdated;
-        Task<Dictionary<string, string>> UpdateAllTags(IEnumerable<Data.Model.File> files, TagOption tagOption = TagOption.All);
+        Task<Dictionary<string, string>> UpdateAllTags(IEnumerable<Horsesoft.Music.Data.Model.File> files, TagOption tagOption = TagOption.All);
         void UpdateDbSongTag(SongTagFile taggedSong, int id);
         void SaveChanges();        
     }
@@ -77,7 +75,7 @@ namespace Horsesoft.Music.Engine.Import
             return _songTagger.PopulateSongTag(fileName, options);
         }
 
-        public async Task<Dictionary<string, string>> UpdateAllTags(IEnumerable<Data.Model.File> files, TagOption tagOption = TagOption.All)
+        public async Task<Dictionary<string, string>> UpdateAllTags(IEnumerable<Horsesoft.Music.Data.Model.File> files, TagOption tagOption = TagOption.All)
         {
             _cts = new CancellationTokenSource();
 

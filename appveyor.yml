@@ -15,8 +15,7 @@ build:
   # path to Visual Studio solution or project      
   project: Horsify 2.0.sln
 before_build:
-  # Display .NET Core version
-  - nuget restore "Horsify 2.0.sln"
+  # Display .NET Core version  
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Model/Horsesoft.Music.Data.Model.csproj --verbosity m
@@ -24,7 +23,7 @@ before_build:
   - cmd: dotnet restore ./Repo/Horsesoft.Music.Horsify.Repositories/Horsesoft.Music.Horsify.Repositories.csproj --verbosity m
   - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj --verbosity m  
   - cmd: dotnet restore ./Tests/Horsesoft.Music.EngineTests/Horsesoft.Music.EngineTests.csproj --verbosity m  
-  
+  - nuget restore "Horsify 2.0.sln"
 
   
 # build cache to preserve files/folders between builds

@@ -16,28 +16,28 @@ namespace Horsesoft.Music.Engine.Import
 
         bool CancelPending { get; set; }
 
-        IEnumerable<Data.Model.File> GetFilesFromDatabase();
-        IEnumerable<Data.Model.File> GetFilesWithoutYear();
-        IEnumerable<Data.Model.File> GetUntaggedFilesFromDatabase();
+        IEnumerable<Horsesoft.Music.Data.Model.File> GetFilesFromDatabase();
+        IEnumerable<Horsesoft.Music.Data.Model.File> GetFilesWithoutYear();
+        IEnumerable<Horsesoft.Music.Data.Model.File> GetUntaggedFilesFromDatabase();
 
         /// <summary>
         /// Imports the file asynchronous.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
-        Task<Data.Model.File> ImportFileAsync(string fileName, bool getHash);
+        Task<Horsesoft.Music.Data.Model.File> ImportFileAsync(string fileName, bool getHash);
 
         /// <summary>
         /// Imports the files asynchronous.
         /// </summary>
         /// <param name="dirName">Name of the dir.</param>
         /// <returns></returns>
-        Task<IEnumerable<Data.Model.File>> ImportFilesAsync(string dirName, bool getHashes);
+        Task<IEnumerable<Horsesoft.Music.Data.Model.File>> ImportFilesAsync(string dirName, bool getHashes);
 
         event Action<string> OnFileImported;
 
-        Task<bool> SaveFileToDatabase(Data.Model.File file);
-        Task<bool> SaveFilesToDatabase(IEnumerable<Data.Model.File> files);
+        Task<bool> SaveFileToDatabase(Horsesoft.Music.Data.Model.File file);
+        Task<bool> SaveFilesToDatabase(IEnumerable<Horsesoft.Music.Data.Model.File> files);
     }
 
     public class FileImport : IFileImport
@@ -76,18 +76,18 @@ namespace Horsesoft.Music.Engine.Import
             catch { }
         }
 
-        public IEnumerable<Data.Model.File> GetFilesFromDatabase()
+        public IEnumerable<Horsesoft.Music.Data.Model.File> GetFilesFromDatabase()
         {
             return _horsifyDataRepo.FileRepository
                 .Get(includeProperties: "Song,Song.Artist,Song.Album,Song.Genre,Song.Discog,Song.Label");
         }
 
-        public IEnumerable<Data.Model.File> GetUntaggedFilesFromDatabase()
+        public IEnumerable<Horsesoft.Music.Data.Model.File> GetUntaggedFilesFromDatabase()
         {
             return _horsifyDataRepo.GetUntaggedFiles();
         }
 
-        public IEnumerable<Data.Model.File> GetFilesWithoutYear()
+        public IEnumerable<Horsesoft.Music.Data.Model.File> GetFilesWithoutYear()
         {
             return _horsifyDataRepo.SongRepository.Get(
                 filter: x => x.Year == null,
@@ -101,7 +101,7 @@ namespace Horsesoft.Music.Engine.Import
         /// <param name="fileName">Name of the file.</param>
         /// <param name="getHash"></param>
         /// <returns></returns>
-        public async Task<Data.Model.File> ImportFileAsync(string fileName, bool getHash = false)
+        public async Task<Horsesoft.Music.Data.Model.File> ImportFileAsync(string fileName, bool getHash = false)
         {
             return await Task.Run(() =>
              {
@@ -128,10 +128,10 @@ namespace Horsesoft.Music.Engine.Import
              });
         }
 
-        public async Task<IEnumerable<Data.Model.File>> ImportFilesAsync(string dirName, bool getHashes = false)
+        public async Task<IEnumerable<Horsesoft.Music.Data.Model.File>> ImportFilesAsync(string dirName, bool getHashes = false)
         {
             var dirFiles = await GetFilesAsync(dirName, "*.*");
-            var files = new List<Data.Model.File>();
+            var files = new List<Horsesoft.Music.Data.Model.File>();
 
             _cts = new CancellationTokenSource();
 
@@ -172,7 +172,7 @@ namespace Horsesoft.Music.Engine.Import
             });
         }
 
-        public async Task<bool> SaveFileToDatabase(Data.Model.File file)
+        public async Task<bool> SaveFileToDatabase(Horsesoft.Music.Data.Model.File file)
         {
             if (_horsifyDataRepo != null)
             {
@@ -199,7 +199,7 @@ namespace Horsesoft.Music.Engine.Import
         /// </summary>
         /// <param name="files">The files.</param>
         /// <returns></returns>
-        public async Task<bool> SaveFilesToDatabase(IEnumerable<Data.Model.File> files)
+        public async Task<bool> SaveFilesToDatabase(IEnumerable<Horsesoft.Music.Data.Model.File> files)
         {
             int i = 0;
             var uow = (IUnitOfWork)_horsifyDataRepo;
@@ -282,11 +282,11 @@ namespace Horsesoft.Music.Engine.Import
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
-        private Data.Model.File CreateFile(string fileName, bool getHash = false)
+        private Horsesoft.Music.Data.Model.File CreateFile(string fileName, bool getHash = false)
         {
             var hash = getHash ? GetFileHash(fileName) : null;
             var directory = Path.GetDirectoryName(fileName);
-            return new Data.Model.File
+            return new Horsesoft.Music.Data.Model.File
             {
                 DriveVolume = directory.Remove(3, directory.Length - 3),
                 Folder = directory.Replace(directory.Remove(3, directory.Length - 3), ""),

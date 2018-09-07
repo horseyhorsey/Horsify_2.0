@@ -16,6 +16,7 @@ build:
   project: Horsify 2.0.sln
 before_build:
   # Display .NET Core version
+  - cmd: nuget restore
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Model/Horsesoft.Music.Data.Model.csproj --verbosity m
@@ -23,6 +24,28 @@ before_build:
   - cmd: dotnet restore ./Repo/Horsesoft.Music.Horsify.Repositories/Horsesoft.Music.Horsify.Repositories.csproj --verbosity m
   - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj --verbosity m  
   - cmd: dotnet restore ./Tests/Horsesoft.Music.EngineTests/Horsesoft.Music.EngineTests.csproj --verbosity m  
+  
+
+  
+# build cache to preserve files/folders between builds
+cache:
+  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+  - packages -> **\packages.config
+  - projectA\libs
+  #- node_modules                    # local npm modules
+  - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
+  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
+  
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: x86
+
+# to add several platforms to build matrix:
+#platform:
+#  - x86
+#  - Any CPU
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release  
 
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish

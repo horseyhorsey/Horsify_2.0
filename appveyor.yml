@@ -12,10 +12,15 @@ before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
-  - cmd: dotnet restore ./src/src.csproj --verbosity m
+  - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Model/Horsesoft.Music.Data.Model.csproj --verbosity m
+  - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Sqlite/Horsesoft.Music.Data.Sqlite.csproj --verbosity m
+  - cmd: dotnet restore ./Repo/Horsesoft.Music.Horsify.Repositories/Horsesoft.Music.Horsify.Repositories.csproj --verbosity m
+  - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj--verbosity m  
+  - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj--verbosity m  
+
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
-  - cmd: dotnet publish ./src/src.csproj
+  #- cmd: dotnet publish ./src/src.csproj
 after_build:
   # For once the build has completed
 artifacts:

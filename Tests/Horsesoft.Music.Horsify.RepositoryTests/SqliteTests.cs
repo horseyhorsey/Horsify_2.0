@@ -8,12 +8,12 @@ using System.Linq;
 using Xunit;
 
 namespace Horsesoft.Music.Horsify.RepositoryTests
-{
+{    
     public class SqliteTests : IClassFixture<SqliteFixture>
     {
         SqliteFixture _fixture;
 
-        public SqliteTests(SqliteFixture sqliteFixture)
+        private SqliteTests(SqliteFixture sqliteFixture)
         {
             _fixture = sqliteFixture;
         }
@@ -33,7 +33,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
         {
             var repo = _fixture._HorsifyDataSqliteRepo;
             var searchString = repo.SearchLike(searchType, searchTerms);
-            var songs = repo.ExecuteSearchLike(searchString);
+            var songs = repo.ExecuteSearchLike(searchString, -1);
 
             Assert.True(songs.GetEnumerator().MoveNext());
         }
@@ -47,7 +47,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
         {
             var repo = _fixture._HorsifyDataSqliteRepo;
             var searchString = repo.SearchLike(searchType, searchTerms);
-            var songs = repo.ExecuteSearchLike(searchString);
+            var songs = repo.ExecuteSearchLike(searchString, -1);
 
             Assert.True(songs.GetEnumerator().MoveNext());
         }
@@ -68,7 +68,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             {
                 try
                 {
-                    var tempFilters = new List<Data.Model.Horsify.Filter>();
+                    var tempFilters = new List<Data.Model.Horsify.HorsifyFilter>();
                     foreach (var filterString in filters)
                     {
                         tempFilters.Add(GetFilterFromString(filterString));
@@ -194,7 +194,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             {
                 try
                 {
-                    var tempFilters = new List<Data.Model.Horsify.Filter>();
+                    var tempFilters = new List<Data.Model.Horsify.HorsifyFilter>();
                     foreach (var filterString in filters)
                     {
                         tempFilters.Add(GetFilterFromString(filterString));
@@ -215,7 +215,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
         /// </summary>
         /// <param name="filterString">The filter string.</param>
         /// <returns></returns>
-        private Data.Model.Horsify.Filter GetFilterFromString(string filterString)
+        private Data.Model.Horsify.HorsifyFilter GetFilterFromString(string filterString)
         {
             var splitParam = filterString.Split(':');
             var searchTypeString = splitParam[0];
@@ -223,7 +223,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
 
             var searchType = Enum.Parse(typeof(SearchType), searchTypeString);
 
-            return new Data.Model.Horsify.Filter
+            return new Data.Model.Horsify.HorsifyFilter
             {
                 SearchType = (SearchType)searchType,
                 Filters = searchTerms.ToList()

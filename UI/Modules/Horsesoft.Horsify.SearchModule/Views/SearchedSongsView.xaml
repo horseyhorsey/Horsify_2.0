@@ -1,0 +1,367 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.SearchModule.Views.SearchedSongsView"
+             x:Name="_joinedSongsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:horsify="http://schemas/horsesoft.co.uk"                          
+             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:Sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:model="clr-namespace:Horsesoft.Music.Data.Model.Horsify;assembly=Horsesoft.Music.Data.Model"             
+             prism:ViewModelLocator.AutoWireViewModel="True"        
+             xmlns:local="clr-namespace:Horsesoft.Horsify.SearchModule"            
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                                                  
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1630"
+             d:DataContext="{d:DesignData ../SampleData/SearchedSongsViewModelSampleData.xaml}">
+    
+    <!--1630 is current song search screen width under 1080-->
+
+    <UserControl.Resources>
+
+        <!--#region PAGING BUTTON RESROUCES-->
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" 
+                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                                   StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Enabled.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+
+        <!--PAGING BUTTON-->
+        <Style x:Key="PagingButton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ControlStyle1" TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="True" 
+                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!--#endregion-->
+
+        <horsify:SongItemTemplateSelector x:Key="SongItemSelector" />
+
+        <!--#region DATA PROVIDERS-->
+        <ObjectDataProvider x:Key="SearchTypes" ObjectType="{x:Type Sys:Enum}" MethodName="GetValues" >
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:SongFilterType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <CollectionViewSource x:Key="SearchedSongsViewSource"        
+                              Source="{Binding SearchedSongs}"
+                              d:DesignSource="{d:DesignData /SampleData/SongsListSampleData.xaml}"
+                              >
+        </CollectionViewSource>
+        
+        <!--#endregion-->        
+
+    </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding 
+                        Command="local:Commands.SortCommand"
+                        CanExecute="SortCommand_CanExecute"
+                        PreviewExecuted="CommandBinding_Executed"
+                        Executed="CommandBinding_Executed"/>
+    </UserControl.CommandBindings>
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--BACKGROUND LOGO-->
+        <Border d:IsHidden="False"  CornerRadius="55" Opacity="0.12" Grid.RowSpan="5" Grid.ColumnSpan="3"
+                Background="{Binding Source={StaticResource Brush_Bubbles}}">
+            <ContentPresenter Width="750" Opacity="0.3" d:IsHidden="False" 
+                              ContentTemplate="{StaticResource HorsifyLogoSvg}"/>
+        </Border>
+
+        <!--#region SONGS & PAGING-->
+
+        <Grid Grid.Column="1" d:IsHidden="False">
+
+            <!--MAIN SONGS LIST-->
+            <!--IF CANCONTENTSCROLL NOT SET TO TRUE< WILL CRASH-->
+            <!--ItemsSource="{Binding Source={StaticResource SearchedSongsViewSource}}"-->
+            <!--ItemsSource="{Binding SongsListView}"-->
+            <!---->
+            <horsify:ListViewTouch x:Name="ListviewTouch" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                   d:IsHidden="False"
+                          BorderThickness="0" Margin="-8,0,-15,0"                                            
+                          ItemsSource="{Binding Source={StaticResource SearchedSongsViewSource}}"
+                          Template="{DynamicResource ListViewTemplate}"
+                          ItemContainerStyle="{DynamicResource SongListContainerStyle}"    
+                          ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
+                          ScrollViewer.CanContentScroll="True"   
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.IsDeferredScrollingEnabled="False"
+                          ScrollViewer.PanningDeceleration="5"                    
+                          Tag="JukeboxLabel"
+                          IsSynchronizedWithCurrentItem="True"                                                                                  
+                          >
+                
+                <!--ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"-->
+                <!--ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"-->
+            <!--ItemTemplate="{StaticResource SongItemTest}"-->
+            <!--ItemTemplate="{DynamicResource SongItemTemplate}"-->
+
+            <horsify:ListViewTouch.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
+                                                        Orientation="Vertical"
+                                                        VirtualizingPanel.IsVirtualizing="True" 
+                                                        VirtualizingPanel.ScrollUnit="Item"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling"/>
+                    </ItemsPanelTemplate>
+                </horsify:ListViewTouch.ItemsPanel>
+
+                <!--SONG ITEM SELECTED COMMAND -->
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction 
+                            Command="{Binding SongItemSelectedCommand}"
+                            CommandParameter="{Binding Path=Items/, ElementName=ListviewTouch}"
+                            />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <!--QUEUE SELECTED SONG-->
+
+            </horsify:ListViewTouch>
+
+        </Grid>
+
+        <!--#endregion-->
+
+        <!--SORTING TOOLBAR-->
+        <ToolBarTray 
+            d:IsHidden="False"
+            HorizontalAlignment="Right" 
+                     VerticalAlignment="Top"
+                     Orientation="Vertical" Margin="10,35"
+                     Width="80"
+                     Background="Transparent"                                          
+                     >
+
+            <ToolBarTray.Style>
+                <Style>
+                    <Setter Property="UIElement.Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
+                            <Setter Property="UIElement.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBarTray.Style>
+
+            <ToolBar Header="Sort       " FontSize="20" 
+                     Background="{DynamicResource Color_Primary}"
+                     HorizontalContentAlignment="Left">
+
+                <horsify:ButtonWithLabel 
+                        Width="75" Height="75"
+                        ToolBar.OverflowMode="Always"
+                        Content="{Binding Source={StaticResource StarSvgStroker}}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        Command="local:Commands.SortCommand"
+                        CommandParameter="Rating"
+                        Text="Rating"
+                        />
+
+                <horsify:ButtonWithLabel 
+                        Width="75" Height="75"
+                        ToolBar.OverflowMode="Always"
+                        Content="{Binding Source={StaticResource ArtistIcon}}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        Command="local:Commands.SortCommand"
+                        CommandParameter="Artist"
+                        Text="Artist"
+                        />
+
+                <horsify:ButtonWithLabel 
+                        Width="75" Height="75"
+                        ToolBar.OverflowMode="Always"
+                        Content="{Binding Source={StaticResource ArtistIcon}}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        Command="local:Commands.SortCommand"
+                        CommandParameter="Genre"
+                        Text="Genre"
+                        />
+
+                <horsify:ButtonWithLabel 
+                        Width="75" Height="75"
+                        ToolBar.OverflowMode="Always"
+                        Content="{Binding Source={StaticResource ArtistIcon}}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        Command="local:Commands.SortCommand"
+                        CommandParameter="Year"
+                        Text="Year"
+                        />
+            </ToolBar>
+
+            <ToolBar Header="Order       " FontSize="20" 
+                     Background="{DynamicResource Color_Primary}"
+                     HorizontalContentAlignment="Left">
+
+                <RadioButton ToolBar.OverflowMode="Always" 
+                             Background="{DynamicResource Color_Primary4}"
+                             Click="RadioButton_Click"
+                             Content="Ascending"/>
+                <RadioButton ToolBar.OverflowMode="Always" 
+                             Background="{DynamicResource Color_Primary4}"
+                             Command="{Binding SelectedSortDirectionCommand}"
+                             CommandParameter="Descending"
+                             Click="RadioButton_Click"
+                             Content="Descending"/>
+
+            </ToolBar>
+
+            <ToolBar Header="Random" FontSize="20"                        
+                     Background="{DynamicResource Color_Primary3}"
+                     IsHitTestVisible="True"                  
+                     >
+
+                <!--//TODO: Add attached behaviour so doesn't disappear if click the background of the control-->
+
+                <horsify:AmountSelectControl Grid.Column="1" TextElement.FontSize="12"  
+                                             HorizontalAlignment="Center" 
+                                             Background="Transparent"
+                                             ToolBar.OverflowMode="Always"   
+                                             Value="{Binding DataContext.Amount, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             ShowLargerIncrementButtons="False"/>
+
+                <horsify:RatingRangeControl Grid.Column="2"  ToolBar.OverflowMode="Always"
+                                         RangeLower="{Binding DataContext.RatingLower, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         RangeUpper="{Binding DataContext.RatingUpper, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         StarWidth="20"                                            
+                                         />
+
+                <Button Grid.Column="3" FontSize="28" Width="45"  ToolBar.OverflowMode="Always"   
+                            Height="35"
+                        Style="{DynamicResource ButtonQueueMetal}" 
+                        Command="{Binding GetRandomSongsCommand}"                                                                                      
+                        IsEnabled="True"                        
+                        />
+
+                <Label Content="LAST SEARCH" FontSize="14" ToolBar.OverflowMode="Always" />
+            </ToolBar>
+
+        </ToolBarTray>
+
+        <!--SONG SELECTING TOOLBAR-->
+        <ToolBarTray HorizontalAlignment="Left" VerticalAlignment="Top"
+                     Orientation="Vertical"
+                     Margin="30,25"
+                     Focusable="False"
+                    
+                     >
+            <ToolBar Background="Transparent" Header="VIEW"
+                     IsTabStop="False" FontSize="24"
+                     HorizontalContentAlignment="Right"   BorderThickness="0"                  
+                     >
+
+                <ToolBar.Resources>
+                    <Style TargetType="{x:Type Button}" x:Key="ToolBarButton">
+                        <Setter Property="Width" Value="25"/>
+                        <Setter Property="Height" Value="25"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                    </Style>
+                </ToolBar.Resources>
+
+
+                <Button Style="{StaticResource ToolBarButton}" 
+                        ToolBar.OverflowMode="Always"
+                        Background="DodgerBlue" 
+                        CommandParameter="0"
+                        Click="SwitchTemplateButton_Click"
+                        />
+                <Button Style="{StaticResource ToolBarButton}" 
+                        ToolBar.OverflowMode="Always"
+                        Background="DodgerBlue" 
+                        CommandParameter="1"
+                        Click="SwitchTemplateButton_Click"
+                        />
+                <Button 
+                    ToolBar.OverflowMode="Always"
+                    Style="{StaticResource ToolBarButton}" 
+                        Background="DodgerBlue" 
+                        CommandParameter="2"
+                        Click="SwitchTemplateButton_Click"
+                        />
+
+            </ToolBar>
+        </ToolBarTray>
+
+        <StackPanel VerticalAlignment="Bottom" 
+                    Orientation="Horizontal" HorizontalAlignment="Center"
+                    TextElement.FontSize="32"
+                    TextElement.Foreground="White"
+                    Margin="0,-6"
+                    >
+            <StackPanel.Style>
+                <Style>
+                    <Setter Property="UIElement.Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
+                            <Setter Property="UIElement.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <TextBlock Text="LAST SEARCH - "  />
+            <TextBlock Text="{Binding RecentSearch.SearchTerm}"  />
+            <TextBlock Text="{Binding HorsifyHistory.SearchType, StringFormat=Type: \{0\}}"/>
+            <TextBlock Text="{Binding RecentSearch.ResultCount, StringFormat='  : \{0\}'}" />
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>
+
+    
+    

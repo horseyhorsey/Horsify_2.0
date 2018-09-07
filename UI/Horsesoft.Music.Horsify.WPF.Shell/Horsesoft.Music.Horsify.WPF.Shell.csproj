@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F8ED2D7-8CA1-463B-B7F5-B108CC271344}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Horsesoft.Music.Horsify.WPF.Shell</RootNamespace>
+    <AssemblyName>Horsify Jukebox</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\HorsifyJukebox\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>HorsifyEye.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Horsesoft.Wpf.Controls.Audio">
+      <HintPath>..\Modules\Horsesoft.Horsify.DjHorsify\Horsesoft.Wpf.Controls.Audio.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ToDo.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.Unity" Version="6.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj">
+      <Project>{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}</Project>
+      <Name>Horsesoft.Music.Data.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Horsesoft.Horsify.Resource\Horsesoft.Horsify.Resource.csproj">
+      <Project>{f4d8055d-b9bb-4968-b3aa-f0c9e59a1c26}</Project>
+      <Name>Horsesoft.Horsify.Resource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj">
+      <Project>{b4dabe47-1e17-486d-85fb-2a232612bcce}</Project>
+      <Name>Horsesoft.Music.Horsify.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.DjHorsify\Horsesoft.Horsify.DjHorsify.csproj">
+      <Project>{6f6da20c-4065-4847-b30a-f610974b70b1}</Project>
+      <Name>Horsesoft.Horsify.DjHorsify</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.MediaPlayer\Horsesoft.Horsify.MediaPlayer.csproj">
+      <Project>{bb806517-9d65-4c81-a41f-89854229996a}</Project>
+      <Name>Horsesoft.Horsify.MediaPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.PlaylistsModule\Horsesoft.Horsify.PlaylistsModule.csproj">
+      <Project>{226b3819-ece4-4f10-8cdd-7fa123c78622}</Project>
+      <Name>Horsesoft.Horsify.PlaylistsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.QueueModule\Horsesoft.Horsify.QueueModule.csproj">
+      <Project>{cbb09b86-73fa-4341-a11b-fd2c28c72818}</Project>
+      <Name>Horsesoft.Horsify.QueueModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.SearchModule\Horsesoft.Horsify.SearchModule.csproj">
+      <Project>{500ad01e-64f8-4908-96c4-a374de0cc724}</Project>
+      <Name>Horsesoft.Horsify.SearchModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.ServicesModule\Horsesoft.Horsify.ServicesModule.csproj">
+      <Project>{0A5A49A1-E528-4375-8C5D-6A452912332D}</Project>
+      <Name>Horsesoft.Horsify.ServicesModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.SettingsModule\Horsesoft.Horsify.SettingsModule.csproj">
+      <Project>{68ce62d3-2653-4be3-acd8-e56361a83d8d}</Project>
+      <Name>Horsesoft.Horsify.SettingsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.SideMenu\Horsesoft.Horsify.SideMenu.csproj">
+      <Project>{2a77c8f6-6553-4eac-beee-24c6fca542ad}</Project>
+      <Name>Horsesoft.Horsify.SideMenu</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Horsesoft.Horsify.Statistics\Horsesoft.Horsify.Statistics.csproj">
+      <Project>{8f3378ae-b4da-4872-8c54-dc703522e220}</Project>
+      <Name>Horsesoft.Horsify.Statistics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="HorsifyEye.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Jukebox Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

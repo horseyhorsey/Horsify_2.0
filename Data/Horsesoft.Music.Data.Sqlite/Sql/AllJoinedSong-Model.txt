@@ -1,0 +1,85 @@
+﻿//Can't use the View with EF Core. But can model the view and still use it.
+
+namespace Horsesoft.Music.DataContext
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class AllJoinedTable
+    {
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+
+        public int? Rating { get; set; }
+
+        public int? Year { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [StringLength(255)]
+        public string Artist { get; set; }
+
+        [StringLength(255)]
+        public string Title { get; set; }
+
+        public TimeSpan? Time { get; set; }
+
+        [Key]
+        [Column(Order = 2)]
+        [StringLength(255)]
+        public string Album { get; set; }
+
+        [Key]
+        [Column(Order = 3)]
+        [StringLength(10)]
+        public string MusicKey { get; set; }
+
+        public int? Bpm { get; set; }
+
+        public int? BitRate { get; set; }
+
+        public int? Track { get; set; }
+
+        public string Comment { get; set; }
+
+        [Key]
+        [Column(Order = 4)]
+        [StringLength(255)]
+        public string Label { get; set; }
+
+        [Key]
+        [Column(Order = 5)]
+        [StringLength(255)]
+        public string Genre { get; set; }
+
+        [Key]
+        [Column(Order = 6)]
+        [StringLength(515)]
+        public string FileLocation { get; set; }
+
+        public int? DiscogId { get; set; }
+
+        [Key]
+        [Column(Order = 7)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ReleaseId { get; set; }
+
+        public int? TimesPlayed { get; set; }
+
+        public string ImageLocation { get; set; }
+
+        public DateTime? AddedDate { get; set; }
+
+        public DateTime? LastPlayed { get; set; }
+
+        public bool? IsDamaged { get; set; }
+
+        public bool? NSFW { get; set; }
+
+    }
+}

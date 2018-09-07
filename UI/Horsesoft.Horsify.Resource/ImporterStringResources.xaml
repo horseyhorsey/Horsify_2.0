@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    >
+
+    <!--ARTWORK BOX -->
+    <sys:String x:Key="Tip_ArtworkField">
+        Artwork Folder: When the importer runs, it looks for a picture relating to a discogs id, album or by song - title. Creates picture from the song file if it exists.
+    </sys:String>
+
+    <!--IMPORT MUSIC FOLDER-->
+    <sys:String x:Key="Tip_MusicFolderField">
+        Choose folder to scan to database or paste in a path to music.
+    </sys:String>
+
+    <!--IMPORT BUTTON-->
+    <sys:String x:Key="Tip_ImportButton">
+        Import folder to database.
+    </sys:String>
+
+    <!--CANCEL BUTTON-->
+    <sys:String x:Key="Tip_CancelButton">
+        Import folder to database.
+    </sys:String>
+
+</ResourceDictionary>

@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.PlaylistsModule.Views.PlaylistHelpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <Border Background="{DynamicResource BackgroundGradient2}"
+                            CornerRadius="55,55,55,55" Margin="-1" 
+                            MinWidth="1024"
+                            MinHeight="768"
+                            >
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <RichTextBox IsReadOnly="True" Background="Transparent"
+                         FontSize="48"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         >
+                <RichTextBox.Document>
+                    <FlowDocument>
+                        <Paragraph TextAlignment="Center">
+                            PLAYLIST HELP
+                        </Paragraph>
+
+                        <Paragraph FontSize="32" TextAlignment="Left">
+                            CREATE A NEW PLAYLIST OR OPEN AN EXISTING
+                        </Paragraph>
+
+                        <Paragraph FontSize="32" TextAlignment="Left">
+                            ADD SONGS TO THE PREPARATION LIST BY SELECTING SONGS IN THE SEARCH RESULTS
+                        </Paragraph>
+
+                        <Paragraph FontSize="32" TextAlignment="Left">
+                            WHEN OTHER PLAYLISTS ARE OPEN A BUTTON APPEARS TO ADD TO IT FROM THE PREP LIST
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox.Document>
+            </RichTextBox>
+
+            <Button Margin="25" Grid.Row="1"
+                Width="150" Height="100"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"
+                FontSize="32"
+                Click="Button_Click">OK</Button>
+        </Grid>
+        
+    </Border>
+</UserControl>

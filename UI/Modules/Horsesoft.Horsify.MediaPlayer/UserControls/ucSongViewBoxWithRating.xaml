@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.MediaPlayer.UserControls.ucSongViewBoxWithRating"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
+             mc:Ignorable="d">
+
+    <Border CornerRadius="20"
+                Background="{DynamicResource Brush_Metal}"                                      
+                >
+
+        <!--View Content-->
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--RATING-->
+            <horsify:RatingControl Height="95" RatingValue="{Binding SelectedSong.Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!--ALBUM ART-->
+            <Border BorderThickness="10" BorderBrush="Silver" Grid.Row="1"
+                    CornerRadius="0,0,10,10"
+                                            RenderOptions.ClearTypeHint="Enabled"
+                                            RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                            >
+                <Grid>
+                    <Image Stretch="Fill"
+                           MaxHeight="500"
+                           Height="500"
+                               Source="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"
+                               >
+                    </Image>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+    </Border>
+</UserControl>

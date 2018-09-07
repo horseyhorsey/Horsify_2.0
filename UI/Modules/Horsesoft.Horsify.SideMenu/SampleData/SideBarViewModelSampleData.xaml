@@ -1,0 +1,16 @@
+﻿<ViewModels:SideBarViewModel xmlns:ViewModels="clr-namespace:Horsesoft.Horsify.SideMenu.ViewModels"
+                             xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+                             xmlns:ViewModels1="clr-namespace:Horsesoft.Music.Horsify.Base.ViewModels;assembly=Horsesoft.Music.Horsify.Base"
+                             IsBusy="False">
+
+
+    <ViewModels:SideBarViewModel.SearchButtons>
+
+        <ViewModels1:SearchButtonViewModel SearchTitle="SEARCH"/>
+        <ViewModels1:SearchButtonViewModel SearchTitle="DECADES"/>
+        <ViewModels1:SearchButtonViewModel SearchTitle="GENRES"/>
+        <ViewModels1:SearchButtonViewModel SearchTitle="OPTIONS"/>
+
+    </ViewModels:SideBarViewModel.SearchButtons>
+    
+</ViewModels:SideBarViewModel>

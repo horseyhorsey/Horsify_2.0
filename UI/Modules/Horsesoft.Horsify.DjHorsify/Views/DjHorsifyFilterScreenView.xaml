@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.DjHorsify.Views.DjHorsifyFilterScreenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <!--DJ Horsify-->
+    <Border Style="{DynamicResource Border_QueuePanelStyle}">
+        <Grid>
+            
+            <Border Margin="5"
+                                        MaxHeight="30"                                        
+                                        VerticalAlignment="Top"
+                                        Background="Black" 
+                                        Panel.ZIndex="1"
+                                        BorderThickness="0"
+                                        BorderBrush="Black"
+                                        CornerRadius="8,8,8,8">
+                <!--DJ HORSIFY LIGHT-->
+                <Grid Margin="2">
+                    <Rectangle Opacity="0.85" Margin="2" 
+                                       Fill="{DynamicResource BackgroundGradient3}" 
+                                       RadiusX="4" RadiusY="4">
+                    </Rectangle>
+
+                    <Path Data="M0,4 C0,1.790861 1.790861,0 4,0 L1070,0 C1072.2091,0 1074,1.790861 1074,4 L1074,23 C1074,25.209139 1072.2091,27 1070,27 L398,26 157,16.5 C154.79086,16.5 0,4 0,4 z" 
+                                  Fill="White" 
+                                Margin="2" Opacity="0.06" 
+                                       Stretch="Fill" UseLayoutRounding="False"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                
+                                >
+
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="False" >
+                                        <Setter Property="TextElement.Foreground" Value="PaleVioletRed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="True">
+                                        <Setter Property="TextElement.Foreground" Value="LightGreen"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Ellipse x:Name="OnOffLight" VerticalAlignment="Center"
+                                     Height="18" Width="18" 
+                                     Margin="3,2"
+                                     Stroke="Black">
+
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="False" >
+                                            <Setter Property="Fill" Value="Red"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="True">
+                                            <Setter Property="Fill" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </Ellipse.Style>
+                        </Ellipse>
+
+
+                        <TextBlock Text="DJ " FontSize="26" VerticalAlignment="Center"/>
+                        <TextBlock Text=" -  " FontSize="26" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding DjHorsifyOption.Amount}" FontSize="26" VerticalAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <!--TODO: SHADER EFFECT-->
+                    <!--<Grid.Effect>
+                                <shadereffectlibrary:BloomEffect BloomIntensity="1.4"/>
+                            </Grid.Effect>-->
+                </Grid>
+            </Border>
+
+            <!--#region SCREWS-->
+
+            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" Margin="1"
+                    Width="5" Height="5"/>
+
+            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top" Margin="1"
+                    Width="5" Height="5"/>
+
+            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom" Margin="1"
+                    Width="5" Height="5"/>
+
+            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" Margin="1"
+                    Width="5" Height="5"/>
+
+            <!--#endregion-->
+        </Grid>
+
+
+    </Border>
+</UserControl>

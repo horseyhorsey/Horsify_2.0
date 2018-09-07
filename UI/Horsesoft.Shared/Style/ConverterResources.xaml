@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Horsesoft.Horsify.Resource.Windows.Converters">
+    <converters:BoolToVisConverter x:Key="bool2vis"/>
+    <converters:ListItemIndexConverter x:Key="ItemIndexConv"/>
+    <converters:EmptyStringToVisConverter x:Key="string2vis"/>
+    <converters:NegateBooleanConverter x:Key="negateBoolConv"/>
+    <converters:TimeToAngleConverter x:Key="timeToAngleConv"/>
+    <converters:DoubleRangeConverter x:Key="doubleRangeConv"/>
+    <converters:MusicKeyToColorConverter x:Key="MusicKeyToColorConverter"/>
+    <converters:StringToBitmapConverter x:Key="stringToBitmapConverter"/> 
+    <converters:RatingConverter x:Key="ratingconverter"/>
+    <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+
+</ResourceDictionary>

@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+
+    <Style x:Key="BorderBlurredEdge" TargetType="Border">
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <BlurEffect/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BorderBlurredEdgeWeak" TargetType="Border">
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <BlurEffect Radius="0.01"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#region BORDERS-->
+    <Style x:Key="Border_Default" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource Brush_Metal}"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--SIDEBAR BUTTON-->
+    <Style x:Key="Border_SearchButton" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="CornerRadius" Value="10,0,0,15"/>
+        <Setter Property="BorderThickness" Value="0.6"/>
+        <Setter Property="Background" Value="{DynamicResource Brush_PlasticBlack}"/>
+    </Style>
+
+    <!--#endregion-->
+
+    <!--#region MAIN REGION-->
+
+    <Style x:Key="Border_MainContentRegion" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BackgroundGradient3}"/>
+        <Setter Property="CornerRadius" Value="55"/>
+        <Setter Property="BorderThickness" Value="8"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush_PlasticBlack}" />
+    </Style>
+
+    <!--#endregion-->
+
+    <!--#region QUEUE-->
+
+    <Style x:Key="Border_QueuePanelStyle" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="CornerRadius" Value="5,5,5,5"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="Background" Value="{DynamicResource Brush_Wood3}"/>
+    </Style>
+
+    <!--#endregion-->
+
+</ResourceDictionary>

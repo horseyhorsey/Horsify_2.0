@@ -1,0 +1,6 @@
+﻿
+    
+    <model:AllJoinedTable Artist="Horseman" Title="Love It" 
+                      xmlns:model="clr-namespace:Horsesoft.Music.Data.Model;assembly=Horsesoft.Music.Data.Model" 
+                                      MusicKey="E"
+                                      ImageLocation="../noimage.jpg"/>

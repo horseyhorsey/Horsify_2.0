@@ -1,0 +1,29 @@
+﻿<ViewModels:QueueListViewModel xmlns:ViewModels="clr-namespace:Horsesoft.Horsify.QueueModule.ViewModels"
+                               xmlns:model="clr-namespace:Horsesoft.Music.Data.Model;assembly=Horsesoft.Music.Data.Model" ShuffleEnabled="True">
+
+
+    <ViewModels:QueueListViewModel.QueueItems>
+
+        <ViewModels:QueueItemViewModel>
+            <ViewModels:QueueItemViewModel.QueuedSong>
+                <model:AllJoinedTable Artist="Horseman" Title="Love It" 
+                                      MusicKey="E"
+                                      ImageLocation="../noimage.jpg"/>
+            </ViewModels:QueueItemViewModel.QueuedSong>
+        </ViewModels:QueueItemViewModel>
+
+
+        <ViewModels:QueueItemViewModel>
+            <ViewModels:QueueItemViewModel.QueuedSong>
+                <model:AllJoinedTable Artist="Horseman" Title="Init Part Two" 
+                                      MusicKey="F"
+                                      ImageLocation="../noimage.jpg"/>
+            </ViewModels:QueueItemViewModel.QueuedSong>
+        </ViewModels:QueueItemViewModel>
+
+
+
+    </ViewModels:QueueListViewModel.QueueItems>
+
+
+</ViewModels:QueueListViewModel>

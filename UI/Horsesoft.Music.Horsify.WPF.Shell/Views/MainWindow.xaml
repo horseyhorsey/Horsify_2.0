@@ -1,0 +1,208 @@
+﻿<Window x:Class="Horsesoft.Music.Horsify.WPF.Shell.Views.MainWindow"
+        x:Name="_mainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+        xmlns:base="clr-namespace:Horsesoft.Music.Horsify.Base;assembly=Horsesoft.Music.Horsify.Base"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"        
+        WindowStartupLocation="CenterScreen"       
+        Left="0" Top="0"
+        SizeChanged="_mainWindow_SizeChanged"         
+        SnapsToDevicePixels="False" VisualClearTypeHint="Enabled"
+        TextOptions.TextFormattingMode="Display"
+        Cursor="Hand"                
+        Style="{StaticResource DefaultWindowStyle}"
+        Title="{Binding Title}">
+    <!--
+        xmlns:views="clr-namespace:Horsesoft.Music.Horsify.Views"
+        xmlns:controls="clr-namespace:Horsesoft.Music.Horsify.Controls"
+        xmlns:shadereffectlibrary="clr-namespace:ShaderEffectLibrary;assembly=ShaderEffectLibrary"
+        xmlns:usercontrols="clr-namespace:Horsesoft.Music.Horsify.UserControls"-->
+
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="4" GlassFrameThickness="20"
+                      CaptionHeight="20" CornerRadius="50" NonClientFrameEdges="None"/>
+    </WindowChrome.WindowChrome>
+    
+    <!--#region BINDINGS-->
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="Close_Executed"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <!--<KeyBinding Key="Esc" Command="Close"/>-->
+        <KeyBinding Key="OemMinus" Command="{Binding ChangeVolumeCommand}" CommandParameter="-"/>
+        <KeyBinding Key="OemPlus"  Command="{Binding ChangeVolumeCommand}" CommandParameter="+"/>
+    </Window.InputBindings>
+    <!--#endregion-->
+
+    <!--TODO: VERSION-->
+    <!--<TextBlock Text="{x:Static local:XamlStaticTest.Version}" 
+                                       Margin="165,25,0,0"
+                                       FontStyle="Italic" 
+                                       FontSize="14"
+                                       FontWeight="Medium"/>-->
+
+    <Grid x:Name="LayoutRoot">
+
+        <!--#region DEFINITIONS-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+
+        <!--#region SidePanelRegion-->
+        <Grid Grid.Column="0" Grid.RowSpan="2"             
+              Style="{DynamicResource Grid_SideBarStyle}">
+            <ContentControl prism:RegionManager.RegionName="{x:Static base:Regions.SidePanelRegion}" />
+        </Grid>
+        <!--#endregion-->
+
+        <!--MAIN REGION-->
+        <Grid Grid.Row="0" Grid.Column="1" >
+
+            <Rectangle Fill="{DynamicResource Brush_PlasticBlack}"                                          
+                       RadiusX="0" RadiusY="5"/>
+
+            <!-- SEARCH & MAIN CONTENT REGION-->
+            <Grid>
+
+                <!--#region Definitions-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--#endregion-->
+
+                <!--MAIN VIEWS-->
+                <Grid Grid.Row="1" Grid.ColumnSpan="2">
+
+                    <!--#region Definitions-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--#endregion-->
+
+                    <!--MAIN CONTENT REGION-->
+                    <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="2"
+                            Style="{DynamicResource Border_MainContentRegion}"
+                            >
+                        <Grid>
+                            <ContentControl prism:RegionManager.RegionName="{x:Static base:Regions.ContentRegion}" />
+
+                            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                     Width="15" Height="15"/>
+
+                            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Width="15" Height="15"/>
+
+                            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Width="15" Height="15"/>
+
+                            <Ellipse Fill="{DynamicResource Brush_ScrewCache}" 
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Width="15" Height="15"/>
+                        </Grid>
+
+                    </Border>
+
+                    <!--MEDIA ELEMENT hidden-->
+                    <ContentControl prism:RegionManager.RegionName="{x:Static base:Regions.MediaElementRegion}" />
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+        
+        <!--SIDE PANEL RIGHT REGION-->
+        <Grid Grid.Row="0" Grid.Column="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" MinHeight="200"/>
+            </Grid.RowDefinitions>
+            
+            <!--NAVIGATE VIEWS-->
+            <ContentControl Grid.Row="0"
+                            prism:RegionManager.RegionName="{x:Static base:Regions.NavigateViewsRegion}"/>
+
+            <!--VOLUME CONTROL-->
+            <ContentControl Grid.Row="1"
+                            prism:RegionManager.RegionName="{x:Static base:Regions.VolumeControlRegion}"/>
+        </Grid>
+        
+        <!--BOTTOM REGION-->
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+              Background="{DynamicResource Brush_PlasticBlack}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="85"/>
+                <ColumnDefinition MaxWidth="120"/>
+                <ColumnDefinition MaxWidth="250"/>
+                <ColumnDefinition Width="165"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MaxWidth="50"/>
+                <ColumnDefinition MaxWidth="85"/>
+            </Grid.ColumnDefinitions>
+
+            <!--MediaControlRegion-->
+            <ContentControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"                            
+                            prism:RegionManager.RegionName="{x:Static base:Regions.MediaControlRegion}" />
+
+            <!--PLAYING INFO - DIGITAL SCREEN-->
+            <ContentControl Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3"
+                            prism:RegionManager.RegionName="{x:Static base:Regions.NowPlayingScreenRegion}" />
+
+            <!--DJ HORSIFY FILTERS-->
+            <ContentControl Visibility="Visible"
+                            Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2"
+                            prism:RegionManager.RegionName="{x:Static base:Regions.DjHorsifyFilterScreenRegion}" />
+
+            <!--QUEUED SONGS-->
+            <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6"
+                            MouseDown="_mainWindow_MouseDoubleClick"
+                            prism:RegionManager.RegionName="{x:Static base:Regions.QueuePanelRegion}" />
+
+            <!--QUEUE CONTROLS-->
+            <ContentControl Grid.Column="6" Grid.Row="1"
+                            prism:RegionManager.RegionName="{x:Static base:Regions.QueueControlRegion}"/>
+
+        </Grid>
+
+    </Grid>
+   
+</Window>

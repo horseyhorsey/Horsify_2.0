@@ -1,0 +1,324 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            x:Class="Horsesoft.Horsify.MediaPlayer.Views.Turntable1200View"
+             mc:Ignorable="d">
+
+    <!--#region RESOURCES / TRIGGERS -->
+    <UserControl.Resources>
+
+        <Image x:Key="SelectedSongBrush" 
+               Source="{Binding SelectedSong.ImageLocation, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--VINYL ANIMATION-->
+        <Storyboard x:Key="RotateVinylImage">
+            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
+                             Storyboard.TargetName="VinylLabel" To="360" Duration="0:0:10"
+                             >
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="RotateVinyl">
+            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
+                             Storyboard.TargetName="VinylPlatter" To="360" Duration="0:0:10"
+                             />
+        </Storyboard>
+
+        <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <!-- TRIGGERS - ROTATES VINLY WHEN LOADED - HAS TRIGGERS TO PAUSE/RESUME-->
+    <UserControl.Triggers>
+        
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="RotateVinyl_BeginStoryboard" Storyboard="{StaticResource RotateVinyl}"/>
+            <BeginStoryboard x:Name="RotateVinylImage_BeginStoryboard" Storyboard="{StaticResource RotateVinylImage}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+            <StopStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
+            <StopStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
+        </EventTrigger>
+        
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="TurntableEnabled">
+            <ResumeStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard" />
+            <ResumeStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="TurntableEnabled">
+            <PauseStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
+            <PauseStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
+        </EventTrigger>
+
+    </UserControl.Triggers>
+    
+    
+
+    <!--#endregion-->
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Viewbox>
+            <Canvas x:Name="canvas" Width="1920" Height="1500" Background="Black"
+            RenderOptions.BitmapScalingMode="LowQuality">
+
+                <!--DECK-->
+                <Image Canvas.Left="0"
+                    Stretch="Uniform" Source="{DynamicResource Bitmap_1200Back}"
+                   />
+
+                <!--VINYL-->
+                <Grid Canvas.Left="41" 
+                  Canvas.Top="28" RenderTransformOrigin="0.494,0.489" >
+
+                    <!--Deck platter-->
+                    <Grid x:Name="VinylPlatter" 
+                      RenderTransformOrigin="0.5,0.5">
+
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+
+                        <!--PLATTER-->
+                        <Image x:Name="vinylmid" Stretch="Uniform"
+                            Source="{DynamicResource Bitmap_1200Platter}">
+
+                            <Image.CacheMode>
+                                <BitmapCache RenderAtScale="0.5"/>
+                            </Image.CacheMode>
+                        </Image>
+
+                    </Grid>
+
+                    <!--ROXANNE RED LIGHT-->
+                    <Rectangle x:Name="LightOn" Margin="-50.529,856.185,1027.273,107.529"
+                           >
+                        <Rectangle.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                                <GradientStop Color="#FFAC0B0B"/>
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+
+                        <!--<Rectangle.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=VinylClip}"/>
+                    </Rectangle.OpacityMask>-->
+
+                    </Rectangle>
+
+                    <!--CLIPPING VINYL-->
+
+                    <!--STD YELLOW LIGHT-->
+                    <Rectangle x:Name="LightNeedle" Margin="729,713,200,-189" RenderTransformOrigin="0.5,0.5"
+                        Opacity="0.4">
+                        <Rectangle.OpacityMask>
+                            <RadialGradientBrush Center="0.5,0.4" RadiusY="0.456" RadiusX="0.254">
+                                <GradientStop Color="#001CCB24" Offset="1"/>
+                                <GradientStop Color="#FF192B29"/>
+                            </RadialGradientBrush>
+                        </Rectangle.OpacityMask>
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-18.944"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                <GradientStop/>
+                                <GradientStop Color="#FFB4B400"/>
+                                <GradientStop Color="#FFC3C363" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                </Grid>
+
+                <!--RECORD-->
+                <Grid Canvas.Left="120" Canvas.Top="90">
+                    <Image x:Name="vinyl" Stretch="Uniform"
+                       Source="{StaticResource Bitmap_VinylWithHole}">
+                        <Image.CacheMode>
+                            <BitmapCache RenderAtScale="0.3"/>
+                        </Image.CacheMode>
+                    </Image>
+                </Grid>
+
+                <!--LABEL-->
+                <Ellipse Canvas.Left="41" x:Name="VinylLabel"
+                            Canvas.Top="28" 
+                            Stroke="Black"  
+                            Width="450" Height="440"
+                            Stretch="UniformToFill" 
+                            RenderTransformOrigin="0.5,0.5"
+                            Margin="497.91,484.91,491.91,514.91" 
+                            >
+                    <Ellipse.Fill>
+                        <BitmapCacheBrush Target="{StaticResource SelectedSongBrush}">
+                            <BitmapCacheBrush.BitmapCache>
+                                <BitmapCache RenderAtScale="0.6"/>
+                            </BitmapCacheBrush.BitmapCache>
+                        </BitmapCacheBrush>
+                    </Ellipse.Fill>
+
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+
+                <!--DECK ARM-->
+                <Grid Canvas.Left="1440"
+                  Canvas.Top="65" RenderTransformOrigin="0.712,0.211"
+                  >
+                    <Image x:Name="deckarm" Stretch="Uniform" IsHitTestVisible="False"
+                       Source="{DynamicResource Bitmap_1200Arm}" RenderTransformOrigin="0.712,0.213">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="{Binding CurrentSongTimeString,
+                                                        Converter={StaticResource doubleRangeConv}, 
+                                                        UpdateSourceTrigger=PropertyChanged}"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+
+                        <Image.CacheMode>
+                            <BitmapCache RenderAtScale="0.3"/>
+                        </Image.CacheMode>
+
+                    </Image>
+                </Grid>
+
+                <!--ARM COVER-->
+                <Grid
+                Canvas.Left="1560"
+                Canvas.Top="230"
+                >
+                    <Image x:Name="deckarmcover" Stretch="Uniform"
+                       Source="{DynamicResource Bitmap_1200ArmCover}">
+
+                        <Image.CacheMode>
+                            <BitmapCache RenderAtScale="0.3"/>
+                        </Image.CacheMode>
+
+                    </Image>
+                </Grid>
+
+                <!--START STOP-->
+                <!--TURNTABLE START STOP SWITCH-->
+                <ToggleButton x:Name="TurntableEnabled" IsChecked="True"  
+                               Style="{DynamicResource ToggleButtonStyle1}"
+                      Click="TurntableEnabled_Click" 
+                              Background="Transparent"                                           
+                      Canvas.Left="30" 
+                      Canvas.Top="1315">
+                    <ToggleButton.Content>
+                        <Image Source="{DynamicResource Bitmap_1200StartStop}" Stretch="Fill"/>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <!--TURNTABLE SWITCH-->
+                <ToggleButton x:Name="TurntableOnOff" IsChecked="True"                               
+                      Click="TurntableEnabled_Click" Background="Transparent"                                           
+                      Canvas.Left="15" 
+                      Canvas.Top="1135" Style="{DynamicResource ToggleButtonStyle1}">
+                    <ToggleButton.Content>
+                        <Image Source="{DynamicResource Bitmap_1200OnOff}" Stretch="Fill"/>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <Grid Canvas.Top="1010" Canvas.Left="1760">
+                    <Image Source="{DynamicResource Bitmap_1200PitchSlider}"/>
+                </Grid>
+
+            </Canvas>
+        </Viewbox>
+
+
+        <!--ValueChanged="SeekToMediaPosition"-->
+        <Slider x:Name="Slider_Arm" Orientation="Vertical" 
+                Visibility="Visible"                
+                Style="{StaticResource SliderStyle1}"
+                            Height="400" HorizontalAlignment="Center"                             
+                            Minimum="0" 
+                            Maximum="{Binding CurrentSongTime}"
+                            Value="{Binding CurrentSongPosition}"
+                            Margin="1176,0,1053,203"
+                            Thumb.DragStarted="timelineSlider_SeekStarted"  
+                            Thumb.DragCompleted="timelineSlider_SeekCompleted"
+                            ValueChanged="timelineSlider_ValueChanged"
+                            Width="80"                            
+                            VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-7.123"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+
+            <Slider.LayoutTransform>
+                <RotateTransform Angle="-35"/>
+            </Slider.LayoutTransform>
+        </Slider>
+
+    </Grid>
+
+</UserControl>

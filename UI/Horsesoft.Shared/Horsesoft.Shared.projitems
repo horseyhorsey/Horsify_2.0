@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8c66c47f-cfea-4d41-8abb-a58b10681a67</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Horsesoft.Horsify.Resource</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\00s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\10s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\50s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\60s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\70s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\80s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\90s.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\abstract.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\ambient.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\ballad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breakbeat.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breakbeathardcore.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breakbeathouse.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breakbeatjungle.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breakbeattechno.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breakcore.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\breaks.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\bygenre.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\classic_rock.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\country.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\dance.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\decades.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\deephouse.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\disco-dance-pop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\disco-electro.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\disco-funk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\disco-soul.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\disco.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\discoboogie.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\dnbbreaks.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\dnbdrumfunk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\dnbtrance.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\downtempo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\dubstep.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\electro.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\electronic.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\funk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\funk_soul.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\gangsta.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\garage.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\grime.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\halfstep.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\happyhardcore.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\hardcore.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\Hip-House.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\hiphop_concious.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\hiphop_pop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\hiphop_uk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\hip_hop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\ho.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\HorseWithHeadphones.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\House, Acid.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\House, Ghetto.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\House, Pop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\house.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\intelligent.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\italo_disco.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jazz.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jazzstep.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jazz_funk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jazz_fusion.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jazz_future.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jazz_swing.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jumpup.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jungle.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\junglednb.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\jungle_ragga.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\liquid.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\minimal.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\most_played.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\motown.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\neurofunk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\new_wave.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\northern_soul.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\p-funk.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\pop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\recently_added.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\reggae.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\rnb.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\rock.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\rockroll.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\soul.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\soundtrack.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\speedgarage.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\synthwave.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\synth_pop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\technoid.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\techstep.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\triphop.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\uk_garage.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\Menus\Wheel.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resource\Images\noimage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\AnimatedVisibilityFadeBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\MouseBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\WindowCloseBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\BoolToVisConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\DoubleRangeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\EmptyStringToVisConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\ListItemIndexConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\MusicKeyToColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\NegateBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\RatingConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\StringToBitmapConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\TimeToAngleConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\XmlStringToStdStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\AmountSelectControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\ButtonWithLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\ClockTextBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\HorsifySearchButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\ListViewTouch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\OnScreenKeyboard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\RatingControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\SmartButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\TextboxWithCaretIndex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\VolumeControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\VolumeControlSlider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Panels\VirtializingWrapPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Selectors\SongItemTemplateSelector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Style\BlueSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Border.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Checkbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Expander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Rating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\ConverterResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\GreenSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Grid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\HorsifyWpf.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\JokerSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\MelonSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\PinkSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\RedSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\SongItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Svg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\Text.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\ToggleButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\ToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\TurntableSliderResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\VolumeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Style\YellowSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Resource\Images\VinylWithHole.png" />
+    <None Include="$(MSBuildThisFileDirectory)Style\BlueSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Border.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Brushes.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Buttons.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Checkbox.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\ComboBox.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\ConverterResources.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\DataGrid.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Expander.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Fonts.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\GreenSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Grid.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\HorsifyWpf.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Icons.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Images.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\JokerSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\ListView.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\MelonSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\PinkSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Rating.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\RedSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\SongItem.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Svg.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\Text.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\ToggleButtons.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\ToolBar.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\TurntableSliderResources.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\VolumeControl.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Style\YellowSkin.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml" />
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\AmountSelector.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\BlueSkin.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Border.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Brushes.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Buttons.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Checkbox.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\ComboBox.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\ConverterResources.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Fonts.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\GreenSkin.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Grid.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\HorsifyWpf.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Icons.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Images.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\JokerSkin.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\ListView.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\MelonSkin.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\PinkSkin.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Rating.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\RedSkin.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\SongItem.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Svg.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\Text.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\ToggleButtons.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\TurntableSliderResources.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\VolumeControl.xaml" /> -->
+    <!-- <None Include="$(MSBuildThisFileDirectory)Style\YellowSkin.xaml" /> -->
+  </ItemGroup>
+</Project>

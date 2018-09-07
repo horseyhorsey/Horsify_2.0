@@ -289,9 +289,9 @@
       <Component Id="Horsesoft.Horsify.SideMenu.dll" Guid="a62b49c2-25d6-43ef-94d4-d5ed45d9a1d8">
         <File Id="Horsesoft.Horsify.SideMenu.dll" Name="Horsesoft.Horsify.SideMenu.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SideMenu.dll" />
       </Component>
-      <Component Id="Horsesoft.Horsify.Statistics.dll" Guid="4d409cc4-fcd7-431f-be20-d494af7ba103">
+      <!--<Component Id="Horsesoft.Horsify.Statistics.dll" Guid="4d409cc4-fcd7-431f-be20-d494af7ba103">
         <File Id="Horsesoft.Horsify.Statistics.dll" Name="Horsesoft.Horsify.Statistics.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.Statistics.dll" />
-      </Component>
+      </Component>-->
       
 
       <!--//REMOVE DEBUG DLL-->
@@ -309,7 +309,8 @@
         <File Id="System.Memory.dll" Name="System.Memory.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Memory.dll" />
       </Component>
       <Component Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Guid="79517b6f-5e7f-4bdc-81c6-8087ef78edf2">
-        <File Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Name="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+        <File Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Name="Microsoft.Extensions.Options.ConfigurationExtensions.dll"
+              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
       </Component>
 
       <Component Id="Microsoft.Extensions.Caching.Abstractions.dll" Guid="40329762-70e5-4c3f-a548-e214748b3bd5">
@@ -344,19 +345,23 @@
       </Component>
       
 			<Component Id="Microsoft.Extensions.Logging.Configuration.dll" Guid="984657f0-90ad-42a5-95e8-2a57d226dbdd">
-			  <File Id="Microsoft.Extensions.Logging.Configuration.dll" Name="Microsoft.Extensions.Logging.Configuration.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Logging.Configuration.dll" />
+			  <File Id="Microsoft.Extensions.Logging.Configuration.dll" Name="Microsoft.Extensions.Logging.Configuration.dll" 
+              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Logging.Configuration.dll" />
 			</Component>
 			<Component Id="Microsoft.Extensions.Configuration.Binder.dll" Guid="2aba9c34-d7cb-4bff-9b53-c4ad119e5912">
-			  <File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
+			  <File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" 
+              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
 			</Component>
 			<Component Id="Microsoft.Extensions.Configuration.dll" Guid="12e730e6-ee60-46ec-a368-ec981ecc6509">
-			  <File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Configuration.dll" />
+			  <File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll" 
+              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Configuration.dll" />
 			</Component>
 			<Component Id="System.Buffers.dll" Guid="48663074-7edb-4bc5-82fa-cad60290e93a">
 			  <File Id="System.Buffers.dll" Name="System.Buffers.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Buffers.dll" />
 			</Component>
 			<Component Id="Microsoft.Extensions.Logging.Console.dll" Guid="e8b8f151-1ef4-4ef0-9320-63098de6fe94">
-			  <File Id="Microsoft.Extensions.Logging.Console.dll" Name="Microsoft.Extensions.Logging.Console.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Logging.Console.dll" />
+			  <File Id="Microsoft.Extensions.Logging.Console.dll" Name="Microsoft.Extensions.Logging.Console.dll" 
+              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Logging.Console.dll" />
 			</Component>
 			<!--<Component Id="ShaderEffectLibrary.dll" Guid="5b3a14f2-895b-4b2d-8c7a-b515ee7c7148">
 			  <File Id="ShaderEffectLibrary.dll" Name="ShaderEffectLibrary.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)ShaderEffectLibrary.dll" />

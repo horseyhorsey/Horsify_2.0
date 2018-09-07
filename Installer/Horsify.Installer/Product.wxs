@@ -139,12 +139,14 @@
 			<Component Id="Horsesoft.Horsify.SongService.dll" Guid="b44839d0-1cb9-4dbf-87a2-f13ab9416c87">
 			  <File Id="Horsesoft.Horsify.SongService.dll" Name="Horsesoft.Horsify.SongService.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Horsesoft.Horsify.SongService.dll" />
 			</Component>
-			<Component Id="EntityFramework.dll" Guid="3594355f-4863-43fc-9f2e-cb3334d16646">
-			  <File Id="EntityFramework.dll" Name="EntityFramework.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)EntityFramework.dll" />
-			</Component>
+			<!--<Component Id="EntityFramework.dll" Guid="3594355f-4863-43fc-9f2e-cb3334d16646">
+			  <File Id="EntityFramework.dll" Name="EntityFramework.dll" 
+              Source="$(var.Horsesoft.Music.Engine_TargetDir)EntityFramework.dll" />
+			</Component>-->
 
 			<Component Id="Microsoft.EntityFrameworkCore.dll" Guid="92d4f269-6e46-4bc9-8ffe-f387ea9de4f1">
-			  <File Id="Microsoft.EntityFrameworkCore.dll" Name="Microsoft.EntityFrameworkCore.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)Microsoft.EntityFrameworkCore.dll" />
+			  <File Id="Microsoft.EntityFrameworkCore.dll" Name="Microsoft.EntityFrameworkCore.dll" 
+              Source="$(var.Horsesoft.Music.Engine_TargetDir)Microsoft.EntityFrameworkCore.dll" />
 			</Component>
 
       <!--Horsesoft.Horsify.SongService_TargetDir-->
@@ -419,22 +421,27 @@
 			<!--<Component Id="Microsoft.Extensions.Logging.Debug.dll" Guid="a4d73717-5a1d-4281-a629-d7f0359394f9">
 			  <File Id="Microsoft.Extensions.Logging.Debug.dll" Name="Microsoft.Extensions.Logging.Debug.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Microsoft.Extensions.Logging.Debug.dll" />
 			</Component>-->
-			<Component Id="System.Runtime.dll" Guid="59d14da9-979a-4238-af2d-b837e79b8c00">
+			<!--<Component Id="System.Runtime.dll" Guid="59d14da9-979a-4238-af2d-b837e79b8c00">
 			  <File Id="System.Runtime.dll" Name="System.Runtime.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Runtime.dll" />
-			</Component>
-			<Component Id="System.Resources.ResourceManager.dll" Guid="cb1b4d7a-13ef-4b2b-8bec-fe77a09ec543">
-			  <File Id="System.Resources.ResourceManager.dll" Name="System.Resources.ResourceManager.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Resources.ResourceManager.dll" />
-			</Component>
-			<Component Id="System.Diagnostics.Tools.dll" Guid="095ee441-01ba-4ffa-b9cb-10c49c5b02be">
-			  <File Id="System.Diagnostics.Tools.dll" Name="System.Diagnostics.Tools.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Diagnostics.Tools.dll" />
-			</Component>
-			<Component Id="System.Diagnostics.Debug.dll" Guid="eca2b94f-9aac-44da-86f4-55c9037716b0">
+			</Component>-->
+      
+			<!--<Component Id="System.Resources.ResourceManager.dll" Guid="cb1b4d7a-13ef-4b2b-8bec-fe77a09ec543">
+			  <File Id="System.Resources.ResourceManager.dll" Name="System.Resources.ResourceManager.dll" 
+              Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Resources.ResourceManager.dll" />
+			</Component>-->
+      
+			<!--<Component Id="System.Diagnostics.Tools.dll" Guid="095ee441-01ba-4ffa-b9cb-10c49c5b02be">
+			  <File Id="System.Diagnostics.Tools.dll" Name="System.Diagnostics.Tools.dll" 
+              Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Diagnostics.Tools.dll" />
+			</Component>-->
+      
+			<!--<Component Id="System.Diagnostics.Debug.dll" Guid="eca2b94f-9aac-44da-86f4-55c9037716b0">
 			  <File Id="System.Diagnostics.Debug.dll" Name="System.Diagnostics.Debug.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Diagnostics.Debug.dll" />
 			</Component>
 			<Component Id="System.Globalization.dll" Guid="d5ff997b-7821-4611-91aa-3a51f5ffebf6">
 			  <File Id="System.Globalization.dll" Name="System.Globalization.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Globalization.dll" />
-			</Component>
-			<Component Id="System.ObjectModel.dll" Guid="02146112-d3f4-4fb7-b8e9-153a299491b4">
+			</Component>-->
+			<!--<Component Id="System.ObjectModel.dll" Guid="02146112-d3f4-4fb7-b8e9-153a299491b4">
 			  <File Id="System.ObjectModel.dll" Name="System.ObjectModel.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.ObjectModel.dll" />
 			</Component>
 			<Component Id="System.Linq.Expressions.dll" Guid="d4650466-4219-4218-aa38-443d03c9040d">
@@ -457,7 +464,7 @@
 			</Component>
 			<Component Id="System.Reflection.Extensions.dll" Guid="4b34b139-7e96-44ff-8840-0cf6a03a106d">
 			  <File Id="System.Reflection.Extensions.dll" Name="System.Reflection.Extensions.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)System.Reflection.Extensions.dll" />
-			</Component>
+			</Component>-->
 
 		</ComponentGroup>
 	</Fragment>

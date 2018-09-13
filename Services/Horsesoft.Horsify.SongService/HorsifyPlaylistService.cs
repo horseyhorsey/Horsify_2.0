@@ -40,14 +40,19 @@ namespace Horsesoft.Horsify.SongService
                     }
                     else
                     {
+                        //Check if playlist name already exists and update that one
                         var dbPlaylist = _sqliteRepo.PlaylistRepository.Get(x => x.Name == playlist.Name).FirstOrDefault();
                         if (dbPlaylist != null)
                         {
                             dbPlaylist.Items = playlist.Items;
                             dbPlaylist.Count = playlist.Count;
-                            _sqliteRepo.PlaylistRepository.Insert(dbPlaylist);
-                            playlist.Id = dbPlaylist.Id;
-                        }                        
+                            _sqliteRepo.PlaylistRepository.Update(dbPlaylist);                            
+                        }
+                        // New playlist.
+                        else
+                        {
+                            _sqliteRepo.PlaylistRepository.Insert(playlist);                            
+                        }
                     }
                 }
 

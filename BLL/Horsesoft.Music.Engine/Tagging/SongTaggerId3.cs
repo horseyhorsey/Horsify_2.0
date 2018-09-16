@@ -15,6 +15,7 @@ namespace Horsesoft.Music.Engine.Tagging
         #region Public Methods
         public override SongTagFile PopulateSongTag(string fileName, TagOption tagOption = TagOption.All)
         {
+            
             using (var fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             using (Mp3Stream mp3Stream = new Mp3Stream(fileStream, Mp3Permissions.ReadWrite))
             {

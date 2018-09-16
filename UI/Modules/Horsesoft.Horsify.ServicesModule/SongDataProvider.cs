@@ -6,6 +6,7 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -121,7 +122,7 @@ namespace Horsesoft.Horsify.ServicesModule
             {
                 _loggerFacade.Log($"Song provider - Updating played song", Category.Debug, Priority.Medium);
                 fileTagResult = tagger.UpdateFileTag(selectedSong.FileLocation, (byte)rating);
-                if (!fileTagResult)
+                if (!fileTagResult && Path.GetExtension(selectedSong.FileLocation).ToLower() != ".flac")
                 {
                     _loggerFacade.Log($"Failed to update song. {selectedSong?.FileLocation}", Category.Exception, Priority.Medium);
                     return false;

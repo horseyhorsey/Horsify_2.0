@@ -409,7 +409,8 @@
                         <TextBlock>
                             <TextBlock Text="Last played" HorizontalAlignment="Center" VerticalAlignment="Center"/>    
                             <Run Text=" -- "/>
-                            <TextBlock Text="{Binding Song.LastPlayed}" HorizontalAlignment="Center" VerticalAlignment="Center"/>                                
+                            <TextBlock Text="{Binding Song.LastPlayed, Converter={StaticResource UnixstampToDateConverter}}" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>                                
                         </TextBlock>
 
                     </Grid>

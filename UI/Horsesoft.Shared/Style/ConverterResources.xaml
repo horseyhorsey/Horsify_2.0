@@ -11,5 +11,6 @@
     <converters:StringToBitmapConverter x:Key="stringToBitmapConverter"/> 
     <converters:RatingConverter x:Key="ratingconverter"/>
     <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+    <converters:UnixstampToDateConverter x:Key="UnixstampToDateConverter"/>
 
 </ResourceDictionary>

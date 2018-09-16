@@ -110,12 +110,30 @@ namespace Horsesoft.Music.Horsify.Importer.UI.WPF.ViewModels
             if (failedFiles.Count > 0)
             {
                 //TODO: Log playlist of failed files.
-                _importLogger.Log($"Exporting m3u failed files playlist", Category.Warn, Priority.Medium);                
-                //LogFailedFiles(failedFiles);
+                _importLogger.Log($"Exporting m3u failed files playlist", Category.Warn, Priority.Medium);
+                LogFailedFilesToPlaylist(failedFiles);
             }
 
             this.isScanRunning = false;
             this.OnStopImport();
+        }
+
+        /// <summary>
+        /// Logs the failed files to a m3u playlist which can be loaded into tagging software etc
+        /// </summary>
+        /// <param name="failedFiles">The failed files.</param>
+        private void LogFailedFilesToPlaylist(Dictionary<string, string> failedFiles)
+        {
+            using (var txt = System.IO.File.CreateText(@"C:\ProgramData\Horsify\Errored Files Playlist.m3u"))
+            {
+                txt.WriteLine("# ".PadRight(10, '*'));
+                txt.WriteLine("# ERRORED FILES - LOAD INTO MP3Tag or similar");
+
+                foreach (var failedFile in failedFiles)
+                {
+                    txt.WriteLine($"{failedFile.Key}");
+                }
+            }
         }
 
         private void OnFileImported(string file)

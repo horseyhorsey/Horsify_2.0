@@ -58,7 +58,7 @@ namespace Horsesoft.Music.Horsify.Base.Logging
                     _logger?.LogInformation($"{message}", category, priority);
                     break;
                 case Category.Warn:
-                    _logger?.LogWarning($"{message}", category, priority);
+                    _logger?.LogWarning($"{message}", (int)category, priority);
                     break;
                 default:
                     break;

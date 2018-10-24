@@ -108,7 +108,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         }
 
         public void AddPlaylistItem(PlaylistItemViewModel playlistItemViewModel)
-        {
+        {            
             if (!this.PlayListItemViewModels.Any(x => x == playlistItemViewModel))
                 this.PlayListItemViewModels.Add(playlistItemViewModel);
         }

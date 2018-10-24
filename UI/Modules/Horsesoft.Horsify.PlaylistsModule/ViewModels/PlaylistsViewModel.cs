@@ -118,6 +118,13 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         {
             if (string.IsNullOrWhiteSpace(playlistName)) return;
 
+            if (playlistName != "Preparation Playlist")
+            {
+                Log("Cannot save preparation lists", Category.Warn);
+                return;
+            }
+                
+
             if (playlistName.Length > 5)
                 CreatePlayList(playlistName);
         }
@@ -128,21 +135,30 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         }
 
         private PlaylistTabViewModel _lastOpenedTab = null;
+
         private void OnOpenPlaylist(PlaylistTabViewModel playlistTabViewModel)
         {
+            Log("Opening playlist", Category.Debug);
             //var views = _regionManager.Regions[Regions.PlaylistTabsRegion].Views;
 
-            if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
+            try
             {
-                OpenPlayListViewModels.Add(playlistTabViewModel);
+                if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
+                {
+                    OpenPlayListViewModels.Add(playlistTabViewModel);
+                }
+
+                //Reset and select tab
+                if (_lastOpenedTab != null)
+                    _lastOpenedTab.IsSelected = false;
+
+                playlistTabViewModel.IsSelected = true;
+                _lastOpenedTab = playlistTabViewModel;
             }
-
-            //Reset and select tab
-            if (_lastOpenedTab != null)
-                _lastOpenedTab.IsSelected = false;
-
-            playlistTabViewModel.IsSelected = true;
-            _lastOpenedTab = playlistTabViewModel;
+            catch (System.Exception ex)
+            {
+                Log(ex.Message, Category.Exception);
+            }
 
         }
 
@@ -153,10 +169,17 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 
         private void OnCloseTab(PlaylistTabViewModel vm)
         {
-            if (vm != null)
+            try
             {
-                this.OpenPlayListViewModels.Remove(vm);
-                vm.ClearItems();
+                if (vm != null)
+                {
+                    vm.ClearItems();
+                    this.OpenPlayListViewModels.Remove(vm);                    
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Log($"Closing playlist tab {ex.Message}");
             }
         }
 

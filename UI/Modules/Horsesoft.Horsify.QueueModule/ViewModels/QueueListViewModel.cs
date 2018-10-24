@@ -67,28 +67,19 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
                         {
                             this._skipQueueEventRunning = true;
                             
-                            //Play the next queued song
-                            if (QueueItems.Count > 0)
-                            {
-                                if (!_queuedSongDataProvider.ShuffleEnabled || QueueItems.Count == 1)
-                                {
-                                    var vm = QueueItems[0];
-                                    PlayQueueItem(vm);
-                                }
-                                //Shuffle selection
-                                else
-                                {
-                                    var _queueCount = QueueItems.Count - 1;
-                                    var id = _randomShuffle.Next(QueueItems.Count);
-                                    var vm = QueueItems[id];
-                                    PlayQueueItem(vm);
-                                }
-                            }
+                            PlayQueuedSong();
 
                             if (QueueItems.Count < 2)
                             {
+                                bool queueIsEmpty = QueueItems.Count == 0;
                                 var songs = await SkipQueueAsync();
                                 _queuedSongDataProvider.QueueSongs.AddRange(songs);
+
+                                //Start playing if queue was empty
+                                if (queueIsEmpty)
+                                {
+                                    PlayQueuedSong();
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -100,12 +91,12 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
                             this._skipQueueEventRunning = false;
                         }                        
                     }
-                }, 
+                },
                 ThreadOption.PublisherThread);
 
             #endregion
 
-        } 
+        }
 
         #endregion
 
@@ -129,6 +120,30 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Plays the next queued song if there are songs available in queue
+        /// </summary>
+        private void PlayQueuedSong()
+        {
+            if (QueueItems.Count > 0)
+            {
+                if (!_queuedSongDataProvider.ShuffleEnabled || QueueItems.Count == 1)
+                {
+                    var vm = QueueItems[0];
+                    PlayQueueItem(vm);
+                }
+                //Shuffle selection
+                else
+                {
+                    var _queueCount = QueueItems.Count - 1;
+                    var id = _randomShuffle.Next(QueueItems.Count);
+                    var vm = QueueItems[id];
+                    PlayQueueItem(vm);
+                }
+            }
+        }
+
         private void QueueSongs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)

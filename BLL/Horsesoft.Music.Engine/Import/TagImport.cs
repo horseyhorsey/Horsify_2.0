@@ -32,6 +32,7 @@ namespace Horsesoft.Music.Engine.Import
     public class TagImport : ITagImport
     {
         private ISongTagger _songTagger;
+        private ISongTagger _songTaggerTagLib;
         private IHorsifyDataRepo _horsifyDataRepo;
         private IHorsifySettings _horsifySettings;
         private CancellationTokenSource _cts = new CancellationTokenSource();
@@ -42,6 +43,7 @@ namespace Horsesoft.Music.Engine.Import
         public TagImport(IHorsifySettings horsifySettings)
         {
             _songTagger = new SongTaggerId3();
+            _songTaggerTagLib = new SongTaggerTagLib();
             _horsifyDataRepo = new HorsifyDataSqliteRepo();
             _horsifySettings = horsifySettings;
         } 
@@ -65,13 +67,16 @@ namespace Horsesoft.Music.Engine.Import
         }
 
         /// <summary>
-        /// Gets the tag information by invoking <see cref="SongTagger.PopulateSongTag(string, TagOption)"/>
+        /// Gets the tag information from a file"/>
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="options">The options.</param>
         /// <returns></returns>
         public SongTagFile GetTagInformation(string fileName, TagOption options = TagOption.All)
         {
+            if (Path.GetExtension(fileName).ToUpper() == ".FLAC")
+                return _songTaggerTagLib.PopulateSongTag(fileName, options);
+
             return _songTagger.PopulateSongTag(fileName, options);
         }
 

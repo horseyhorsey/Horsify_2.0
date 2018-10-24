@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /Build
 /Backup
+/Data/Horsesoft.Music.Data.Sqlite/Sql/HorsifyTestDb.7z

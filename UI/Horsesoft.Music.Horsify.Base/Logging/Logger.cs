@@ -35,7 +35,7 @@ namespace Horsesoft.Music.Horsify.Base.Logging
                 .AddFile(@"C:\ProgramData\Horsify\Logs\" + fileName, LogLevel.Debug);
 #else
             ILoggerFactory logFactory = new LoggerFactory()
-                .AddFile(@"C:\ProgramData\Horsify\Logs\" + fileName, LogLevel.Warn);
+                .AddFile(@"C:\ProgramData\Horsify\Logs\" + fileName, (int)LogLevel.Warn);
 #endif
             //Create the logger from incoming name.
             if (!string.IsNullOrWhiteSpace(name))

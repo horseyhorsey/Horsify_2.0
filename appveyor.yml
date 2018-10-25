@@ -55,7 +55,7 @@ build_script:
 after_build:
   # For once the build has completed
 artifacts:
-    - path: '\Installer\Horsify.Installer\bin\Release\Horsify.Installer.2.0.$(APPVEYOR_BUILD_VERSION).msi'
+    - path: '\Installer\Horsify.Installer\bin\Release\Horsify.Installer.2.0.msi'
       name: HorsifyInstaller
 clone_depth: 1
 test_script:

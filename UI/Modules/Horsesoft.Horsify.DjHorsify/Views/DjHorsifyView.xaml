@@ -13,7 +13,7 @@
              d:DataContext="{d:DesignData ../SampleData/DjHorsifyViewModelSampleData.xaml}"
              >
     <UserControl.Resources>
-                        
+
         <!--#region TOOLBAR-->
         <SolidColorBrush x:Key="ToolBarHorizontalBackground" Color="#FFEEF5FD"/>
         <SolidColorBrush x:Key="ToolBarToggleButtonVerticalBackground" Color="#FFEEF5FD"/>
@@ -347,7 +347,7 @@
                                 Style="{DynamicResource ListViewTransparent}"
                                 ScrollViewer.CanContentScroll="True"   
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.IsDeferredScrollingEnabled="False"
                                 ScrollViewer.PanningDeceleration="5"  
                                 IsSynchronizedWithCurrentItem="True"
@@ -367,18 +367,18 @@
 
                 </TabItem>
 
-                <!--INCLUDED-->
+                <!--OR-->
                 <TabItem FontSize="25" 
                              MaxHeight="60" Height="60"                                
                              Background="{DynamicResource Color_Primary4}">
 
                     <TabItem.Header>
                         <Grid>
-                            <TextBlock ><InlineUIContainer>                              
+                            <TextBlock>
+                                <InlineUIContainer>                              
                                     <TextBlock Text="{Binding IncludedFiltersView.Count, StringFormat=' OR :\{0\} '}"/>                                
-                                </InlineUIContainer><Run Text=" "/><InlineUIContainer>                                
-                                    <TextBlock Text="{Binding IncludedAndFiltersView.Count, StringFormat=AND :\{0\}}"/>
-                                </InlineUIContainer></TextBlock>
+                                </InlineUIContainer><Run Text=" "/>
+                            </TextBlock>
                         </Grid>
                     </TabItem.Header>
 
@@ -386,31 +386,59 @@
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!--APPLIED SAVED FILTERS-->
+                        <!--APPLIED OR FILTERS-->
                         <horsify:ListViewTouch x:Name="SelectedListView"
-                            BorderThickness="0"
+                            BorderThickness="0"                                               
                             ItemsSource="{Binding IncludedFiltersView, UpdateSourceTrigger=PropertyChanged}"                           
                             Style="{DynamicResource ListViewTransparent}" 
                             ItemContainerStyle="{DynamicResource HorsifyFilterContainerStyle}"     
                             Template="{DynamicResource ListViewTemplate}"
-                                               IsSynchronizedWithCurrentItem="True"
+                            IsSynchronizedWithCurrentItem="True"
                                 ScrollViewer.CanContentScroll="True"   
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.IsDeferredScrollingEnabled="False"
-                                ScrollViewer.PanningDeceleration="5"                                                 
+                                ScrollViewer.PanningDeceleration="5"
                             >
                             <horsify:ListViewTouch.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel/>
+                                    <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
+                                                        Orientation="Horizontal"
+                                                        VirtualizingPanel.IsVirtualizing="True" 
+                                                        VirtualizingPanel.ScrollUnit="Item"
+                                                        VirtualizingPanel.VirtualizationMode="Recycling"/>
                                 </ItemsPanelTemplate>
                             </horsify:ListViewTouch.ItemsPanel>
                         </horsify:ListViewTouch>
 
-                        <!--APPLIED SAVED FILTERS-->
+                    </Grid>
+
+                </TabItem>
+
+                <!--AND-->
+                <TabItem FontSize="25" 
+                             MaxHeight="60" Height="60"                                
+                             Background="{DynamicResource Color_Primary4}">
+
+                    <TabItem.Header>
+                        <Grid>
+                            <TextBlock>
+                                <InlineUIContainer>                                
+                                    <TextBlock Text="{Binding IncludedAndFiltersView.Count, StringFormat=AND :\{0\}}"/>
+                                </InlineUIContainer>
+                            </TextBlock>
+                        </Grid>
+                    </TabItem.Header>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- AND FILTERS-->
                         <horsify:ListViewTouch x:Name="AndListView" 
                                                    Grid.Column="1"
                             BorderThickness="0"
@@ -427,31 +455,38 @@
                             >
                             <horsify:ListViewTouch.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel/>
+                                    <WrapPanel Orientation="Vertical"/>
                                 </ItemsPanelTemplate>
                             </horsify:ListViewTouch.ItemsPanel>
                         </horsify:ListViewTouch>
+
                     </Grid>
 
                 </TabItem>
 
-                <!--EXCLUDED-->
-                <TabItem FontSize="25"
-                             MaxHeight="60" Height="60"                             
-                             Background="{DynamicResource Color_Primary4}"
-                            BorderBrush="Transparent" BorderThickness="0"
-                             >
+                <!--NOT-->
+                <TabItem FontSize="25" 
+                             MaxHeight="60" Height="60"                                
+                             Background="{DynamicResource Color_Primary4}">
 
                     <TabItem.Header>
                         <Grid>
-                            <TextBlock><InlineUIContainer>                                
-                                    <TextBlock Text="{Binding ExcludedFiltersView.Count, StringFormat=' EXCLUDED :\{0\}'}"/>                                
-                                </InlineUIContainer></TextBlock>
+                            <TextBlock>
+                                <InlineUIContainer>                                
+                                    <TextBlock Text="{Binding ExcludedFiltersView.Count, StringFormat=NOT :\{0\}}"/>
+                                </InlineUIContainer>
+                            </TextBlock>
                         </Grid>
                     </TabItem.Header>
 
-                    <!--APPLIED SAVED FILTERS-->
-                    <horsify:ListViewTouch x:Name="ExcludedListView" Grid.Row="1" Grid.Column="2"
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--NOT-->
+                        <horsify:ListViewTouch x:Name="ExcludedListView" Grid.Row="1" Grid.Column="2"
                             BorderThickness="0"
                             ItemsSource="{Binding ExcludedFiltersView, UpdateSourceTrigger=PropertyChanged}"                           
                             Style="{DynamicResource ListViewTransparent}" 
@@ -465,13 +500,16 @@
                                 ScrollViewer.PanningDeceleration="5"  
                                                
                             >
-                        <horsify:ListViewTouch.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </horsify:ListViewTouch.ItemsPanel>
+                            <horsify:ListViewTouch.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </horsify:ListViewTouch.ItemsPanel>
 
-                    </horsify:ListViewTouch>
+                        </horsify:ListViewTouch>
+
+                    </Grid>
+
                 </TabItem>
 
                 <!--OPTIONS-->
@@ -482,7 +520,7 @@
                              Background="{DynamicResource BackgroundGradient4}"
                              >
 
-                    <!--EXPANDERS-->                        
+                    <!--EXPANDERS-->
                     <Grid Grid.Column="0" Grid.Row="1"  MinWidth="350">
 
                         <Grid.Resources>
@@ -628,7 +666,7 @@
                         <!--#endregion-->
 
                     </Grid>
-                    
+
                 </TabItem>
 
             </TabControl>

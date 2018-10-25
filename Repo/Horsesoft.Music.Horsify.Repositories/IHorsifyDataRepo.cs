@@ -446,7 +446,7 @@ namespace Horsesoft.Music.Horsify.Repositories
         }        
 
         /// <summary>
-        /// Gets the songs from saved filters. These filters are currently for exact matches.
+        /// Gets the songs from saved filters. These filters are currently for exact matches. //TODO: Is this used anymore????
         /// </summary>
         /// <param name="searchFilter">The search filter. <see cref="ISearchFilter" /></param>
         /// <returns></returns>

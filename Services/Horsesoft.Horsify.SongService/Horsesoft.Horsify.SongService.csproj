@@ -183,6 +183,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj">

@@ -149,16 +149,16 @@
             <!--ItemTemplate="{DynamicResource SongItemTemplate}"-->
 
             <horsify:ListViewTouch.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
+                <ItemsPanelTemplate>
+                    <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
                                                         Orientation="Vertical"
                                                         VirtualizingPanel.IsVirtualizing="True" 
                                                         VirtualizingPanel.ScrollUnit="Item"
                                                         VirtualizingPanel.VirtualizationMode="Recycling"/>
-                    </ItemsPanelTemplate>
-                </horsify:ListViewTouch.ItemsPanel>
+                </ItemsPanelTemplate>
+            </horsify:ListViewTouch.ItemsPanel>
 
-                <!--SONG ITEM SELECTED COMMAND -->
+            <!--SONG ITEM SELECTED COMMAND -->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonUp">
                     <i:InvokeCommandAction 

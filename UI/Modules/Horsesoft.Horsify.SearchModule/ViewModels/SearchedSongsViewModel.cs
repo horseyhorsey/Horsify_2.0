@@ -150,6 +150,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                                 AddToSearchHistory(filter);
                                 _lastSearchFilter = filter;
                                 this.RecentSearch.SearchTerm = "DjHorsify ";
+                                UpdateSearchHistory(filter);
                                 PublishSearchFinished();
                             });
 
@@ -178,6 +179,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             {
                                 AddToSearchHistory(filter);
                                 _lastSearchFilter = filter;
+                                UpdateSearchHistory(filter);
                                 PublishSearchFinished();
                             });
                         return;
@@ -298,8 +300,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             UpdateSearchHistory(filter);
 
-            _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
-            //_eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish();
+            //_regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
+            _eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish("SearchedSongsView");
         }
 
         private void UpdateSearchHistory(ISearchFilter filter)

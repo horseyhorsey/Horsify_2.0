@@ -3,6 +3,7 @@ using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using System.Windows.Input;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
@@ -22,7 +23,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         //IHorsifySettingsDataProvider horsifySettings, IQueuedSongsData queuedSongs, IAllJoinedSongsDataProvider allSongsData, INowPlayingInfo nowPlayingInfo, IHistoryDataProvider historyDataProvider
 
-        public SearchViewModel(IEventAggregator eventAggregator)
+        public SearchViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
         {
             //_horsifySettings = horsifySettings;
 
@@ -30,8 +31,10 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             CloseSearchViewCommand = new DelegateCommand(() =>
             {
-                eventAggregator.GetEvent<OnNavigateViewEvent<string>>()
-                    .Publish("SearchedSongsView");                
+                //eventAggregator.GetEvent<OnNavigateViewEvent<string>>()
+                //    .Publish("SearchedSongsView");
+
+                regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
             });
         }
 

@@ -244,13 +244,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             {
                 Filter = filter,
             });
-
-            var resultCnt = _songDataProvider.SearchedSongs?.Count;
-            _searchHistory.RecentSearches.Last().ResultCount = resultCnt;
-
-            Log($"Recent Search history count: {_searchHistory.RecentSearches.Count}");
-            RecentSearch.ResultCount = (int)resultCnt;
-            RecentSearch.SearchTerm = filter.Filters.ElementAt(0).Filters[0];
         }
 
         /// <summary>
@@ -297,13 +290,36 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 Log($"Search completed..");
 
                 AddToSearchHistory(filter);
-
-                _eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish("SearchedSongsView");
             }
             catch (Exception ex)
             {
-                Log($"Search: {filter.Filters.ElementAt(0)?.Filters[0]} - {ex.Message}", Category.Exception);                
+                Log($"Search: {filter.Filters.ElementAt(0)?.Filters[0]} - {ex.Message}", Category.Exception);
             }
+
+            UpdateSearchHistory(filter);
+
+            _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
+            //_eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish();
+        }
+
+        private void UpdateSearchHistory(ISearchFilter filter)
+        {
+            var resultCnt = _songDataProvider.SearchedSongs?.Count;
+            _searchHistory.RecentSearches.Last().ResultCount = resultCnt;
+
+            Log($"Recent Search history count: {_searchHistory.RecentSearches.Count}");
+
+            if (resultCnt != 0)
+            {
+                RecentSearch.ResultCount = (int)resultCnt;
+                RecentSearch.SearchTerm = filter.Filters.ElementAt(0).Filters[0];
+            }
+            else
+            {
+                RecentSearch.ResultCount = 0;
+                RecentSearch.SearchTerm = "No songs for: " + filter.Filters.ElementAt(0).Filters[0];
+            }
+
         }
 
         private void OnSongItemSelected(AllJoinedTable songItem)

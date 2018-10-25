@@ -342,16 +342,6 @@
                     TextElement.Foreground="White"
                     Margin="0,-6"
                     >
-            <StackPanel.Style>
-                <Style>
-                    <Setter Property="UIElement.Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
-                            <Setter Property="UIElement.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
 
             <TextBlock Text="LAST SEARCH - "  />
             <TextBlock Text="{Binding RecentSearch.SearchTerm}"  />

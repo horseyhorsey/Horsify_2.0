@@ -9,8 +9,19 @@
     <!--#region RESOURCES / TRIGGERS -->
     <UserControl.Resources>
 
-        <Image x:Key="SelectedSongBrush" 
-               Source="{Binding SelectedSong.ImageLocation, UpdateSourceTrigger=PropertyChanged}"/>
+        <Image x:Key="SelectedSongBrush">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                    <Style.Triggers>
+                        <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                            <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
 
         <!--VINYL ANIMATION-->
         <Storyboard x:Key="RotateVinylImage">

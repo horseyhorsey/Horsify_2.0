@@ -93,14 +93,25 @@
 
                 <!--ALBUM ART-->
                 <Image Stretch="Uniform" Grid.Row="0"                        
-                        MaxWidth="480"
-                        Source="{Binding SelectedSong.ImageLocation}">
+                        MaxWidth="480">
                     <Image.Effect>
                         <DropShadowEffect ShadowDepth="10"
                                           BlurRadius="30"
                                           Direction="155">
                         </DropShadowEffect>
                     </Image.Effect>
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                            <Style.Triggers>
+                                <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                                    <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
                 </Image>
 
                 <Grid Grid.Row="1" Grid.Column="1" 

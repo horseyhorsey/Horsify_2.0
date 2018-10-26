@@ -43,7 +43,7 @@
     <!--#endregion-->
     
     <!--#region NO IMAGE-->
-    <BitmapImage x:Key="Bitmap_AlbumArtNoImage" UriSource="pack://application:,,,/Horsesoft.Horsify.Resource;component/Images/noimage.jpg"/>
+    <BitmapImage x:Key="Bitmap_AlbumArtNoImage" UriSource="pack://application:,,,/Horsesoft.Horsify.Resource;component/Images/NoImage/noimage.jpg"/>
     <!--#endregion-->
 
 </ResourceDictionary>

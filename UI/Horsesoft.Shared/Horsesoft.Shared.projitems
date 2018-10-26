@@ -119,6 +119,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\RatingConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\StringToBitmapConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\TimeToAngleConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\UnixstampToDateConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\XmlStringToStdStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\AmountSelectControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\ButtonWithLabel.cs" />

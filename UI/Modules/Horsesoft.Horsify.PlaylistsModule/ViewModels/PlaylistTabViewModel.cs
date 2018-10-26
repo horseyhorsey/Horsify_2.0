@@ -24,14 +24,11 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #endregion
 
         #region Commands                
+        public ICommand AddToQueueCommand { get; set; }
         public ICommand ClearItemsCommand { get; set; }
         public ICommand RemoveItemCommand { get; set; }        
-        public ICommand SavePlaylistCommand { get; set; }
-
-        
-        public ICommand AddToQueueCommand { get; set; }
+        public ICommand SavePlaylistCommand { get; set; }               
         public ICommand PlayItemCommand { get; set; }
-
         #endregion
 
         #region Constructors
@@ -61,7 +58,9 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #endregion
 
         #region Properties
+
         public ICollectionView PlayListItems { get; }
+
         /// <summary>
         /// Gets the play list item view models. These items are the songs.
         /// </summary>

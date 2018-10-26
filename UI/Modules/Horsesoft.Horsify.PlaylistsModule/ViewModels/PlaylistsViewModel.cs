@@ -9,7 +9,7 @@ using Prism.Logging;
 using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
@@ -26,11 +26,11 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #region Commands/Requests
         public ICommand CloseTabCommand { get; set; }
         public DelegateCommand HelpWindowCommand { get; set; }
-        public InteractionRequest<INotification> HelpNotificationRequest { get; set; } 
+        public InteractionRequest<INotification> HelpNotificationRequest { get; set; }
         #endregion
 
         #region Constructors
-        public PlaylistsViewModel(IHorsifyPlaylistService horsifyPlaylistService, IEventAggregator eventAggregator, 
+        public PlaylistsViewModel(IHorsifyPlaylistService horsifyPlaylistService, IEventAggregator eventAggregator,
             IRegionManager regionManager, IUnityContainer unityContainer, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _eventAggregator = eventAggregator;
@@ -54,26 +54,34 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 OnPlaylistsUpdated();
             });
 
-            LoadedViewCommand = new DelegateCommand<PlaylistTabViewModel>(async (x) => await OnViewLoaded(x));
             CloseTabCommand = new DelegateCommand<PlaylistTabViewModel>(OnCloseTab);
 
             #region Notification for help
             HelpNotificationRequest = new InteractionRequest<INotification>();
             HelpWindowCommand = new DelegateCommand(RaiseHelpNotification);
             #endregion
-        } 
+        }
         #endregion
 
         #region Commands
         public ICommand CreatePlaylistCommand { get; set; }
         public ICommand OpenSavedPlaylistCommand { get; set; }
-        public ICommand LoadedViewCommand { get; set; }
         #endregion
 
         #region Properties
         public ObservableCollection<PlaylistTabViewModel> PlayListViewModels { get; set; }
         public ObservableCollection<PlaylistTabViewModel> OpenPlayListViewModels { get; set; }
+
+        private PlaylistTabViewModel _selectedTab;
+        public PlaylistTabViewModel SelectedTab
+        {
+            get { return _selectedTab; }
+            set { SetProperty(ref _selectedTab, value); }
+        }
+
+
         public string Title { get; private set; }
+        private PlaylistTabViewModel _lastOpenedTab = null;
         #endregion
 
         #region Private Methods
@@ -102,10 +110,6 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 vm.TabHeader = playListName;
                 PlayListViewModels.Add(vm);
             }
-            else
-            {
-
-            }
 
             if (addToTabsRegion)
             {
@@ -123,7 +127,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 Log("Cannot save preparation lists", Category.Warn);
                 return;
             }
-                
+
 
             if (playlistName.Length > 5)
                 CreatePlayList(playlistName);
@@ -132,9 +136,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         private void OnOpenSavedPlaylist(PlaylistTabViewModel obj)
         {
             OnOpenPlaylist(obj);
-        }
-
-        private PlaylistTabViewModel _lastOpenedTab = null;
+        }        
 
         private void OnOpenPlaylist(PlaylistTabViewModel playlistTabViewModel)
         {
@@ -146,14 +148,17 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
                 {
                     OpenPlayListViewModels.Add(playlistTabViewModel);
+                    OnViewLoaded(playlistTabViewModel);
                 }
 
                 //Reset and select tab
-                if (_lastOpenedTab != null)
-                    _lastOpenedTab.IsSelected = false;
+                //if (_lastOpenedTab != null)
+                //    _lastOpenedTab.IsSelected = false;
 
-                playlistTabViewModel.IsSelected = true;
-                _lastOpenedTab = playlistTabViewModel;
+                //playlistTabViewModel.IsSelected = true;
+                //_lastOpenedTab = playlistTabViewModel;
+
+                SelectedTab = playlistTabViewModel;
             }
             catch (System.Exception ex)
             {
@@ -167,14 +172,25 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             HelpNotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" }, r => Title = "Good to go");
         }
 
+        /// <summary>
+        /// Closes the tab from the TabControl
+        /// </summary>
+        /// <param name="vm">The vm.</param>
         private void OnCloseTab(PlaylistTabViewModel vm)
         {
             try
-            {
-                if (vm != null)
+            {                
+                if (SelectedTab != null)
                 {
-                    vm.ClearItems();
-                    this.OpenPlayListViewModels.Remove(vm);                    
+                    //User could push close button on tab and not actually be selected so set to incoming VM
+                    if (SelectedTab != vm)
+                        SelectedTab = vm;
+
+                    //Clear the songs
+                    SelectedTab.ClearItems();
+
+                    //Remove the tab
+                    OpenPlayListViewModels.Remove(SelectedTab);
                 }
             }
             catch (System.Exception ex)
@@ -183,7 +199,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             }
         }
 
-        private async Task OnViewLoaded(PlaylistTabViewModel x)
+        private void OnViewLoaded(PlaylistTabViewModel x)
         {
             if (x == null) return;
             if (x.GetItemCount() > 0) return;
@@ -196,8 +212,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 
                 if (x.Playlist.Count > 0)
                 {
-                    //Get the songs from service asyync
-                    var playlistSongs = await _horsifyPlaylistService.GetSongs(x.Playlist);
+                    var playlistSongs = _horsifyPlaylistService.GetSongs(x.Playlist).Result;
 
                     //Add item view models for all the returned songs
                     foreach (var song in playlistSongs)

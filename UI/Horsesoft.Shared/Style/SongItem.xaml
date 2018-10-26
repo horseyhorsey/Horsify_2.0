@@ -82,12 +82,22 @@
                         <!--ALBUM ART-->
                         <Image Grid.Row="1" Stretch="Fill"
                                         MaxHeight="240" MaxWidth="260"
-                                        Height="242" Width="260"
-                                       Source="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}, 
-                                            FallbackValue={x:Null}}">
+                                        Height="242" Width="260">
                             <Image.CacheMode>
                                 <BitmapCache RenderAtScale="0.9"/>
                             </Image.CacheMode>
+
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger  Binding="{Binding ImageLocation}" Value="{x:Null}">
+                                            <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
                         </Image>
 
                         <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
@@ -182,12 +192,25 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Source="{Binding ImageLocation}" 
+                <Image 
                        Width="150" Height="200"
                        MaxHeight="200" MaxWidth="200" Grid.RowSpan="4">
                     <Image.CacheMode>
                         <BitmapCache RenderAtScale="0.8" SnapsToDevicePixels="True"/>
                     </Image.CacheMode>
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                            <Style.Triggers>
+                                <DataTrigger  Binding="{Binding ImageLocation}" Value="{x:Null}">
+                                    <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                    
                 </Image>
 
                 <Border  BorderBrush="#FF975405" BorderThickness="2" Grid.Column="1">
@@ -258,12 +281,22 @@
                         <!--ALBUM ART-->
                         <Image Grid.Row="1" Stretch="Fill" 
                                    MinHeight="240" MinWidth="260"
-                                   MaxHeight="240" MaxWidth="260"                                    
-                                   Source="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}, 
-                                            FallbackValue={x:Null}}">
+                                   MaxHeight="240" MaxWidth="260"                                    >
                             <Image.CacheMode>
                                 <BitmapCache RenderAtScale="0.9"/>
                             </Image.CacheMode>
+
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger  Binding="{Binding ImageLocation}" Value="{x:Null}">
+                                            <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
                         </Image>
 
                         <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
@@ -357,11 +390,23 @@
                 <Grid Grid.Column="0" Grid.RowSpan="3">
                     
                     <!--IMAGE-->
-                    <Image Source="{Binding Song.ImageLocation}" Width="150" Height="100"    
+                    <Image Width="150" Height="100"    
                        MaxWidth="100" HorizontalAlignment="Left">
                         <Image.CacheMode>
                             <BitmapCache RenderAtScale="0.8" SnapsToDevicePixels="True"/>
                         </Image.CacheMode>
+
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{Binding Song.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger  Binding="{Binding Song.ImageLocation}" Value="{x:Null}">
+                                        <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
                     </Image>
 
                     <!--ITEM NUMBERS-->
@@ -534,15 +579,21 @@
                     <!--COVER ART-->
                     <!--TODO - Change image size for converter-->
                     <Image Stretch="Fill" 
-                           Source="{Binding QueuedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"
                            Margin="0" 
                            MinWidth="150"
                            MinHeight="150"
                            >
-                        <!--<Image.Source>
-                            <BitmapImage UriSource="{Binding SongImage, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Null}}"  
-                                                     DecodePixelHeight="150" DecodePixelWidth="150"/>
-                        </Image.Source>-->
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{Binding QueuedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger  Binding="{Binding QueuedSong.ImageLocation}" Value="{x:Null}">
+                                        <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
                     </Image>
 
                     <!--ITEM NUMBERS-->

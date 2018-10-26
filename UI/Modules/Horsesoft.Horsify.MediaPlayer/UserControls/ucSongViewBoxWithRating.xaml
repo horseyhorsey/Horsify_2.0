@@ -30,9 +30,19 @@
                 <Grid>
                     <Image Stretch="Fill"
                            MaxHeight="500"
-                           Height="500"
-                               Source="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"
-                               >
+                           Height="500">
+
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                                        <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
                     </Image>
                 </Grid>
             </Border>

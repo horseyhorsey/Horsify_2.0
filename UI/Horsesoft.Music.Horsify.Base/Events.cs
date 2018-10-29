@@ -94,4 +94,7 @@ namespace Horsesoft.Music.Horsify.Base
     public class VolumeChangedEvent : PubSubEvent<double> { }
 
     #endregion
+
+    public delegate void OnMediaLoaded(TimeSpan duration);
+    public delegate void OnTimeChanged(TimeSpan duration);
 }

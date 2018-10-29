@@ -139,6 +139,7 @@
     <Compile Include="Interface\IDjHorsifyOption.cs" />
     <Compile Include="Interface\IDjHorsifyService.cs" />
     <Compile Include="Interface\IHorsifyDataTableRepo.cs" />
+    <Compile Include="Interface\IHorsifyMediaController.cs" />
     <Compile Include="Interface\IHorsifyPlaylistService.cs" />
     <Compile Include="Interface\IHorsifySettings.cs" />
     <Compile Include="Interface\IImportLogger.cs" />
@@ -177,6 +178,5 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

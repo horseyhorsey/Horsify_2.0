@@ -88,8 +88,11 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 
         private void OnPlayPause()
         {
-            MediaControlModel.IsPlaying = _horsifyMediaController.PlayPause(MediaControlModel.IsPlaying);
-            Log($"Play/Pause IsPlaying: {MediaControlModel.IsPlaying}");
+            if (MediaControlModel.SelectedSong != null)
+            {
+                MediaControlModel.IsPlaying = _horsifyMediaController.PlayPause(MediaControlModel.IsPlaying);
+                Log($"Play/Pause IsPlaying: {MediaControlModel.IsPlaying}");
+            }
         }
         #endregion
     }

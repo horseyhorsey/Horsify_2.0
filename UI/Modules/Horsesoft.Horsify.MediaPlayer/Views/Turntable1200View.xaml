@@ -9,6 +9,7 @@
              x:Class="Horsesoft.Horsify.MediaPlayer.Views.Turntable1200View"
              mc:Ignorable="d">
 
+    
     <!--#region RESOURCES / TRIGGERS -->
     <UserControl.Resources>
 
@@ -65,65 +66,28 @@
             </Setter>
         </Style>
 
-    </UserControl.Resources>
-
-    <UserControl.Triggers>
-
-        <!--<EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard x:Name="RotateVinyl_BeginStoryboard" Storyboard="{StaticResource RotateVinyl}"/>
-            <BeginStoryboard x:Name="RotateVinylImage_BeginStoryboard" Storyboard="{StaticResource RotateVinylImage}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
-            <StopStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
-            <StopStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
-        </EventTrigger>-->
-
-        <!--<EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="TurntableEnabled">
-            <ResumeStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard" />
-            <ResumeStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="TurntableEnabled">
-            <PauseStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
-            <PauseStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
-        </EventTrigger>-->
-
-    </UserControl.Triggers>
-
-    <!--<UserControl.Style>-->
-        <!--<Style>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                    <DataTrigger.EnterActions>
-                        --><!--VINYL ANIMATION--><!--
-                        <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="Stop"
+        <!--VINYL ANIMATION-->
+        <Storyboard x:Key="RotateVinylImage">
+            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
                              Storyboard.TargetName="VinylLabel" To="360" Duration="0:0:10"
                              >
-                            </DoubleAnimation>
-                            --><!--<DoubleAnimation RepeatBehavior="Forever" FillBehavior="Stop"
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="RotateVinyl">
+            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
                              Storyboard.TargetName="VinylPlatter" To="360" Duration="0:0:10"
-                             />--><!--
-                        </Storyboard>
-                        </BeginStoryboard>
-                    </DataTrigger.EnterActions>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>-->
-        <!--<DataTrigger Binding="{Binding Path=IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                    <DataTrigger.ExitActions>
-                        <PauseStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
-                        <PauseStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
-                    </DataTrigger.ExitActions>
-                </DataTrigger>-->                    
-    <!--</UserControl.Style>-->
+                             />
+        </Storyboard>
 
-    <!-- TRIGGERS - ROTATES VINLY WHEN LOADED - HAS TRIGGERS TO PAUSE/RESUME-->
+        <BeginStoryboard x:Key="RotateVinyl_Begin" x:Name="RotateVinyl_BeginStoryboard" Storyboard="{StaticResource RotateVinyl}"/>
+        <BeginStoryboard x:Key="RotateVinylImage_Begin" x:Name="RotateVinylImage_BeginStoryboard" Storyboard="{StaticResource RotateVinylImage}"/>
+        <StopStoryboard x:Key="RotateVinylImage_Stop" BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
+        <StopStoryboard x:Key="RotateVinyl_Stop" BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
 
-    
-    
+    </UserControl.Resources>
 
     <!--#endregion-->
 
@@ -168,47 +132,16 @@
                             </Image.CacheMode>
                         </Image>
 
-                        <Grid.Style>
-                            <Style TargetType="Grid">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=MediaControlModel.IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                        <DataTrigger.EnterActions>
-                                            <!--VINYL ANIMATION-->
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
-                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" >
-
-                                                        <!--Storyboard.TargetName="VinylLabel" To="360" Duration="0:0:10"-->
-                                                    </DoubleAnimation>
-                                                    <!--<DoubleAnimation RepeatBehavior="Forever" FillBehavior="Stop"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
-                             Storyboard.TargetName="VinylPlatter" To="360" Duration="0:0:10"
-                             />-->
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Style>
-
                     </Grid>
 
                     <!--ROXANNE RED LIGHT-->
-                    <Rectangle x:Name="LightOn" Margin="-50.529,856.185,1027.273,107.529"
-                           >
+                    <Rectangle x:Name="LightOn" Margin="-50.529,856.185,1027.273,107.529">
                         <Rectangle.Fill>
                             <RadialGradientBrush>
                                 <GradientStop Color="#00000000" Offset="1"/>
                                 <GradientStop Color="#FFAC0B0B"/>
                             </RadialGradientBrush>
                         </Rectangle.Fill>
-
-                        <!--<Rectangle.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=VinylClip}"/>
-                    </Rectangle.OpacityMask>-->
-
                     </Rectangle>
 
                     <!--CLIPPING VINYL-->
@@ -319,8 +252,7 @@
 
                 <!--START STOP-->
                 <!--TURNTABLE START STOP SWITCH-->
-                <!--Click="TurntableEnabled_Click"-->
-                <ToggleButton x:Name="TurntableEnabled" 
+                <ToggleButton 
                               IsChecked="{Binding MediaControlModel.IsPaused}"
                               Style="{DynamicResource ToggleButtonStyle1}"
                               Command="{Binding PlayPauseCommand}"
@@ -332,8 +264,27 @@
                     </ToggleButton.Content>
                 </ToggleButton>
 
+                <!--This is a hidden checkbox to trigger the animations-->
+                <!--Really hard work to use data triggers and storyboards!-->
+                <CheckBox x:Name="TurntableEnabled"  
+                              Visibility="Collapsed" Checked="TurntableEnabled_Checked" Unchecked="TurntableEnabled_Unchecked">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=MediaControlModel.IsPlaying, UpdateSourceTrigger=PropertyChanged}" 
+                                             Value="False">
+                                    <Setter Property="IsChecked" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=MediaControlModel.IsPlaying, UpdateSourceTrigger=PropertyChanged}" 
+                                             Value="True">
+                                    <Setter Property="IsChecked" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </CheckBox>
+
                 <!--TURNTABLE SWITCH-->
-                <!--Click="TurntableEnabled_Click"-->
                 <ToggleButton x:Name="TurntableOnOff" IsChecked="True"                                                     
                               Background="Transparent"                                           
                               Canvas.Left="15"

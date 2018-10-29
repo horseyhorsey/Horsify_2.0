@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Blend for Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prism Modules", "Prism Modules", "{73C55D7B-4147-49FB-A804-3DAFF06D9BBA}"
@@ -10,6 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shell", "Shell", "{9072CB27-A8CC-41DF-A920-60A0415BE318}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{FC8A2AA0-471E-4195-A331-A1370B419EAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaControl", "MediaControl", "{989857E2-3420-485D-9431-0EA4EC1F1F8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.Resource", "UI\Horsesoft.Horsify.Resource\Horsesoft.Horsify.Resource.csproj", "{F4D8055D-B9BB-4968-B3AA-F0C9E59A1C26}"
 EndProject
@@ -21,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.SearchMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.ServicesModule", "UI\Modules\Horsesoft.Horsify.ServicesModule\Horsesoft.Horsify.ServicesModule.csproj", "{0A5A49A1-E528-4375-8C5D-6A452912332D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horsesoft.Music.Data.Model", "Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj", "{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Music.Data.Model", "Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj", "{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.MediaPlayer", "UI\Modules\Horsesoft.Horsify.MediaPlayer\Horsesoft.Horsify.MediaPlayer.csproj", "{BB806517-9D65-4C81-A41F-89854229996A}"
 EndProject
@@ -42,8 +44,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "UI\Horsesoft.Shared\Shared.shproj", "{8C66C47F-CFEA-4D41-8ABB-A58B10681A67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Music.Horsify.Importer.UI.WPF", "UI\Horsesoft.Music.Horsify.Importer.UI.WPF\Horsesoft.Music.Horsify.Importer.UI.WPF.csproj", "{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaControl", "MediaControl", "{989857E2-3420-485D-9431-0EA4EC1F1F8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Vlc", "BLL\Horsesoft.Vlc\Horsesoft.Vlc.csproj", "{5A6E059A-271F-4332-8514-85EB94A8D1C7}"
 EndProject

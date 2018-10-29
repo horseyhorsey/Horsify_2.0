@@ -75,9 +75,7 @@
     </Compile>
     <Compile Include="ViewModels\MediaControlViewModel.cs" />
     <Compile Include="ViewModels\MediaControlViewModelBase.cs" />
-    <Compile Include="ViewModels\MediaElementViewModel.cs" />
     <Compile Include="ViewModels\NowPlayingScreenViewModel.cs" />
-    <Compile Include="ViewModels\SongPlayerViewModel.cs" />
     <Compile Include="ViewModels\SongPlaying3dViewModel.cs" />
     <Compile Include="ViewModels\Turntable1200ViewModel.cs" />
     <Compile Include="ViewModels\VolumeControlViewModel.cs" />

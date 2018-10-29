@@ -36,7 +36,7 @@
       </Upgrade>
         
       
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."  AllowSameVersionUpgrades="yes" DisallowUpgradeErrorMessage="Can't upgrade"  />
+		<MajorUpgrade AllowSameVersionUpgrades="yes" />
 		<MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="ProductFeature" Title="Horsify" Level="1">

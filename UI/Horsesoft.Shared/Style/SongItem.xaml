@@ -21,11 +21,9 @@
     </DataTemplate>
 
     <DataTemplate x:Key="MusicKeyTemplate">
-        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Width="22" Height="22">
-            <!--TODO-->
-            <Ellipse Fill="{Binding MusicKey, Converter={StaticResource MusicKeyToColorConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                             Stroke="Black"
-                                             />
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Width="22" Height="22"
+              Visibility="{Binding MusicKey, Converter={StaticResource string2vis}}">
+            <Ellipse Fill="{Binding MusicKey, Converter={StaticResource MusicKeyToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="{Binding MusicKey, Mode=OneWay}" TextAlignment="Center"
                                                FontSize="10" VerticalAlignment="Center" FontStyle="Italic" FontWeight="DemiBold"
                                                FontFamily="Arial"

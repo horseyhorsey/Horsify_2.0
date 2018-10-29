@@ -49,9 +49,8 @@
 
         <!--MUSIC KEY-->
         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"                          
-                          Margin="0,0" 
-                          Content="{Binding MediaControlModel.SelectedSong}"
-                          Visibility="{Binding MediaControlModel.SelectedSong.MusicKey, Converter={StaticResource string2vis}}"
+                          Margin="0,0"                           
+                          Content="{Binding MediaControlModel.SelectedSong}"                          
                           ContentTemplate="{DynamicResource MusicKeyTemplate}"
                           TextElement.Foreground="Black" TextElement.FontWeight="DemiBold"/>
         

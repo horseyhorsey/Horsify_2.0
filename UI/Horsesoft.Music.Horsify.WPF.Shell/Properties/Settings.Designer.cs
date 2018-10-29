@@ -25,7 +25,7 @@ namespace Horsesoft.Music.Horsify.WPF.Shell.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\VideoLAN\\VLC")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string VlcPath {
             get {
                 return ((string)(this["VlcPath"]));

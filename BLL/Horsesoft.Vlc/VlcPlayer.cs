@@ -7,27 +7,34 @@ namespace Horsesoft.Vlc
 {
     public class VlcPlayer : IVlcPlayer
     {
+        private const string VLC_X86 = @"C:\Program Files (x86)\VideoLan\VLC";
+
         private VlcMediaPlayer _vlcMediaPlayer;
-
-        //use for local dlls of VLC
-        //private DirectoryInfo libDirectory =
-        //    new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "libvlc", "win-x86"));
-
         private DirectoryInfo libDirectory;
-
+        
         #region Constructors
         public VlcPlayer()
         {
         }
 
-        public VlcPlayer(string vlcPath)
-        {
-            if (!Directory.Exists(vlcPath))
-                throw new DirectoryNotFoundException(
-                    @"VLC directory not found. VLC Installation could be missing or you need to set the VlcPath in the configuration at C:\Program Files (x86)\Horsify\Horsify Jukebox.exe.config");
+        /// <summary>
+        /// Initializes new instance of the Player. Finds common VLC install path
+        /// </summary>
+        /// <param name="vlcPath"></param>
+        public VlcPlayer(string vlcPath = null)
+        {            
+            if (vlcPath != null)
+            {
+                libDirectory = new DirectoryInfo(vlcPath);
+            }
+            else
+            {
+                libDirectory = new DirectoryInfo(IntPtr.Size == 4 ? VLC_X86 : VLC_X86.Replace(" (x86)", ""));
+            }
 
-            libDirectory = new DirectoryInfo(vlcPath);            
-        } 
+            CheckVlcPath(vlcPath);
+        }
+
         #endregion
 
         #region Events
@@ -60,12 +67,17 @@ namespace Horsesoft.Vlc
             _vlcMediaPlayer.TimeChanged += _vlcMediaPlayer_TimeChanged;
         }
 
+        /// <summary>
+        /// Plays the media
+        /// </summary>
+        /// <returns>If playing after invoking play</returns>
         public bool Play()
         {
             _vlcMediaPlayer.Play();
 
             return _vlcMediaPlayer.IsPlaying();
         }
+
 
         public bool Pause()
         {
@@ -80,7 +92,6 @@ namespace Horsesoft.Vlc
 
         public void SetMedia(Uri file)
         {
-            //var media = _vlcMediaPlayer.SetMedia(@"file:///" + file);
             var media = _vlcMediaPlayer.SetMedia(file);
             if (media != null)
             {
@@ -88,9 +99,6 @@ namespace Horsesoft.Vlc
                 media.Parse();
                 MediaLoaded?.Invoke(media.Duration);
             }
-
-            //_vlcMediaPlayer.Play(@"file:///" + file);
-            //this.MediaLoaded?.Invoke(e.NewMedia.Duration);
         }
 
         public void SetmediaPosition(float position)
@@ -106,10 +114,18 @@ namespace Horsesoft.Vlc
         public void Stop()
         {
             _vlcMediaPlayer.Stop();
-        } 
+        }
         #endregion
 
         #region Private Methods
+
+        private static void CheckVlcPath(string vlcPath)
+        {
+            if (!Directory.Exists(vlcPath))
+                throw new DirectoryNotFoundException(
+                    $@"VLC directory not found. VLC Installation is missing or 
+set a directory to VLC in the configuration at {vlcPath.Replace(@"VideoLAN\VLC", @"Horsify\Horsify Jukebox.exe.config")}");
+        }
 
         private void _vlcMediaPlayer_EndReached(object sender, VlcMediaPlayerEndReachedEventArgs e)
         {

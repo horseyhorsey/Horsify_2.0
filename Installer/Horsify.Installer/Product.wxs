@@ -127,12 +127,19 @@
               Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
 			</Component>
       
+      <!--DRAG / DROP-->
       <Component Id="GongSolutions.Wpf.DragDrop.dll" Guid="20DABD3B-BE0E-4709-9C81-C3A83C96D651">
 			  <File Id="GongSolutions.Wpf.DragDrop.dll" Name="GongSolutions.Wpf.DragDrop.dll" 
               Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GongSolutions.Wpf.DragDrop.dll" />
 			</Component>
-			
-		  <!--INSTALL WINDOWS SERVICE-->			
+
+      <!--VLC-->
+      <Component Id="Horsesoft.Vlc.dll" Guid="D413ECFC-032B-42A4-AC4D-BF398C68FA39">
+        <File Id="Horsesoft.Vlc.dll" Name="Horsesoft.Vlc.dll"
+              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Vlc.dll" />
+      </Component>
+
+      <!--INSTALL WINDOWS SERVICE-->			
       <Component Id="Horsesoft.Music.Horsify.Service.exe" Guid="de8dc4e2-878d-4a40-a8d3-eb7d5f62579c">
         <File Id="Horsesoft.Music.Horsify.Service.exe" Name="Horsesoft.Music.Horsify.Service.exe" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Horsify.Service.exe" DiskId="1" KeyPath="yes" />
         <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song Service" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal">

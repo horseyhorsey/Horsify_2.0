@@ -70,7 +70,6 @@
     </Compile>
     <Compile Include="ViewModels\AToZSearchViewModel.cs" />
     <Compile Include="ViewModels\InstantSearchViewModel.cs" />
-    <Compile Include="ViewModels\NavigateControlPanelViewModel.cs" />
     <Compile Include="ViewModels\SearchedSongsViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\SongSelectedViewModel.cs" />
@@ -79,9 +78,6 @@
     </Compile>
     <Compile Include="Views\InstantSearch.xaml.cs">
       <DependentUpon>InstantSearch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\NavigateControlPanelView.xaml.cs">
-      <DependentUpon>NavigateControlPanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
@@ -140,10 +136,6 @@
     <Page Include="Views\InstantSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NavigateControlPanelView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SearchView.xaml">
       <Generator>MSBuild:Compile</Generator>

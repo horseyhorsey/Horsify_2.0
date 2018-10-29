@@ -14,10 +14,10 @@
         <DataTemplate x:Key="SearchItemTemplate">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                    <Button Content="P" 
+                    <Button Content="Play" 
                             Command="{Binding ElementName=LayoutRoot, Path=DataContext.PlaySongCommand}" 
                             CommandParameter="{Binding}"/>
-                    <Button Content="Q" 
+                    <Button Content="Queue" 
                             Command="{Binding ElementName=LayoutRoot, Path=DataContext.QueueSongCommand}" 
                             CommandParameter="{Binding}"/>
                 </StackPanel>

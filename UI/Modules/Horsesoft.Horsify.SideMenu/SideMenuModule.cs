@@ -9,11 +9,11 @@ namespace Horsesoft.Horsify.SideMenu
     public class SideMenuModule : IModule
     {
         private IRegionManager _regionManager;
-        private IUnityContainer _container;
+        //private IUnityContainer _container;
 
         public SideMenuModule(IUnityContainer container, IRegionManager regionManager)
         {
-            _container = container;
+            //_container = container;
             _regionManager = regionManager;
         }
 
@@ -22,6 +22,9 @@ namespace Horsesoft.Horsify.SideMenu
             //Register SideBar View with Region
             _regionManager.RegisterViewWithRegion(
                 Regions.SidePanelRegion, typeof(SideBarView));
+
+            _regionManager.RegisterViewWithRegion(
+                Regions.NavigateViewsRegion, typeof(NavigateControlPanelView));
         }
     }
 }

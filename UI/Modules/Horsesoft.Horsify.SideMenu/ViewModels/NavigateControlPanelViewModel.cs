@@ -8,7 +8,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System.Windows.Input;
 
-namespace Horsesoft.Horsify.SearchModule.ViewModels
+namespace Horsesoft.Horsify.SideMenu.ViewModels
 {
     public class NavigateControlPanelViewModel : HorsifyBindableBase
     {
@@ -45,10 +45,13 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         }
 
+        #region Private methods
 
+        /// <summary>
+        /// Opens a cusotm close dialog window
+        /// </summary>
         private void OnShutdown()
         {
-
             var canShutdown = false;
             this.ShutdownNotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" }
                 , r =>
@@ -67,6 +70,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             Log($"Sending minimize", Category.Info, Priority.None);
             _eventAggregator.GetEvent<MinimizeEvent>().Publish();
-        }
+        } 
+        #endregion
     }
 }

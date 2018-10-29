@@ -7,7 +7,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:dialog="clr-namespace:Horsesoft.Music.Horsify.Base.Dialog;assembly=Horsesoft.Music.Horsify.Base"
              xmlns:horsify="http://schemas/horsesoft.co.uk"             
-             x:Class="Horsesoft.Horsify.SearchModule.Views.NavigateControlPanelView"
+             x:Class="Horsesoft.Horsify.SideMenu.Views.NavigateControlPanelView"
              mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
@@ -24,12 +24,11 @@
                         <Setter Property="WindowStyle" Value="None"/>
                         <Setter Property="AllowsTransparency" Value="True"/>
                         <Setter Property="Background" Value="Transparent"/>
-
                     </Style>
                 </prism:PopupWindowAction.WindowStyle>
 
-
                 <prism:PopupWindowAction.WindowContent>
+                    <!--Shutdown dialog-->
                     <dialog:HorsifyDialogView/>
                 </prism:PopupWindowAction.WindowContent>
 

@@ -75,14 +75,25 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!--#endregion-->
-            
+
+            <horsify:ButtonWithLabel Grid.ColumnSpan="2"
+                                     MaxHeight="110" MaxWidth="70"
+                                     HorizontalAlignment="Left"
+                                     Margin="-20"
+                            Command="{Binding GoBackCommand}" 
+                            Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                            
+                            Text=""
+                            BorderThickness="0"
+                        />
+
             <!--ART< PLAY AND QUEUE-->
-            <Grid Grid.Column="0" Margin="50"
+            <Grid Grid.Column="0" Margin="50" Grid.Row="1"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Left">
 
@@ -148,20 +159,13 @@
                             BorderThickness="0"
                         />
 
-                        <horsify:ButtonWithLabel Margin="3"
-                            Command="{Binding GoBackCommand}" 
-                            Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                            
-                            Text="BACK"
-                            BorderThickness="0"
-                        />
-
                     </StackPanel>
                 </Grid>
 
             </Grid>
 
             <!--SEARCH BUTTONS GRID-->
-            <Grid Grid.Column="1" HorizontalAlignment="Center" MaxWidth="500">
+            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" MaxWidth="500">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Horsesoft.Horsify.SearchModule.Views
+namespace Horsesoft.Horsify.SideMenu.Views
 {
     /// <summary>
     /// Interaction logic for NavigateControlPanelView.xaml

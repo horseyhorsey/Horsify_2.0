@@ -73,7 +73,8 @@
                 Command="{Binding RunSearchCommand}" 
                 SearchString="{Binding MediaControlModel.SelectedSong.Album, Mode=OneWay}"
                 Content="{DynamicResource GraphIcon}"   
-                                      CommandParameter="Album"
+                CommandParameter="Album"
+            MaxWidth="250"
                 />
 
         <!--YEAR-->

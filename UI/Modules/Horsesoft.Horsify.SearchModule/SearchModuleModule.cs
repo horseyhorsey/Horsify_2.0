@@ -28,9 +28,6 @@ namespace Horsesoft.Horsify.SearchModule
             //MAIN CONTENT
             _regionManager.RegisterViewWithRegion(
                 Regions.ContentRegion, typeof(SearchedSongsView));
-
-            _regionManager.RegisterViewWithRegion(
-                Regions.NavigateViewsRegion, typeof(NavigateControlPanelView));
         }
     }
 }

@@ -366,7 +366,7 @@
     </Viewbox>
 
     <!--ARROW LEFT-->
-    <Viewbox x:Key="Icon_ArrowLeft">
+    <Viewbox x:Shared="false"  x:Key="Icon_ArrowLeft">
         <Grid>
             <Grid Width="40" Height="40" Visibility="Visible">
                 <Ellipse Fill="{DynamicResource Brush_Metal}"
@@ -375,7 +375,8 @@
             </Grid>
 
             <Path Data="M13.227984,4.7700154L2.7440162,15.254016 13.227984,26.5449 13.227984,16.944932 30.02399,20.896956 30.02399,9.5599286 13.227984,13.511952z M15.203996,0L15.203996,11.016959 32.000001,7.0649354 32.000001,23.391947 15.203996,19.439925 15.203996,31.577 0,15.203967z" Stretch="Uniform"
-                  Fill="Black" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                  Fill="DodgerBlue" Width="26" Height="26" Margin="0,0,0,0"
+                  RenderTransformOrigin="0.5,0.5">
                 <Path.RenderTransform>
                     <TransformGroup>
                         <TransformGroup.Children>

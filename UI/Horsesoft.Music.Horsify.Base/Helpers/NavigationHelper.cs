@@ -65,7 +65,7 @@ namespace Horsesoft.Music.Horsify.Base.Helpers
                     {
                         FileName = filter.FileName,
                         Filters = filter.Filters,
-                        SearchAndOrOption = SearchAndOrOption.Or,
+                        SearchAndOrOption = SearchAndOrOption.And,
                         SearchType = filter.SearchType,
                         Id= filter.Id
                     }

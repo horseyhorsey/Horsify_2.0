@@ -1,5 +1,4 @@
-﻿using Horsesoft.Horsify.QueueModule.Views;
-using Horsesoft.Horsify.ServicesModule.Extensions;
+﻿using Horsesoft.Horsify.ServicesModule.Extensions;
 using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Interface;
@@ -8,14 +7,13 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
-using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -57,46 +55,11 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
 
             _eventAggregator.GetEvent<ClearQueueEvent>().Subscribe(OnClearQueue, ThreadOption.UIThread);
             _eventAggregator.GetEvent<ShuffleQueueEvent>().Subscribe(OnShuffleQueue, ThreadOption.UIThread);
-            _eventAggregator.GetEvent<SkipQueueEvent>()
-                .Subscribe(
-                async () => 
-                {
-                    if (!this._skipQueueEventRunning)
-                    {                        
-                        try
-                        {
-                            this._skipQueueEventRunning = true;
-                            
-                            PlayQueuedSong();
-
-                            if (QueueItems.Count < 2)
-                            {
-                                bool queueIsEmpty = QueueItems.Count == 0;
-                                var songs = await SkipQueueAsync();
-                                _queuedSongDataProvider.QueueSongs.AddRange(songs);
-
-                                //Start playing if queue was empty
-                                if (queueIsEmpty)
-                                {
-                                    PlayQueuedSong();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Log(ex.Message, Category.Exception);
-                        }
-                        finally
-                        {
-                            this._skipQueueEventRunning = false;
-                        }                        
-                    }
-                },
-                ThreadOption.PublisherThread);
+            _eventAggregator.GetEvent<SkipQueueEvent>().Subscribe(async () => await OnSkipQueueAsync(),ThreadOption.PublisherThread);
 
             #endregion
 
-        }
+        }        
 
         #endregion
 
@@ -187,10 +150,54 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
             QueueItems.Shuffle();
         }
 
+        private async Task OnSkipQueueAsync()
+        {
+            if (!this._skipQueueEventRunning)
+            {
+                try
+                {
+                    this._skipQueueEventRunning = true;
+
+                    PlayQueuedSong();
+
+                    if (QueueItems.Count < 2)
+                    {
+                        bool queueIsEmpty = QueueItems.Count == 0;
+                        var songs = await SkipQueueAsync();
+
+                        if (songs !=null)
+                            _queuedSongDataProvider.QueueSongs.AddRange(songs);
+
+                        //Start playing if queue was empty
+                        if (queueIsEmpty)
+                        {
+                            PlayQueuedSong();
+                        }
+                    }
+
+                    if (QueueItems.Count == 0)
+                    {
+                        _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Publish();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log(ex.Message, Category.Exception);
+                }
+                finally
+                {
+                    this._skipQueueEventRunning = false;
+                }
+            }
+        }
+
         private Task<IEnumerable<AllJoinedTable>> SkipQueueAsync()
         {
+            Task<IEnumerable<AllJoinedTable>> songs = null;
+
             try
             {
+                
                 var queueCount = QueueItems.Count;
                 if (queueCount < 2)
                 {
@@ -203,11 +210,6 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
                         }
                     }
                 }
-
-                if (queueCount == 0)
-                {
-                    _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Publish();
-                }
             }
             catch (Exception ex)
             {
@@ -217,7 +219,7 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
             {                
             }
 
-            return null;
+            return songs;
         }
 
         private void PlayQueuedSong(QueueItemViewModel vm)
@@ -236,8 +238,11 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
 
                 try
                 {
-                    PlayQueuedSong(vm);
-                    OnRemoveSong(vm);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        PlayQueuedSong(vm);
+                        OnRemoveSong(vm);
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -273,7 +278,7 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
         private void RemoveQueuedSong(QueueItemViewModel queueItemViewModel)
         {
             _queuedSongDataProvider.QueueSongs.Remove(queueItemViewModel.QueuedSong);
-            QueueItems.Remove(queueItemViewModel);
+            QueueItems.Remove(queueItemViewModel);            
         } 
         #endregion
 

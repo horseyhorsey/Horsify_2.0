@@ -82,7 +82,7 @@
             <!--#endregion-->
             
             <!--ART< PLAY AND QUEUE-->
-            <Grid Grid.Column="1" Margin="50"
+            <Grid Grid.Column="0" Margin="50"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Left">
 
@@ -161,7 +161,7 @@
             </Grid>
 
             <!--SEARCH BUTTONS GRID-->
-            <Grid Grid.Column="0" HorizontalAlignment="Center" MaxWidth="500">
+            <Grid Grid.Column="1" HorizontalAlignment="Center" MaxWidth="500">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

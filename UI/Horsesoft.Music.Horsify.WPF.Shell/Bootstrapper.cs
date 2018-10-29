@@ -94,9 +94,13 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             Container.RegisterInstance<ISongPlayingInfo> (new SongPlayingInfo(),    
                 new ContainerControlledLifetimeManager());
             
-            //TODO: Search History Provider
+            //TODO: Search History Provider - Add history to DB
             Container.RegisterInstance<ISearchHistoryProvider>(new SearchHistoryProvider(),
-                new ContainerControlledLifetimeManager());            
+                new ContainerControlledLifetimeManager());
+
+            //Media controller
+            Container.RegisterInstance<IHorsifyMediaController>(new HorsifyVlcMediaController(), 
+                new ContainerControlledLifetimeManager());
         }
     }
 }

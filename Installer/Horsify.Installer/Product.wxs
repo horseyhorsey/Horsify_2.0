@@ -20,14 +20,23 @@
   <!--<?define Horsesoft.Horsify.Statistics_TargetDir=$(var.Horsesoft.Horsify.Statistics.TargetDir)?>-->
   <!--<?define Horsesoft.Music.Horsify.Repositories_TargetDir=$(var.Horsesoft.Music.Horsify.Repositories.TargetDir)?>-->
 
-    <Product Id="FE9F9586-5146-462C-8408-41EA49BECC4C" Name="Horsify" Language="1033" Version="0.1.0.70" Manufacturer="Horsesoft" UpgradeCode="22fae438-87e8-441b-830f-95915651ab75">
+    <Product Id="FE9F9586-5146-462C-8408-41EA49BECC4C" Name="Horsify"
+             Language="1033" Version="0.1.0.70" Manufacturer="Horsesoft" 
+             UpgradeCode="22fae438-87e8-441b-830f-95915651ab75">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <UIRef Id="WixUI_Minimal" />
     <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\license.rtf" />
+    <!--<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <Upgrade Id="22fae438-87e8-441b-830f-95915651ab75">
+      <UpgradeVersion Minimum="1.0.0.0" Maximum="7.0.5.0" Property="PREVIOUSVERSIONSINSTALLED" IncludeMinimum="no" IncludeMaximum="yes" />
+    </Upgrade>-->
+      <Upgrade Id="22fae438-87e8-441b-830f-95915651ab75">
+        <UpgradeVersion Minimum="0.0.0.0" Maximum="5.0.0.0" IgnoreRemoveFailure="yes" Property="PREVIOUSVERSIONSINSTALLED"/>
+      </Upgrade>
+        
       
-      
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."  AllowSameVersionUpgrades="yes" DisallowUpgradeErrorMessage="Can't upgrade"  />
 		<MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="ProductFeature" Title="Horsify" Level="1">

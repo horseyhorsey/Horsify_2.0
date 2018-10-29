@@ -138,6 +138,15 @@
         <File Id="Horsesoft.Vlc.dll" Name="Horsesoft.Vlc.dll"
               Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Vlc.dll" />
       </Component>
+      <Component Id="Vlc.DotNet.Core.dll" Guid="A124B34E-4AF1-435E-BB94-DC7DEA7C606C">
+        <File Id="Vlc.DotNet.Core.dll" Name="Vlc.DotNet.Core.dll"
+              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Vlc.DotNet.Core.dll" />
+      </Component>
+      <Component Id="Vlc.DotNet.Core.Interops.dll" Guid="188DBE0B-DF57-4124-B523-2ECD59D67331">
+        <File Id="Vlc.DotNet.Core.Interops.dll" Name="Vlc.DotNet.Core.Interops.dll"
+              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Vlc.DotNet.Core.Interops.dll" />
+      </Component>
+
 
       <!--INSTALL WINDOWS SERVICE-->			
       <Component Id="Horsesoft.Music.Horsify.Service.exe" Guid="de8dc4e2-878d-4a40-a8d3-eb7d5f62579c">

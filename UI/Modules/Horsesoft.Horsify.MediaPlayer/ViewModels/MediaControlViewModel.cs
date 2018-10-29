@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 {    
     /// <summary>
-    /// The mini media control in now playing panel
+    /// The mini media control in now playing panel.
     /// </summary>
     /// <seealso cref="Horsesoft.Horsify.MediaPlayer.ViewModels.MediaControlViewModelBase" />
     public class MediaControlViewModel : MediaControlViewModelBase
@@ -33,7 +33,9 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Subscribe(() =>
             {
                 _loggerFacade.Log($"Queued Jobs Completed", Category.Debug, Priority.Medium);
+                ResetSelectedSong();
             }, ThreadOption.UIThread);
+
             #endregion
         }
 
@@ -68,6 +70,17 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
                 _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
             }
 
+        }
+
+        /// <summary>
+        /// Resets the selected song and time. 
+        /// TODO: Do we really need this? This is fired everytime user skips the queue, not just when finished
+        /// </summary>
+        private void ResetSelectedSong()
+        {
+            if (!MediaControlModel.IsPlaying)
+                MediaControlModel.SelectedSong = null;
+                MediaControlModel.CurrentSongTimeString = null;
         }
 
         private void UpdateFileTags()

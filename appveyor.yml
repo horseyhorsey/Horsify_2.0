@@ -39,7 +39,7 @@ cache:
   - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
   
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86
+platform: Any CPU
 
 # to add several platforms to build matrix:
 #platform:

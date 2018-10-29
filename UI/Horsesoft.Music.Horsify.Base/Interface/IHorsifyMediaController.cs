@@ -4,6 +4,7 @@ namespace Horsesoft.Music.Horsify.Base.Interface
 {
     public interface IHorsifyMediaController
     {
+        event OnMediaFinishedEvent OnMediaFinished;
         event OnMediaLoaded OnMediaLoaded;
         event OnTimeChanged OnTimeChanged;
 

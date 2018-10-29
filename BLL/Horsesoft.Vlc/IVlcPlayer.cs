@@ -6,6 +6,7 @@ namespace Horsesoft.Vlc
     public interface IVlcPlayer
     {
         event MediaLoadedEvent MediaLoaded;
+        event MediaFinishedEvent MediaFinished;
         event TimeChangedEvent TimeChanged;
 
         void Init();

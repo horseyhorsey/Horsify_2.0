@@ -21,6 +21,7 @@ namespace Horsesoft.Vlc
 
         public event TimeChangedEvent TimeChanged;
         public event MediaLoadedEvent MediaLoaded;
+        public event MediaFinishedEvent MediaFinished;
 
         /// <summary>
         /// Initializes VLC 
@@ -29,10 +30,15 @@ namespace Horsesoft.Vlc
         {
             _vlcMediaPlayer = new VlcMediaPlayer(libDirectory);
             _vlcMediaPlayer.TimeChanged += _vlcMediaPlayer_TimeChanged;
-
             _vlcMediaPlayer.EncounteredError += _vlcMediaPlayer_EncounteredError;
+            _vlcMediaPlayer.EndReached += _vlcMediaPlayer_EndReached;
+            //TODO: Log from VLC
+            //_vlcMediaPlayer.Log += _vlcMediaPlayer_Log;
+        }
 
-            _vlcMediaPlayer.Log += _vlcMediaPlayer_Log;
+        private void _vlcMediaPlayer_EndReached(object sender, VlcMediaPlayerEndReachedEventArgs e)
+        {
+            MediaFinished?.Invoke();
         }
 
         private void _vlcMediaPlayer_EncounteredError(object sender, VlcMediaPlayerEncounteredErrorEventArgs e)

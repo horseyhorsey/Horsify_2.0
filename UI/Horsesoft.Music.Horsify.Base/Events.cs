@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Horsesoft.Music.Horsify.Base
 {
+    //TODO Clean up unused events, although alot of these would have been for remote control
 
     public class OnAddToQueueEvent<T> : PubSubEvent<IEnumerable<AllJoinedTable>> { }
 
@@ -94,7 +95,8 @@ namespace Horsesoft.Music.Horsify.Base
     public class VolumeChangedEvent : PubSubEvent<double> { }
 
     #endregion
-
+    
+    public delegate void OnMediaFinishedEvent();
     public delegate void OnMediaLoaded(TimeSpan duration);
     public delegate void OnTimeChanged(TimeSpan duration);
 }

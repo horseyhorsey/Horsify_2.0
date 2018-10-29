@@ -13,8 +13,9 @@ namespace Horsesoft.Horsify.ServicesModule
         #endregion
 
         #region Events
+        public event OnMediaFinishedEvent OnMediaFinished;
         public event OnMediaLoaded OnMediaLoaded;
-        public event OnTimeChanged OnTimeChanged;
+        public event OnTimeChanged OnTimeChanged;        
         #endregion
 
         #region Constructors
@@ -24,6 +25,7 @@ namespace Horsesoft.Horsify.ServicesModule
             _vlcPlayer.Init();
             _isInitialized = true;
 
+            _vlcPlayer.MediaFinished += () => OnMediaFinished?.Invoke();
             _vlcPlayer.MediaLoaded += (x) => OnMediaLoaded?.Invoke(x);
             _vlcPlayer.TimeChanged += (x) => OnTimeChanged?.Invoke(x);
         }

@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
 
             <!--RATING-->
-            <horsify:RatingControl Height="95" RatingValue="{Binding SelectedSong.Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <horsify:RatingControl Height="95" RatingValue="{Binding MediaControlModel.SelectedSong.Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!--ALBUM ART-->
             <Border BorderThickness="10" BorderBrush="Silver" Grid.Row="1"
@@ -34,10 +34,10 @@
 
                         <Image.Style>
                             <Style TargetType="{x:Type Image}">
-                                <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+                                <Setter Property="Source" Value="{Binding MediaControlModel.SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
 
                                 <Style.Triggers>
-                                    <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                                    <DataTrigger  Binding="{Binding MediaControlModel.SelectedSong.ImageLocation}" Value="{x:Null}">
                                         <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
                                     </DataTrigger>
                                 </Style.Triggers>

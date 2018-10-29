@@ -12,8 +12,8 @@
 
             <!--VOLUME CONTROL-->
             <!--Value="{Binding CurrentVolume}"-->
-            <horsify:VolumeControl Margin="15" Maximum="1.0" Minimum="0.0" 
-                                   Value="{Binding CurrentVolume}"
+            <horsify:VolumeControl Margin="15" Maximum="100" Minimum="0" 
+                                   Value="{Binding CurrentVolume, UpdateSourceTrigger=PropertyChanged}"
                                    Style="{DynamicResource VolumeControlStyle}"                                   
                                    Width="250"
                                    Height="50" 

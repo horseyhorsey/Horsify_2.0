@@ -1,4 +1,5 @@
 ﻿using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -19,12 +20,13 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         #endregion
 
         #region Constructors
-        public VolumeControlViewModel(IEventAggregator eventAggregator)
+        public VolumeControlViewModel(IEventAggregator eventAggregator, IHorsifyMediaController horsifyMediaController)
         {            
             //Publish a SetVolumeEvent
             ChangeVolumeCommand = new DelegateCommand(() =>
             {
-                eventAggregator.GetEvent<SetVolumeEvent>().Publish(CurrentVolume);
+                horsifyMediaController.SetVolume(CurrentVolume);
+                //eventAggregator.GetEvent<SetVolumeEvent>().Publish(CurrentVolume);
             });
 
             //Listen for changes in the volume elsewhere to reflect change to the control
@@ -33,11 +35,11 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         #endregion
 
         #region Properties        
-        private double _currentVolume = 1D;
+        private int _currentVolume = 100;
         /// <summary>
         /// The Current Volume.
         /// </summary>
-        public double CurrentVolume
+        public int CurrentVolume
         {
             get { return _currentVolume; }
             set
@@ -55,7 +57,7 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         /// <param name="currentVolume">The current volume.</param>
         private void OnVolumeChanged(double currentVolume)
         {
-            CurrentVolume = currentVolume;
+            //CurrentVolume = currentVolume;
         }
         #endregion
     }

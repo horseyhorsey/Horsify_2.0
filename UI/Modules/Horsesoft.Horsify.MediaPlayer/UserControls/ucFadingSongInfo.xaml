@@ -65,7 +65,7 @@
     </UserControl.Triggers>
 
     <Grid x:Name="FadingTextGrid"
-        DataContext="{Binding SelectedSong}"
+        DataContext="{Binding MediaControlModel.SelectedSong}"
         TextElement.FontFamily="Bebas Neue"
         TextElement.FontSize="66"
         TextElement.FontStyle="Italic"

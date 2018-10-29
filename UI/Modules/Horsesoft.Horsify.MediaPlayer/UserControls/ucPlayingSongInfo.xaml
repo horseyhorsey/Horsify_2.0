@@ -24,7 +24,7 @@
         <StackPanel.Style>
             <Style TargetType="StackPanel">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding SelectedSong}" Value="{x:Null}">
+                    <DataTrigger Binding="{Binding MediaControlModel.SelectedSong}" Value="{x:Null}">
                         <Setter Property="Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -40,36 +40,39 @@
         </StackPanel.Resources>
 
         <!--SONG TIME-->
-        <TextBlock x:Name="songTime" Text="{Binding CurrentSongPosition, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}-}" />
+        <TextBlock x:Name="songTime" Text="{Binding MediaControlModel.CurrentSongPosition, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}-}" />
         <TextBlock x:Name="songDuration" Margin="-4,0"
-                   Text="{Binding CurrentSongTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}}" />
+                   Text="{Binding MediaControlModel.CurrentSongTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}}" />
 
         <!--RATING-->
-        <horsify:RatingControl Margin="14,0" StarWidth="20" VerticalAlignment="Center" RatingValue="{Binding SelectedSong.Rating}"/>
+        <horsify:RatingControl Margin="14,0" StarWidth="20" VerticalAlignment="Center" RatingValue="{Binding MediaControlModel.SelectedSong.Rating}"/>
 
+        <!--MUSIC KEY-->
         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"                          
-                          Margin="0,0" Visibility="{Binding SelectedSong.MusicKey, Converter={StaticResource string2vis}}"
-                          ContentTemplate="{DynamicResource MusicKeyTemplate}" Content="{Binding SelectedSong}"
+                          Margin="0,0" 
+                          Content="{Binding MediaControlModel.SelectedSong}"
+                          Visibility="{Binding MediaControlModel.SelectedSong.MusicKey, Converter={StaticResource string2vis}}"
+                          ContentTemplate="{DynamicResource MusicKeyTemplate}"
                           TextElement.Foreground="Black" TextElement.FontWeight="DemiBold"/>
         
         <!--BPM-->
-        <TextBlock Visibility="{Binding SelectedSong.Bpm, Converter={StaticResource string2vis}}" 
-                   Text="{Binding SelectedSong.Bpm, Mode=OneWay, StringFormat={}BPM: {0}}"/>
+        <TextBlock Visibility="{Binding MediaControlModel.SelectedSong.Bpm, Converter={StaticResource string2vis}}" 
+                   Text="{Binding MediaControlModel.SelectedSong.Bpm, Mode=OneWay, StringFormat={}BPM: {0}}"/>
 
         <!--ARTIST WITH SEARCH-->
         <horsify:HorsifySearchButton HorizontalAlignment="Center"                                     
-                                     SearchString="{Binding SelectedSong.Artist, Mode=OneWay}"
+                                     SearchString="{Binding MediaControlModel.SelectedSong.Artist, Mode=OneWay}"
                                      Command="{Binding RunSearchCommand}"
                                      CommandParameter="Artist"                    
                                      Content="{DynamicResource ArtistIcon}"/>
 
         <!--TITLE-->
-        <TextBlock MaxWidth="250" Text="{Binding SelectedSong.Title, Mode=OneWay, StringFormat={} - {0}}"/>
+        <TextBlock MaxWidth="250" Text="{Binding MediaControlModel.SelectedSong.Title, Mode=OneWay, StringFormat={} - {0}}"/>
 
         <!--Album-->
         <horsify:HorsifySearchButton 
                 Command="{Binding RunSearchCommand}" 
-                SearchString="{Binding SelectedSong.Album, Mode=OneWay}"
+                SearchString="{Binding MediaControlModel.SelectedSong.Album, Mode=OneWay}"
                 Content="{DynamicResource GraphIcon}"   
                                       CommandParameter="Album"
                 />
@@ -78,13 +81,13 @@
         <horsify:HorsifySearchButton           
                 Command="{Binding RunSearchCommand}" 
                 Content="{DynamicResource Icon_Calender}"
-                SearchString="{Binding SelectedSong.Year, Mode=OneWay}"
+                SearchString="{Binding MediaControlModel.SelectedSong.Year, Mode=OneWay}"
                 CommandParameter="Year"
             />
 
         <!--LABEL-->
         <horsify:HorsifySearchButton 
-                SearchString="{Binding SelectedSong.Label, Mode=OneWay}"                            
+                SearchString="{Binding MediaControlModel.SelectedSong.Label, Mode=OneWay}"                            
                 Content="{DynamicResource RecordLabelIcon}"
                 Command="{Binding RunSearchCommand}" 
             MaxWidth="450"
@@ -93,7 +96,7 @@
 
         <!--GENRE-->
         <horsify:HorsifySearchButton Margin="10,3"                                     
-                SearchString="{Binding SelectedSong.Genre, Mode=OneWay}"                                           
+                SearchString="{Binding MediaControlModel.SelectedSong.Genre, Mode=OneWay}"                                           
                 Content="{DynamicResource Icon_Genre}"
                 Command="{Binding RunSearchCommand}"
             CommandParameter="Genre"

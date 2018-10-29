@@ -13,39 +13,11 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 {
     public class MediaElementViewModel : HorsifyBindableBase
     {
-        private IEventAggregator _eventAggregator;
-        private ISongDataProvider _songDataProvider;
-        private IMediaPlayer _mediaPlayer;
+        private IEventAggregator _eventAggregator;        
 
-        public MediaElementViewModel(ISongDataProvider songDataProvider, IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public MediaElementViewModel(IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _eventAggregator = eventAggregator;
-            _songDataProvider = songDataProvider;
-
-            _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>()
-            .Subscribe(async song =>
-            {
-                Log($"MediaElement: Loading file async: {song?.FileLocation}", Category.Info, Priority.Medium);
-
-                try
-                {
-                    await SetSongLocationAndSourceAsync(song);
-                }
-                catch (Exception ex)
-                {
-                    Log($"Error loading file: {ex.Message}", Category.Exception);
-                    _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
-                }
-
-            }, ThreadOption.UIThread);
-
-            _eventAggregator.GetEvent<QueuedJobsCompletedEvent>()
-            .Subscribe(() =>
-            {
-                _loggerFacade.Log($"Queued Jobs Completed", Category.Debug, Priority.Medium);
-                this.AudioSource = null;
-
-            }, ThreadOption.UIThread);            
         }
 
         #region Properties
@@ -67,40 +39,5 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         private int? _previousSongRating;
         #endregion
 
-        public Task SetSongLocationAndSourceAsync(AllJoinedTable allJoinedTable)
-        {
-            return SetAudioSourceAsync(allJoinedTable);
-        }
-
-        private async Task SetAudioSourceAsync(AllJoinedTable allJoinedTable)
-        {
-            var mediaFile = new Uri(allJoinedTable.FileLocation, UriKind.Absolute);
-            if (!System.IO.File.Exists(mediaFile.LocalPath))
-                throw new FileNotFoundException($"Media file not found: {mediaFile.LocalPath}");
-
-            AudioSource = mediaFile;
-
-            //Update file tags
-            if (_previousSong != null)
-            {        
-                if (_previousSongRating != null)
-                {
-                    if (_previousSong.Rating != _previousSongRating)
-                    {
-                        await UpdatePlayedSongAsync(_previousSong, _previousSong.Rating);
-                    }
-                    else { await UpdatePlayedSongAsync(_previousSong); }
-                }
-                else { await UpdatePlayedSongAsync(_previousSong); }
-            }
-
-            _previousSong = allJoinedTable;
-            _previousSongRating = _previousSong.Rating;
-        }
-
-        private Task UpdatePlayedSongAsync(AllJoinedTable selectedSong, int? rating = null)
-        {
-            return _songDataProvider.UpdatePlayedSong(selectedSong, rating);
-        }
     }
 }

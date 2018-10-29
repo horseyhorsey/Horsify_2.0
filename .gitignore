@@ -263,3 +263,4 @@ __pycache__/
 /Backup
 /Data/Horsesoft.Music.Data.Sqlite/Sql/HorsifyTestDb.7z
 *Thumbs.db
+/BLL/Horsesoft.Vlc/libvlc/win-x86

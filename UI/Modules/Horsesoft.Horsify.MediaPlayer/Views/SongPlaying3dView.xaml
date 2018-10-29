@@ -105,7 +105,7 @@
                             <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True"/>
                         </Viewport2DVisual3D.Material>
 
-                        <!--SELECTED SONG--> 
+                        <!--SELECTED SONG - ucSongViewBoxWithRating--> 
                         <usercontrols:ucSongViewBoxWithRating/>
 
                     </Viewport2DVisual3D>

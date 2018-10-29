@@ -134,9 +134,6 @@
 
                     </Border>
 
-                    <!--MEDIA ELEMENT hidden-->
-                    <ContentControl prism:RegionManager.RegionName="{x:Static base:Regions.MediaElementRegion}" />
-
                 </Grid>
 
             </Grid>

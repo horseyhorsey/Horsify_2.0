@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            x:Class="Horsesoft.Horsify.MediaPlayer.Views.Turntable1200View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" 
+             x:Class="Horsesoft.Horsify.MediaPlayer.Views.Turntable1200View"
              mc:Ignorable="d">
 
     <!--#region RESOURCES / TRIGGERS -->
@@ -12,32 +15,17 @@
         <Image x:Key="SelectedSongBrush">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
-                    <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+                    <Setter Property="Source" Value="{Binding MediaControlModel.SelectedSong.ImageLocation, 
+                        Converter={StaticResource stringToBitmapConverter}}"/>
 
                     <Style.Triggers>
-                        <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                        <DataTrigger  Binding="{Binding MediaControlModel.SelectedSong.ImageLocation}" Value="{x:Null}">
                             <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Image.Style>
         </Image>
-
-        <!--VINYL ANIMATION-->
-        <Storyboard x:Key="RotateVinylImage">
-            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
-                             Storyboard.TargetName="VinylLabel" To="360" Duration="0:0:10"
-                             >
-            </DoubleAnimation>
-        </Storyboard>
-
-        <Storyboard x:Key="RotateVinyl">
-            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
-                             Storyboard.TargetName="VinylPlatter" To="360" Duration="0:0:10"
-                             />
-        </Storyboard>
 
         <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -79,28 +67,61 @@
 
     </UserControl.Resources>
 
-    <!-- TRIGGERS - ROTATES VINLY WHEN LOADED - HAS TRIGGERS TO PAUSE/RESUME-->
     <UserControl.Triggers>
-        
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+
+        <!--<EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard x:Name="RotateVinyl_BeginStoryboard" Storyboard="{StaticResource RotateVinyl}"/>
             <BeginStoryboard x:Name="RotateVinylImage_BeginStoryboard" Storyboard="{StaticResource RotateVinylImage}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
             <StopStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
             <StopStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
-        </EventTrigger>
-        
-        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="TurntableEnabled">
+        </EventTrigger>-->
+
+        <!--<EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="TurntableEnabled">
             <ResumeStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard" />
             <ResumeStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="TurntableEnabled">
             <PauseStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
             <PauseStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
-        </EventTrigger>
+        </EventTrigger>-->
 
     </UserControl.Triggers>
+
+    <!--<UserControl.Style>-->
+        <!--<Style>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                    <DataTrigger.EnterActions>
+                        --><!--VINYL ANIMATION--><!--
+                        <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation RepeatBehavior="Forever" FillBehavior="Stop"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
+                             Storyboard.TargetName="VinylLabel" To="360" Duration="0:0:10"
+                             >
+                            </DoubleAnimation>
+                            --><!--<DoubleAnimation RepeatBehavior="Forever" FillBehavior="Stop"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
+                             Storyboard.TargetName="VinylPlatter" To="360" Duration="0:0:10"
+                             />--><!--
+                        </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>-->
+        <!--<DataTrigger Binding="{Binding Path=IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <DataTrigger.ExitActions>
+                        <PauseStoryboard BeginStoryboardName="RotateVinyl_BeginStoryboard"/>
+                        <PauseStoryboard BeginStoryboardName="RotateVinylImage_BeginStoryboard"/>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>-->                    
+    <!--</UserControl.Style>-->
+
+    <!-- TRIGGERS - ROTATES VINLY WHEN LOADED - HAS TRIGGERS TO PAUSE/RESUME-->
+
     
     
 
@@ -146,6 +167,31 @@
                                 <BitmapCache RenderAtScale="0.5"/>
                             </Image.CacheMode>
                         </Image>
+
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=MediaControlModel.IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                        <DataTrigger.EnterActions>
+                                            <!--VINYL ANIMATION-->
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation RepeatBehavior="Forever" FillBehavior="HoldEnd"
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" >
+
+                                                        <!--Storyboard.TargetName="VinylLabel" To="360" Duration="0:0:10"-->
+                                                    </DoubleAnimation>
+                                                    <!--<DoubleAnimation RepeatBehavior="Forever" FillBehavior="Stop"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" 
+                             Storyboard.TargetName="VinylPlatter" To="360" Duration="0:0:10"
+                             />-->
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
 
                     </Grid>
 
@@ -242,7 +288,7 @@
                             <TransformGroup>
                                 <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="{Binding CurrentSongTimeString,
+                                <RotateTransform Angle="{Binding ElementName=LayoutRoot, Path=DataContext.MediaControlModel.CurrentSongTimeString,
                                                         Converter={StaticResource doubleRangeConv}, 
                                                         UpdateSourceTrigger=PropertyChanged}"/>
                                 <TranslateTransform/>
@@ -273,22 +319,27 @@
 
                 <!--START STOP-->
                 <!--TURNTABLE START STOP SWITCH-->
-                <ToggleButton x:Name="TurntableEnabled" IsChecked="True"  
-                               Style="{DynamicResource ToggleButtonStyle1}"
-                      Click="TurntableEnabled_Click" 
-                              Background="Transparent"                                           
-                      Canvas.Left="30" 
-                      Canvas.Top="1315">
+                <!--Click="TurntableEnabled_Click"-->
+                <ToggleButton x:Name="TurntableEnabled" 
+                              IsChecked="{Binding MediaControlModel.IsPaused}"
+                              Style="{DynamicResource ToggleButtonStyle1}"
+                              Command="{Binding PlayPauseCommand}"
+                              Background="Transparent"
+                              Canvas.Left="30" 
+                              Canvas.Top="1315">
                     <ToggleButton.Content>
                         <Image Source="{DynamicResource Bitmap_1200StartStop}" Stretch="Fill"/>
                     </ToggleButton.Content>
                 </ToggleButton>
 
                 <!--TURNTABLE SWITCH-->
-                <ToggleButton x:Name="TurntableOnOff" IsChecked="True"                               
-                      Click="TurntableEnabled_Click" Background="Transparent"                                           
-                      Canvas.Left="15" 
-                      Canvas.Top="1135" Style="{DynamicResource ToggleButtonStyle1}">
+                <!--Click="TurntableEnabled_Click"-->
+                <ToggleButton x:Name="TurntableOnOff" IsChecked="True"                                                     
+                              Background="Transparent"                                           
+                              Canvas.Left="15"
+                              Canvas.Top="1135" Style="{DynamicResource ToggleButtonStyle1}"
+                              Command="{Binding StopCommand}"
+                              >
                     <ToggleButton.Content>
                         <Image Source="{DynamicResource Bitmap_1200OnOff}" Stretch="Fill"/>
                     </ToggleButton.Content>
@@ -308,12 +359,9 @@
                 Style="{StaticResource SliderStyle1}"
                             Height="400" HorizontalAlignment="Center"                             
                             Minimum="0" 
-                            Maximum="{Binding CurrentSongTime}"
-                            Value="{Binding CurrentSongPosition}"
+                            Maximum="{Binding MediaControlModel.CurrentSongTime.TotalSeconds, Mode=OneWay}"
+                            Value="{Binding MediaControlModel.CurrentSongPosition.TotalSeconds, Mode=OneWay}"
                             Margin="1176,0,1053,203"
-                            Thumb.DragStarted="timelineSlider_SeekStarted"  
-                            Thumb.DragCompleted="timelineSlider_SeekCompleted"
-                            ValueChanged="timelineSlider_ValueChanged"
                             Width="80"                            
                             VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
             <Slider.RenderTransform>
@@ -328,6 +376,18 @@
             <Slider.LayoutTransform>
                 <RotateTransform Angle="-35"/>
             </Slider.LayoutTransform>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseDown">
+                    <prism:InvokeCommandAction Command="{Binding SeekingStartedCommand}"/>
+                </i:EventTrigger>
+
+                <!--Sending current slider value-->
+                <i:EventTrigger EventName="PreviewMouseUp">
+                    <prism:InvokeCommandAction Command="{Binding SeekingStoppedCommand}" 
+                                                       CommandParameter="{Binding ElementName=Slider_Arm, Path=Value}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </Slider>
 
     </Grid>

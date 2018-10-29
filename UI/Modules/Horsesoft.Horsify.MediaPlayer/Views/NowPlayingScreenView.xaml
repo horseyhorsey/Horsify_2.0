@@ -4,8 +4,8 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.MediaPlayer.UserControls"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    
-    <Border Style="{DynamicResource Border_QueuePanelStyle}">
+
+    <Border x:Name="LayoutRoot"  Style="{DynamicResource Border_QueuePanelStyle}">
         <Grid>
             
             <Border Grid.Row="4" Grid.ColumnSpan="3" Margin="5"
@@ -31,12 +31,8 @@
                                 Margin="2" Opacity="0.2" 
                                        Stretch="Fill" UseLayoutRounding="False"/>
 
-                    <!--TODO:PlayingSongInfo-->
-                    <usercontrols:ucPlayingSongInfo>
-
-
-                        
-                    </usercontrols:ucPlayingSongInfo>
+                    <!--Media controller-->
+                    <usercontrols:ucPlayingSongInfo/>
 
                 </Grid>
 
@@ -44,9 +40,7 @@
                 <!--<Border.Effect>
                             <shadereffectlibrary:BloomEffect BloomIntensity="0.6"/>
                         </Border.Effect>-->
-
             </Border>
-
 
             <!--#region SCREWS-->
             
@@ -74,4 +68,5 @@
             
         </Grid>
     </Border>
+    
 </UserControl>

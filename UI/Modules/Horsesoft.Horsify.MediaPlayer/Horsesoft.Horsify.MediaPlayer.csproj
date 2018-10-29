@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MediaPlayerModule.cs" />
+    <Compile Include="Model\MediaControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,15 +74,15 @@
       <DependentUpon>ucSongViewBoxWithRating.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MediaControlViewModel.cs" />
+    <Compile Include="ViewModels\MediaControlViewModelBase.cs" />
     <Compile Include="ViewModels\MediaElementViewModel.cs" />
     <Compile Include="ViewModels\NowPlayingScreenViewModel.cs" />
+    <Compile Include="ViewModels\SongPlayerViewModel.cs" />
     <Compile Include="ViewModels\SongPlaying3dViewModel.cs" />
+    <Compile Include="ViewModels\Turntable1200ViewModel.cs" />
     <Compile Include="ViewModels\VolumeControlViewModel.cs" />
     <Compile Include="Views\MediaControlView.xaml.cs">
       <DependentUpon>MediaControlView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MediaElementView.xaml.cs">
-      <DependentUpon>MediaElementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NowPlayingScreenView.xaml.cs">
       <DependentUpon>NowPlayingScreenView.xaml</DependentUpon>
@@ -139,10 +140,6 @@
     <Page Include="Views\MediaControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MediaElementView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NowPlayingScreenView.xaml">
       <SubType>Designer</SubType>

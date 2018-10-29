@@ -13,10 +13,10 @@ namespace Horsesoft.Horsify.MediaPlayer.Views
     {
         private IEventAggregator _eventAggregator;
 
-        public MediaControlView(NowPlayingScreenViewModel nowPlayingScreenViewModel, IEventAggregator eventAggregator)
+        public MediaControlView(IEventAggregator eventAggregator)
         {
             InitializeComponent();            
-            this.DataContext = nowPlayingScreenViewModel;
+            //this.DataContext = nowPlayingScreenViewModel;
             _eventAggregator = eventAggregator;
         }
 

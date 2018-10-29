@@ -43,6 +43,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "UI\Horsesoft.Shar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Music.Horsify.Importer.UI.WPF", "UI\Horsesoft.Music.Horsify.Importer.UI.WPF\Horsesoft.Music.Horsify.Importer.UI.WPF.csproj", "{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaControl", "MediaControl", "{989857E2-3420-485D-9431-0EA4EC1F1F8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Vlc", "BLL\Horsesoft.Vlc\Horsesoft.Vlc.csproj", "{5A6E059A-271F-4332-8514-85EB94A8D1C7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UI\Horsesoft.Shared\Horsesoft.Shared.projitems*{8c66c47f-cfea-4d41-8abb-a58b10681a67}*SharedItemsImports = 13
@@ -237,6 +241,18 @@ Global
 		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x64.Build.0 = Release|Any CPU
 		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0}.Release|x86.Build.0 = Release|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Release|x64.Build.0 = Release|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -258,6 +274,7 @@ Global
 		{226B3819-ECE4-4F10-8CDD-7FA123C78622} = {73C55D7B-4147-49FB-A804-3DAFF06D9BBA}
 		{8C66C47F-CFEA-4D41-8ABB-A58B10681A67} = {65A4E483-278F-4A66-849E-BBC0CB22CA23}
 		{CBE90713-DDE7-4F7E-B9FD-D9EE1237F9D0} = {9072CB27-A8CC-41DF-A920-60A0415BE318}
+		{5A6E059A-271F-4332-8514-85EB94A8D1C7} = {989857E2-3420-485D-9431-0EA4EC1F1F8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7989F2E-10C4-4C12-8815-45F7F1A61C03}

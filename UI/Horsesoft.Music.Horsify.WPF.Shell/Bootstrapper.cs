@@ -99,7 +99,7 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
                 new ContainerControlledLifetimeManager());
 
             //Media controller
-            Container.RegisterInstance<IHorsifyMediaController>(new HorsifyVlcMediaController(), 
+            Container.RegisterInstance<IHorsifyMediaController>(new HorsifyVlcMediaController(Properties.Settings.Default.VlcPath), 
                 new ContainerControlledLifetimeManager());
         }
     }

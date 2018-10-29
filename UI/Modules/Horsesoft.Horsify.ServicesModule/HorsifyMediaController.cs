@@ -19,9 +19,9 @@ namespace Horsesoft.Horsify.ServicesModule
         #endregion
 
         #region Constructors
-        public HorsifyVlcMediaController()
+        public HorsifyVlcMediaController(string vlcPath)
         {
-            _vlcPlayer = new VlcPlayer();
+            _vlcPlayer = new VlcPlayer(vlcPath);
             _vlcPlayer.Init();
             _isInitialized = true;
 

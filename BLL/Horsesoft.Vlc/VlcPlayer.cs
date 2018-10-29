@@ -9,20 +9,34 @@ namespace Horsesoft.Vlc
     {
         private VlcMediaPlayer _vlcMediaPlayer;
 
+        //use for local dlls of VLC
         //private DirectoryInfo libDirectory =
         //    new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "libvlc", "win-x86"));
 
-        private DirectoryInfo libDirectory =
-            new DirectoryInfo(Path.Combine(@"C:\Program Files (x86)\VideoLan\VLC"));
+        private DirectoryInfo libDirectory;
 
+        #region Constructors
         public VlcPlayer()
         {
         }
 
+        public VlcPlayer(string vlcPath)
+        {
+            if (!Directory.Exists(vlcPath))
+                throw new DirectoryNotFoundException(
+                    @"VLC directory not found. VLC Installation could be missing or you need to set the VlcPath in the configuration at C:\Program Files (x86)\Horsify\Horsify Jukebox.exe.config");
+
+            libDirectory = new DirectoryInfo(vlcPath);            
+        } 
+        #endregion
+
+        #region Events
         public event TimeChangedEvent TimeChanged;
         public event MediaLoadedEvent MediaLoaded;
-        public event MediaFinishedEvent MediaFinished;
+        public event MediaFinishedEvent MediaFinished; 
+        #endregion
 
+        #region Public Methods
         /// <summary>
         /// Initializes VLC 
         /// </summary>
@@ -34,27 +48,6 @@ namespace Horsesoft.Vlc
             _vlcMediaPlayer.EndReached += _vlcMediaPlayer_EndReached;
             //TODO: Log from VLC
             //_vlcMediaPlayer.Log += _vlcMediaPlayer_Log;
-        }
-
-        private void _vlcMediaPlayer_EndReached(object sender, VlcMediaPlayerEndReachedEventArgs e)
-        {
-            MediaFinished?.Invoke();
-        }
-
-        private void _vlcMediaPlayer_EncounteredError(object sender, VlcMediaPlayerEncounteredErrorEventArgs e)
-        {
-            
-        }
-
-        private void _vlcMediaPlayer_Log(object sender, VlcMediaPlayerLogEventArgs e)
-        {
-            
-        }
-
-        private void _vlcMediaPlayer_TimeChanged(object sender, VlcMediaPlayerTimeChangedEventArgs e)
-        {
-            var time = TimeSpan.FromMilliseconds(e.NewTime);
-            TimeChanged?.Invoke(time);
         }
 
         /// <summary>
@@ -107,12 +100,38 @@ namespace Horsesoft.Vlc
 
         public void SetVolume(int volume)
         {
-            _vlcMediaPlayer.Audio.Volume = volume;            
+            _vlcMediaPlayer.Audio.Volume = volume;
         }
 
         public void Stop()
         {
             _vlcMediaPlayer.Stop();
+        } 
+        #endregion
+
+        #region Private Methods
+
+        private void _vlcMediaPlayer_EndReached(object sender, VlcMediaPlayerEndReachedEventArgs e)
+        {
+            MediaFinished?.Invoke();
         }
+
+        private void _vlcMediaPlayer_EncounteredError(object sender, VlcMediaPlayerEncounteredErrorEventArgs e)
+        {
+
+        }
+
+        private void _vlcMediaPlayer_Log(object sender, VlcMediaPlayerLogEventArgs e)
+        {
+
+        }
+
+        private void _vlcMediaPlayer_TimeChanged(object sender, VlcMediaPlayerTimeChangedEventArgs e)
+        {
+            var time = TimeSpan.FromMilliseconds(e.NewTime);
+            TimeChanged?.Invoke(time);
+        }
+
+        #endregion
     }
 }

@@ -37,14 +37,18 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         #region Properties        
         private int _currentVolume = 100;
         /// <summary>
-        /// The Current Volume.
+        /// The Current Volume. TODO: Allow user to turn volume up more 125 maybe
         /// </summary>
         public int CurrentVolume
         {
             get { return _currentVolume; }
             set
             {
-                SetProperty(ref _currentVolume, value);
+                if (SetProperty(ref _currentVolume, value))
+                {
+                    if (CurrentVolume >= 100) CurrentVolume = 100;
+                    else if(CurrentVolume <= 0) CurrentVolume = 0;
+                }
             }
         }
         #endregion

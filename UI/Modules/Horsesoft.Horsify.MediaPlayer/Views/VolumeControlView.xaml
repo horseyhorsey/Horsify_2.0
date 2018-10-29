@@ -14,9 +14,9 @@
             <!--Value="{Binding CurrentVolume}"-->
             <horsify:VolumeControl Margin="15" Maximum="100" Minimum="0" 
                                    Value="{Binding CurrentVolume, UpdateSourceTrigger=PropertyChanged}"
-                                   Style="{DynamicResource VolumeControlStyle}"                                   
+                                   Style="{DynamicResource VolumeControlStyle}" 
                                    Width="250"
-                                   Height="50" 
+                                   Height="50"
                                    >
                 <horsify:VolumeControl.LayoutTransform>
                     <RotateTransform Angle="-90"/>
@@ -27,10 +27,17 @@
                         <prism:InvokeCommandAction Command="{Binding ChangeVolumeCommand}" CommandParameter="+"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                
+
             </horsify:VolumeControl>
-            <!--<usercontrols:ucVolumeControl Margin="5"/>-->
-            
+
+            <TextBlock Text="{Binding CurrentVolume}"                       
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"                                              
+                       Foreground="Gold"
+                       Opacity="0.4"
+                       FontSize="18"
+                       Margin="-4"
+                       />
 
             <!--#region SCREWS-->
 
@@ -55,6 +62,7 @@
                     Width="3" Height="3"/>
 
             <!--#endregion-->
+            
         </Grid>
     </Border>
 </UserControl>

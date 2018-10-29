@@ -1,14 +1,19 @@
 ﻿using Horsesoft.Horsify.MediaPlayer.Model;
 using Horsesoft.Music.Data.Model;
+using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
 using System;
+using System.Windows;
 
 namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 {
+    /// <summary>
+    /// Commands for media control and holds shared model for playing song.
+    /// </summary>
     public class MediaControlViewModelBase : HorsifyBindableBase
     {
         protected IEventAggregator _eventAggregator;        
@@ -29,24 +34,14 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         {
             _eventAggregator = eventAggregator;
             _horsifyMediaController = horsifyMediaController;
+
             MediaControlModel = mediaControlModel;
 
-            _horsifyMediaController.OnTimeChanged += (currentTime) =>
-            {
-                if (!mediaControlModel.IsSeeking)
-                {
-                    if (MediaControlModel.IsPlaying)
-                    {
-                        MediaControlModel.CurrentSongPosition = currentTime;
-                    }                        
-                }               
-            };
-
-            _horsifyMediaController.OnMediaLoaded += (duration) =>
-            {
-                MediaControlModel.CurrentSongTime = duration;
-                //SongTotalSeconds = CurrentSongTime.TotalSeconds;
-            };
+            #region Events
+            _horsifyMediaController.OnTimeChanged += (currentTime) => { OnTimeChanged(mediaControlModel, currentTime); };
+            _horsifyMediaController.OnMediaFinished += OnMediaFinsished;
+            _horsifyMediaController.OnMediaLoaded += (duration) => { MediaControlModel.CurrentSongTime = duration; }; 
+            #endregion
 
             #region Commands
             PlayPauseCommand = new DelegateCommand(OnPlayPause);
@@ -56,16 +51,41 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             #endregion
         }
 
+        private void OnTimeChanged(MediaControl mediaControlModel, TimeSpan currentTime)
+        {
+            if (!mediaControlModel.IsSeeking)
+            {
+                if (MediaControlModel.IsPlaying)
+                {
+                    MediaControlModel.CurrentSongPosition = currentTime;
+                }
+            }
+        }
+
         protected AllJoinedTable _previousSong;
         protected int? _previousSongRating;        
 
-        private void OnStopped()
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Sends a Skip queue event.
+        /// </summary>
+        private void OnMediaFinsished()
         {
-            MediaControlModel.IsPlaying = false;
-            _horsifyMediaController.Stop();            
-            MediaControlModel.CurrentSongPosition = TimeSpan.Zero;
-            MediaControlModel.CurrentSongTimeString = $"{MediaControlModel.CurrentSongPosition.TotalSeconds}|{MediaControlModel.CurrentSongTime.TotalSeconds}";
-            Log("Media Stopped");
+            //Application.Current.Dispatcher.Invoke(() => );            
+            _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
+        }
+
+        private void OnPlayPause()
+        {
+            if (MediaControlModel.SelectedSong != null)
+            {
+                MediaControlModel.IsPlaying = _horsifyMediaController.PlayPause(MediaControlModel.IsPlaying);
+                Log($"Play/Pause IsPlaying: {MediaControlModel.IsPlaying}");
+            }
         }
 
         private void OnSeekStarted(object x)
@@ -82,17 +102,13 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             MediaControlModel.IsSeeking = false;
         }
 
-        #endregion
-
-        #region Private Methods
-
-        private void OnPlayPause()
+        private void OnStopped()
         {
-            if (MediaControlModel.SelectedSong != null)
-            {
-                MediaControlModel.IsPlaying = _horsifyMediaController.PlayPause(MediaControlModel.IsPlaying);
-                Log($"Play/Pause IsPlaying: {MediaControlModel.IsPlaying}");
-            }
+            MediaControlModel.IsPlaying = false;
+            _horsifyMediaController.Stop();
+            MediaControlModel.CurrentSongPosition = TimeSpan.Zero;
+            MediaControlModel.CurrentSongTimeString = $"{MediaControlModel.CurrentSongPosition.TotalSeconds}|{MediaControlModel.CurrentSongTime.TotalSeconds}";
+            Log("Media Stopped");
         }
         #endregion
     }

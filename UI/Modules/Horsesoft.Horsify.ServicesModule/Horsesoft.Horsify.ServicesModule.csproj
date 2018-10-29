@@ -59,6 +59,7 @@
     <Compile Include="DjHorsifyService.cs" />
     <Compile Include="Extensions\ShuffleExtensions.cs" />
     <Compile Include="HorsifyDataTableRepo.cs" />
+    <Compile Include="HorsifyMediaController.cs" />
     <Compile Include="HorsifyPlaylistService.cs" />
     <Compile Include="QueuedSongDataProvider.cs" />
     <Compile Include="SearchHistory.cs" />
@@ -123,6 +124,10 @@
     <ProjectReference Include="..\..\..\BLL\Horsesoft.Music.Engine\Horsesoft.Music.Engine.csproj">
       <Project>{afe60c4d-8b71-4b87-9361-bdb07c369c15}</Project>
       <Name>Horsesoft.Music.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BLL\Horsesoft.Vlc\Horsesoft.Vlc.csproj">
+      <Project>{5a6e059a-271f-4332-8514-85eb94a8d1c7}</Project>
+      <Name>Horsesoft.Vlc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj">
       <Project>{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}</Project>

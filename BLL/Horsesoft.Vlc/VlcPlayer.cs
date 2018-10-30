@@ -23,7 +23,7 @@ namespace Horsesoft.Vlc
         /// <param name="vlcPath"></param>
         public VlcPlayer(string vlcPath = null)
         {            
-            if (vlcPath != null)
+            if (!string.IsNullOrWhiteSpace(vlcPath))
             {
                 libDirectory = new DirectoryInfo(vlcPath);
             }
@@ -32,7 +32,7 @@ namespace Horsesoft.Vlc
                 libDirectory = new DirectoryInfo(IntPtr.Size == 4 ? VLC_X86 : VLC_X86.Replace(" (x86)", ""));
             }
 
-            CheckVlcPath(vlcPath);
+            CheckVlcPath(libDirectory.FullName);
         }
 
         #endregion

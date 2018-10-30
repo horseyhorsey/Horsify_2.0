@@ -36,7 +36,7 @@
       </Upgrade>
         
       
-		<MajorUpgrade AllowSameVersionUpgrades="yes" AllowDowngrades="yes"/>
+		<MajorUpgrade AllowSameVersionUpgrades="yes" AllowDowngrades="no" DowngradeErrorMessage="Cannot downgrade"/>
 		<MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="ProductFeature" Title="Horsify" Level="1">

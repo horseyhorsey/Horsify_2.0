@@ -58,6 +58,8 @@ after_build:
 artifacts:
     - path: '\Installer\Horsify.Installer\bin\Release\Horsify.Installer.msi'
       name: HorsifyInstaller
+    - path: '\Installer\Horsify.Installer\bin\Any CPU\Release\Horsify.Installer.msi'
+      name: HorsifyInstaller
 clone_depth: 1
 test_script:
   # restore packages for our unit tests

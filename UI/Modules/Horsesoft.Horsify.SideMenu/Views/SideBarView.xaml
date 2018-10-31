@@ -191,7 +191,6 @@
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"                          
                           IsSynchronizedWithCurrentItem="True"
-                                       
                           >
 
                     <horsify:ListViewTouch.Style>

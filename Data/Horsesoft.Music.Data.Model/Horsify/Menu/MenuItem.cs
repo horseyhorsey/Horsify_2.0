@@ -1,4 +1,5 @@
 ﻿using Horsesoft.Music.Data.Model.Horsify;
+using System.Runtime.Serialization;
 
 namespace Horsesoft.Music.Data.Model.Menu
 {
@@ -13,11 +14,9 @@ namespace Horsesoft.Music.Data.Model.Menu
         public override string Image { get; set; }
 
         public override string SearchString { get; set; }
-        
+
         public override SearchType SearchType { get; set; }
 
         public override ExtraSearchType ExtraSearchType { get; set; }        
-
-
     }
 }

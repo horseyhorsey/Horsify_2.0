@@ -2,6 +2,7 @@
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Vlc;
 using System;
+using System.IO;
 
 namespace Horsesoft.Horsify.ServicesModule
 {

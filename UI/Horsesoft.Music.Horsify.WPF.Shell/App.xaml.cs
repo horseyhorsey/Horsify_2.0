@@ -29,7 +29,9 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             System.Windows.MessageBox.Show(e.Exception.Message);
             System.Windows.MessageBox.Show(e.Exception.StackTrace);
 
-            e.Handled = true;
+            var result = System.Windows.MessageBox.Show("Shutdown Horsify?", "", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.No)
+                e.Handled = true;
         }
     }
 }

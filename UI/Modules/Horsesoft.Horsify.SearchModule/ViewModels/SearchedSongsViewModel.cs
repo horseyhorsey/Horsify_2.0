@@ -314,12 +314,14 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             if (resultCnt != 0)
             {
                 RecentSearch.ResultCount = (int)resultCnt;
-                RecentSearch.SearchTerm = filter.Filters.ElementAt(0).Filters[0];
+                RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
+                Log($"Songs found: {RecentSearch.ResultCount}");
             }
             else
             {
                 RecentSearch.ResultCount = 0;
-                RecentSearch.SearchTerm = "No songs for: " + filter.Filters.ElementAt(0).Filters[0];
+                Log("No Songs found in search");
+                RecentSearch.SearchTerm = "No songs for: " + filter.Filters?.ElementAt(0).Filters[0];
             }
 
         }

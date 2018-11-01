@@ -33,15 +33,16 @@
       <UpgradeVersion Minimum="1.0.0.0" Maximum="7.0.5.0" Property="PREVIOUSVERSIONSINSTALLED" IncludeMinimum="no" IncludeMaximum="yes" />
     </Upgrade>-->
     <Upgrade Id="22fae438-87e8-441b-830f-95915651ab75">
-      <UpgradeVersion Minimum="2.0.0.50" Maximum="3.0.0.0" IgnoreRemoveFailure="yes" Property="PREVIOUSVERSIONSINSTALLED"/>
+      <UpgradeVersion Minimum="1.0.0.50" Maximum="3.0.0.0" IgnoreRemoveFailure="yes" Property="PREVIOUSVERSIONSINSTALLED"/>
     </Upgrade>
 
 
-    <MajorUpgrade AllowSameVersionUpgrades="yes" AllowDowngrades="no" DowngradeErrorMessage="Cannot downgrade"/>
+    <MajorUpgrade AllowSameVersionUpgrades="yes" AllowDowngrades="no" DowngradeErrorMessage="Cannot downgrade" />
     <MediaTemplate EmbedCab="yes" />
 
     <Feature Id="ProductFeature" Title="Horsify" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ProductData" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="ApplicationShortcutDesktop" />
     </Feature>
@@ -62,7 +63,7 @@
         <Directory Id="DesktopFolder" Name="Desktop" />
 
         <Directory Id="CommonAppDataFolder">
-          <Directory Id="DATAFOLDER" Name="Horsify">
+          <Directory Id="DATAFOLDER" Name="Horsify" >
           </Directory>
         </Directory>
         

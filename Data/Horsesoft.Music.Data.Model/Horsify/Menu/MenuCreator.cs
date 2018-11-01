@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Horsesoft.Music.Data.Model.Horsify;
 using Newtonsoft.Json;
 
@@ -84,7 +86,10 @@ namespace Horsesoft.Music.Data.Model.Menu
             //Convert to JSON
             //string json = JsonConvert.SerializeObject(menu, Formatting.Indented, settings);
 
-            return JsonConvert.DeserializeObject<Menu>(System.IO.File.ReadAllText("genres.json"), settings);
+            var appPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            var h_progData = Path.Combine(appPath, "Horsify", "genres.json");
+
+            return JsonConvert.DeserializeObject<Menu>(System.IO.File.ReadAllText(h_progData), settings);
         }
 
         private void CreateMenus()

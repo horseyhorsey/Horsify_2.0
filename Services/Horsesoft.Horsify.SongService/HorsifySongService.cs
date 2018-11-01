@@ -100,6 +100,11 @@ namespace Horsesoft.Horsify.SongService
         {
             var sqlStr = _sqliteRepo.SearchLike(searchFilter);
 
+            if (sqlStr.EndsWith("AND "))
+            {
+                sqlStr = sqlStr.Remove(sqlStr.Length - 4, 4);
+            }
+
             if (randomAmount > 0)
                 return _sqliteRepo.ExecuteSearchLike(sqlStr, randomAmount, maxAmount);
 

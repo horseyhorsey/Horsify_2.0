@@ -207,8 +207,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 if (searchFilter == null)
                     throw new NullReferenceException("Generating search filter from Dj Horsify option failed.");
 
-                if (searchFilter?.Filters?.Count() <= 0)
-                    return;
+                //if (searchFilter?.Filters?.Count() <= 0)
+                //    return;
 
                 var navParams = new NavigationParameters();
                 navParams.Add("djhorsify_search", searchFilter);

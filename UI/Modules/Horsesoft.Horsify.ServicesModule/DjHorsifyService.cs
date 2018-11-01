@@ -85,7 +85,6 @@ namespace Horsesoft.Horsify.ServicesModule
         /// <returns></returns>
         public IEnumerable<AllJoinedTable> GetSongs(IDjHorsifyOption djHorsifyOption)
         {
-
             var searchFilter = GenerateSearchFilter(djHorsifyOption);
 
             return _horsifySongService.SearchLikeFilters(searchFilter, (short)djHorsifyOption.Amount, -1);
@@ -94,27 +93,38 @@ namespace Horsesoft.Horsify.ServicesModule
         public SearchFilter GenerateSearchFilter(IDjHorsifyOption djHorsifyOption)
         {
             IList<HorsifyFilter> horsifyFilters = new List<HorsifyFilter>();
-            foreach (var item in djHorsifyOption.SelectedFilters)
+            if (djHorsifyOption.SelectedFilters?.Count > 0)
             {
-                var filter = new HorsifyFilter()
+                foreach (var item in djHorsifyOption.SelectedFilters)
                 {
-                    FileName = item.FileName,
-                    Filters = item.Filters,
-                    Id = item.Id,
-                    SearchAndOrOption = item.SearchAndOrOption,
-                    SearchType = item.SearchType
-                };
+                    var filter = new HorsifyFilter()
+                    {
+                        FileName = item.FileName,
+                        Filters = item.Filters,
+                        Id = item.Id,
+                        SearchAndOrOption = item.SearchAndOrOption,
+                        SearchType = item.SearchType
+                    };
 
-                horsifyFilters.Add(filter);
+                    horsifyFilters.Add(filter);
+                }
+
+                return new SearchFilter()
+                {
+                    BpmRange = djHorsifyOption.BpmRange,
+                    Filters = horsifyFilters,
+                    RatingRange = djHorsifyOption.RatingRange,
+                    MusicKeys = djHorsifyOption.SelectedKeys.ToString()
+                };
             }
 
             return new SearchFilter()
             {
                 BpmRange = djHorsifyOption.BpmRange,
-                Filters = horsifyFilters,
                 RatingRange = djHorsifyOption.RatingRange,
                 MusicKeys = djHorsifyOption.SelectedKeys.ToString()
             };
+                       
         }
 
         public Task<IEnumerable<AllJoinedTable>> GetSongsAsync(IDjHorsifyOption djHorsifyOption)

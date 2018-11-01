@@ -144,7 +144,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql($"{searchTerm}")
+                .FromSql(searchTerm)
                 .OrderByDescending(x => x.Rating);
 
             return foundSongs.AsEnumerable();
@@ -167,7 +167,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql($"{searchTerm}")
+                .FromSql(searchTerm)
                 .OrderByDescending(x => x.Rating);
 
             return foundSongs.AsEnumerable();
@@ -189,7 +189,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql($"{searchTerm}")
+                .FromSql(searchTerm)
                 .OrderByDescending(x => x.Rating);
 
             return foundSongs.AsEnumerable();
@@ -201,7 +201,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql($"{searchTerm}");
+                .FromSql(searchTerm);
 
             return foundSongs.AsEnumerable();
         }
@@ -212,7 +212,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql($"{searchTerm}");
+                .FromSql(searchTerm);
 
             return foundSongs.AsEnumerable();
         }
@@ -223,7 +223,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql($"{searchTerm}");
+                .FromSql(searchTerm);
 
             return foundSongs.AsEnumerable();
         }
@@ -371,49 +371,50 @@ namespace Horsesoft.Music.Horsify.Repositories
                 - Speeds must be similar with a 1-2 BPM range
             */
             
-            //Build lookup items from included and excluded
-            var includeFilterLookUp = searchFilter.Filters
-                .ToLookup(x => x.SearchAndOrOption, x => x);
-            var cnt = includeFilterLookUp.Count();
-
-
             //Build up include and exclude string                
             string includeOrString = string.Empty, excludeString = string.Empty, includeAndString = string.Empty;
-            foreach (var filter in includeFilterLookUp)
+
+            //Build lookup items from included and excluded
+            var includeFilterLookUp = searchFilter.Filters?
+                .ToLookup(x => x.SearchAndOrOption, x => x);
+            if (includeFilterLookUp != null)
             {
-                //var includedFilters = filter.Where(x => x.SearchAndOrOption == SearchAndOrOption.Include)
-                //    .SelectMany(x => x.Filters).ToList();
-                //var excludedFilters = filter.Where(x => x.SearchAndOrOption == SearchAndOrOption.Exclude) 
-                //    .SelectMany(x => x.Filters).ToList();                
-                
-                if (filter.Key == SearchAndOrOption.Or || filter.Key == SearchAndOrOption.None)
+                foreach (var filter in includeFilterLookUp)
                 {
-                    foreach (var filterItem in filter)
-                    {
-                        includeOrString += SearchLike(filterItem.SearchType, filterItem.Filters.Aggregate((curr, next) => $"{curr}|{next}"));
-                    }
-                    includeOrString = includeOrString.Replace($")  (", " OR ");
-                }
-                else if (filter.Key == SearchAndOrOption.And)
-                {
-                    foreach (var filterItem in filter)
-                    {
-                        includeAndString += SearchLike(filterItem.SearchType, filterItem.Filters.Aggregate((curr, next) => $"{curr}|{next}"));                                                  
-                    }
+                    //var includedFilters = filter.Where(x => x.SearchAndOrOption == SearchAndOrOption.Include)
+                    //    .SelectMany(x => x.Filters).ToList();
+                    //var excludedFilters = filter.Where(x => x.SearchAndOrOption == SearchAndOrOption.Exclude) 
+                    //    .SelectMany(x => x.Filters).ToList();                
 
-                    includeAndString = includeAndString.Replace($")  (", " OR ");
-
-                }
-                else if (filter.Key == SearchAndOrOption.Not)
-                {
-                    foreach (var filterItem in filter)
+                    if (filter.Key == SearchAndOrOption.Or || filter.Key == SearchAndOrOption.None)
                     {
-                        excludeString += SearchLike(filterItem.SearchType, filterItem.Filters.Aggregate((curr, next) => $"{curr}|{next}"));
+                        foreach (var filterItem in filter)
+                        {
+                            includeOrString += SearchLike(filterItem.SearchType, filterItem.Filters.Aggregate((curr, next) => $"{curr}|{next}"));
+                        }
+                        includeOrString = includeOrString.Replace($")  (", " OR ");
                     }
-                    excludeString = excludeString.Replace($")  (", " AND ")
-                        .Replace("LIKE", "NOT LIKE")
-                        .Replace("OR", "AND");
-                }
+                    else if (filter.Key == SearchAndOrOption.And)
+                    {
+                        foreach (var filterItem in filter)
+                        {
+                            includeAndString += SearchLike(filterItem.SearchType, filterItem.Filters.Aggregate((curr, next) => $"{curr}|{next}"));
+                        }
+
+                        includeAndString = includeAndString.Replace($")  (", " OR ");
+
+                    }
+                    else if (filter.Key == SearchAndOrOption.Not)
+                    {
+                        foreach (var filterItem in filter)
+                        {
+                            excludeString += SearchLike(filterItem.SearchType, filterItem.Filters.Aggregate((curr, next) => $"{curr}|{next}"));
+                        }
+                        excludeString = excludeString.Replace($")  (", " AND ")
+                            .Replace("LIKE", "NOT LIKE")
+                            .Replace("OR", "AND");
+                    }
+                }            
             }
 
             //OR

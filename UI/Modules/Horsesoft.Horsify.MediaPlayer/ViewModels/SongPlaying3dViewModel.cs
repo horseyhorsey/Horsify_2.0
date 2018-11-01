@@ -7,10 +7,10 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 {
     public class SongPlaying3dViewModel : MediaControlViewModelBase
     {
-        private ISongPlayingInfo _songPlayingInfo;
 
         #region Constructors
-        public SongPlaying3dViewModel(ILoggerFacade loggerFacade, IHorsifyMediaController horsifyMediaController, IEventAggregator eventAggregator, MediaControl mediaControl) : base(loggerFacade, horsifyMediaController, eventAggregator, mediaControl)
+        public SongPlaying3dViewModel(ILoggerFacade loggerFacade, IHorsifyMediaController horsifyMediaController, IEventAggregator eventAggregator, MediaControl mediaControl) 
+            : base(loggerFacade, horsifyMediaController, eventAggregator, mediaControl)
         {
         } 
         #endregion

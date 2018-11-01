@@ -144,7 +144,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql(searchTerm)
+                .FromSql($"{searchTerm}")
                 .OrderByDescending(x => x.Rating);
 
             return foundSongs.AsEnumerable();
@@ -167,7 +167,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql(searchTerm)
+                .FromSql($"{searchTerm}")
                 .OrderByDescending(x => x.Rating);
 
             return foundSongs.AsEnumerable();
@@ -189,7 +189,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql(searchTerm)
+                .FromSql($"{searchTerm}")
                 .OrderByDescending(x => x.Rating);
 
             return foundSongs.AsEnumerable();
@@ -201,7 +201,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql(searchTerm);
+                .FromSql($"{searchTerm}");
 
             return foundSongs.AsEnumerable();
         }
@@ -212,7 +212,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql(searchTerm);
+                .FromSql($"{searchTerm}");
 
             return foundSongs.AsEnumerable();
         }
@@ -223,7 +223,7 @@ namespace Horsesoft.Music.Horsify.Repositories
 
             var foundSongs = ((HorsifyContext)_context)
                 .AllJoinedTables
-                .FromSql(searchTerm);
+                .FromSql($"{searchTerm}");
 
             return foundSongs.AsEnumerable();
         }
@@ -493,20 +493,22 @@ namespace Horsesoft.Music.Horsify.Repositories
 
         public void UpdateDbSongTag(SongTagFile songTag, int fileId)
         {
-            Song song = new Song();
-            song.FileId = fileId;
-            //Update standrad fields
-            song.AddedDate = ConvertUnixTime(DateTime.Now).ToString();
-            song.BitRate = songTag.BitRate;
-            song.Bpm = songTag.Bpm;
-            song.Comment = songTag.Comment;
-            song.Country = songTag.Country;
-            song.ImageLocation = songTag.ImageLocation;
-            song.Rating = (int)songTag.Rating;
-            song.Title = songTag.Title;
-            song.Time = songTag.Duration;
-            song.Track = songTag.TrackNumber;
-            song.Year = songTag.Year;
+            Song song = new Song
+            {
+                FileId = fileId,
+                //Update standrad fields
+                AddedDate = ConvertUnixTime(DateTime.Now).ToString(),
+                BitRate = songTag.BitRate,
+                Bpm = songTag.Bpm,
+                Comment = songTag.Comment,
+                Country = songTag.Country,
+                ImageLocation = songTag.ImageLocation,
+                Rating = (int)songTag.Rating,
+                Title = songTag.Title,
+                Time = songTag.Duration,
+                Track = songTag.TrackNumber,
+                Year = songTag.Year
+            };
 
             UpdateExtraTables(songTag, song);
 

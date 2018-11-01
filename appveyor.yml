@@ -39,8 +39,8 @@ cache:
   - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
   
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
+  - x64
   - x86
-  - Any CPU
 
 # to add several platforms to build matrix:
 #platform:
@@ -56,10 +56,10 @@ build_script:
 after_build:
   # For once the build has completed
 artifacts:
-    - path: '\Installer\Horsify.Installer\bin\Release\Horsify.Installer.msi'
-      name: HorsifyInstaller
-    - path: '\Installer\Horsify.Installer\bin\Any CPU\Release\Horsify.Installer.msi'
-      name: HorsifyInstaller
+    - path: '\Installer\Horsify.Installer\bin\x64\Release\Horsify.Installer.msi'
+      name: HorsifyInstallerX64
+    - path: '\Installer\Horsify.Installer\bin\x86\Release\Horsify.Installer.msi'
+      name: HorsifyInstallerX86
 clone_depth: 1
 test_script:
   # restore packages for our unit tests

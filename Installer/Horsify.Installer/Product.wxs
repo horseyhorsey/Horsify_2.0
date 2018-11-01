@@ -1,434 +1,449 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-
-  <?if $(var.Platform) = x64 ?>
-  <?define bitness = "(64 bit)" ?>
-  <?define Win64 = "yes" ?>
-  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
-  <?else ?>
-  <?define bitness = "(32 bit)" ?>
-  <?define Win64 = "no" ?>
-  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
-  <?endif ?>
-
-  <?define Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir=$(var.Horsesoft.Music.Horsify.Importer.UI.WPF.TargetDir)?>
-  <?define Horsesoft.Music.Horsify.Service_TargetDir=$(var.Horsesoft.Music.Horsify.Service.TargetDir)?>
-  <?define Horsesoft.Horsify.SongService_TargetDir=$(var.Horsesoft.Horsify.SongService.TargetDir)?>
-  <?define Horsesoft.Horsify.Resource_TargetDir=$(var.Horsesoft.Horsify.Resource.TargetDir)?>
-  <?define Horsesoft.Music.Horsify.Base_TargetDir=$(var.Horsesoft.Music.Horsify.Base.TargetDir)?>
-  <?define Horsesoft.Music.Data.Model_TargetDir=$(var.Horsesoft.Music.Data.Model.TargetDir)?>
-  <?define Horsesoft.Music.Engine_TargetDir=$(var.Horsesoft.Music.Engine.TargetDir)?>
-  <?define Horsesoft.Horsify.DjHorsify_TargetDir=$(var.Horsesoft.Horsify.DjHorsify.TargetDir)?>
-  <?define Horsesoft.Music.Horsify.WPF.Shell_TargetDir=$(var.Horsesoft.Music.Horsify.WPF.Shell.TargetDir)?>
-
-  <Product Id="FE9F9586-5146-462C-8408-41EA49BECC4C" Name="Horsify $(var.bitness)"
-           Language="1033" Version="2.0.0.63" Manufacturer="Horsesoft"
-           UpgradeCode="22fae438-87e8-441b-830f-95915651ab75">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-
-    <UIRef Id="WixUI_Minimal" />
-    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\license.rtf" />
-    <!--<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <?if $(var.Platform) = x64 ?>
+    <?define bitness = "(64 bit)" ?>
+    <?define Win64 = "yes" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?else ?>
+    <?define bitness = "(32 bit)" ?>
+    <?define Win64 = "no" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?endif ?>
+    <?define Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir=$(var.Horsesoft.Music.Horsify.Importer.UI.WPF.TargetDir)?>
+    <?define Horsesoft.Music.Horsify.Service_TargetDir=$(var.Horsesoft.Music.Horsify.Service.TargetDir)?>
+    <?define Horsesoft.Horsify.SongService_TargetDir=$(var.Horsesoft.Horsify.SongService.TargetDir)?>
+    <?define Horsesoft.Horsify.Resource_TargetDir=$(var.Horsesoft.Horsify.Resource.TargetDir)?>
+    <?define Horsesoft.Music.Horsify.Base_TargetDir=$(var.Horsesoft.Music.Horsify.Base.TargetDir)?>
+    <?define Horsesoft.Music.Data.Model_TargetDir=$(var.Horsesoft.Music.Data.Model.TargetDir)?>
+    <?define Horsesoft.Music.Engine_TargetDir=$(var.Horsesoft.Music.Engine.TargetDir)?>
+    <?define Horsesoft.Horsify.DjHorsify_TargetDir=$(var.Horsesoft.Horsify.DjHorsify.TargetDir)?>
+    <?define Horsesoft.Music.Horsify.WPF.Shell_TargetDir=$(var.Horsesoft.Music.Horsify.WPF.Shell.TargetDir)?>
+    <Product Id="FE9F9586-5146-462C-8408-41EA49BECC4C" Name="Horsify $(var.bitness)" Language="1033" Version="2.0.0.70" Manufacturer="Horsesoft" UpgradeCode="22fae438-87e8-441b-830f-95915651ab75">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+        <UIRef Id="WixUI_Mondo" />
+        <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\license.rtf" />
+        <!--<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
     <Upgrade Id="22fae438-87e8-441b-830f-95915651ab75">
       <UpgradeVersion Minimum="1.0.0.0" Maximum="7.0.5.0" Property="PREVIOUSVERSIONSINSTALLED" IncludeMinimum="no" IncludeMaximum="yes" />
     </Upgrade>-->
-    <Upgrade Id="22fae438-87e8-441b-830f-95915651ab75">
-      <UpgradeVersion Minimum="1.0.0.50" Maximum="3.0.0.0" IgnoreRemoveFailure="yes" Property="PREVIOUSVERSIONSINSTALLED"/>
-    </Upgrade>
-
-
-    <MajorUpgrade AllowSameVersionUpgrades="yes" AllowDowngrades="no" DowngradeErrorMessage="Cannot downgrade" />
-    <MediaTemplate EmbedCab="yes" />
-
-    <Feature Id="ProductFeature" Title="Horsify" Level="1">
-      <ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="ProductData" />
-      <ComponentRef Id="ApplicationShortcut" />
-      <ComponentRef Id="ApplicationShortcutDesktop" />
-    </Feature>
-  </Product>
-
-  <Fragment>
-    <Directory Id="TARGETDIR" Name="SourceDir">
-
-      <Directory Id="$(var.PlatformProgramFilesFolder)">
-        <Directory Id="INSTALLFOLDER" Name="Horsify">
-          <Directory Id="SQL" Name="SQL" />
+        <Upgrade Id="22fae438-87e8-441b-830f-95915651ab75">
+            <UpgradeVersion Minimum="1.0.0.50" Maximum="3.0.0.0" IgnoreRemoveFailure="yes" Property="PREVIOUSVERSIONSINSTALLED" />
+        </Upgrade>
+        <MajorUpgrade AllowSameVersionUpgrades="yes" AllowDowngrades="no" DowngradeErrorMessage="Cannot downgrade" />
+        <MediaTemplate EmbedCab="yes" />
+        <Feature Id="ProductFeature" Title="Horsify" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+            <ComponentGroupRef Id="ProductData" />
+            <ComponentRef Id="ApplicationShortcut" />
+            <ComponentRef Id="ApplicationShortcutDesktop" />
+            <ComponentRef Id="Microsoft.Data.Sqlite.dll" />
+            <ComponentRef Id="SQLitePCLRaw.batteries_green.dll" />
+            <ComponentRef Id="SQLitePCLRaw.provider.e_sqlite3.dll" />
+            <ComponentRef Id="SQLitePCLRaw.batteries_v2.dll" />
+            <ComponentRef Id="e_sqlite3.dll" />
+            <ComponentRef Id="GongSolutions.Wpf.DragDrop.dll" />
+            <ComponentRef Id="Horsesoft.Music.Horsify.Service.exe" />
+            <ComponentRef Id="Horsesoft.Music.Horsify.Service.exe.config" />
+            <ComponentRef Id="Horsesoft.Horsify.SongService.dll" />
+            <ComponentRef Id="Newtonsoft.Json.dll" />
+            <ComponentRef Id="Horsify_Importer.exe" />
+            <ComponentRef Id="Horsify_Importer.exe.config" />
+            <ComponentRef Id="taglib_sharp.dll" />
+            <ComponentRef Id="Horsesoft.Music.Engine.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.Resource.dll" />
+            <ComponentRef Id="Microsoft.Expression.Interactions.dll" />
+            <ComponentRef Id="Horsify_Jukebox.exe" />
+            <ComponentRef Id="Horsify_Jukebox.exe.config" />
+            <ComponentRef Id="Prism.Unity.Wpf.dll" />
+            <ComponentRef Id="netstandard.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.ServicesModule.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.DjHorsify.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.MediaPlayer.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.PlaylistsModule.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.QueueModule.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.SearchModule.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.SettingsModule.dll" />
+            <ComponentRef Id="Horsesoft.Horsify.SideMenu.dll" />
+            <ComponentRef Id="Horsesoft.Music.Data.Model.dll" />
+            <ComponentRef Id="Horsesoft.Music.Data.Sqlite.dll" />
+            <ComponentRef Id="Horsesoft.Music.Horsify.Base.dll" />
+            <ComponentRef Id="Horsesoft.Music.Horsify.Repositories.dll" />
+            <ComponentRef Id="Horsesoft.Vlc.dll" />
+            <ComponentRef Id="Horsesoft.Wpf.Controls.Audio.dll" />
+            <ComponentRef Id="Id3.dll" />
+            <ComponentRef Id="Microsoft.EntityFrameworkCore.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.EntityFrameworkCore.dll" />
+            <ComponentRef Id="Microsoft.EntityFrameworkCore.Relational.dll" />
+            <ComponentRef Id="Microsoft.EntityFrameworkCore.Sqlite.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Caching.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Caching.Memory.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Configuration.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Configuration.Binder.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Configuration.dll" />
+            <ComponentRef Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.DependencyInjection.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.Abstractions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.Configuration.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.Console.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Logging.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Options.dll" />
+            <ComponentRef Id="Microsoft.Extensions.Primitives.dll" />
+            <ComponentRef Id="Microsoft.Practices.ServiceLocation.dll" />
+            <ComponentRef Id="Microsoft.Practices.Unity.dll" />
+            <ComponentRef Id="Prism.dll" />
+            <ComponentRef Id="Prism.Wpf.dll" />
+            <ComponentRef Id="Remotion.Linq.dll" />
+            <ComponentRef Id="Serilog.dll" />
+            <ComponentRef Id="Serilog.Extensions.Logging.dll" />
+            <ComponentRef Id="Serilog.Extensions.Logging.File.dll" />
+            <ComponentRef Id="Serilog.Formatting.Compact.dll" />
+            <ComponentRef Id="Serilog.Sinks.Async.dll" />
+            <ComponentRef Id="Serilog.Sinks.File.dll" />
+            <ComponentRef Id="Serilog.Sinks.RollingFile.dll" />
+            <ComponentRef Id="SQLitePCLRaw.core.dll" />
+            <ComponentRef Id="System.Buffers.dll" />
+            <ComponentRef Id="System.Collections.Immutable.dll" />
+            <ComponentRef Id="System.ComponentModel.Annotations.dll" />
+            <ComponentRef Id="System.Data.Common.dll" />
+            <ComponentRef Id="System.Diagnostics.DiagnosticSource.dll" />
+            <ComponentRef Id="System.Interactive.Async.dll" />
+            <ComponentRef Id="System.Memory.dll" />
+            <ComponentRef Id="System.Net.Http.dll" />
+            <ComponentRef Id="System.Net.Sockets.dll" />
+            <ComponentRef Id="System.Numerics.Vectors.dll" />
+            <ComponentRef Id="System.Runtime.CompilerServices.Unsafe.dll" />
+            <ComponentRef Id="System.Windows.Interactivity.dll" />
+            <ComponentRef Id="Vlc.DotNet.Core.dll" />
+            <ComponentRef Id="Vlc.DotNet.Core.Interops.dll" />
+            <ComponentRef Id="genres.json" />
+        </Feature>
+      
+      
+      <!--TODO: UI Ask user to install menu images-->
+        <!--<UI>
+            <Dialog Id="InstallOptions" Width="370" Height="270">
+                <Control Type="CheckBox" Id="Chk_menuImages" Width="174" Height="17" X="135" Y="109" Text="Install menu images?" ToolTip="Overwrites images in C:\ProgramData\Horsify\Menus" CheckBoxValue="MenuImages" Property="InstallMenuImages" />
+                <Control Type="PushButton" Id="Continue" Width="56" Height="17" X="292" Y="236" Text="Install" />
+            </Dialog>
+            <InstallUISequence>
+                <Show Dialog="InstallOptions" After="CostFinalize" />
+            </InstallUISequence>
+        </UI>
+        <Property Id="InstallMenuImages" Value="False" />-->
+      
+      
+    </Product>
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="$(var.PlatformProgramFilesFolder)">
+                <Directory Id="INSTALLFOLDER" Name="Horsify">
+                    <Directory Id="SQL" Name="SQL" />
+                </Directory>
+                <Directory Id="ProgramMenuFolder">
+                    <Directory Id="ApplicationProgramsFolder" Name="Horsify" />
+                </Directory>
+                <Directory Id="DesktopFolder" Name="Desktop" />
+                <Directory Id="CommonAppDataFolder">
+                    <Directory Id="DATAFOLDER" Name="Horsify">
+                    </Directory>
+                </Directory>
+            </Directory>
         </Directory>
-
-        <Directory Id="ProgramMenuFolder">
-          <Directory Id="ApplicationProgramsFolder" Name="Horsify" />
-        </Directory>
-
-        <Directory Id="DesktopFolder" Name="Desktop" />
-
-        <Directory Id="CommonAppDataFolder">
-          <Directory Id="DATAFOLDER" Name="Horsify" >
-          </Directory>
-        </Directory>
-        
-      </Directory>
-    </Directory>
-  </Fragment>
-
-
-   <!--APP and Desktop shortcuts-->
-  <Fragment>
-    <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Win64="$(var.Win64)" Id="ApplicationShortcut" Guid="6678A5C1-C39F-4166-8838-5C285F6087B6">
-        <Shortcut Id="ApplicationStartMenuShortcut" Name="Horsify Jukebox" Description="Plays Horsify songs" Target="[INSTALLFOLDER]Horsify Jukebox.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
-        <Shortcut Id="ApplicationImporterStartMenuShortcut" Name="Horsify Importer" Description="Imports songs into Horsify Database" Target="[INSTALLFOLDER]Horsify Importer.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
-        <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\Horsesoft\Horsify" Name="installed" Type="integer" Value="1" KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id="DesktopFolder">
-      <Component Win64="$(var.Win64)" Id="ApplicationShortcutDesktop" Guid="AF06F346-4257-4657-AF93-1DC38EB89DF3">
-        <Shortcut Id="ApplicationDesktopShortcut" Name="Horsify Jukebox" Description="Plays Horsify songs" Target="[INSTALLFOLDER]Horsify Jukebox.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
-        <Shortcut Id="ImporterDesktopShortcut" Name="Horsify Importer" Description="Imports songs into Horsify" Target="[INSTALLFOLDER]Horsify Importer.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
-        <RemoveFolder Id="RemoveDesktopFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\Horsesoft\Horsify" Name="installed" Type="integer" Value="1" KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-
-  </Fragment>
-
-
-  <Fragment>
-    
-    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-
-      <!--SQLITE-->
-      <Component Win64="$(var.Win64)" Id="Microsoft.Data.Sqlite.dll" Guid="a5f9e2fc-602a-447e-943d-be939eec30ae">
-        <File Id="Microsoft.Data.Sqlite.dll" Name="Microsoft.Data.Sqlite.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Microsoft.Data.Sqlite.dll" />
-      </Component>
-      
-      
-      
-      <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.batteries_green.dll" Guid="278bb366-65fb-404e-b0a1-16a5cf3260ff">
-        <File Id="SQLitePCLRaw.batteries_green.dll" Name="SQLitePCLRaw.batteries_green.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.batteries_green.dll" />
-      </Component>
-
-      <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.provider.e_sqlite3.dll" Guid="5775cb58-7121-494c-9cfe-8494fa533c1c">
-        <File Id="SQLitePCLRaw.provider.e_sqlite3.dll" Name="SQLitePCLRaw.provider.e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.provider.e_sqlite3.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.batteries_v2.dll" Guid="068a3a0c-a542-4907-b9ef-c445b55010b3">
-        <File Id="SQLitePCLRaw.batteries_v2.dll" Name="SQLitePCLRaw.batteries_v2.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.batteries_v2.dll" />
-      </Component>
-      <!--E_SQLLITE3 Dll-->
-      <Component Win64="$(var.Win64)" Id="e_sqlite3.dll" Guid="cfd8257f-b3ef-4bcb-b130-20dd5541918d">
-        <File Id="e_sqlite3.dll" Name="e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)/x86/e_sqlite3.dll" />
-      </Component>
-
-      <!--DRAG / DROP-->
-      <Component Win64="$(var.Win64)" Id="GongSolutions.Wpf.DragDrop.dll" Guid="20DABD3B-BE0E-4709-9C81-C3A83C96D651">
-        <File Id="GongSolutions.Wpf.DragDrop.dll" Name="GongSolutions.Wpf.DragDrop.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GongSolutions.Wpf.DragDrop.dll" />
-      </Component>
-
-      <!--INSTALL WINDOWS SERVICE-->
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Service.exe" Guid="de8dc4e2-878d-4a40-a8d3-eb7d5f62579c">
-        <File Id="Horsesoft.Music.Horsify.Service.exe" Name="Horsesoft.Music.Horsify.Service.exe" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Horsify.Service.exe" DiskId="1" KeyPath="yes" />
-        <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song Service" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal">
-        </ServiceInstall>
-        <ServiceControl Id="HorsifyService" Start="install" Stop="both" Remove="both" Name="HorsifyService" Wait="no" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Service.exe.config" Guid="cfd8257f-b3ef-4bcb-b130-203655419187">
-        <File Id="Horsesoft.Music.Horsify.Service.exe.config" Name="Horsesoft.Music.Horsify.Service.exe.config" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Horsify.Service.exe.config" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SongService.dll" Guid="b44839d0-1cb9-4dbf-87a2-f13ab9416c87">
-        <File Id="Horsesoft.Horsify.SongService.dll" Name="Horsesoft.Horsify.SongService.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Horsesoft.Horsify.SongService.dll" />
-      </Component>
-
-      
-      <Component Win64="$(var.Win64)" Id="Newtonsoft.Json.dll" Guid="9B1184AD-579D-4981-8CFA-CC7D6A17DC9E">
-        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" 
-              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Newtonsoft.Json.dll" />
-      </Component>
-
-      <!--BINARIES-->
-      <Component Win64="$(var.Win64)" Id="Horsify_Importer.exe" Guid="ca14b8e0-1f29-4c1a-a2fd-e96061610be3">
-        <File Id="Horsify_Importer.exe" Name="Horsify Importer.exe" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsify Importer.exe" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsify_Importer.exe.config" Guid="fd9b983e-9850-4a1e-b5a1-31eb70cd7916">
-        <File Id="Horsify_Importer.exe.config" Name="Horsify Importer.exe.config" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsify Importer.exe.config" />
-      </Component>
-
-      <Component Win64="$(var.Win64)" Id="taglib_sharp.dll" Guid="f5363431-6fd5-479e-8194-5811d38c4d33">
-        <File Id="taglib_sharp.dll" Name="taglib-sharp.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)taglib-sharp.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Engine.dll" Guid="922e417e-a9b7-4478-be93-afd744967555">
-        <File Id="Horsesoft.Music.Engine.dll" Name="Horsesoft.Music.Engine.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)Horsesoft.Music.Engine.dll" />
-      </Component>
-
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Resource.dll" Guid="a60af8d5-acce-4b37-afa2-82e7e25d5baa">
-        <File Id="Horsesoft.Horsify.Resource.dll" Name="Horsesoft.Horsify.Resource.dll" Source="$(var.Horsesoft.Horsify.Resource_TargetDir)Horsesoft.Horsify.Resource.dll" />
-      </Component>
-      
-      <Component Win64="$(var.Win64)" Id="Microsoft.Expression.Interactions.dll" Guid="c7b4cd65-ca47-4112-aded-a54aee344187">
-        <File Id="Microsoft.Expression.Interactions.dll" Name="Microsoft.Expression.Interactions.dll"
-              Source="$(var.Horsesoft.Horsify.Resource_TargetDir)Microsoft.Expression.Interactions.dll" />
-      </Component>
-      
-      <Component Win64="$(var.Win64)" Id="Horsify_Jukebox.exe" Guid="57681a7e-51d9-4f5d-95e6-eeb839ab890c">
-        <File Id="Horsify_Jukebox.exe" Name="Horsify Jukebox.exe" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsify Jukebox.exe" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsify_Jukebox.exe.config" Guid="f2462c37-a887-4f2f-9497-d2ed306ab221">
-        <File Id="Horsify_Jukebox.exe.config" Name="Horsify Jukebox.exe.config" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsify Jukebox.exe.config" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Prism.Unity.Wpf.dll" Guid="87063f58-0a91-4381-938f-d13d77ac6966">
-        <File Id="Prism.Unity.Wpf.dll" Name="Prism.Unity.Wpf.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Prism.Unity.Wpf.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="netstandard.dll" Guid="3d6a1cc5-58da-42ed-86ff-36c53771024f">
-        <File Id="netstandard.dll" Name="netstandard.dll" Source="$(var.Horsesoft.Horsify.Resource_TargetDir)netstandard.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.ServicesModule.dll" Guid="43305924-2459-4912-9a8d-4c007e704279">
-        <File Id="Horsesoft.Horsify.ServicesModule.dll" Name="Horsesoft.Horsify.ServicesModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.ServicesModule.dll" />
-      </Component>
-
-
-
-
-
-      <!--HORSIFY MODULES-->
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.DjHorsify.dll" Guid="80d08ac5-72e9-4eea-9f22-e279be52965e">
-        <File Id="Horsesoft.Horsify.DjHorsify.dll" Name="Horsesoft.Horsify.DjHorsify.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.DjHorsify.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.MediaPlayer.dll" Guid="b9736da0-dfd8-4522-a69e-4cfb43304a5a">
-        <File Id="Horsesoft.Horsify.MediaPlayer.dll" Name="Horsesoft.Horsify.MediaPlayer.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.MediaPlayer.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.PlaylistsModule.dll" Guid="60FFBD6A-C07D-4FA2-8252-8E5FB911279F">
-        <File Id="Horsesoft.Horsify.PlaylistsModule.dll" Name="Horsesoft.Horsify.PlaylistsModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.PlaylistsModule.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.QueueModule.dll" Guid="2271a659-eadd-4a8e-992d-024861788836">
-        <File Id="Horsesoft.Horsify.QueueModule.dll" Name="Horsesoft.Horsify.QueueModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.QueueModule.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SearchModule.dll" Guid="0ca7349b-ea82-4d83-aac6-ab2d50f49411">
-        <File Id="Horsesoft.Horsify.SearchModule.dll" Name="Horsesoft.Horsify.SearchModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SearchModule.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SettingsModule.dll" Guid="a55a6169-b473-4490-91f9-77866f3f6a63">
-        <File Id="Horsesoft.Horsify.SettingsModule.dll" Name="Horsesoft.Horsify.SettingsModule.dll" 
-              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SettingsModule.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SideMenu.dll" Guid="a62b49c2-25d6-43ef-94d4-d5ed45d9a1d8">
-        <File Id="Horsesoft.Horsify.SideMenu.dll" Name="Horsesoft.Horsify.SideMenu.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SideMenu.dll" />
-      </Component>            
-      <!--<Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Statistics.dll" Guid="4d409cc4-fcd7-431f-be20-d494af7ba103">
+    </Fragment>
+    <!--APP and Desktop shortcuts-->
+    <Fragment>
+        <DirectoryRef Id="ApplicationProgramsFolder">
+            <Component Win64="$(var.Win64)" Id="ApplicationShortcut" Guid="6678A5C1-C39F-4166-8838-5C285F6087B6">
+                <Shortcut Id="ApplicationStartMenuShortcut" Name="Horsify Jukebox" Description="Plays Horsify songs" Target="[INSTALLFOLDER]Horsify Jukebox.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+                <Shortcut Id="ApplicationImporterStartMenuShortcut" Name="Horsify Importer" Description="Imports songs into Horsify Database" Target="[INSTALLFOLDER]Horsify Importer.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+                <RemoveFolder Id="RemoveApplicationProgramsFolder" On="uninstall" />
+                <RegistryValue Root="HKCU" Key="Software\Horsesoft\Horsify" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="DesktopFolder">
+            <Component Win64="$(var.Win64)" Id="ApplicationShortcutDesktop" Guid="AF06F346-4257-4657-AF93-1DC38EB89DF3">
+                <Shortcut Id="ApplicationDesktopShortcut" Name="Horsify Jukebox" Description="Plays Horsify songs" Target="[INSTALLFOLDER]Horsify Jukebox.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+                <Shortcut Id="ImporterDesktopShortcut" Name="Horsify Importer" Description="Imports songs into Horsify" Target="[INSTALLFOLDER]Horsify Importer.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" />
+                <RemoveFolder Id="RemoveDesktopFolder" On="uninstall" />
+                <RegistryValue Root="HKCU" Key="Software\Horsesoft\Horsify" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <!--SQLITE-->
+            <Component Win64="$(var.Win64)" Id="Microsoft.Data.Sqlite.dll" Guid="a5f9e2fc-602a-447e-943d-be939eec30ae">
+                <File Id="Microsoft.Data.Sqlite.dll" Name="Microsoft.Data.Sqlite.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Microsoft.Data.Sqlite.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.batteries_green.dll" Guid="278bb366-65fb-404e-b0a1-16a5cf3260ff">
+                <File Id="SQLitePCLRaw.batteries_green.dll" Name="SQLitePCLRaw.batteries_green.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.batteries_green.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.provider.e_sqlite3.dll" Guid="5775cb58-7121-494c-9cfe-8494fa533c1c">
+                <File Id="SQLitePCLRaw.provider.e_sqlite3.dll" Name="SQLitePCLRaw.provider.e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.provider.e_sqlite3.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.batteries_v2.dll" Guid="068a3a0c-a542-4907-b9ef-c445b55010b3">
+                <File Id="SQLitePCLRaw.batteries_v2.dll" Name="SQLitePCLRaw.batteries_v2.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.batteries_v2.dll" />
+            </Component>
+            <!--E_SQLLITE3 Dll-->
+            <Component Win64="$(var.Win64)" Id="e_sqlite3.dll" Guid="cfd8257f-b3ef-4bcb-b130-20dd5541918d">
+                <File Id="e_sqlite3.dll" Name="e_sqlite3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)/x86/e_sqlite3.dll" />
+            </Component>
+            <!--DRAG / DROP-->
+            <Component Win64="$(var.Win64)" Id="GongSolutions.Wpf.DragDrop.dll" Guid="20DABD3B-BE0E-4709-9C81-C3A83C96D651">
+                <File Id="GongSolutions.Wpf.DragDrop.dll" Name="GongSolutions.Wpf.DragDrop.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)GongSolutions.Wpf.DragDrop.dll" />
+            </Component>
+            <!--INSTALL WINDOWS SERVICE-->
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Service.exe" Guid="de8dc4e2-878d-4a40-a8d3-eb7d5f62579c">
+                <File Id="Horsesoft.Music.Horsify.Service.exe" Name="Horsesoft.Music.Horsify.Service.exe" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Horsify.Service.exe" DiskId="1" KeyPath="yes" />
+                <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song Service" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal">
+                </ServiceInstall>
+                <ServiceControl Id="HorsifyService" Start="install" Stop="both" Remove="both" Name="HorsifyService" Wait="no" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Service.exe.config" Guid="cfd8257f-b3ef-4bcb-b130-203655419187">
+                <File Id="Horsesoft.Music.Horsify.Service.exe.config" Name="Horsesoft.Music.Horsify.Service.exe.config" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Horsify.Service.exe.config" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SongService.dll" Guid="b44839d0-1cb9-4dbf-87a2-f13ab9416c87">
+                <File Id="Horsesoft.Horsify.SongService.dll" Name="Horsesoft.Horsify.SongService.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Horsesoft.Horsify.SongService.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Newtonsoft.Json.dll" Guid="9B1184AD-579D-4981-8CFA-CC7D6A17DC9E">
+                <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Newtonsoft.Json.dll" />
+            </Component>
+            <!--BINARIES-->
+            <Component Win64="$(var.Win64)" Id="Horsify_Importer.exe" Guid="ca14b8e0-1f29-4c1a-a2fd-e96061610be3">
+                <File Id="Horsify_Importer.exe" Name="Horsify Importer.exe" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsify Importer.exe" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsify_Importer.exe.config" Guid="fd9b983e-9850-4a1e-b5a1-31eb70cd7916">
+                <File Id="Horsify_Importer.exe.config" Name="Horsify Importer.exe.config" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsify Importer.exe.config" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="taglib_sharp.dll" Guid="f5363431-6fd5-479e-8194-5811d38c4d33">
+                <File Id="taglib_sharp.dll" Name="taglib-sharp.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)taglib-sharp.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Engine.dll" Guid="922e417e-a9b7-4478-be93-afd744967555">
+                <File Id="Horsesoft.Music.Engine.dll" Name="Horsesoft.Music.Engine.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)Horsesoft.Music.Engine.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Resource.dll" Guid="a60af8d5-acce-4b37-afa2-82e7e25d5baa">
+                <File Id="Horsesoft.Horsify.Resource.dll" Name="Horsesoft.Horsify.Resource.dll" Source="$(var.Horsesoft.Horsify.Resource_TargetDir)Horsesoft.Horsify.Resource.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Expression.Interactions.dll" Guid="c7b4cd65-ca47-4112-aded-a54aee344187">
+                <File Id="Microsoft.Expression.Interactions.dll" Name="Microsoft.Expression.Interactions.dll" Source="$(var.Horsesoft.Horsify.Resource_TargetDir)Microsoft.Expression.Interactions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsify_Jukebox.exe" Guid="57681a7e-51d9-4f5d-95e6-eeb839ab890c">
+                <File Id="Horsify_Jukebox.exe" Name="Horsify Jukebox.exe" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsify Jukebox.exe" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsify_Jukebox.exe.config" Guid="f2462c37-a887-4f2f-9497-d2ed306ab221">
+                <File Id="Horsify_Jukebox.exe.config" Name="Horsify Jukebox.exe.config" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsify Jukebox.exe.config" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Prism.Unity.Wpf.dll" Guid="87063f58-0a91-4381-938f-d13d77ac6966">
+                <File Id="Prism.Unity.Wpf.dll" Name="Prism.Unity.Wpf.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Prism.Unity.Wpf.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="netstandard.dll" Guid="3d6a1cc5-58da-42ed-86ff-36c53771024f">
+                <File Id="netstandard.dll" Name="netstandard.dll" Source="$(var.Horsesoft.Horsify.Resource_TargetDir)netstandard.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.ServicesModule.dll" Guid="43305924-2459-4912-9a8d-4c007e704279">
+                <File Id="Horsesoft.Horsify.ServicesModule.dll" Name="Horsesoft.Horsify.ServicesModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.ServicesModule.dll" />
+            </Component>
+            <!--HORSIFY MODULES-->
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.DjHorsify.dll" Guid="80d08ac5-72e9-4eea-9f22-e279be52965e">
+                <File Id="Horsesoft.Horsify.DjHorsify.dll" Name="Horsesoft.Horsify.DjHorsify.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.DjHorsify.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.MediaPlayer.dll" Guid="b9736da0-dfd8-4522-a69e-4cfb43304a5a">
+                <File Id="Horsesoft.Horsify.MediaPlayer.dll" Name="Horsesoft.Horsify.MediaPlayer.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.MediaPlayer.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.PlaylistsModule.dll" Guid="60FFBD6A-C07D-4FA2-8252-8E5FB911279F">
+                <File Id="Horsesoft.Horsify.PlaylistsModule.dll" Name="Horsesoft.Horsify.PlaylistsModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.PlaylistsModule.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.QueueModule.dll" Guid="2271a659-eadd-4a8e-992d-024861788836">
+                <File Id="Horsesoft.Horsify.QueueModule.dll" Name="Horsesoft.Horsify.QueueModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.QueueModule.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SearchModule.dll" Guid="0ca7349b-ea82-4d83-aac6-ab2d50f49411">
+                <File Id="Horsesoft.Horsify.SearchModule.dll" Name="Horsesoft.Horsify.SearchModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SearchModule.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SettingsModule.dll" Guid="a55a6169-b473-4490-91f9-77866f3f6a63">
+                <File Id="Horsesoft.Horsify.SettingsModule.dll" Name="Horsesoft.Horsify.SettingsModule.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SettingsModule.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SideMenu.dll" Guid="a62b49c2-25d6-43ef-94d4-d5ed45d9a1d8">
+                <File Id="Horsesoft.Horsify.SideMenu.dll" Name="Horsesoft.Horsify.SideMenu.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SideMenu.dll" />
+            </Component>
+            <!--<Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Statistics.dll" Guid="4d409cc4-fcd7-431f-be20-d494af7ba103">
         <File Id="Horsesoft.Horsify.Statistics.dll" Name="Horsesoft.Horsify.Statistics.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.Statistics.dll" />
       </Component>-->
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Model.dll" Guid="e8c21084-e89b-47d8-8559-57f24405e697">
-        <File Id="Horsesoft.Music.Data.Model.dll" Name="Horsesoft.Music.Data.Model.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Data.Model.dll" />
-      </Component>     
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Sqlite.dll" Guid="cfd8257f-b3ef-4bcb-b130-20365541918d">
-        <File Id="Horsesoft.Music.Data.Sqlite.dll" Name="Horsesoft.Music.Data.Sqlite.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Data.Sqlite.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Base.dll" Guid="91758d97-c5de-450f-aa26-e4c2371fd505">
-        <File Id="Horsesoft.Music.Horsify.Base.dll" Name="Horsesoft.Music.Horsify.Base.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Horsesoft.Music.Horsify.Base.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Repositories.dll" Guid="158f9ffc-0983-4264-8201-2a78b90b2d9d">
-        <File Id="Horsesoft.Music.Horsify.Repositories.dll" Name="Horsesoft.Music.Horsify.Repositories.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Vlc.dll" Guid="D413ECFC-032B-42A4-AC4D-BF398C68FA39">
-        <File Id="Horsesoft.Vlc.dll" Name="Horsesoft.Vlc.dll"
-              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Vlc.dll" />
-      </Component>
-      <!--CONTROLS-->
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Wpf.Controls.Audio.dll" Guid="7F0C883A-2E86-4396-9086-6EDFC9D03EC2">
-        <File Id="Horsesoft.Wpf.Controls.Audio.dll" Name="Horsesoft.Wpf.Controls.Audio.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Wpf.Controls.Audio.dll" />
-      </Component>
-      <!--ID3-->
-      <Component Win64="$(var.Win64)" Id="Id3.dll" Guid="6289d479-a4d5-4cc8-bb80-9fdab124e36c">
-        <File Id="Id3.dll" Name="Id3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Id3.dll" />
-      </Component>     
-      <!--EF CORE-->
-      <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.Abstractions.dll" Guid="7dd5b634-008b-4d05-9992-71c7e243039b">
-        <File Id="Microsoft.EntityFrameworkCore.Abstractions.dll" Name="Microsoft.EntityFrameworkCore.Abstractions.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Microsoft.EntityFrameworkCore.Abstractions.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.dll" Guid="92d4f269-6e46-4bc9-8ffe-f387ea9de4f1">
-        <File Id="Microsoft.EntityFrameworkCore.dll" Name="Microsoft.EntityFrameworkCore.dll"
-              Source="$(var.Horsesoft.Music.Engine_TargetDir)Microsoft.EntityFrameworkCore.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.Relational.dll" Guid="3f19e26f-5fe6-4cd3-b5b1-c1d57ec9647e">
-        <File Id="Microsoft.EntityFrameworkCore.Relational.dll" Name="Microsoft.EntityFrameworkCore.Relational.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Microsoft.EntityFrameworkCore.Relational.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.Sqlite.dll" Guid="a7cbaaef-3284-4412-8414-fb9e38a434c1">
-        <File Id="Microsoft.EntityFrameworkCore.Sqlite.dll" Name="Microsoft.EntityFrameworkCore.Sqlite.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Microsoft.EntityFrameworkCore.Sqlite.dll" />
-      </Component>      
-      <!--MS Extensions-->
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Caching.Abstractions.dll" Guid="40329762-70e5-4c3f-a548-e214748b3bd5">
-        <File Id="Microsoft.Extensions.Caching.Abstractions.dll" Name="Microsoft.Extensions.Caching.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Caching.Abstractions.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Caching.Memory.dll" Guid="2e88d0e9-948e-4a08-9667-0f52a5a4e6b7">
-        <File Id="Microsoft.Extensions.Caching.Memory.dll" Name="Microsoft.Extensions.Caching.Memory.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Caching.Memory.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Configuration.Abstractions.dll" Guid="37326ead-f5a6-44b3-b1c2-48fad98f68c5">
-        <File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Configuration.Abstractions.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Configuration.Binder.dll" Guid="2aba9c34-d7cb-4bff-9b53-c4ad119e5912">
-        <File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Configuration.dll" Guid="12e730e6-ee60-46ec-a368-ec981ecc6509">
-        <File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Configuration.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Guid="fcb00450-5b59-4e63-b1f6-a71f7ae5865a">
-        <File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.DependencyInjection.dll" Guid="f3e6ba30-333a-4ece-ad42-6246c2876265">
-        <File Id="Microsoft.Extensions.DependencyInjection.dll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.DependencyInjection.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.Abstractions.dll" Guid="28eafa38-47b7-41f1-b238-8471d460cbc0">
-        <File Id="Microsoft.Extensions.Logging.Abstractions.dll" Name="Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Logging.Abstractions.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.Configuration.dll" Guid="984657f0-90ad-42a5-95e8-2a57d226dbdd">
-        <File Id="Microsoft.Extensions.Logging.Configuration.dll" Name="Microsoft.Extensions.Logging.Configuration.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Logging.Configuration.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.Console.dll" Guid="e8b8f151-1ef4-4ef0-9320-63098de6fe94">
-        <File Id="Microsoft.Extensions.Logging.Console.dll" Name="Microsoft.Extensions.Logging.Console.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Logging.Console.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.dll" Guid="36a14be1-6981-4eda-a484-3c71add6fb74">
-        <File Id="Microsoft.Extensions.Logging.dll" Name="Microsoft.Extensions.Logging.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Logging.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Guid="79517b6f-5e7f-4bdc-81c6-8087ef78edf2">
-        <File Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Name="Microsoft.Extensions.Options.ConfigurationExtensions.dll"
-              Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Options.dll" Guid="bafcfe71-dcc5-452f-a20b-f4c73ac59a81">
-        <File Id="Microsoft.Extensions.Options.dll" Name="Microsoft.Extensions.Options.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Options.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Primitives.dll" Guid="de764ed2-1005-4676-9f2f-fb10dff76f62">
-        <File Id="Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Primitives.dll" />
-      </Component>
-
-
-      <!--PRISM-->
-      <Component Win64="$(var.Win64)" Id="Microsoft.Practices.ServiceLocation.dll" Guid="2be0bf7a-463c-4054-babd-6d5e9d7b439b">
-        <File Id="Microsoft.Practices.ServiceLocation.dll" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Practices.ServiceLocation.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Microsoft.Practices.Unity.dll" Guid="2d16eff6-bee1-40ab-b4a8-a89af9a58ef6">
-        <File Id="Microsoft.Practices.Unity.dll" Name="Microsoft.Practices.Unity.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Practices.Unity.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Prism.dll" Guid="01577341-77f2-4ba4-8fea-20f9525c3e53">
-        <File Id="Prism.dll" Name="Prism.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Prism.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Prism.Wpf.dll" Guid="829b1ffe-0198-4f65-988c-734bb154d41e">
-        <File Id="Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Prism.Wpf.dll" />
-      </Component>
-
-
-      <Component Win64="$(var.Win64)" Id="Remotion.Linq.dll" Guid="cabbf8cd-0324-4aff-b4a1-1f80714a81c6">
-        <File Id="Remotion.Linq.dll" Name="Remotion.Linq.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Remotion.Linq.dll" />
-      </Component>
-
-      <!--SERILOG-->
-      <Component Win64="$(var.Win64)" Id="Serilog.dll" Guid="531bbfca-4273-4055-86c7-7a294fef59ea">
-        <File Id="Serilog.dll" Name="Serilog.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Serilog.Extensions.Logging.dll" Guid="03ee8675-f7eb-4e40-81a9-2db79f02fec2">
-        <File Id="Serilog.Extensions.Logging.dll" Name="Serilog.Extensions.Logging.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Extensions.Logging.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Serilog.Extensions.Logging.File.dll" Guid="274d314c-b3eb-40c4-b8e7-73d6bc441258">
-        <File Id="Serilog.Extensions.Logging.File.dll" Name="Serilog.Extensions.Logging.File.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Extensions.Logging.File.dll" />
-      </Component>      
-      <Component Win64="$(var.Win64)" Id="Serilog.Formatting.Compact.dll" Guid="6f5dfe5b-658f-4383-81e1-f1b96fc18a64">
-        <File Id="Serilog.Formatting.Compact.dll" Name="Serilog.Formatting.Compact.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Formatting.Compact.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Serilog.Sinks.Async.dll" Guid="f1d26c6b-1047-44e2-a016-7cdb08f6e7fc">
-        <File Id="Serilog.Sinks.Async.dll" Name="Serilog.Sinks.Async.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Sinks.Async.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Serilog.Sinks.File.dll" Guid="7bc6addd-c4b6-40fc-95ea-68229484cdc0">
-        <File Id="Serilog.Sinks.File.dll" Name="Serilog.Sinks.File.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Sinks.File.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Serilog.Sinks.RollingFile.dll" Guid="a65b163a-1102-45f1-92ce-cc1b7f885fef">
-        <File Id="Serilog.Sinks.RollingFile.dll" Name="Serilog.Sinks.RollingFile.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Sinks.RollingFile.dll" />
-      </Component>
-
-      
-      <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.core.dll" Guid="7a2e12c4-c45f-4465-b72b-521c35f8a181">
-        <File Id="SQLitePCLRaw.core.dll" Name="SQLitePCLRaw.core.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.core.dll" />
-      </Component>
-
-      <Component Win64="$(var.Win64)" Id="System.Buffers.dll" Guid="48663074-7edb-4bc5-82fa-cad60290e93a">
-        <File Id="System.Buffers.dll" Name="System.Buffers.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Buffers.dll" />
-      </Component>
-
-      
-      <Component Win64="$(var.Win64)" Id="System.Collections.Immutable.dll" Guid="3f5515ae-adcf-41af-a6b1-e458bda9d97e">
-        <File Id="System.Collections.Immutable.dll" Name="System.Collections.Immutable.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.Collections.Immutable.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="System.ComponentModel.Annotations.dll" Guid="7075b40d-07e1-4b82-9020-8fd06d788b7e">
-        <File Id="System.ComponentModel.Annotations.dll" Name="System.ComponentModel.Annotations.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.ComponentModel.Annotations.dll" />
-      </Component>
-
-      <Component Win64="$(var.Win64)" Id="System.Data.Common.dll" Guid="29249CB6-E586-4225-9BF5-6F43433D869A">
-        <File Id="System.Data.Common.dll" Name="System.Data.Common.dll"
-              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Data.Common.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="System.Diagnostics.DiagnosticSource.dll" Guid="df5c93dd-ab4d-4782-b1ad-e6869a3dbb30">
-        <File Id="System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" 
-              Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.Diagnostics.DiagnosticSource.dll" />
-      </Component>
-
-      <Component Win64="$(var.Win64)" Id="System.Interactive.Async.dll" Guid="ec3e38bd-e62e-457e-b4d0-39926be2991b">
-        <File Id="System.Interactive.Async.dll" Name="System.Interactive.Async.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.Interactive.Async.dll" />
-      </Component>
-
-
-      <Component Win64="$(var.Win64)" Id="System.Memory.dll" Guid="bad547e8-69fd-41b8-bc8d-e0133e1515f0">
-        <File Id="System.Memory.dll" Name="System.Memory.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Memory.dll" />
-      </Component>
-      
-      <!--SYSTEM NET-->
-      <Component Win64="$(var.Win64)" Id="System.Net.Http.dll" Guid="42F5EC14-08EB-45D5-B7CC-2CD8CB57D064">
-        <File Id="System.Net.Http.dll" Name="System.Net.Http.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Net.Http.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="System.Net.Sockets.dll" Guid="CF120A56-1DDF-49B4-9D95-FA1C47E13485">
-        <File Id="System.Net.Sockets.dll" Name="System.Net.Sockets.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Net.Sockets.dll" />
-      </Component>
-      
-      
-      <Component Win64="$(var.Win64)" Id="System.Numerics.Vectors.dll" Guid="a9b7732a-7351-4d2b-b489-9a73a3c2fee2">
-        <File Id="System.Numerics.Vectors.dll" Name="System.Numerics.Vectors.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Numerics.Vectors.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="System.Runtime.CompilerServices.Unsafe.dll" Guid="b1e22f7c-f1ad-4779-b623-bce9f53558ea">
-        <File Id="System.Runtime.CompilerServices.Unsafe.dll" Name="System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)System.Runtime.CompilerServices.Unsafe.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="System.Windows.Interactivity.dll" Guid="9f2327c4-f7a0-4c57-9d10-8b0055211d4e">
-        <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)System.Windows.Interactivity.dll" />
-      </Component>
-
-      <!--VLC-->
-      <Component Win64="$(var.Win64)" Id="Vlc.DotNet.Core.dll" Guid="A124B34E-4AF1-435E-BB94-DC7DEA7C606C">
-        <File Id="Vlc.DotNet.Core.dll" Name="Vlc.DotNet.Core.dll"
-              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Vlc.DotNet.Core.dll" />
-      </Component>
-      <Component Win64="$(var.Win64)" Id="Vlc.DotNet.Core.Interops.dll" Guid="188DBE0B-DF57-4124-B523-2ECD59D67331">
-        <File Id="Vlc.DotNet.Core.Interops.dll" Name="Vlc.DotNet.Core.Interops.dll"
-              Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Vlc.DotNet.Core.Interops.dll" />
-      </Component>
-
-      <!--<Component Win64="$(var.Win64)" Id="ShaderEffectLibrary.dll" Guid="5b3a14f2-895b-4b2d-8c7a-b515ee7c7148">
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Model.dll" Guid="e8c21084-e89b-47d8-8559-57f24405e697">
+                <File Id="Horsesoft.Music.Data.Model.dll" Name="Horsesoft.Music.Data.Model.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Data.Model.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Sqlite.dll" Guid="cfd8257f-b3ef-4bcb-b130-20365541918d">
+                <File Id="Horsesoft.Music.Data.Sqlite.dll" Name="Horsesoft.Music.Data.Sqlite.dll" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Data.Sqlite.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Base.dll" Guid="91758d97-c5de-450f-aa26-e4c2371fd505">
+                <File Id="Horsesoft.Music.Horsify.Base.dll" Name="Horsesoft.Music.Horsify.Base.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Horsesoft.Music.Horsify.Base.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Repositories.dll" Guid="158f9ffc-0983-4264-8201-2a78b90b2d9d">
+                <File Id="Horsesoft.Music.Horsify.Repositories.dll" Name="Horsesoft.Music.Horsify.Repositories.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Horsify.Repositories.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Vlc.dll" Guid="D413ECFC-032B-42A4-AC4D-BF398C68FA39">
+                <File Id="Horsesoft.Vlc.dll" Name="Horsesoft.Vlc.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Vlc.dll" />
+            </Component>
+            <!--CONTROLS-->
+            <Component Win64="$(var.Win64)" Id="Horsesoft.Wpf.Controls.Audio.dll" Guid="7F0C883A-2E86-4396-9086-6EDFC9D03EC2">
+                <File Id="Horsesoft.Wpf.Controls.Audio.dll" Name="Horsesoft.Wpf.Controls.Audio.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Wpf.Controls.Audio.dll" />
+            </Component>
+            <!--ID3-->
+            <Component Win64="$(var.Win64)" Id="Id3.dll" Guid="6289d479-a4d5-4cc8-bb80-9fdab124e36c">
+                <File Id="Id3.dll" Name="Id3.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Id3.dll" />
+            </Component>
+            <!--EF CORE-->
+            <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.Abstractions.dll" Guid="7dd5b634-008b-4d05-9992-71c7e243039b">
+                <File Id="Microsoft.EntityFrameworkCore.Abstractions.dll" Name="Microsoft.EntityFrameworkCore.Abstractions.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Microsoft.EntityFrameworkCore.Abstractions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.dll" Guid="92d4f269-6e46-4bc9-8ffe-f387ea9de4f1">
+                <File Id="Microsoft.EntityFrameworkCore.dll" Name="Microsoft.EntityFrameworkCore.dll" Source="$(var.Horsesoft.Music.Engine_TargetDir)Microsoft.EntityFrameworkCore.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.Relational.dll" Guid="3f19e26f-5fe6-4cd3-b5b1-c1d57ec9647e">
+                <File Id="Microsoft.EntityFrameworkCore.Relational.dll" Name="Microsoft.EntityFrameworkCore.Relational.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Microsoft.EntityFrameworkCore.Relational.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.EntityFrameworkCore.Sqlite.dll" Guid="a7cbaaef-3284-4412-8414-fb9e38a434c1">
+                <File Id="Microsoft.EntityFrameworkCore.Sqlite.dll" Name="Microsoft.EntityFrameworkCore.Sqlite.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Microsoft.EntityFrameworkCore.Sqlite.dll" />
+            </Component>
+            <!--MS Extensions-->
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Caching.Abstractions.dll" Guid="40329762-70e5-4c3f-a548-e214748b3bd5">
+                <File Id="Microsoft.Extensions.Caching.Abstractions.dll" Name="Microsoft.Extensions.Caching.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Caching.Abstractions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Caching.Memory.dll" Guid="2e88d0e9-948e-4a08-9667-0f52a5a4e6b7">
+                <File Id="Microsoft.Extensions.Caching.Memory.dll" Name="Microsoft.Extensions.Caching.Memory.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Caching.Memory.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Configuration.Abstractions.dll" Guid="37326ead-f5a6-44b3-b1c2-48fad98f68c5">
+                <File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Configuration.Abstractions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Configuration.Binder.dll" Guid="2aba9c34-d7cb-4bff-9b53-c4ad119e5912">
+                <File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Configuration.dll" Guid="12e730e6-ee60-46ec-a368-ec981ecc6509">
+                <File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Configuration.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Guid="fcb00450-5b59-4e63-b1f6-a71f7ae5865a">
+                <File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.DependencyInjection.dll" Guid="f3e6ba30-333a-4ece-ad42-6246c2876265">
+                <File Id="Microsoft.Extensions.DependencyInjection.dll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.DependencyInjection.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.Abstractions.dll" Guid="28eafa38-47b7-41f1-b238-8471d460cbc0">
+                <File Id="Microsoft.Extensions.Logging.Abstractions.dll" Name="Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Logging.Abstractions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.Configuration.dll" Guid="984657f0-90ad-42a5-95e8-2a57d226dbdd">
+                <File Id="Microsoft.Extensions.Logging.Configuration.dll" Name="Microsoft.Extensions.Logging.Configuration.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Logging.Configuration.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.Console.dll" Guid="e8b8f151-1ef4-4ef0-9320-63098de6fe94">
+                <File Id="Microsoft.Extensions.Logging.Console.dll" Name="Microsoft.Extensions.Logging.Console.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Logging.Console.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Logging.dll" Guid="36a14be1-6981-4eda-a484-3c71add6fb74">
+                <File Id="Microsoft.Extensions.Logging.dll" Name="Microsoft.Extensions.Logging.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Logging.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Guid="79517b6f-5e7f-4bdc-81c6-8087ef78edf2">
+                <File Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Name="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Source="$(var.Horsesoft.Music.Horsify.Base_TargetDir)Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Options.dll" Guid="bafcfe71-dcc5-452f-a20b-f4c73ac59a81">
+                <File Id="Microsoft.Extensions.Options.dll" Name="Microsoft.Extensions.Options.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Options.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Extensions.Primitives.dll" Guid="de764ed2-1005-4676-9f2f-fb10dff76f62">
+                <File Id="Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Extensions.Primitives.dll" />
+            </Component>
+            <!--PRISM-->
+            <Component Win64="$(var.Win64)" Id="Microsoft.Practices.ServiceLocation.dll" Guid="2be0bf7a-463c-4054-babd-6d5e9d7b439b">
+                <File Id="Microsoft.Practices.ServiceLocation.dll" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Practices.ServiceLocation.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Microsoft.Practices.Unity.dll" Guid="2d16eff6-bee1-40ab-b4a8-a89af9a58ef6">
+                <File Id="Microsoft.Practices.Unity.dll" Name="Microsoft.Practices.Unity.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Microsoft.Practices.Unity.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Prism.dll" Guid="01577341-77f2-4ba4-8fea-20f9525c3e53">
+                <File Id="Prism.dll" Name="Prism.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Prism.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Prism.Wpf.dll" Guid="829b1ffe-0198-4f65-988c-734bb154d41e">
+                <File Id="Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Prism.Wpf.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Remotion.Linq.dll" Guid="cabbf8cd-0324-4aff-b4a1-1f80714a81c6">
+                <File Id="Remotion.Linq.dll" Name="Remotion.Linq.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)Remotion.Linq.dll" />
+            </Component>
+            <!--SERILOG-->
+            <Component Win64="$(var.Win64)" Id="Serilog.dll" Guid="531bbfca-4273-4055-86c7-7a294fef59ea">
+                <File Id="Serilog.dll" Name="Serilog.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Serilog.Extensions.Logging.dll" Guid="03ee8675-f7eb-4e40-81a9-2db79f02fec2">
+                <File Id="Serilog.Extensions.Logging.dll" Name="Serilog.Extensions.Logging.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Extensions.Logging.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Serilog.Extensions.Logging.File.dll" Guid="274d314c-b3eb-40c4-b8e7-73d6bc441258">
+                <File Id="Serilog.Extensions.Logging.File.dll" Name="Serilog.Extensions.Logging.File.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Extensions.Logging.File.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Serilog.Formatting.Compact.dll" Guid="6f5dfe5b-658f-4383-81e1-f1b96fc18a64">
+                <File Id="Serilog.Formatting.Compact.dll" Name="Serilog.Formatting.Compact.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Formatting.Compact.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Serilog.Sinks.Async.dll" Guid="f1d26c6b-1047-44e2-a016-7cdb08f6e7fc">
+                <File Id="Serilog.Sinks.Async.dll" Name="Serilog.Sinks.Async.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Sinks.Async.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Serilog.Sinks.File.dll" Guid="7bc6addd-c4b6-40fc-95ea-68229484cdc0">
+                <File Id="Serilog.Sinks.File.dll" Name="Serilog.Sinks.File.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Sinks.File.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Serilog.Sinks.RollingFile.dll" Guid="a65b163a-1102-45f1-92ce-cc1b7f885fef">
+                <File Id="Serilog.Sinks.RollingFile.dll" Name="Serilog.Sinks.RollingFile.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)Serilog.Sinks.RollingFile.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="SQLitePCLRaw.core.dll" Guid="7a2e12c4-c45f-4465-b72b-521c35f8a181">
+                <File Id="SQLitePCLRaw.core.dll" Name="SQLitePCLRaw.core.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)SQLitePCLRaw.core.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Buffers.dll" Guid="48663074-7edb-4bc5-82fa-cad60290e93a">
+                <File Id="System.Buffers.dll" Name="System.Buffers.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Buffers.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Collections.Immutable.dll" Guid="3f5515ae-adcf-41af-a6b1-e458bda9d97e">
+                <File Id="System.Collections.Immutable.dll" Name="System.Collections.Immutable.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.Collections.Immutable.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.ComponentModel.Annotations.dll" Guid="7075b40d-07e1-4b82-9020-8fd06d788b7e">
+                <File Id="System.ComponentModel.Annotations.dll" Name="System.ComponentModel.Annotations.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.ComponentModel.Annotations.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Data.Common.dll" Guid="29249CB6-E586-4225-9BF5-6F43433D869A">
+                <File Id="System.Data.Common.dll" Name="System.Data.Common.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Data.Common.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Diagnostics.DiagnosticSource.dll" Guid="df5c93dd-ab4d-4782-b1ad-e6869a3dbb30">
+                <File Id="System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.Diagnostics.DiagnosticSource.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Interactive.Async.dll" Guid="ec3e38bd-e62e-457e-b4d0-39926be2991b">
+                <File Id="System.Interactive.Async.dll" Name="System.Interactive.Async.dll" Source="$(var.Horsesoft.Horsify.SongService_TargetDir)System.Interactive.Async.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Memory.dll" Guid="bad547e8-69fd-41b8-bc8d-e0133e1515f0">
+                <File Id="System.Memory.dll" Name="System.Memory.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Memory.dll" />
+            </Component>
+            <!--SYSTEM NET-->
+            <Component Win64="$(var.Win64)" Id="System.Net.Http.dll" Guid="42F5EC14-08EB-45D5-B7CC-2CD8CB57D064">
+                <File Id="System.Net.Http.dll" Name="System.Net.Http.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Net.Http.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Net.Sockets.dll" Guid="CF120A56-1DDF-49B4-9D95-FA1C47E13485">
+                <File Id="System.Net.Sockets.dll" Name="System.Net.Sockets.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Net.Sockets.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Numerics.Vectors.dll" Guid="a9b7732a-7351-4d2b-b489-9a73a3c2fee2">
+                <File Id="System.Numerics.Vectors.dll" Name="System.Numerics.Vectors.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)System.Numerics.Vectors.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Runtime.CompilerServices.Unsafe.dll" Guid="b1e22f7c-f1ad-4779-b623-bce9f53558ea">
+                <File Id="System.Runtime.CompilerServices.Unsafe.dll" Name="System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)System.Runtime.CompilerServices.Unsafe.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="System.Windows.Interactivity.dll" Guid="9f2327c4-f7a0-4c57-9d10-8b0055211d4e">
+                <File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)System.Windows.Interactivity.dll" />
+            </Component>
+            <!--VLC-->
+            <Component Win64="$(var.Win64)" Id="Vlc.DotNet.Core.dll" Guid="A124B34E-4AF1-435E-BB94-DC7DEA7C606C">
+                <File Id="Vlc.DotNet.Core.dll" Name="Vlc.DotNet.Core.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Vlc.DotNet.Core.dll" />
+            </Component>
+            <Component Win64="$(var.Win64)" Id="Vlc.DotNet.Core.Interops.dll" Guid="188DBE0B-DF57-4124-B523-2ECD59D67331">
+                <File Id="Vlc.DotNet.Core.Interops.dll" Name="Vlc.DotNet.Core.Interops.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Vlc.DotNet.Core.Interops.dll" />
+            </Component>
+            <!--<Component Win64="$(var.Win64)" Id="ShaderEffectLibrary.dll" Guid="5b3a14f2-895b-4b2d-8c7a-b515ee7c7148">
 			  <File Id="ShaderEffectLibrary.dll" Name="ShaderEffectLibrary.dll" Source="$(var.Horsesoft.Horsify.DjHorsify_TargetDir)ShaderEffectLibrary.dll" />
 			</Component>-->
-
-    </ComponentGroup>
-    
-  </Fragment>
-
-  <!--PROGRAM DATA FILES-->
-  <Fragment>
+        </ComponentGroup>
+    </Fragment>
+    <!--PROGRAM DATA FILES-->
+    <Fragment>
         <ComponentGroup Id="ProductData" Directory="DATAFOLDER">
-          <!--JSON Menus-->
-          <Component Id="genres.json" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
-            <File Id="genres.json"
-                  Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)genres.json"/>
-          </Component>
-    </ComponentGroup>
-  </Fragment>
+            <!--JSON Menus-->
+            <Component Id="genres.json" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
+                <File Id="genres.json" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)genres.json" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
 </Wix>

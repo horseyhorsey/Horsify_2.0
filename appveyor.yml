@@ -43,7 +43,19 @@ platform:
   - x86
   - x64
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Release  
+configuration:
+  - Release
+  - Debug
+  
+matrix:
+  exclude:
+    - configuration: Debug 
+    
+test:
+  # except assemblies to test
+  assemblies:
+    except:
+      - '**\bin\$(platform)\$(configuration)\*tests.dll'    
 
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish

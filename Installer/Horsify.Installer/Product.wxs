@@ -214,10 +214,10 @@
       <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.SideMenu.dll" Guid="a62b49c2-25d6-43ef-94d4-d5ed45d9a1d8">
         <File Id="Horsesoft.Horsify.SideMenu.dll" Name="Horsesoft.Horsify.SideMenu.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.SideMenu.dll" />
       </Component>            
-      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Statistics.dll" Guid="4d409cc4-fcd7-431f-be20-d494af7ba103">
+      <!--<Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Statistics.dll" Guid="4d409cc4-fcd7-431f-be20-d494af7ba103">
         <File Id="Horsesoft.Horsify.Statistics.dll" Name="Horsesoft.Horsify.Statistics.dll" Source="$(var.Horsesoft.Music.Horsify.WPF.Shell_TargetDir)Horsesoft.Horsify.Statistics.dll" />
-      </Component>
-            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Model.dll" Guid="e8c21084-e89b-47d8-8559-57f24405e697">
+      </Component>-->
+      <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Model.dll" Guid="e8c21084-e89b-47d8-8559-57f24405e697">
         <File Id="Horsesoft.Music.Data.Model.dll" Name="Horsesoft.Music.Data.Model.dll" Source="$(var.Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir)Horsesoft.Music.Data.Model.dll" />
       </Component>     
       <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Data.Sqlite.dll" Guid="cfd8257f-b3ef-4bcb-b130-20365541918d">

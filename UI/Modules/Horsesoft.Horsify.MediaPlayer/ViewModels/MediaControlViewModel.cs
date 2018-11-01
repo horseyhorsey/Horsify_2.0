@@ -36,10 +36,27 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
                 ResetSelectedSong();
             }, ThreadOption.UIThread);
 
+
+            #region Events
+            _horsifyMediaController.OnTimeChanged += (currentTime) => { OnTimeChanged(MediaControlModel, currentTime); };
+            _horsifyMediaController.OnMediaFinished += OnMediaFinsished;
+            _horsifyMediaController.OnMediaLoaded += (duration) => { MediaControlModel.CurrentSongTime = duration; };
+            #endregion
+
             #endregion
         }
 
         #region Private Methods
+
+        /// <summary>
+        /// Sends a Skip queue event.
+        /// </summary>
+        private void OnMediaFinsished()
+        {
+            //Application.Current.Dispatcher.Invoke(() => );            
+            _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
+        }
+
         private void OnSongChangedLoaded(AllJoinedTable song)
         {
             Log($"MediaElement: Loading file async: {song?.FileLocation}", Category.Info, Priority.Medium);
@@ -67,9 +84,21 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             {
                 Log($"Error loading file: {ex.Message}", Category.Exception);
                 MediaControlModel.SelectedSong = null;
-                _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
+                //_eventAggregator.GetEvent<SkipQueueEvent>().Publish();
             }
 
+        }
+
+
+        private void OnTimeChanged(MediaControl mediaControlModel, TimeSpan currentTime)
+        {
+            if (!mediaControlModel.IsSeeking)
+            {
+                if (MediaControlModel.IsPlaying)
+                {
+                    MediaControlModel.CurrentSongPosition = currentTime;
+                }
+            }
         }
 
         /// <summary>

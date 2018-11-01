@@ -37,29 +37,12 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 
             MediaControlModel = mediaControlModel;
 
-            #region Events
-            _horsifyMediaController.OnTimeChanged += (currentTime) => { OnTimeChanged(mediaControlModel, currentTime); };
-            _horsifyMediaController.OnMediaFinished += OnMediaFinsished;
-            _horsifyMediaController.OnMediaLoaded += (duration) => { MediaControlModel.CurrentSongTime = duration; }; 
-            #endregion
-
             #region Commands
             PlayPauseCommand = new DelegateCommand(OnPlayPause);
             SeekingStartedCommand = new DelegateCommand<object>(OnSeekStarted);
             SeekingStoppedCommand = new DelegateCommand<object>(OnSeekStopped);
             StopCommand = new DelegateCommand(OnStopped);
             #endregion
-        }
-
-        private void OnTimeChanged(MediaControl mediaControlModel, TimeSpan currentTime)
-        {
-            if (!mediaControlModel.IsSeeking)
-            {
-                if (MediaControlModel.IsPlaying)
-                {
-                    MediaControlModel.CurrentSongPosition = currentTime;
-                }
-            }
         }
 
         protected AllJoinedTable _previousSong;
@@ -69,15 +52,6 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Sends a Skip queue event.
-        /// </summary>
-        private void OnMediaFinsished()
-        {
-            //Application.Current.Dispatcher.Invoke(() => );            
-            _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
-        }
 
         private void OnPlayPause()
         {

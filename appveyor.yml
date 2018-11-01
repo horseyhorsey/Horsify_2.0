@@ -36,17 +36,12 @@ cache:
   - projectA\libs
   #- node_modules                    # local npm modules
   - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
-  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
-  
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-  - x64
+  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3  
+
+# Build platforms
+platform:
   - x86
-
-# to add several platforms to build matrix:
-#platform:
-#  - x86
-#  - Any CPU
-
+  - x64
 # build Configuration, i.e. Debug, Release, etc.
 configuration: Release  
 

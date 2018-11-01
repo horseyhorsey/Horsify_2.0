@@ -22,7 +22,7 @@
   <?define Horsesoft.Music.Horsify.WPF.Shell_TargetDir=$(var.Horsesoft.Music.Horsify.WPF.Shell.TargetDir)?>
 
   <Product Id="FE9F9586-5146-462C-8408-41EA49BECC4C" Name="Horsify $(var.bitness)"
-           Language="1033" Version="2.0.0.50" Manufacturer="Horsesoft"
+           Language="1033" Version="2.0.0.63" Manufacturer="Horsesoft"
            UpgradeCode="22fae438-87e8-441b-830f-95915651ab75">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 

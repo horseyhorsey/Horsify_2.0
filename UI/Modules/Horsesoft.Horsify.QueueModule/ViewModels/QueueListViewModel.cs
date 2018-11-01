@@ -55,7 +55,7 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
 
             _eventAggregator.GetEvent<ClearQueueEvent>().Subscribe(OnClearQueue, ThreadOption.UIThread);
             _eventAggregator.GetEvent<ShuffleQueueEvent>().Subscribe(OnShuffleQueue, ThreadOption.UIThread);
-            _eventAggregator.GetEvent<SkipQueueEvent>().Subscribe(async () => await OnSkipQueueAsync(),ThreadOption.PublisherThread);
+            _eventAggregator.GetEvent<SkipQueueEvent>().Subscribe(async () => await OnSkipQueueAsync(), ThreadOption.UIThread);
 
             #endregion
 
@@ -84,29 +84,6 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
 
         #region Private methods
 
-        /// <summary>
-        /// Plays the next queued song if there are songs available in queue
-        /// </summary>
-        private void PlayQueuedSong()
-        {
-            if (QueueItems.Count > 0)
-            {
-                if (!_queuedSongDataProvider.ShuffleEnabled || QueueItems.Count == 1)
-                {
-                    var vm = QueueItems[0];
-                    PlayQueueItem(vm);
-                }
-                //Shuffle selection
-                else
-                {
-                    var _queueCount = QueueItems.Count - 1;
-                    var id = _randomShuffle.Next(QueueItems.Count);
-                    var vm = QueueItems[id];
-                    PlayQueueItem(vm);
-                }
-            }
-        }
-
         private void QueueSongs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
@@ -129,17 +106,13 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
             }
         }
 
-        private void OnPlayQueuedSong()
-        {
-            //_evenAggregator.GetEvent<OnPlayQueuedSongEvent>().Publish(this);
-        }
-
         private void OnClearQueue()
-        {
-            Log("Clearing Queue", Category.Debug);
-
-            if (QueueItems.Count > 0)
+        {            
+            if (QueueItems?.Count > 0)
+            {
+                Log("Clearing Queue", Category.Debug);
                 QueueItems.Clear();
+            }                
         }
 
         /// <summary>
@@ -152,32 +125,57 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
 
         private async Task OnSkipQueueAsync()
         {
+            Log("Skipping queue");
+
             if (!this._skipQueueEventRunning)
             {
                 try
                 {
                     this._skipQueueEventRunning = true;
-
-                    PlayQueuedSong();
+                    bool queueIsEmpty = QueueItems.Count == 0;
 
                     if (QueueItems.Count < 2)
                     {
-                        bool queueIsEmpty = QueueItems.Count == 0;
-                        var songs = await SkipQueueAsync();
-
-                        if (songs !=null)
-                            _queuedSongDataProvider.QueueSongs.AddRange(songs);
-
-                        //Start playing if queue was empty
-                        if (queueIsEmpty)
+                        //DJ HORsify - Queue
+                        IEnumerable<AllJoinedTable> songs = null;
+                        if (_djHorsifyService.DjHorsifyOption.IsEnabled && _djHorsifyService.DjHorsifyOption.Amount > 0)
                         {
-                            PlayQueuedSong();
+                            //User didn't select any filters
+                            if (_djHorsifyService.DjHorsifyOption.SelectedFilters?.Count <= 0)
+                            {
+                                Log("Running DJ Horsify no filters.", Category.Warn);
+
+                                //Back out if no other option is enabled
+                                if (!_djHorsifyService.DjHorsifyOption.BpmRange.IsEnabled && !_djHorsifyService.DjHorsifyOption.RatingRange.IsEnabled &&
+                                    _djHorsifyService.DjHorsifyOption.SelectedKeys == Music.Data.Model.Import.OpenKeyNotation.None)
+                                {
+                                    Log("DJ Horsify enabled but no options or filters selected.", Category.Warn);
+                                    return;
+                                }
+                            }
+
+                            Log("Refilling queue from DJ Horsify");
+
+                            //Get DjHorsify Songs
+                            songs = await _djHorsifyService.GetSongsAsync(null);
+                            if (songs != null)
+                                _queuedSongDataProvider.QueueSongs.AddRange(songs);
+
+                            //Start playing a song if queue was empty when DJ Horsify is run
+                            if (queueIsEmpty)
+                            {
+                                PlayQueuedSong();
+                                return;
+                            }
                         }
                     }
 
-                    if (QueueItems.Count == 0)
+                    //Publish queued songs
+                    if (queueIsEmpty) _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Publish();
+                    else
                     {
-                        _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Publish();
+                        Log("Queue not empty. Attempting to play next song");
+                        PlayQueuedSong();
                     }
                 }
                 catch (Exception ex)
@@ -191,35 +189,31 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
             }
         }
 
-        private Task<IEnumerable<AllJoinedTable>> SkipQueueAsync()
-        {
-            Task<IEnumerable<AllJoinedTable>> songs = null;
 
-            try
+        /// <summary>
+        /// Plays the next queued song if there are songs available in queue
+        /// </summary>
+        private void PlayQueuedSong()
+        {
+            if (QueueItems.Count > 0)
             {
-                
-                var queueCount = QueueItems.Count;
-                if (queueCount < 2)
+                bool shuffle = _queuedSongDataProvider.ShuffleEnabled;
+                Log($"Queue items available: {QueueItems.Count}");
+                Log($"Shuffle Enabled: {shuffle}");
+                if (!shuffle || QueueItems.Count == 1)
                 {
-                    //Get more songs with Dj Horsify
-                    if (_djHorsifyService.DjHorsifyOption.SelectedFilters.Count > 0)
-                    {
-                        if (_djHorsifyService.DjHorsifyOption.IsEnabled && _djHorsifyService.DjHorsifyOption.Amount > 0)
-                        {
-                            return _djHorsifyService.GetSongsAsync(null);
-                        }
-                    }
+                    var vm = QueueItems[0];
+                    PlayQueueItem(vm);
+                }
+                //Shuffle selection
+                else
+                {
+                    var _queueCount = QueueItems.Count - 1;
+                    var id = _randomShuffle.Next(QueueItems.Count);
+                    var vm = QueueItems[id];
+                    PlayQueueItem(vm);
                 }
             }
-            catch (Exception ex)
-            {
-                Log($"Error caused by skipping queue: {ex.Message}");                
-            }
-            finally
-            {                
-            }
-
-            return songs;
         }
 
         private void PlayQueuedSong(QueueItemViewModel vm)

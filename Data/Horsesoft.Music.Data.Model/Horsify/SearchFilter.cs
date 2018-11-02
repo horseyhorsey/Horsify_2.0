@@ -88,7 +88,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
             var sf = (obj as SearchFilter);
             if (sf != null)
             {
-                if (sf.Filters.First().Filters.First() == this.Filters.First().Filters.First())
+                if (sf.Filters?.First().Filters?.First() == this.Filters?.First().Filters?.First())
                     return true;
             }
 

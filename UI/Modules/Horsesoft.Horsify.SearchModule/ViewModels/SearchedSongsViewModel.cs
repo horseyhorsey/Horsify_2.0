@@ -208,7 +208,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 catch (Exception ex)
                 {
                     Log($"{ex.Message}", Category.Exception, Priority.High);
-                    throw;
                 }
                 finally
                 {

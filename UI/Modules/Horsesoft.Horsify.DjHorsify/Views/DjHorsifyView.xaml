@@ -17,8 +17,9 @@
         <!--#region TOOLBAR-->
         <SolidColorBrush x:Key="ToolBarHorizontalBackground" Color="#FFEEF5FD"/>
         <SolidColorBrush x:Key="ToolBarToggleButtonVerticalBackground" Color="#FFEEF5FD"/>
-        <SolidColorBrush x:Key="ToolBarButtonHover" Color="#210080FF"/>
+        <SolidColorBrush x:Key="ToolBarButtonHover" Color="ForestGreen"/>
         <SolidColorBrush x:Key="ToolBarGripper" Color="#FF6D6D6D"/>
+        
         <Style x:Key="ToolBarVerticalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonVerticalBackground}"/>
             <Setter Property="MinHeight" Value="0"/>
@@ -27,12 +28,14 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
                         <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="0,0,3,3" SnapsToDevicePixels="true">
-                            <Canvas HorizontalAlignment="Right" Height="6" Margin="2,7,2,2" SnapsToDevicePixels="true" VerticalAlignment="Bottom" Width="7">
-                                <Path Data="M 1.5 1 L 1.5 6" Stroke="White"/>
-                                <Path Data="M 0.5 0 L 0.5 5" Stroke="{TemplateBinding Foreground}"/>
-                                <Path Data="M 3.5 0.5 L 7 3.5 L 4 6.5 Z" Fill="White"/>
-                                <Path Data="M 3 -0.5 L 6 2.5 L 3 5.5 Z" Fill="{TemplateBinding Foreground}"/>
-                            </Canvas>
+                            <Grid>
+                                <Canvas HorizontalAlignment="Right" Height="6" Margin="2,7,2,2" SnapsToDevicePixels="true" VerticalAlignment="Bottom" Width="7">
+                                    <Path Data="M 1.5 1 L 1.5 6" Stroke="White"/>
+                                    <Path Data="M 0.5 0 L 0.5 5" Stroke="{TemplateBinding Foreground}"/>
+                                    <Path Data="M 3.5 0.5 L 7 3.5 L 4 6.5 Z" Fill="White"/>
+                                    <Path Data="M 3 -0.5 L 6 2.5 L 3 5.5 Z" Fill="{TemplateBinding Foreground}"/>
+                                </Canvas>
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
@@ -56,6 +59,7 @@
         </Style>
         <SolidColorBrush x:Key="ToolBarVerticalBackground" Color="#FFEEF5FD"/>
         <SolidColorBrush x:Key="ToolBarToggleButtonHorizontalBackground" Color="#FFEEF5FD"/>
+        
         <Style x:Key="ToolBarHorizontalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonHorizontalBackground}"/>
             <Setter Property="MinHeight" Value="0"/>
@@ -65,7 +69,23 @@
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
                         <Border x:Name="Bd" Background="Transparent"  BorderThickness="0"
                                 CornerRadius="0,3,3,0" SnapsToDevicePixels="true">
-                            <Rectangle Fill="{StaticResource ToolBarButtonHover}"/>
+                            <Grid>
+                                <Rectangle Fill="{StaticResource ToolBarButtonHover}"/>
+                                <TextBlock Text="OPTIONS" HorizontalAlignment="Center" Background="Transparent" IsHitTestVisible="False"
+                                           VerticalAlignment="Center"                                           
+                                           Margin="-40"
+                                           FontSize="24"
+                                           RenderTransformOrigin="0.5,0.5">
+                                    <TextBlock.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="90"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
@@ -116,6 +136,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="ToolBarMainPanelBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Margin" Value="0,0,11,0"/>
             <Setter Property="CornerRadius" Value="3,3,3,3"/>
@@ -125,6 +146,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
         <Style x:Key="ToolBarStyle1" TargetType="{x:Type ToolBar}">
             <Setter Property="Background" Value="{StaticResource ToolBarHorizontalBackground}"/>
             <Setter Property="Template">
@@ -132,8 +154,9 @@
                     <ControlTemplate TargetType="{x:Type ToolBar}">
                         <Grid x:Name="Grid" Margin="3,1,1,1" SnapsToDevicePixels="true">
                             <Grid x:Name="OverflowGrid" HorizontalAlignment="Right">
-                                <ToggleButton x:Name="OverflowButton" ClickMode="Press" 
-                                              Width="25"
+                                <ToggleButton x:Name="OverflowButton" 
+                                              ClickMode="Press"                 
+                                              Width="32"
                                               FocusVisualStyle="{x:Null}" 
                                               IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" IsEnabled="{TemplateBinding HasOverflowItems}" 
                                               Style="{StaticResource ToolBarHorizontalOverflowButtonStyle}"/>
@@ -239,9 +262,10 @@
 
             <ToolBarTray Background="Transparent" IsLocked="True">
                 <ToolBar Background="Transparent" 
-                          Focusable="False"
+                          Focusable="False"                         
                           BorderBrush="Transparent"
-                            Margin="25,5" Style="{DynamicResource ToolBarStyle1}">
+                            Margin="25,5" 
+                         Style="{DynamicResource ToolBarStyle1}">
 
                     <TextBlock Text="DJ " FontSize="72"
                                ToolBar.OverflowMode="Never"
@@ -280,19 +304,19 @@
                     </StackPanel>
 
                     <!--TEST SEARCH-->
-                    <Button Content="Search" Margin="25"
+                    <Button Margin="25"
                             ToolBar.OverflowMode="AsNeeded"
-                            FontSize="24" VerticalAlignment="Center"
-                            Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"
-                            
-                            Style="{StaticResource ButtonTopMenuStyle}"
+                            FontSize="36" VerticalAlignment="Bottom"
+                            Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"                            
+                            Style="{StaticResource ButtonSearchMetal}"
                             />
 
-                    <Menu ToolBar.OverflowMode="Always">
-                        <Button Content="NEW FILTER" HorizontalAlignment="Center"
+                    <Menu ToolBar.OverflowMode="Always" Background="Transparent">
+                        <Button Content="NEW FILTER"
+                                HorizontalAlignment="Center"
                                         MinWidth="175"
                                         FontFamily="{StaticResource BebasNeue}"
-                                        FontSize="48"
+                                        FontSize="32"
                                         Style="{StaticResource ButtonMetal}"
                                         VerticalAlignment="Center"
                                         Command="{Binding CreateFilterCommand}"/>
@@ -442,6 +466,7 @@
                         <horsify:ListViewTouch x:Name="AndListView" 
                                                    Grid.Column="1"
                             BorderThickness="0"
+                                               Background="{DynamicResource BackgroundGradient4}"
                             ItemsSource="{Binding IncludedAndFiltersView, UpdateSourceTrigger=PropertyChanged}"                           
                             Style="{DynamicResource ListViewTransparent}" 
                             ItemContainerStyle="{DynamicResource HorsifyFilterContainerStyle}"     

@@ -89,7 +89,7 @@ namespace Horsesoft.Music.Horsify.Repositories
     public abstract class HorsifyDataRepo : UnitOfWork, IHorsifyDataRepo
     {
         public HorsifyDataRepo()
-        {
+        {            
         }
 
         /// <summary>
@@ -303,17 +303,46 @@ namespace Horsesoft.Music.Horsify.Repositories
             }
             else
             {
-                searchTerms += " (";
+                //Search for more than one type
                 int b = 0;
-                foreach (var search in searchTermsList)
-                {
-                    //Adds year == 2018                    
-                    searchTerms += $"{searchType} LIKE '{search.Replace("'", "''")}'";                    
-                    if (b != searchTermsList.Count - 1)
-                        searchTerms += $" OR ";
-                    b++;
+                int c = 0;
+                var searchTypes = searchType.ToString().Split(',');
+                if (searchTypes.Length > 1)
+                {                    
+                    foreach (var s_stype in searchTypes)
+                    {
+                        b = 0;
+                        foreach (var search in searchTermsList)
+                        {
+                            //Adds year == 2018                    
+                            searchTerms += $"({s_stype} LIKE '{search.Replace("'", "''")}')";
+
+                            if (c != searchTypes.Length - 1)
+                                searchTerms += $" OR ";
+
+                            if (b != searchTermsList.Count - 1)
+                                searchTerms += $" OR ";
+                            b++;
+                        }
+
+                        c++;
+                    }
                 }
-                searchTerms += ") ";
+                else
+                {
+                    searchTerms += " (";
+
+                    b = 0;
+                    foreach (var search in searchTermsList)
+                    {
+                        //Adds year == 2018                    
+                        searchTerms += $"{searchType} LIKE '{search.Replace("'", "''")}'";
+                        if (b != searchTermsList.Count - 1)
+                            searchTerms += $" OR ";
+                        b++;
+                    }
+                    searchTerms += ") ";
+                }                
             }            
 
             return searchTerms;

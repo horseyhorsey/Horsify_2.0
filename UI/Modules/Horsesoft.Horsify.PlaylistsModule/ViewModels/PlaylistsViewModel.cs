@@ -20,7 +20,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
         private IUnityContainer _unityContainer;
-        private IHorsifyPlaylistService _horsifyPlaylistService;
+        private IPlaylistService _horsifyPlaylistService;
         #endregion
 
         #region Commands/Requests
@@ -30,7 +30,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #endregion
 
         #region Constructors
-        public PlaylistsViewModel(IHorsifyPlaylistService horsifyPlaylistService, IEventAggregator eventAggregator,
+        public PlaylistsViewModel(IPlaylistService horsifyPlaylistService, IEventAggregator eventAggregator,
             IRegionManager regionManager, IUnityContainer unityContainer, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _eventAggregator = eventAggregator;

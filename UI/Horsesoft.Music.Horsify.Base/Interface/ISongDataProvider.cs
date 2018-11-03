@@ -8,11 +8,8 @@ namespace Horsesoft.Music.Horsify.Base.Interface
     public interface ISongDataProvider
     {
         Task ExtraSearch(ExtraSearchType extraSearchType);
-
         AllJoinedTable GetSongById(int id);
-
         Task<AllJoinedTable[]> GetSongs(Playlist playlist);
-
         Task<AllJoinedTable[]> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1);
 
         /// <summary>
@@ -32,9 +29,7 @@ namespace Horsesoft.Music.Horsify.Base.Interface
         Task SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount = 10, short maxAmount = -1);
 
         ObservableCollection<AllJoinedTable> SearchedSongs { get; set; }
-
         AllJoinedTable SelectedSong { get; set; }
-
         Task<bool> UpdatePlayedSong(AllJoinedTable selectedSong, int? rating = null);
     }
 }

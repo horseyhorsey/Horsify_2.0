@@ -19,7 +19,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
     {
         #region Services
         private IEventAggregator _eventAggregator;
-        private IHorsifyPlaylistService _horsifyPlaylistService;
+        private IPlaylistService _horsifyPlaylistService;
         private IQueuedSongDataProvider _queuedSongDataProvider;
         #endregion
 
@@ -32,7 +32,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #endregion
 
         #region Constructors
-        public PlaylistTabViewModel(IHorsifyPlaylistService horsifyPlaylistService, IQueuedSongDataProvider queuedSongDataProvider, IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public PlaylistTabViewModel(IPlaylistService horsifyPlaylistService, IQueuedSongDataProvider queuedSongDataProvider, IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _horsifyPlaylistService = horsifyPlaylistService;
             _queuedSongDataProvider = queuedSongDataProvider;

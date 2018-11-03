@@ -3,6 +3,7 @@ using Horsesoft.Music.Horsify.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Horsesoft.Horsify.SongService
 {
@@ -11,6 +12,10 @@ namespace Horsesoft.Horsify.SongService
         public IEnumerable<Playlist> GetAllPlaylists()
         {
             return _sqliteRepo.PlaylistRepository.Get();
+        }
+        public Task<IEnumerable<Playlist>> GetAllPlaylistsAsync()
+        {
+            return Task.Run(() => GetAllPlaylists());
         }
 
         public IEnumerable<AllJoinedTable> GetSongsFromPlaylist(Playlist playlist)

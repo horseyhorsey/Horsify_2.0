@@ -1,8 +1,8 @@
-﻿using Horsesoft.Horsify.ServicesModule.HorsifyService;
-using Horsesoft.Music.Data.Model;
+﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Engine.Tagging;
 using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Repositories.Services;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,17 +16,22 @@ namespace Horsesoft.Horsify.ServicesModule
     {
         #region Fields
         private IHorsifySongService _horsifySongService;
-        private ILoggerFacade _loggerFacade; 
+        private ILoggerFacade _loggerFacade;
+        private IHorsifySongApi _horsifySongApi;
         #endregion
 
         #region Constructors
-        public SongDataProvider(IHorsifySongService horsifySongService, ILoggerFacade loggerFacade)
+        public SongDataProvider(IHorsifySongService horsifySongService, ILoggerFacade loggerFacade, IHorsifySongApi horsifySongApi) : this (horsifySongService)
+        {
+            _horsifySongApi = horsifySongApi;
+            _loggerFacade = loggerFacade;            
+        } 
+
+        public SongDataProvider(IHorsifySongService horsifySongService)
         {
             _horsifySongService = horsifySongService;
-            _loggerFacade = loggerFacade;
-
             SearchedSongs = new ObservableCollection<AllJoinedTable>();
-        } 
+        }
         #endregion
 
         #region Properties
@@ -36,27 +41,13 @@ namespace Horsesoft.Horsify.ServicesModule
         #endregion
 
         #region Public Methods
+
         public async Task ExtraSearch(ExtraSearchType extraSearchType)
         {
             ResetResults();
             IEnumerable<AllJoinedTable> songs = null;
 
-            switch (extraSearchType)
-            {
-                case ExtraSearchType.None:
-                    break;
-                case ExtraSearchType.MostPlayed:
-                    songs = await _horsifySongService.GetMostPlayedAsync();
-                    break;
-                case ExtraSearchType.RecentlyAdded:
-                    songs = await _horsifySongService.GetRecentlyAddedAsync();
-                    break;
-                case ExtraSearchType.RecentlyPlayed:
-                    songs = await _horsifySongService.GetRecentlyPlayedAsync();
-                    break;
-                default:
-                    break;
-            }
+            songs = await _horsifySongApi.ExtraSearch(extraSearchType);
 
             if (songs?.Count() > 0)
             {
@@ -74,13 +65,13 @@ namespace Horsesoft.Horsify.ServicesModule
         /// </summary>
         /// <param name="playlist">The playlist.</param>
         /// <returns></returns>
-        public Task<AllJoinedTable[]> GetSongs(Playlist playlist)
+        public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
         {
             return _horsifySongService.GetSongsFromPlaylistAsync(playlist);
         }
 
-        public Task<AllJoinedTable[]> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1)
-        {
+        public Task<IEnumerable<AllJoinedTable>> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1)
+        {            
             return _horsifySongService.SearchLikeAsync(searchTypes, wildCardSearch, randomAmount, maxAmount);
         }
 
@@ -106,7 +97,8 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             ResetResults();
 
-            var results = await _horsifySongService.SearchLikeFiltersAsync(searchFilter, randomAmount, maxAmount);
+            var results = await _horsifySongApi.SearchLikeFiltersAsync(searchFilter, randomAmount, maxAmount);
+
             if (results?.Count() > 0)
             {
                 SearchedSongs.AddRange(results);
@@ -120,11 +112,11 @@ namespace Horsesoft.Horsify.ServicesModule
 
             if (rating != null && rating > 0)
             {
-                _loggerFacade.Log($"Song provider - Updating played song", Category.Debug, Priority.Medium);
+                _loggerFacade?.Log($"Song provider - Updating played song", Category.Debug, Priority.Medium);
                 fileTagResult = tagger.UpdateFileTag(selectedSong.FileLocation, (byte)rating);
                 if (!fileTagResult && Path.GetExtension(selectedSong.FileLocation).ToLower() != ".flac")
                 {
-                    _loggerFacade.Log($"Failed to update song. {selectedSong?.FileLocation}", Category.Exception, Priority.Medium);
+                    _loggerFacade?.Log($"Failed to update song. {selectedSong?.FileLocation}", Category.Exception, Priority.Medium);
                     return false;
                 }
             }
@@ -140,7 +132,22 @@ namespace Horsesoft.Horsify.ServicesModule
                 SearchedSongs = new ObservableCollection<Music.Data.Model.AllJoinedTable>();
             else
                 SearchedSongs.Clear();
-        } 
+        }
+
+        public Task<AllJoinedTable[]> GetSongsAsync(Playlist playlist)
+        {
+            return null;
+        }
+
+        Task<AllJoinedTable[]> ISongDataProvider.GetSongs(Playlist playlist)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<AllJoinedTable[]> ISongDataProvider.GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }

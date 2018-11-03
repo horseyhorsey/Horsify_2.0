@@ -16,7 +16,7 @@ namespace Horsesoft.Horsify.ServicesModule
             _container = container;
             _regionManager = regionManager;
 
-            RegisterServices(_container);
+            //RegisterServices(_container);
         }
 
         private void RegisterServices(IUnityContainer container)

@@ -68,6 +68,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UserControls\ucSongTemplateSwitcher.xaml.cs">
+      <DependentUpon>ucSongTemplateSwitcher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AToZSearchViewModel.cs" />
     <Compile Include="ViewModels\InstantSearchViewModel.cs" />
     <Compile Include="ViewModels\SearchedSongsViewModel.cs" />
@@ -128,6 +131,10 @@
     <Page Include="SampleData\SongsListSampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ucSongTemplateSwitcher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AToZSearchView.xaml">
       <SubType>Designer</SubType>

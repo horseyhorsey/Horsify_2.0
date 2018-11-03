@@ -8,7 +8,7 @@ namespace Horsesoft.Music.Horsify.Repositories
         /// Initializes a new instance with <see cref="HorsifyContext"/>
         /// </summary>
         public HorsifyDataSqliteRepo()
-        {                        
+        {            
             _context = new HorsifyContext();            
         }
     }

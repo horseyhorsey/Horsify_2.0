@@ -1,7 +1,7 @@
-﻿using Horsesoft.Horsify.ServicesModule.HorsifyService;
-using Horsesoft.Music.Data.Model;
+﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Repositories.Services;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -58,7 +58,7 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                _dbFilters = _horsifySongService.GetFilters();
+                _dbFilters = _horsifySongService.GetFilters().ToArray();
                 if (Filters == null)
                 {
                     if (_dbFilters != null)

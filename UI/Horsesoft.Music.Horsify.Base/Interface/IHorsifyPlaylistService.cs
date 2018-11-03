@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Horsesoft.Music.Horsify.Base.Interface
 {
-    public interface IHorsifyPlaylistService
+    public interface IPlaylistService
     {
         List<Playlist> Playlists { get; set; }
 
-        Task<AllJoinedTable[]> GetSongs(Playlist playlist);
+        Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist);
 
         Task SavePlaylistAsync(Playlist[] playlist);
 

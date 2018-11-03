@@ -1,0 +1,44 @@
+﻿@using BlazorHorsify.Shared
+@using Horsesoft.Music.Data.Model
+@page "/fetchdata"
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+                <th>Album</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Artist</td>
+                    <td>@forecast.Title</td>
+                    <td>@forecast.Album</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+    AllJoinedTable[] forecasts;
+
+    protected override async Task OnInitAsync()
+    {
+        forecasts = await Http.GetJsonAsync<AllJoinedTable[]>("api/SampleData/WeatherForecasts");
+    } 
+}

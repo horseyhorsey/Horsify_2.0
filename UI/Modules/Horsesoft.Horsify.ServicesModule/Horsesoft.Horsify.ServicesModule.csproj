@@ -51,16 +51,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connected Services\HorsifyService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="DjHorsifyService.cs" />
     <Compile Include="Extensions\ShuffleExtensions.cs" />
-    <Compile Include="HorsifyDataTableRepo.cs" />
     <Compile Include="HorsifyMediaController.cs" />
     <Compile Include="HorsifyPlaylistService.cs" />
+    <Compile Include="HorsifySongServiceWpf.cs" />
+    <Compile Include="IHorsifySongApi.cs" />
     <Compile Include="QueuedSongDataProvider.cs" />
     <Compile Include="SearchHistory.cs" />
     <Compile Include="ServicesModuleModule.cs" />
@@ -84,22 +80,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Connected Services\HorsifyService\HorsifySongService.wsdl" />
-    <None Include="Connected Services\HorsifyService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\HorsifyService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\HorsifyService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\HorsifyService\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\HorsifyService\item4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\DataSources\Horsesoft.Music.Data.Model.AllJoinedTable.datasource" />
     <None Include="Properties\DataSources\Horsesoft.Music.Data.Model.AllJoinedTable1.datasource" />
     <None Include="Properties\DataSources\Horsesoft.Music.Data.Model.File.datasource" />
@@ -133,28 +113,14 @@
       <Project>{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}</Project>
       <Name>Horsesoft.Music.Data.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Repo\Horsesoft.Music.Horsify.Repositories\Horsesoft.Music.Horsify.Repositories.csproj">
+      <Project>{6F4DD4B9-FCD7-4CB2-AA0C-022B81E68595}</Project>
+      <Name>Horsesoft.Music.Horsify.Repositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj">
       <Project>{B4DABE47-1E17-486D-85FB-2A232612BCCE}</Project>
       <Name>Horsesoft.Music.Horsify.Base</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\HorsifyService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\HorsifyService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\HorsifyService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\HorsifyService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\HorsifyService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

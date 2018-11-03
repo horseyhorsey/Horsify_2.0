@@ -8,6 +8,8 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Horsify.ServicesModule;
 using Horsesoft.Horsify.DjHorsify.Model;
 using Prism.Logging;
+using Horsesoft.Music.Horsify.Repositories.Services;
+//using Horsesoft.Music.Horsify.Repositories.Services;
 
 namespace Horsesoft.Music.Horsify.WPF.Shell
 {
@@ -60,16 +62,18 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             base.ConfigureContainer();
 
             //Horsify Main WCF Service
-            Container.RegisterInstance<Horsesoft.Horsify.ServicesModule.HorsifyService.IHorsifySongService>(
-                    new Horsesoft.Horsify.ServicesModule.HorsifyService.HorsifySongServiceClient("BasicHttpBinding_IHorsifySongService"),
+            Container.RegisterInstance<Repositories.Services.IHorsifySongService>(
+                    new Repositories.Services.HorsifySongService(),
                     new ContainerControlledLifetimeManager());
 
             var _logger = Container.Resolve<ILoggerFacade>();
-            var _songService = Container.Resolve<Horsesoft.Horsify.ServicesModule.HorsifyService.IHorsifySongService>();
+            var _songService = Container.Resolve<Repositories.Services.IHorsifySongService>();
+
             Container.RegisterInstance<IDjHorsifyOption>(new DjHorsifyOption(), new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IHorsifySongApi>(new HorsifySongApi("http://localhost:80/"), new ContainerControlledLifetimeManager());
 
             //Song data provider using the IHorsifySongService
-            Container.RegisterInstance<ISongDataProvider>(new SongDataProvider(_songService, _logger), 
+            Container.RegisterInstance<ISongDataProvider>(new SongDataProvider(_songService, _logger, Container.Resolve<IHorsifySongApi>()), 
                 new ContainerControlledLifetimeManager());
 
             //DJ horsify Service using the IHorsifySongService
@@ -78,13 +82,12 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
                 new ContainerControlledLifetimeManager());
 
             // Horsify Playlist services
-            Container.RegisterInstance<IHorsifyPlaylistService>(new HorsifyPlaylistService(
+            Container.RegisterInstance<IPlaylistService>(new HorsifyPlaylistService(
                 _songService, _logger),
                 new ContainerControlledLifetimeManager());            
 
             //Horsify Table repo using the IHorsifySongService
-            Container.RegisterInstance<IHorsifyDataTableRepo>(new HorsifyDataTableRepo(
-                    _songService),
+            Container.RegisterInstance<IHorsifyDataTableRepo>(new HorsifyDataTableRepo(_songService),
                     new ContainerControlledLifetimeManager());
 
             //Queued Songs

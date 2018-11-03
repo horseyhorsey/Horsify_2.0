@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Repositories;
 
 namespace Horsesoft.Horsify.SongService
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public partial class HorsifySongService : IHorsifySongService
     {
         private IHorsifyDataRepo _sqliteRepo;
 
         public HorsifySongService()
         {
-            SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
+            //SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
             //TODO: Can be removed?
             //SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
-            //SQLitePCL.Batteries.Init();
+            SQLitePCL.Batteries.Init();
             _sqliteRepo = new HorsifyDataSqliteRepo();
         }
     }

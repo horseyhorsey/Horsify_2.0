@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>
@@ -31,9 +31,8 @@
   </PropertyGroup>-->
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.3" />-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0" />    
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
     <!--<PackageReference Include="SQLitePCLRaw.core" Version="1.1.11" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.108" />-->
@@ -43,6 +42,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Sqlite\Horsesoft.Music.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj" />
+    <ProjectReference Include="..\..\UI\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj" />
   </ItemGroup>
 
 

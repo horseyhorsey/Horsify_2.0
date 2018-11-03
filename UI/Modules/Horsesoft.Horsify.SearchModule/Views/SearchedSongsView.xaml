@@ -10,7 +10,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True"        
              xmlns:local="clr-namespace:Horsesoft.Horsify.SearchModule"            
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                                                  
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.SearchModule.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1630"
              d:DataContext="{d:DesignData ../SampleData/SearchedSongsViewModelSampleData.xaml}">
@@ -291,50 +292,10 @@
 
         </ToolBarTray>
 
-        <!--SONG SELECTING TOOLBAR-->
-        <ToolBarTray HorizontalAlignment="Left" VerticalAlignment="Top"
-                     Orientation="Vertical"
-                     Margin="30,25"
-                     Focusable="False"
-                    
-                     >
-            <ToolBar Background="Transparent" Header="VIEW"
-                     IsTabStop="False" FontSize="24"
-                     HorizontalContentAlignment="Right"   BorderThickness="0"                  
-                     >
-
-                <ToolBar.Resources>
-                    <Style TargetType="{x:Type Button}" x:Key="ToolBarButton">
-                        <Setter Property="Width" Value="25"/>
-                        <Setter Property="Height" Value="25"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                    </Style>
-                </ToolBar.Resources>
-
-
-                <Button Style="{StaticResource ToolBarButton}" 
-                        ToolBar.OverflowMode="Always"
-                        Background="DodgerBlue" 
-                        CommandParameter="0"
-                        Click="SwitchTemplateButton_Click"
-                        />
-                <Button Style="{StaticResource ToolBarButton}" 
-                        ToolBar.OverflowMode="Always"
-                        Background="DodgerBlue" 
-                        CommandParameter="1"
-                        Click="SwitchTemplateButton_Click"
-                        />
-                <Button 
-                    ToolBar.OverflowMode="Always"
-                    Style="{StaticResource ToolBarButton}" 
-                        Background="DodgerBlue" 
-                        CommandParameter="2"
-                        Click="SwitchTemplateButton_Click"
-                        />
-
-            </ToolBar>
-        </ToolBarTray>
+        <usercontrols:ucSongTemplateSwitcher 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            Margin="20"/>
 
         <StackPanel VerticalAlignment="Bottom" 
                     Orientation="Horizontal" HorizontalAlignment="Center"

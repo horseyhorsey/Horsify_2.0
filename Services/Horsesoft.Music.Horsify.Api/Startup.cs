@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Horsesoft.Music.Horsify.Api
 {
@@ -21,6 +22,11 @@ namespace Horsesoft.Music.Horsify.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Horsify API", Version = "v1" });
+            });
+
             services.Add(new ServiceDescriptor(typeof(Repositories.Services.IHorsifySongService), typeof(Repositories.Services.HorsifySongService), ServiceLifetime.Singleton));
         }
 
@@ -35,7 +41,12 @@ namespace Horsesoft.Music.Horsify.Api
             {
                 //app.UseHsts();
             }
-            
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Horsify API V1");
+            });
             //app.UseHttpsRedirection();
             app.UseMvc();
         }

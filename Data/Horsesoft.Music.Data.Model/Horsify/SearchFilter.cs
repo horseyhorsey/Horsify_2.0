@@ -116,6 +116,18 @@ namespace Horsesoft.Music.Data.Model.Horsify
                 }
             };
         }
+
+        public SearchFilter(string[] filters)
+        {
+            Filters = new List<HorsifyFilter>()
+            {
+                new HorsifyFilter()
+                {
+                    SearchType = SearchType.All,
+                    Filters = filters.ToList()
+                }
+            };
+        }
     }
 
     public interface IFilterOption

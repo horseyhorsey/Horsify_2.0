@@ -18,16 +18,23 @@ namespace Horsesoft.Horsify.SongService
             return Task.Run(() => GetAllPlaylists());
         }
 
-        public IEnumerable<AllJoinedTable> GetSongsFromPlaylist(Playlist playlist)
+        public IEnumerable<AllJoinedTable> GetSongsFromPlaylist(int id)
         {
-            var ids = GetIdsFromPlaylistString(playlist.Items);
+            var playlist = _sqliteRepo.PlaylistRepository.GetById(id);
+            if (playlist == null) return null;
 
+            var ids = GetIdsFromPlaylistString(playlist.Items);
             if (ids?.Length > 0)
             {
                 return _sqliteRepo.GetAllJoinedTableByIds(ids);
             }
 
             return null;
+        }
+
+        public Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(int id)
+        {
+            return Task.Run(() => GetSongsFromPlaylist(id));
         }
 
         public void InsertOrUpdatePlaylists(IEnumerable<Playlist> playlists)

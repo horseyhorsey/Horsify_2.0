@@ -25,15 +25,10 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             return Task.Run(() => this.GetAllPlaylists());
         }
 
-        public IEnumerable<AllJoinedTable> GetSongsFromPlaylist(Playlist playlist)
+        public Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(int id)
         {
-            throw new NotImplementedException();
+            return null;
         }
-
-        public Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
-        {
-            return Task.Run(() => this.GetSongsFromPlaylist(playlist));
-        }        
 
         public Task<IEnumerable<AllJoinedTable>> SearchLikeAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount)
         {
@@ -128,13 +123,19 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         /// <returns></returns>
         public IEnumerable<AllJoinedTable> SearchLike(SearchType searchTypes, string wildCardSearch, short randomAmount = 0, short maxAmount = -1)
         {
-            wildCardSearch = wildCardSearch.Replace('*', '%');
+            wildCardSearch = ReplaceWildcards(wildCardSearch);
             var sqlStr = _sqliteRepo.SearchLike(searchTypes, wildCardSearch);
 
             if (randomAmount > 0)
                 return _sqliteRepo.ExecuteSearchLike(sqlStr, randomAmount);
 
             return _sqliteRepo.ExecuteSearchLike(sqlStr, maxAmount);
+        }
+
+        private static string ReplaceWildcards(string wildCardSearch)
+        {
+            wildCardSearch = wildCardSearch.Replace('*', '%');
+            return wildCardSearch;
         }
 
         //public Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount = 0, short maxAmount = -1)
@@ -145,6 +146,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         public IEnumerable<AllJoinedTable> SearchLikeFilters(SearchFilter searchFilter, short randomAmount = 0, short maxAmount = -1)
         {
             var sqlStr = _sqliteRepo.SearchLike(searchFilter);
+            sqlStr = ReplaceWildcards(sqlStr);
 
             if (sqlStr.EndsWith("AND "))
             {

@@ -14,7 +14,6 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
     [ApiController]
     public class SongsController : ControllerBase
     {
-
         IHorsifySongService _horsifySongService;
 
         public SongsController(IHorsifySongService horsifySongService)
@@ -35,10 +34,11 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
             return _horsifySongService.SearchLike(searchTypes, term);
         }
 
-        public Task<IEnumerable<AllJoinedTable>> SearchFilter(int[] rating = null, int[] bpm = null, short randomAmount = 0, short maxAmount = -1)
+        public Task<IEnumerable<AllJoinedTable>> SearchFilter(string[] filters, int[] rating = null, int[] bpm = null, short randomAmount = 0, short maxAmount = -1)
         {
-            SearchFilter sf = new SearchFilter();
-            if (rating != null)
+            SearchFilter sf = new SearchFilter(filters);
+
+            if (rating?.Length > 1)
             {
                 sf.RatingRange = new RangeFilterOption<byte>((byte)rating[0], (byte)rating[1]);
                 sf.RatingRange.IsEnabled = true;
@@ -68,6 +68,15 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
             return _horsifySongService.GetRecentlyAdded();
         }
 
+        public Task<bool> Update(int id, int? rating)
+        {
+            return _horsifySongService.UpdatePlayedSongAsync(id, rating);
+        }
+
+        public Task<IEnumerable<AllJoinedTable>> Playlist(int id)
+        {
+            return _horsifySongService.GetSongsFromPlaylistAsync(id);
+        }        
 
         //IEnumerable<AllJoinedTable>
 

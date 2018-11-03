@@ -65,26 +65,26 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         /// </summary>
         /// <param name="searchString">The search string.</param>
         /// <returns></returns>
-        private AllJoinedTable GetSong(string searchString)
-        {
-            if (string.IsNullOrWhiteSpace(searchString))
-            {
-                Log($"Play song in instant search empty.", Category.Warn);
-                return null;
-            }
+        //private AllJoinedTable GetSong(string searchString)
+        //{
+        //    if (string.IsNullOrWhiteSpace(searchString))
+        //    {
+        //        Log($"Play song in instant search empty.", Category.Warn);
+        //        return null;
+        //    }
 
-            int id = 0;
-            if (searchString.Contains("|"))
-            {
-                id = Convert.ToInt32(searchString.Split('|')[0]);
-            }
+        //    int id = 0;
+        //    if (searchString.Contains("|"))
+        //    {
+        //        id = Convert.ToInt32(searchString.Split('|')[0]);
+        //    }
 
-            return _songDataProvider.GetSongById(id);
-        }
+        //    return _songDataProvider.GetSongById(id);
+        //}
 
         private AllJoinedTable GetSong(AllJoinedTable allJoinedTable)
         {
-            return _songDataProvider.GetSongById(allJoinedTable.Id);
+            return _songDataProvider.GetSongById(allJoinedTable.Id).Result;
         }
 
         protected override void OnQueueSong(AllJoinedTable song = null)

@@ -9,7 +9,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
     {
         int Id { get; set; }
         string FileName { get; set; }
-        List<string> Filters { get; set; }        
+        List<string> Filters { get; set; }
         SearchType SearchType { get; set; }
         SearchAndOrOption SearchAndOrOption { get; set; }
     }
@@ -34,7 +34,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         public Filter Filter { get; set; }
 
         public HorsifyFilter()
-        {       
+        {
         }
 
         public HorsifyFilter(Filter filter)
@@ -100,6 +100,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
             return base.GetHashCode();
         }
 
+        #region Constructors
         public SearchFilter()
         {
 
@@ -116,6 +117,22 @@ namespace Horsesoft.Music.Data.Model.Horsify
                 }
             };
         }
+
+        public SearchFilter(string[] filters, SearchType searchType = SearchType.All)
+        {
+            if (filters?.Length > 0)
+            {
+                Filters = new List<HorsifyFilter>()
+                {
+                    new HorsifyFilter()
+                    {
+                        SearchType = searchType,
+                        Filters = filters.ToList()
+                    }
+                };
+            }
+        }
+        #endregion
     }
 
     public interface IFilterOption

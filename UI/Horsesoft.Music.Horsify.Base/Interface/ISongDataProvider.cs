@@ -8,7 +8,7 @@ namespace Horsesoft.Music.Horsify.Base.Interface
     public interface ISongDataProvider
     {
         Task ExtraSearch(ExtraSearchType extraSearchType);
-        AllJoinedTable GetSongById(int id);
+        Task<AllJoinedTable> GetSongById(int id);
         Task<AllJoinedTable[]> GetSongs(Playlist playlist);
         Task<AllJoinedTable[]> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1);
 

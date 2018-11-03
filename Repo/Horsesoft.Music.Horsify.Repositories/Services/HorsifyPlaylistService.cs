@@ -17,11 +17,16 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         /// <param name="playlist">The playlist to insert or update</param>        
         void InsertOrUpdatePlaylists(IEnumerable<Playlist> playlists);
     }
-    public partial class HorsifySongService // Playlist Service
+    public partial class HorsifySongService  // Playlist Service
     {
         public IEnumerable<Playlist> GetAllPlaylists()
         {
             return _sqliteRepo.PlaylistRepository.Get();
+        }
+
+        public IEnumerable<AllJoinedTable> GetSongsFromPlaylist(Playlist playlist)
+        {
+            throw new NotImplementedException();
         }
 
         public void InsertOrUpdatePlaylists(IEnumerable<Playlist> playlists)

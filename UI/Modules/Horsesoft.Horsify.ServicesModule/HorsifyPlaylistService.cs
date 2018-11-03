@@ -32,7 +32,7 @@ namespace Horsesoft.Horsify.ServicesModule
         public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
         {
             _loggerFacade.Log($"Getting Playlist songs from service {playlist.Items}", Category.Debug, Priority.Low);
-            return Task.Run(() =>  _horsifySongService.GetSongsFromPlaylistAsync(playlist));
+            return Task.Run(() =>   _horsifySongService.GetSongsFromPlaylistAsync((int)playlist.Id));
         }
 
         public async Task UpdateFromDatabaseAsync()

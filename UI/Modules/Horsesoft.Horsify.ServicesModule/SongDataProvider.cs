@@ -15,7 +15,7 @@ namespace Horsesoft.Horsify.ServicesModule
     public class SongDataProvider : ISongDataProvider
     {
         #region Fields
-        private IHorsifySongService _horsifySongService;
+        //private IHorsifySongService _horsifySongService;
         private ILoggerFacade _loggerFacade;
         private IHorsifySongApi _horsifySongApi;
         #endregion
@@ -29,7 +29,7 @@ namespace Horsesoft.Horsify.ServicesModule
 
         public SongDataProvider(IHorsifySongService horsifySongService)
         {
-            _horsifySongService = horsifySongService;
+            //_horsifySongService = horsifySongService;
             SearchedSongs = new ObservableCollection<AllJoinedTable>();
         }
         #endregion
@@ -55,9 +55,9 @@ namespace Horsesoft.Horsify.ServicesModule
             }
         }
 
-        public AllJoinedTable GetSongById(int id)
+        public Task<AllJoinedTable> GetSongById(int id)
         {
-            return _horsifySongService.GetSongById(id);
+            return _horsifySongApi.GetById(id);
         }
 
         /// <summary>
@@ -67,12 +67,12 @@ namespace Horsesoft.Horsify.ServicesModule
         /// <returns></returns>
         public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
         {
-            return _horsifySongService.GetSongsFromPlaylistAsync(playlist);
+            return _horsifySongApi.GetSongsFromPlaylistAsync(playlist);            
         }
 
         public Task<IEnumerable<AllJoinedTable>> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1)
-        {            
-            return _horsifySongService.SearchLikeAsync(searchTypes, wildCardSearch, randomAmount, maxAmount);
+        {
+            return _horsifySongApi.SearchAsync(wildCardSearch, searchTypes);
         }
 
         public async Task SearchAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1)
@@ -121,7 +121,7 @@ namespace Horsesoft.Horsify.ServicesModule
                 }
             }
 
-            return await _horsifySongService.UpdatePlayedSongAsync(selectedSong.Id, rating);
+            return await _horsifySongApi.UpdatePlayedSongAsync(selectedSong.Id, rating);
         }
         #endregion
 

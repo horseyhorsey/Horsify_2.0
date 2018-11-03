@@ -44,8 +44,8 @@ namespace Horsesoft.Music.Horsify.Repositories
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();            
-            //_context.ChangeTracker.AutoDetectChangesEnabled = false;
-            //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;            
+            _context.ChangeTracker.AutoDetectChangesEnabled = false;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;            
         } 
 
         #endregion

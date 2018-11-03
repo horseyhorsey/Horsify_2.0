@@ -11,6 +11,11 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             return _sqliteRepo.FilterRepository.Get(orderBy: x => x.OrderBy(z => z.Name));
         }
 
+        public Filter GetFilter(int id)
+        {
+            return _sqliteRepo.FilterRepository.GetById((long)id);
+        }
+
         public void InsertFilter(Filter filter)
         {
             _sqliteRepo.FilterRepository.Insert(filter);

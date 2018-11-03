@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Linq;
 using Horsesoft.Music.Data.Model;
 using Prism.Logging;
-using Horsesoft.Music.Horsify.Repositories.Services;
 
 namespace Horsesoft.Horsify.ServicesModule
 {
@@ -12,14 +11,12 @@ namespace Horsesoft.Horsify.ServicesModule
     {
         #region Services
         private readonly ILoggerFacade _loggerFacade;
-        private IHorsifySongService _horsifySongService;
         #endregion
 
         #region Constructor
-        public HorsifyPlaylistService(IHorsifySongService horsifySongService, ILoggerFacade loggerFacade)
+        public HorsifyPlaylistService(ILoggerFacade loggerFacade)
         {
             _loggerFacade = loggerFacade;
-            _horsifySongService = horsifySongService;
             Playlists = new List<Playlist>();
         }
         #endregion
@@ -32,7 +29,8 @@ namespace Horsesoft.Horsify.ServicesModule
         public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
         {
             _loggerFacade.Log($"Getting Playlist songs from service {playlist.Items}", Category.Debug, Priority.Low);
-            return Task.Run(() =>   _horsifySongService.GetSongsFromPlaylistAsync((int)playlist.Id));
+            //return Task.Run(() =>   _horsifySongService.GetSongsFromPlaylistAsync((int)playlist.Id));
+            return null;
         }
 
         public async Task UpdateFromDatabaseAsync()
@@ -40,7 +38,8 @@ namespace Horsesoft.Horsify.ServicesModule
             try
             {
                 _loggerFacade.Log($"Get all playlists from database", Category.Debug, Priority.Low);
-                IEnumerable<Playlist> playlists = await _horsifySongService.GetAllPlaylistsAsync();
+
+                IEnumerable<Playlist> playlists = null; //await _horsifySongService.GetAllPlaylistsAsync();
 
                 Playlists.Clear();
                 if (playlists != null)
@@ -60,7 +59,8 @@ namespace Horsesoft.Horsify.ServicesModule
             _loggerFacade.Log($"Saving playlists", Category.Info, Priority.Low);
             _loggerFacade.Log($"playlist count {playlists.Length}", Category.Debug, Priority.Low);
 
-            return _horsifySongService.InsertOrUpdatePlaylistsAsync(playlists);
+            return null;
+            //return _horsifySongService.InsertOrUpdatePlaylistsAsync(playlists);
         }
         #endregion
     }

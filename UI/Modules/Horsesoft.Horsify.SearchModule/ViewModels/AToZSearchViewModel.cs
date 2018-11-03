@@ -5,7 +5,6 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Logging;
-using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
     public class AToZSearchViewModel : HorsifyBindableBase
     {
-        private IHorsifyDataTableRepo _horsifyDataTableRepo;
+        private IHorsifySongApi _horsifySongApi;
         private IRegionManager _regionManager;
 
         public ICommand ClearSelectedCommand { get; set; }
@@ -25,9 +24,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         public ICommand RunSearchCommand { get; set; }
         public ICommand RemoveSelectedFilter { get; set; }
 
-        public AToZSearchViewModel(IHorsifyDataTableRepo horsifyDataTableRepo, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public AToZSearchViewModel(IHorsifySongApi horsifySongApi, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
-            _horsifyDataTableRepo = horsifyDataTableRepo;
+            _horsifySongApi = horsifySongApi;
             _regionManager = regionManager;
 
             SelectResultItemCommand = new DelegateCommand<object[]>(OnSelectResultItem);
@@ -123,7 +122,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private IEnumerable<string> PopulateTableResults()
         {
-            return _horsifyDataTableRepo.GetEntries(SearchType, (char)SelectedCharachter);
+            return _horsifySongApi.GetEntries(SearchType, (char)SelectedCharachter);
         }
 
         private string _selectedSearchType;

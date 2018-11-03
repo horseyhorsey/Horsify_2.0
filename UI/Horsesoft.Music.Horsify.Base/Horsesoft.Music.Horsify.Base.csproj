@@ -160,6 +160,7 @@
     <Compile Include="Interface\IHorsifyMediaController.cs" />
     <Compile Include="Interface\IHorsifyPlaylistService.cs" />
     <Compile Include="Interface\IHorsifySettings.cs" />
+    <Compile Include="Interface\IHorsifySongApi.cs" />
     <Compile Include="Interface\IImportLogger.cs" />
     <Compile Include="Interface\IMediaPlayer.cs" />
     <Compile Include="Interface\IQueuedSongDataProvider.cs" />

@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj" />
-    <ProjectReference Include="..\..\..\..\Services\Horsesoft.Horsify.SongService\Horsesoft.Horsify.SongService.csproj" />
     <ProjectReference Include="..\..\..\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj" />
     <ProjectReference Include="..\BlazorHorsify.Client\BlazorHorsify.Client.csproj" />
     <ProjectReference Include="..\BlazorHorsify.Shared\BlazorHorsify.Shared.csproj" />

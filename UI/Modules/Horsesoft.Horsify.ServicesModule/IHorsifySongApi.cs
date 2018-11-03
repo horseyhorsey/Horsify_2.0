@@ -1,5 +1,6 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Horsify.Base.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,32 +10,6 @@ using System.Threading.Tasks;
 
 namespace Horsesoft.Horsify.ServicesModule
 {
-    public interface IHorsifySongApi
-    {
-        string BaseAddress { get; set; }
-        /// <summary>
-        /// Call the songs api extra search, like most played etc <see cref="ExtraSearchType"/>
-        /// </summary>
-        /// <param name="extraSearchType"></param>
-        Task<IEnumerable<AllJoinedTable>> ExtraSearch(ExtraSearchType extraSearchType);
-
-        Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist);
-
-        /// <summary>
-        /// Search for songs with types. Use * for wildcard likes
-        /// </summary>
-        /// <param name="term"></param>
-        /// <param name="searchTypes"></param>
-        /// <returns></returns>
-        Task<IEnumerable<AllJoinedTable>> SearchAsync(string term, SearchType searchTypes);
-
-        Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount = 0, short maxAmount = -1);
-
-        Task<AllJoinedTable> GetById(int id);
-
-        Task<bool> UpdatePlayedSongAsync(int id, int? rating);        
-    }
-
     public class HorsifySongApi : IHorsifySongApi
     {
         public string BaseAddress { get; set; }
@@ -121,11 +96,6 @@ namespace Horsesoft.Horsify.ServicesModule
 
         }
 
-        private Task<HttpResponseMessage> GetResponse(string url)
-        {
-            return _client.GetAsync(BaseAddress + url);
-        }
-
         public async Task<AllJoinedTable> GetById(int id)
         {
             var response = await GetResponse($@"api/songs/getbyid/{id}");
@@ -133,6 +103,35 @@ namespace Horsesoft.Horsify.ServicesModule
             {
                 var result = await response.Content.ReadAsStringAsync();
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<AllJoinedTable>(result);
+            }
+
+            return null;
+        }
+
+        private Task<HttpResponseMessage> GetResponse(string url)
+        {
+            return _client.GetAsync(BaseAddress + url);
+        }
+
+        public IEnumerable<string> GetEntries(SearchType searchType, char firstChar)
+        {
+            //return _horsifySongService.GetAllFromTableAsStrings(searchType, firstChar.ToString(), -1);
+            return null;
+        }
+
+        public IEnumerable<string> GetEntries(SearchType searchType, string searchTerm, short maxAmount = -1)
+        {
+            //return _horsifySongService.GetAllFromTableAsStrings(searchType, searchTerm, maxAmount);
+            return null;
+        }
+
+        public async Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
+        {
+            var response = await GetResponse($@"api/songs/playlist/{playlist.Id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AllJoinedTable>>(result);
             }
 
             return null;
@@ -153,18 +152,6 @@ namespace Horsesoft.Horsify.ServicesModule
             }
 
             return false;
-        }
-
-        public async Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
-        {
-            var response = await GetResponse($@"api/songs/playlist/{playlist.Id}");
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AllJoinedTable>>(result);
-            }
-
-            return null;
         }
     }
 }

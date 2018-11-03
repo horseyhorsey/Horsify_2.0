@@ -1,7 +1,6 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base.Interface;
-using Horsesoft.Music.Horsify.Repositories.Services;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,16 +10,14 @@ using System.Threading.Tasks;
 namespace Horsesoft.Horsify.ServicesModule
 {
     public class DjHorsifyService : IDjHorsifyService
-    {
-        private IHorsifySongService _horsifySongService;
+    {        
         public IDjHorsifyOption DjHorsifyOption { get; set; }
 
         private ILoggerFacade _loggerFacade;
         private Music.Data.Model.Filter[] _dbFilters;
 
-        public DjHorsifyService(IDjHorsifyOption djHorsifyOption, IHorsifySongService horsifySongService, ILoggerFacade loggerFacade)
-        {
-            _horsifySongService = horsifySongService;
+        public DjHorsifyService(IDjHorsifyOption djHorsifyOption, ILoggerFacade loggerFacade)
+        {            
             DjHorsifyOption = djHorsifyOption;
             _loggerFacade = loggerFacade;
 
@@ -40,7 +37,7 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                _horsifySongService.InsertFilter(filter);
+                //_horsifySongService.InsertFilter(filter);
             }
             catch (System.Exception ex)
             {
@@ -58,7 +55,7 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                _dbFilters = _horsifySongService.GetFilters().ToArray();
+                _dbFilters = null; // _horsifySongService.GetFilters().ToArray();
                 if (Filters == null)
                 {
                     if (_dbFilters != null)
@@ -87,7 +84,8 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             var searchFilter = GenerateSearchFilter(djHorsifyOption);
 
-            return _horsifySongService.SearchLikeFilters(searchFilter, (short)djHorsifyOption.Amount, -1);
+            //return _horsifySongService.SearchLikeFilters(searchFilter, (short)djHorsifyOption.Amount, -1);
+            return null;
         }
 
         public SearchFilter GenerateSearchFilter(IDjHorsifyOption djHorsifyOption)
@@ -147,8 +145,9 @@ namespace Horsesoft.Horsify.ServicesModule
                 var filterToUpdate = _dbFilters.FirstOrDefault(x => x.Id == dbFilter.Id);
                 filterToUpdate.SearchTerms = dbFilter.SearchTerms;
                 filterToUpdate.Name = dbFilter.Name;
+
                 //TODO: ID already being tracked in database
-                _horsifySongService.UpdateFilter(filterToUpdate);
+                //_horsifySongService.UpdateFilter(filterToUpdate);
 
                 //Get db filter
                 var f = this.Filters.FirstOrDefault(x => x.Id == filterToUpdate.Id);

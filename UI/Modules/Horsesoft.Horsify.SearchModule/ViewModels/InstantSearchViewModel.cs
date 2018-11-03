@@ -16,15 +16,15 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
     public class InstantSearchViewModel : HorsifySongPlayBindableBase
     {
         private ISongDataProvider _songDataProvider;
-        private IHorsifyDataTableRepo _horsifyDataTableRepo;
+        private IHorsifySongApi _horsifySongApi;
         private IEventAggregator _eventAggregator;
         private static DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
-        public InstantSearchViewModel(ISongDataProvider songDataProvider, IHorsifyDataTableRepo horsifyDataTableRepo,
+        public InstantSearchViewModel(ISongDataProvider songDataProvider, IHorsifySongApi horsifySongApi,
             IEventAggregator eventAggregator, IQueuedSongDataProvider queuedSongDataProvider, ILoggerFacade loggerFacade) : base(queuedSongDataProvider, loggerFacade)
         {
             _songDataProvider = songDataProvider;
-            _horsifyDataTableRepo = horsifyDataTableRepo;
+            _horsifySongApi = horsifySongApi;
             _eventAggregator = eventAggregator;
 
             _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500);
@@ -98,8 +98,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private void _dispatcherTimer_Tick(object sender, EventArgs e)
         {   
-            //Get songs, stop timer and populate collection
-            var results = _horsifyDataTableRepo.GetEntries(Music.Data.Model.Horsify.SearchType.Title, SearchModel.SearchText, 10);
+            //Get songs, stop timer and populate collection            
+            var results = _horsifySongApi.GetEntries(Music.Data.Model.Horsify.SearchType.Title, SearchModel.SearchText, 15);
             _dispatcherTimer.Stop();
             SearchModel.Results.Clear();
             SearchModel.AllJoinedTables.Clear();

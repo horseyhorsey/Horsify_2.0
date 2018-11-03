@@ -2,7 +2,6 @@
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Engine.Tagging;
 using Horsesoft.Music.Horsify.Base.Interface;
-using Horsesoft.Music.Horsify.Repositories.Services;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,17 +20,13 @@ namespace Horsesoft.Horsify.ServicesModule
         #endregion
 
         #region Constructors
-        public SongDataProvider(IHorsifySongService horsifySongService, ILoggerFacade loggerFacade, IHorsifySongApi horsifySongApi) : this (horsifySongService)
+        public SongDataProvider(ILoggerFacade loggerFacade, IHorsifySongApi horsifySongApi)
         {
             _horsifySongApi = horsifySongApi;
-            _loggerFacade = loggerFacade;            
+            _loggerFacade = loggerFacade;
+            SearchedSongs = new ObservableCollection<AllJoinedTable>();
         } 
 
-        public SongDataProvider(IHorsifySongService horsifySongService)
-        {
-            //_horsifySongService = horsifySongService;
-            SearchedSongs = new ObservableCollection<AllJoinedTable>();
-        }
         #endregion
 
         #region Properties

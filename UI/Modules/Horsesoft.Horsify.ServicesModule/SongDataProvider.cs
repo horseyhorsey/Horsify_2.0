@@ -1,6 +1,5 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
-using Horsesoft.Music.Engine.Tagging;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Logging;
 using System.Collections.Generic;
@@ -102,21 +101,16 @@ namespace Horsesoft.Horsify.ServicesModule
 
         public async Task<bool> UpdatePlayedSong(AllJoinedTable selectedSong, int? rating = null)
         {
-            bool fileTagResult = false;
-            ISongTagger tagger = new SongTaggerTagLib();
+            bool fileTagResult = false;            
 
             if (rating != null && rating > 0)
             {
-                _loggerFacade?.Log($"Song provider - Updating played song", Category.Debug, Priority.Medium);
-                fileTagResult = tagger.UpdateFileTag(selectedSong.FileLocation, (byte)rating);
-                if (!fileTagResult && Path.GetExtension(selectedSong.FileLocation).ToLower() != ".flac")
-                {
-                    _loggerFacade?.Log($"Failed to update song. {selectedSong?.FileLocation}", Category.Exception, Priority.Medium);
-                    return false;
-                }
+                _loggerFacade?.Log($"Song provider - Updating played song", Category.Debug, Priority.Medium);                
+
+                return await _horsifySongApi.UpdatePlayedSongAsync(selectedSong.Id, rating);
             }
 
-            return await _horsifySongApi.UpdatePlayedSongAsync(selectedSong.Id, rating);
+            return fileTagResult;
         }
         #endregion
 

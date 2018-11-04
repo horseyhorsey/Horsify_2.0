@@ -75,7 +75,7 @@
       <Name>Horsesoft.Music.Data.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Repo\Horsesoft.Music.Horsify.Repositories\Horsesoft.Music.Horsify.Repositories.csproj">
-      <Project>{c8753326-438c-4305-b631-66301fe2dda4}</Project>
+      <Project>{6F4DD4B9-FCD7-4CB2-AA0C-022B81E68595}</Project>
       <Name>Horsesoft.Music.Horsify.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UI\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj">

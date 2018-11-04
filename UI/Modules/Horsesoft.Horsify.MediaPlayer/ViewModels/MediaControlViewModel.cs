@@ -134,6 +134,7 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         private Task<bool> UpdatePlayedSong(AllJoinedTable selectedSong, int? rating = null)
         {
             return _songDataProvider.UpdatePlayedSong(selectedSong, rating);
+                //_loggerFacade?.Log($"Failed to update song. {filePath}", Category.Exception, Priority.Medium);
         }
         #endregion
     }

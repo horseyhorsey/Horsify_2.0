@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
+using File = Horsesoft.Music.Data.Model.File;
 
 namespace Horsesoft.Music.Horsify.Repositories.Services
 {

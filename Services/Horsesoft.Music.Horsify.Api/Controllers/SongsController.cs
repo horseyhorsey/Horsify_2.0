@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Engine.Tagging;
 using Horsesoft.Music.Horsify.Repositories.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +79,18 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         [HttpGet]
         public Task<bool> Update(int id, int? rating)
         {
-            return _horsifySongService.UpdatePlayedSongAsync(id, rating);
+            var dbSong = _horsifySongService.GetSongById(id);
+            if (dbSong == null)
+                return Task.FromResult(false);
+
+            ISongTagger tagger = new SongTaggerTagLib();
+            var file = Path.Combine(dbSong.FileLocation);
+            var fileTagResult = tagger.UpdateFileTag(file, (byte)rating);
+
+            if (fileTagResult && Path.GetExtension(file).ToLower() != ".flac")
+                return _horsifySongService.UpdatePlayedSongAsync(id, rating);
+
+            return Task.FromResult(false);
         }
 
         [HttpGet]
@@ -95,9 +108,12 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         }
 
         // PUT: api/HorsifySongs/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet]
+        public void UpdateSong(int id, int? rating)
         {
+
+
+            //_horsifySongService.UpdatePlayedSong(id, )
         }
 
         // DELETE: api/ApiWithActions/5

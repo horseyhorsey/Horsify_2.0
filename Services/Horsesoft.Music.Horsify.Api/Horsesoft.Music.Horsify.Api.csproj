@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BLL\Horsesoft.Music.Engine\Horsesoft.Music.Engine.csproj" />
     <ProjectReference Include="..\..\Repo\Horsesoft.Music.Horsify.Repositories\Horsesoft.Music.Horsify.Repositories.csproj" />
   </ItemGroup>
 

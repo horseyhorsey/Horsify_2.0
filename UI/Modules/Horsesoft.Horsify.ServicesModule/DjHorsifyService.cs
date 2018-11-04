@@ -13,12 +13,14 @@ namespace Horsesoft.Horsify.ServicesModule
     {        
         public IDjHorsifyOption DjHorsifyOption { get; set; }
 
+        private IHorsifySongApi _horsifySongApi;
         private ILoggerFacade _loggerFacade;
         private Music.Data.Model.Filter[] _dbFilters;
 
-        public DjHorsifyService(IDjHorsifyOption djHorsifyOption, ILoggerFacade loggerFacade)
+        public DjHorsifyService(IDjHorsifyOption djHorsifyOption, IHorsifySongApi horsifySongApi, ILoggerFacade loggerFacade)
         {            
             DjHorsifyOption = djHorsifyOption;
+            _horsifySongApi = horsifySongApi;
             _loggerFacade = loggerFacade;
 
             GetDatabaseFilters();
@@ -37,7 +39,7 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                //_horsifySongService.InsertFilter(filter);
+                _horsifySongApi.InsertFilter(filter);
             }
             catch (System.Exception ex)
             {

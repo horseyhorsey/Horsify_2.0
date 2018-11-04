@@ -153,5 +153,11 @@ namespace Horsesoft.Horsify.ServicesModule
 
             return false;
         }
+
+        //TODO
+        public void InsertFilter(Filter filter)
+        {
+            var response = GetResponse($@"api/filters/");
+        }
     }
 }

@@ -4,7 +4,6 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +12,6 @@ namespace Horsesoft.Horsify.ServicesModule
     public class SongDataProvider : ISongDataProvider
     {
         #region Fields
-        //private IHorsifySongService _horsifySongService;
         private ILoggerFacade _loggerFacade;
         private IHorsifySongApi _horsifySongApi;
         #endregion

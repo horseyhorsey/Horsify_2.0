@@ -28,6 +28,8 @@ namespace Horsesoft.Music.Horsify.Base.Interface
 
         Task<AllJoinedTable> GetById(int id);
 
+        void InsertFilter(Filter filter);
+
         /// <summary>
         /// Gets the all the distinct entries for a certain table. A-Z
         /// </summary>

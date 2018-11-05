@@ -8,6 +8,7 @@ using Prism.Events;
 using Prism.Logging;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -50,14 +51,24 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         }
 
         protected override void OnPlay(AllJoinedTable song = null)
-        {            
+        {
             if (song != null)
             {
-                song = GetSong(song);
-                Log($"Playing song: {song.FileLocation}");
+                AllJoinedTable fullSong = null;
+                Task.Run(async () =>
+               {
+                   fullSong = await GetSong(song);
+               }).Wait();
+
+                Log($"Playing song: {fullSong.FileLocation}");
                 _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>()
-                .Publish(song);
+                .Publish(fullSong);
             }
+        }
+
+        private Task<AllJoinedTable> GetSong(AllJoinedTable allJoinedTable)
+        {
+            return _songDataProvider.GetSongById(allJoinedTable.Id);
         }
 
         /// <summary>
@@ -82,25 +93,26 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         //    return _songDataProvider.GetSongById(id);
         //}
 
-        private AllJoinedTable GetSong(AllJoinedTable allJoinedTable)
-        {
-            return _songDataProvider.GetSongById(allJoinedTable.Id).Result;
-        }
-
         protected override void OnQueueSong(AllJoinedTable song = null)
         {
             if (song != null)
             {
-                song = GetSong(song);
-                base.QueueSong(song);
-            }                
+                AllJoinedTable fullSong = null;
+                Task.Run(async () =>
+                {
+                    fullSong = await GetSong(song);
+                }).Wait();
+
+                Log($"Queueing song: {fullSong.FileLocation}");                
+                base.QueueSong(fullSong);
+            }
         }
 
         private void _dispatcherTimer_Tick(object sender, EventArgs e)
-        {   
+        {
             //Get songs, stop timer and populate collection            
-            var results = _horsifySongApi.GetEntries(Music.Data.Model.Horsify.SearchType.Title, SearchModel.SearchText, 15);
             _dispatcherTimer.Stop();
+            var results = _horsifySongApi.GetEntries(Music.Data.Model.Horsify.SearchType.Title, SearchModel.SearchText, 15);
             SearchModel.Results.Clear();
             SearchModel.AllJoinedTables.Clear();
             SearchModel.Results.AddRange(results);
@@ -138,7 +150,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         #endregion
 
         #region Properties
-        private SearchModel _searchModel = new SearchModel();        
+        private SearchModel _searchModel = new SearchModel();
         public SearchModel SearchModel
         {
             get { return _searchModel; }
@@ -170,9 +182,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 else
                 {
                     SearchModel.Results.Clear();
-                }                    
+                }
             }
-        } 
+        }
         #endregion
     }
 }

@@ -23,7 +23,7 @@ namespace Horsesoft.Horsify.DjHorsify
             _container.RegisterTypeForNavigation<CreateFilterView>("CreateFilterView");
             _container.RegisterTypeForNavigation<EditFilterView>("EditFilterView");
 
-            //_regionManager.RegisterViewWithRegion(Regions.ContentRegion, typeof(DjHorsifyView));
+            _regionManager.RegisterViewWithRegion(Regions.ContentRegion, typeof(DjHorsifyView));
             _regionManager.RegisterViewWithRegion(Regions.DjHorsifyFilterScreenRegion, typeof(DjHorsifyFilterScreenView));
         }
     }

@@ -40,5 +40,13 @@ namespace Horsesoft.Music.Horsify.Base.Interface
         IEnumerable<string> GetEntries(SearchType searchType, string searchTerm, short maxAmount = -1);
 
         Task<bool> UpdatePlayedSongAsync(int id, int? rating);
+
+        Task<IEnumerable<Filter>> GetFilters();
+
+        void UpdateFilter(long id, Filter filterToUpdate);
+
+        Task<IEnumerable<Playlist>> GetPlaylists();
+
+        Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists);
     }
 }

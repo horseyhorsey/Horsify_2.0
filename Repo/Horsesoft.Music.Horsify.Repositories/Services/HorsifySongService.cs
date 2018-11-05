@@ -27,11 +27,6 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             return Task.Run(() => this.GetAllPlaylists());
         }
 
-        public Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(int id)
-        {
-            return null;
-        }
-
         public Task<IEnumerable<AllJoinedTable>> SearchLikeAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount)
         {
             return Task.Run(() => SearchLike(searchTypes, wildCardSearch, randomAmount, maxAmount));
@@ -153,6 +148,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             if (sqlStr.EndsWith("AND "))
             {
                 sqlStr = sqlStr.Remove(sqlStr.Length - 4, 4);
+                //sqlStr += ")";
             }
 
             if (randomAmount > 0)

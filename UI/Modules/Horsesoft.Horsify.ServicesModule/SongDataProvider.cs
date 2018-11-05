@@ -98,17 +98,17 @@ namespace Horsesoft.Horsify.ServicesModule
         }
 
         public async Task<bool> UpdatePlayedSong(AllJoinedTable selectedSong, int? rating = null)
-        {
-            bool fileTagResult = false;            
-
+        {         
             if (rating != null && rating > 0)
             {
-                _loggerFacade?.Log($"Song provider - Updating played song", Category.Debug, Priority.Medium);                
-
-                return await _horsifySongApi.UpdatePlayedSongAsync(selectedSong.Id, rating);
+                _loggerFacade?.Log($"Changing song rating ID: {selectedSong.Id}, Rating: {rating}", Category.Debug, Priority.Medium);
+            }
+            else
+            {
+                _loggerFacade?.Log($"Updating played song: {selectedSong.Id}", Category.Debug, Priority.Medium);
             }
 
-            return fileTagResult;
+            return await _horsifySongApi.UpdatePlayedSongAsync(selectedSong.Id, rating);
         }
         #endregion
 

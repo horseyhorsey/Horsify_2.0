@@ -46,6 +46,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
             try
             {
+                _djHorsifyService.GetDatabaseFiltersAsync().Wait();
+
                 GenerateHorsifyFilters();
             }
             catch (Exception ex)

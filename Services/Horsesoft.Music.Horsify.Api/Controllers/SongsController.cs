@@ -73,7 +73,13 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         [HttpGet]
         public IEnumerable<AllJoinedTable> RecentAdded()
         {
-            return _horsifySongService.GetRecentlyAdded();
+            return _horsifySongService.GetRecentlyAdded();            
+        }
+
+        [HttpGet]
+        public IEnumerable<string> GetStringEntries(SearchType searchType, string search, short maxAmount = -1)
+        {
+            return _horsifySongService.GetAllFromTableAsStrings(searchType, search, maxAmount);
         }
 
         [HttpGet]
@@ -94,9 +100,9 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<AllJoinedTable>> Playlist(int id)
+        public Task<IEnumerable<AllJoinedTable>> SongsInPlaylist(Playlist playlist)
         {
-            return _horsifySongService.GetSongsFromPlaylistAsync(id);
+            return _horsifySongService.GetSongsFromPlaylistAsync(playlist);
         }        
 
         //IEnumerable<AllJoinedTable>
@@ -111,9 +117,7 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         [HttpGet]
         public void UpdateSong(int id, int? rating)
         {
-
-
-            //_horsifySongService.UpdatePlayedSong(id, )
+            _horsifySongService.UpdatePlayedSong(id, rating);
         }
 
         // DELETE: api/ApiWithActions/5

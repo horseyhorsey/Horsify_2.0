@@ -356,7 +356,10 @@ namespace Horsesoft.Music.Horsify.Repositories
             var bpmRange = searchFilter.BpmRange;
             if (bpmRange != null && bpmRange.IsEnabled)
             {
-                searchTerms += GetRangeFilter("Bpm", bpmRange);
+                if (bpmRange.Low == bpmRange.Hi)
+                    searchTerms += $"(Bpm == {bpmRange.Hi}) AND ";
+                else
+                    searchTerms += GetRangeFilter("Bpm", bpmRange);
             }
 
             //Get a Rating constraint
@@ -364,7 +367,7 @@ namespace Horsesoft.Music.Horsify.Repositories
             if (ratingRange != null && ratingRange.IsEnabled)
             {
                 if (ratingRange.Low == ratingRange.Hi)
-                    searchTerms += $"(Rating = {ratingRange.Hi}) AND ";
+                    searchTerms += $"(Rating == {ratingRange.Hi}) AND ";
                 else
                 {
                     searchTerms += GetRangeFilter("Rating", ratingRange);
@@ -414,7 +417,7 @@ namespace Horsesoft.Music.Horsify.Repositories
                     //    .SelectMany(x => x.Filters).ToList();
                     //var excludedFilters = filter.Where(x => x.SearchAndOrOption == SearchAndOrOption.Exclude) 
                     //    .SelectMany(x => x.Filters).ToList();                
-
+                    
                     if (filter.Key == SearchAndOrOption.Or || filter.Key == SearchAndOrOption.None)
                     {
                         foreach (var filterItem in filter)
@@ -442,14 +445,14 @@ namespace Horsesoft.Music.Horsify.Repositories
                         excludeString = excludeString.Replace($")  (", " AND ")
                             .Replace("LIKE", "NOT LIKE")
                             .Replace("OR", "AND");
-                    }
+                    };
                 }            
             }
 
             //OR
             if (!string.IsNullOrWhiteSpace(includeOrString))
             {
-                searchTerms += includeOrString;
+                searchTerms += $"({includeOrString})" ;
             }
 
             //NOT

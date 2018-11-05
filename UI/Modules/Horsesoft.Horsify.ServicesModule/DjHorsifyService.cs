@@ -15,15 +15,13 @@ namespace Horsesoft.Horsify.ServicesModule
 
         private IHorsifySongApi _horsifySongApi;
         private ILoggerFacade _loggerFacade;
-        private Music.Data.Model.Filter[] _dbFilters;
+        private IEnumerable<Filter> _dbFilters;
 
         public DjHorsifyService(IDjHorsifyOption djHorsifyOption, IHorsifySongApi horsifySongApi, ILoggerFacade loggerFacade)
         {            
             DjHorsifyOption = djHorsifyOption;
             _horsifySongApi = horsifySongApi;
-            _loggerFacade = loggerFacade;
-
-            GetDatabaseFilters();
+            _loggerFacade = loggerFacade;            
         }
 
         public ObservableCollection<Filter> Filters { get; private set; }        
@@ -53,11 +51,11 @@ namespace Horsesoft.Horsify.ServicesModule
         /// <summary>
         /// Gets the database filters and converts to Horsify Filters
         /// </summary>
-        public void GetDatabaseFilters()
+        public async Task GetDatabaseFiltersAsync()
         {
             try
             {
-                _dbFilters = null; // _horsifySongService.GetFilters().ToArray();
+                _dbFilters = _horsifySongApi.GetFilters().Result;
                 if (Filters == null)
                 {
                     if (_dbFilters != null)
@@ -86,8 +84,8 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             var searchFilter = GenerateSearchFilter(djHorsifyOption);
 
-            //return _horsifySongService.SearchLikeFilters(searchFilter, (short)djHorsifyOption.Amount, -1);
-            return null;
+            return _horsifySongApi.SearchLikeFiltersAsync(searchFilter, (short)djHorsifyOption.Amount, (short)djHorsifyOption.Amount).Result;
+
         }
 
         public SearchFilter GenerateSearchFilter(IDjHorsifyOption djHorsifyOption)
@@ -149,7 +147,7 @@ namespace Horsesoft.Horsify.ServicesModule
                 filterToUpdate.Name = dbFilter.Name;
 
                 //TODO: ID already being tracked in database
-                //_horsifySongService.UpdateFilter(filterToUpdate);
+                _horsifySongApi.UpdateFilter(dbFilter.Id, filterToUpdate);
 
                 //Get db filter
                 var f = this.Filters.FirstOrDefault(x => x.Id == filterToUpdate.Id);

@@ -16,6 +16,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         /// </summary>
         /// <param name="playlist">The playlist to insert or update</param>        
         void InsertOrUpdatePlaylists(IEnumerable<Playlist> playlists);
+        Playlist GetPlaylistById(int id);
     }
     public partial class HorsifySongService  // Playlist Service
     {
@@ -26,7 +27,22 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
 
         public IEnumerable<AllJoinedTable> GetSongsFromPlaylist(Playlist playlist)
         {
-            throw new NotImplementedException();
+            var ids = GetIdsFromPlaylistString(playlist.Items);
+            if (ids?.Length > 0)
+            {
+                return _sqliteRepo.GetAllJoinedTableByIds(ids);
+            }
+            return null;
+        }
+
+        public Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
+        {
+            return Task.Run(() => this.GetSongsFromPlaylist(playlist));
+        }
+
+        public Playlist GetPlaylistById(int id)
+        {
+            return _sqliteRepo.PlaylistRepository.GetById((long)id);
         }
 
         public void InsertOrUpdatePlaylists(IEnumerable<Playlist> playlists)

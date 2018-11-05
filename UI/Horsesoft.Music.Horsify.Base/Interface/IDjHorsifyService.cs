@@ -15,7 +15,7 @@ namespace Horsesoft.Music.Horsify.Base.Interface
 
         ObservableCollection<Filter> Filters { get; }
 
-        void GetDatabaseFilters();
+        Task GetDatabaseFiltersAsync();
 
         /// <summary>
         /// Gets the songs using the DjHorsifyOption

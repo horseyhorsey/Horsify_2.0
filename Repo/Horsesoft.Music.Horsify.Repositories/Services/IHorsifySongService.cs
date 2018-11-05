@@ -17,7 +17,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         Task<IEnumerable<AllJoinedTable>> SearchLikeAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount);
         Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount, short maxAmount);
         Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists);
-        Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(int id);
+        Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist);
         Task<IEnumerable<Playlist>> GetAllPlaylistsAsync();
     }
 }

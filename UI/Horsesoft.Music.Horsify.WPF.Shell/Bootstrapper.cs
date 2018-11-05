@@ -64,22 +64,22 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             //        new Repositories.Services.HorsifySongService(),
             //        new ContainerControlledLifetimeManager());
 
-            var _logger = Container.Resolve<ILoggerFacade>();
-
-            //var _songService = Container.Resolve<Repositories.Services.IHorsifySongService>();
+            var _logger = Container.Resolve<ILoggerFacade>();            
 
             Container.RegisterInstance<IDjHorsifyOption>(new DjHorsifyOption(), new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IHorsifySongApi>(new HorsifySongApi("http://localhost:80/"), new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IHorsifySongApi>(new HorsifySongApi("http://localhost:8089/"), new ContainerControlledLifetimeManager());
+
+            var _apiService = Container.Resolve<IHorsifySongApi>();
 
             //Song data provider using the IHorsifySongService
-            Container.RegisterInstance<ISongDataProvider>(new SongDataProvider(_logger, Container.Resolve<IHorsifySongApi>()), 
+            Container.RegisterInstance<ISongDataProvider>(new SongDataProvider(_logger, _apiService), 
                 new ContainerControlledLifetimeManager());
 
             //DJ horsify Service using the IHorsifySongService
-            Container.RegisterInstance<IDjHorsifyService>(new DjHorsifyService(Container.Resolve<IDjHorsifyOption>(),_logger),new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IDjHorsifyService>(new DjHorsifyService(Container.Resolve<IDjHorsifyOption>(), _apiService, _logger),new ContainerControlledLifetimeManager());
 
             // Horsify Playlist services
-            Container.RegisterInstance<IPlaylistService>(new HorsifyPlaylistService(_logger), new ContainerControlledLifetimeManager());            
+            Container.RegisterInstance<IPlaylistService>(new HorsifyPlaylistService(_apiService, _logger), new ContainerControlledLifetimeManager());            
 
             //Horsify Table repo using the IHorsifySongService
             //Container.RegisterInstance<IHorsifyDataTableRepo>(new HorsifyDataTableRepo(),

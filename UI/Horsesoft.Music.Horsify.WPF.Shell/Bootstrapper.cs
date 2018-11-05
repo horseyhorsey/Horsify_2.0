@@ -81,10 +81,6 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             // Horsify Playlist services
             Container.RegisterInstance<IPlaylistService>(new HorsifyPlaylistService(_apiService, _logger), new ContainerControlledLifetimeManager());            
 
-            //Horsify Table repo using the IHorsifySongService
-            //Container.RegisterInstance<IHorsifyDataTableRepo>(new HorsifyDataTableRepo(),
-            //        new ContainerControlledLifetimeManager());
-
             //Queued Songs
             Container.RegisterInstance<IQueuedSongDataProvider>(new QueuedSongDataProvider(),new ContainerControlledLifetimeManager());
 

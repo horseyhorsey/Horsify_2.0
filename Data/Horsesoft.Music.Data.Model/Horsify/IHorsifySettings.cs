@@ -1,4 +1,4 @@
-﻿namespace Horsesoft.Music.Horsify.Base.Interface
+﻿namespace Horsesoft.Music.Data.Model.Horsify
 {
     public interface IHorsifySettings
     {

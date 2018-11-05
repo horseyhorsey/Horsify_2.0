@@ -1,6 +1,5 @@
-﻿using Horsesoft.Music.Engine.Import;
-using Horsesoft.Music.Horsify.Base.Interface;
-using Prism.Mvvm;
+﻿using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Engine.Import;
 using System.Windows.Shell;
 
 namespace Horsesoft.Music.Horsify.Importer.UI.WPF.ViewModels

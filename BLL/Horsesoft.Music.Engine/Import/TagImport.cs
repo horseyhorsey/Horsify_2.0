@@ -1,7 +1,7 @@
-﻿using Horsesoft.Music.Data.Model.Import;
+﻿using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Data.Model.Import;
 using Horsesoft.Music.Data.Model.Tags;
 using Horsesoft.Music.Engine.Tagging;
-using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Repositories;
 using System;
 using System.Collections.Generic;

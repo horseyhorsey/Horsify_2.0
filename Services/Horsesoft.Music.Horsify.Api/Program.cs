@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+
+using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace Horsesoft.Music.Horsify.Api
 {
@@ -14,11 +13,35 @@ namespace Horsesoft.Music.Horsify.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", optional: true)
+                .Build();
+
+            var builder = CreateWebHostBuilder(args);
+            builder.UseConfiguration(config);
+            builder.UseStartup<Startup>()
+                .UseIISIntegration().UseKestrel();
+
+            builder = (WebHostBuilder)builder;
+            var host = builder.Build();
+
+            //host.Run();
+            if (Debugger.IsAttached || args.Contains("--debug") && !args.Contains("--console"))
+            {
+                host.Run();
+            }
+            else
+            {
+                //host.Run();
+                host.Run();
+            }            
+            
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args);            
+        }
     }
 }

@@ -31,13 +31,13 @@ namespace Horsesoft.Horsify.ServicesModule
                 case ExtraSearchType.None:
                     return null;
                 case ExtraSearchType.MostPlayed:
-                    response = await GetResponse(@"/api/songs/mostplayed");
+                    response = await GetResponse(@"api/songs/mostplayed");
                     break;
                 case ExtraSearchType.RecentlyAdded:
-                    response = await GetResponse(@"/api/songs/recentadded");
+                    response = await GetResponse(@"api/songs/recentadded");
                     break;
                 case ExtraSearchType.RecentlyPlayed:
-                    response = await GetResponse(@"/api/songs/playedrecent");
+                    response = await GetResponse(@"api/songs/playedrecent");
                     break;
             }
 
@@ -52,7 +52,7 @@ namespace Horsesoft.Horsify.ServicesModule
 
         public async Task<IEnumerable<AllJoinedTable>> SearchAsync(string term, SearchType searchTypes)
         {
-            term = $"/api/songs/search?term={term.Replace("&","&amp;")}";
+            term = $"api/songs/search?term={term.Replace("&","&amp;")}";
             term = searchTypes != SearchType.All ? $@"{term}?{searchTypes}" : term;
 
             var response = await GetResponse(term);
@@ -70,7 +70,7 @@ namespace Horsesoft.Horsify.ServicesModule
             //TODO MusicKeys query
 
             //Apply filters if any available
-            string term = $"/api/songs/searchFilter?";
+            string term = $"api/songs/searchFilter?";
             var filters = searchFilter.Filters;            
             if (filters?.Count() > 0)
             {

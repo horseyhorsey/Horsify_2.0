@@ -14,6 +14,7 @@ namespace Horsesoft.Music.Horsify.Service
 
         protected override void OnStart(string[] args)
         {
+            _config = new HttpSelfHostConfiguration(ServiceAddress);
             if (_host != null)
                 _host.Close();
 

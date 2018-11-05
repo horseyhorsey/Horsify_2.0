@@ -41,7 +41,6 @@
     <!--<ProjectReference Include="..\..\BLL\Horsesoft.Music.Engine\Horsesoft.Music.Engine.csproj" />-->
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Sqlite\Horsesoft.Music.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj" />
-    <ProjectReference Include="..\..\UI\Horsesoft.Music.Horsify.Base\Horsesoft.Music.Horsify.Base.csproj" />
   </ItemGroup>
 
 

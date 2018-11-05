@@ -1,4 +1,4 @@
-﻿using Horsesoft.Music.Horsify.Base.Interface;
+﻿using Horsesoft.Music.Data.Model.Horsify;
 using Prism.Mvvm;
 
 namespace Horsesoft.Music.Horsify.Importer.UI.WPF.ViewModels

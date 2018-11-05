@@ -1,4 +1,4 @@
-﻿using Horsesoft.Music.Horsify.Base.Interface;
+﻿using Horsesoft.Music.Data.Model.Horsify;
 using System;
 using System.Configuration;
 using System.IO;

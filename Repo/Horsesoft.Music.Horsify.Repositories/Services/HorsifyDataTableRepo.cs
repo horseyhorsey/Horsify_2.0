@@ -1,5 +1,4 @@
 ﻿using Horsesoft.Music.Data.Model.Horsify;
-using Horsesoft.Music.Horsify.Base.Interface;
 using System.Collections.Generic;
 
 namespace Horsesoft.Music.Horsify.Repositories.Services

@@ -1,10 +1,8 @@
-﻿using Horsesoft.Music.Horsify.Base;
-using Horsesoft.Music.Horsify.Base.Interface;
+﻿using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Importer.UI.WPF.Model;
 using Prism.Commands;
 using Prism.Events;
-using System;
-using System.Windows.Input;
 
 namespace Horsesoft.Music.Horsify.Importer.UI.WPF.ViewModels
 {

@@ -9,6 +9,7 @@ using System;
 using Prism.Regions;
 using Horsesoft.Music.Horsify.Importer.UI.WPF.Model;
 using Prism.Logging;
+using Horsesoft.Music.Data.Model.Horsify;
 
 namespace Horsesoft.Music.Horsify.Importer.UI.WPF
 {

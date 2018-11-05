@@ -1,7 +1,7 @@
 ﻿using Horsesoft.Music.Data.Model.Horsify;
 using System.Collections.Generic;
 
-namespace Horsesoft.Music.Horsify.Base.Interface
+namespace Horsesoft.Music.Horsify.Repositories
 {
     public interface IHorsifyDataTableRepo
     {

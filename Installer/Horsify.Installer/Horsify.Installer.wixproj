@@ -70,6 +70,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\Horsesoft.Music.Horsify.Api\Horsesoft.Music.Horsify.Api.csproj">
+      <Name>Horsesoft.Music.Horsify.Api</Name>
+      <Project>{dc051983-8f65-4377-ad43-add0e70eadab}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\UI\Horsesoft.Horsify.Resource\Horsesoft.Horsify.Resource.csproj">
       <Name>Horsesoft.Horsify.Resource</Name>
       <Project>{f4d8055d-b9bb-4968-b3aa-f0c9e59a1c26}</Project>

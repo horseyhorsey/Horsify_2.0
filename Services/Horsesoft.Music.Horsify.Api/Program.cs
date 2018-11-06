@@ -13,33 +13,39 @@ namespace Horsesoft.Music.Horsify.Api
     {
         public static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", optional: true)
-                .Build();
+            bool isService = true;
+            if (args.Contains("--console"))
+            {
+                isService = false;
+            }
 
             var pathToContentRoot = Directory.GetCurrentDirectory();
+            //var config = new ConfigurationBuilder().SetBasePath(pathToContentRoot)
+            //    .AddJsonFile("hosting.json", optional: true)
+            //    .Build();
 
-            var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
-            pathToContentRoot = Path.GetDirectoryName(pathToExe);
-            var host = new WebHostBuilder()
-          .UseConfiguration(config)
-            .UseKestrel()
-            
-          .UseContentRoot(pathToContentRoot) /// Route of this directory
-            .UseIISIntegration()
-          .UseStartup<Startup>()
-          .Build();
-
-            //host.Run();
-            if (args.Contains("--debug") || args.Contains("--console"))
+            if (isService)
             {
-                host.Run();
+                var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
+                pathToContentRoot = Path.GetDirectoryName(pathToExe);
+            }
+
+            //.UseConfiguration(config)
+            var host = new WebHostBuilder()            
+            .UseUrls("http://*:8089/")
+            .UseKestrel()
+            .UseContentRoot(pathToContentRoot) /// Route of this directory
+            .UseIISIntegration()
+            .UseStartup<Startup>()
+            .Build();
+
+            if (isService)
+            {
+                host.RunAsMyService(); /// Custom service
             }
             else
             {
-                //host.Run();
-                host.RunAsMyService();
+                host.Run();
             }
 
         }

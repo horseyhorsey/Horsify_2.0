@@ -8,6 +8,10 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <StartArguments>--console</StartArguments>
+  </PropertyGroup>  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="2.1.1" />

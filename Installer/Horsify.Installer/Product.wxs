@@ -616,6 +616,8 @@
             <File Id="HORSESOFT.MUSIC.HORSIFY.API.EXE_1" Name="Horsesoft.Music.Horsify.Api.exe" Source="..\..\Services\Horsesoft.Music.Horsify.Api\bin\Release\netcoreapp2.1\win7-x64\publish\Horsesoft.Music.Horsify.Api.exe" />
             <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song API" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal"></ServiceInstall>
             <ServiceControl Id="HorsifyService" Start="install" Stop="both" Remove="both" Name="HorsifyService" Wait="no" />          
+            <FirewallException Id="FirewallHorsifyTcp" xmlns="http://schemas.microsoft.com/wix/FirewallExtension"
+                               Name="Horsify API" Protocol="tcp" Port="8089" Scope="any" IgnoreFailure="no" Profile="all"  />
           </Component>
           <Component Id="HORSESOFT.MUSIC.HORSIFY.API.PDB_1" DiskId="1" Guid="D1067A41-ED8F-4110-8B16-FF83B06D8394">
             <File Id="HORSESOFT.MUSIC.HORSIFY.API.PDB_1" Name="Horsesoft.Music.Horsify.Api.pdb" Source="..\..\Services\Horsesoft.Music.Horsify.Api\bin\Release\netcoreapp2.1\win7-x64\publish\Horsesoft.Music.Horsify.Api.pdb" />

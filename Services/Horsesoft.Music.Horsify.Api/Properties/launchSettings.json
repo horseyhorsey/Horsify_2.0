@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Horsesoft.Music.Horsify.Api",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:8089",
       "sslPort": 0
@@ -11,6 +15,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
+      "commandLineArgs": "\"--console\"",
       "launchBrowser": true,
       "launchUrl": "api/songs/getbyid/1",
       "environmentVariables": {
@@ -18,13 +23,14 @@
       }
     },
     "Horsesoft.Music.Horsify.Api": {
-      "commandName": "Executable",
+      "commandName": "IIS",
+      "commandLineArgs": "\"--console\"",
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "applicationUrl": "https://*:8090;http://*:8089"
     }
   }
 }

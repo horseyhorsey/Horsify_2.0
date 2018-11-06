@@ -70,22 +70,6 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\Horsesoft.Horsify.SongService\Horsesoft.Horsify.SongService.csproj">
-      <Name>Horsesoft.Horsify.SongService</Name>
-      <Project>{15276699-8086-41a8-9478-5280ef95cc41}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\Horsesoft.Music.Horsify.Service\Horsesoft.Music.Horsify.Service.csproj">
-      <Name>Horsesoft.Music.Horsify.Service</Name>
-      <Project>{3b988519-d7ea-4718-9fe4-7b692f930696}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\..\UI\Horsesoft.Horsify.Resource\Horsesoft.Horsify.Resource.csproj">
       <Name>Horsesoft.Horsify.Resource</Name>
       <Project>{f4d8055d-b9bb-4968-b3aa-f0c9e59a1c26}</Project>
@@ -176,6 +160,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixFirewallExtension">
+      <HintPath>$(WixExtDir)\WixFirewallExtension.dll</HintPath>
+      <Name>WixFirewallExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>

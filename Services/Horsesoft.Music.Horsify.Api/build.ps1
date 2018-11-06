@@ -1,1 +1,2 @@
-﻿dotnet publish -c Release --self-contained --runtime win7-x64
+﻿dotnet clean
+dotnet publish -c Release --self-contained --runtime win7-x64

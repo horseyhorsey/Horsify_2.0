@@ -431,15 +431,7 @@
     </Fragment>
     <Fragment>
         <ComponentGroup Id="ProductServiceComponents" Directory="SERVICE">
-            <!--INSTALL WINDOWS SERVICE
-            <Component Win64="$(var.Win64)" Id="Horsesoft.Music.Horsify.Service.exe" Guid="de8dc4e2-878d-4a40-a8d3-eb7d5f62579c">
-                <File Id="Horsesoft.Music.Horsify.Service.exe" Name="Horsesoft.Music.Horsify.Service.exe" Source="$(var.Horsesoft.Music.Horsify.Service_TargetDir)Horsesoft.Music.Horsify.Service.exe" DiskId="1" KeyPath="yes" />
-                <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song API" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal">
-                </ServiceInstall>
-                <ServiceControl Id="HorsifyService" Start="install" Stop="both" Remove="both" Name="HorsifyService" Wait="no" />
-            </Component>
-            <Component Id="" Guid="" />-->
-
+           
           <Component Id="API_MS_WIN_CORE_CONSOLE_L1_1_0.DLL_1" DiskId="1" Guid="EE32A327-C8DB-40D5-8162-BFD019909047">
             <File Id="API_MS_WIN_CORE_CONSOLE_L1_1_0.DLL_1" Name="api-ms-win-core-console-l1-1-0.dll" Source="..\..\Services\Horsesoft.Music.Horsify.Api\bin\Release\netcoreapp2.1\win7-x64\publish\api-ms-win-core-console-l1-1-0.dll" />
           </Component>
@@ -622,6 +614,8 @@
           </Component>
           <Component Id="HORSESOFT.MUSIC.HORSIFY.API.EXE_1" DiskId="1" Guid="B5095100-9E8E-43A3-AFBC-BE22BA56E975">
             <File Id="HORSESOFT.MUSIC.HORSIFY.API.EXE_1" Name="Horsesoft.Music.Horsify.Api.exe" Source="..\..\Services\Horsesoft.Music.Horsify.Api\bin\Release\netcoreapp2.1\win7-x64\publish\Horsesoft.Music.Horsify.Api.exe" />
+            <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song API" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal"></ServiceInstall>
+            <ServiceControl Id="HorsifyService" Start="install" Stop="both" Remove="both" Name="HorsifyService" Wait="no" />          
           </Component>
           <Component Id="HORSESOFT.MUSIC.HORSIFY.API.PDB_1" DiskId="1" Guid="D1067A41-ED8F-4110-8B16-FF83B06D8394">
             <File Id="HORSESOFT.MUSIC.HORSIFY.API.PDB_1" Name="Horsesoft.Music.Horsify.Api.pdb" Source="..\..\Services\Horsesoft.Music.Horsify.Api\bin\Release\netcoreapp2.1\win7-x64\publish\Horsesoft.Music.Horsify.Api.pdb" />

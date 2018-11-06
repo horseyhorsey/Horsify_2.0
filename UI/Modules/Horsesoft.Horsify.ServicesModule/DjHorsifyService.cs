@@ -55,7 +55,7 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                _dbFilters = _horsifySongApi.GetFilters().Result;
+                _dbFilters = await _horsifySongApi.GetFilters();
                 if (Filters == null)
                 {
                     if (_dbFilters != null)

@@ -18,30 +18,35 @@ namespace Horsesoft.Music.Horsify.Api
                 .AddJsonFile("hosting.json", optional: true)
                 .Build();
 
-            var builder = CreateWebHostBuilder(args);
-            builder.UseConfiguration(config);
-            builder.UseStartup<Startup>()
-                .UseIISIntegration().UseKestrel();
+            var pathToContentRoot = Directory.GetCurrentDirectory();
 
-            builder = (WebHostBuilder)builder;
-            var host = builder.Build();
+            var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
+            pathToContentRoot = Path.GetDirectoryName(pathToExe);
+            var host = new WebHostBuilder()
+          .UseConfiguration(config)
+            .UseKestrel()
+            
+          .UseContentRoot(pathToContentRoot) /// Route of this directory
+            .UseIISIntegration()
+          .UseStartup<Startup>()
+          .Build();
 
             //host.Run();
-            if (Debugger.IsAttached || args.Contains("--debug") && !args.Contains("--console"))
+            if (args.Contains("--debug") || args.Contains("--console"))
             {
                 host.Run();
             }
             else
             {
                 //host.Run();
-                host.Run();
-            }            
-            
+                host.RunAsMyService();
+            }
+
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args);            
+            return WebHost.CreateDefaultBuilder(args);
         }
     }
 }

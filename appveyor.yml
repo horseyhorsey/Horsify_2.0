@@ -18,6 +18,7 @@ build:
   parallel: true          
   # path to Visual Studio solution or project      
   project: Horsify 2.0.sln
+  
 before_build:
   # Display .NET Core version  
   - cmd: dotnet --version
@@ -27,8 +28,8 @@ before_build:
   - cmd: dotnet restore ./Repo/Horsesoft.Music.Horsify.Repositories/Horsesoft.Music.Horsify.Repositories.csproj --verbosity m
   - cmd: dotnet restore ./Tests/Horsesoft.Music.Horsify.RepositoryTests/Horsesoft.Music.Horsify.RepositoryTests.csproj --verbosity m  
   - cmd: dotnet restore ./Tests/Horsesoft.Music.EngineTests/Horsesoft.Music.EngineTests.csproj --verbosity m  
-  - nuget restore "Horsify 2.0.sln"
   - ps: ./Services/Horsesoft.Music.Horsify.Api/build.ps1
+  - nuget restore "Horsify 2.0.sln"  
 
 
   

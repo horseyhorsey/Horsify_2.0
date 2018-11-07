@@ -44,7 +44,7 @@ cache:
 
 # Build platforms
 platform:
-  - x64
+  - x86
 # build Configuration, i.e. Debug, Release, etc.
 configuration:
   - Release

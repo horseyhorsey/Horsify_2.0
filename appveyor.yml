@@ -43,8 +43,8 @@ cache:
   - '%LocalAppData%\NuGet\v3-cache' # NuGet v3  
 
 # Build platforms
-platform:
-  - x86
+# platform:
+  # - x86
 # build Configuration, i.e. Debug, Release, etc.
 configuration:
   - Release

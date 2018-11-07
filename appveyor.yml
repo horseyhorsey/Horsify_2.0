@@ -18,6 +18,7 @@ build:
   parallel: false
   # path to Visual Studio solution or project      
   #project: Horsify 2.0.sln
+  - ps: build.ps1  
   
 before_build:
   # Display .NET Core version  
@@ -64,7 +65,7 @@ test: off
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
   #- cmd: dotnet publish ./src/src.csproj
-  ps - build.ps1
+  
 after_build:
   # For once the build has completed
 artifacts:

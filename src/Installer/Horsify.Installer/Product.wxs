@@ -10,19 +10,6 @@
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
   
-  <?define Horsesoft.Music.Horsify.Importer.UI.WPF_TargetDir=$(var.Horsesoft.Music.Horsify.Importer.UI.WPF.TargetDir)?>
-  <!--<?define Horsesoft.Music.Horsify.Api_TargetDir=$(var.Horsesoft.Music.Horsify.Api.TargetDir)?>-->
-  <!--<?define Horsesoft.Horsify.SongService_TargetDir=$(var.Horsesoft.Horsify.SongService.TargetDir)?>-->
-  <?define Horsesoft.Horsify.Resource_TargetDir=$(var.Horsesoft.Horsify.Resource.TargetDir)?>
-  <?define Horsesoft.Music.Horsify.Base_TargetDir=$(var.Horsesoft.Music.Horsify.Base.TargetDir)?>
-  <?define Horsesoft.Music.Data.Model_TargetDir=$(var.Horsesoft.Music.Data.Model.TargetDir)?>
-  <?define Horsesoft.Music.Engine_TargetDir=$(var.Horsesoft.Music.Engine.TargetDir)?>
-  <?define Horsesoft.Horsify.DjHorsify_TargetDir=$(var.Horsesoft.Horsify.DjHorsify.TargetDir)?>
-  <?define Horsesoft.Music.Horsify.WPF.Shell_TargetDir=$(var.Horsesoft.Music.Horsify.WPF.Shell.TargetDir)?>
-
-  <?define Horsesoft.Music.Horsify.Api_TargetDir=$(var.Horsesoft.Music.Horsify.Api.TargetDir)?>
-  
-  
   <Product Id="FE9F9586-5146-462C-8408-41EA49BECC4C" Name="Horsify $(var.bitness)" Language="1033" Version="2.0.0.70" Manufacturer="Horsesoft" UpgradeCode="22fae438-87e8-441b-830f-95915651ab75">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <UIRef Id="WixUI_Mondo" />
@@ -130,17 +117,8 @@
         <Directory Id="INSTALLFOLDER" Name="Horsify">
           <Directory Id="SQL" Name="SQL" />
           <Directory Id="SERVICE" Name="Service" />
-          <!--<Directory Id="X64_1" Name="x64">
-            <Component Id="E_SQLITE3.DLL" DiskId="1" Guid="B1C1F5C3-1A10-42C8-97C3-11414D0E6FA9">
-              <File Id="E_SQLITE3.DLL" Name="e_sqlite3.dll" Source="..\..\UI\Horsesoft.Music.Horsify.Importer.UI.WPF\bin\Debug\x64\e_sqlite3.dll" />
-            </Component>
-          </Directory>
-          <Directory Id="X86" Name="x86">
-            <Component Id="E_SQLITE3.DLL_1" DiskId="1" Guid="7EF81077-7B0A-42A0-9E98-A356F3655243">
-              <File Id="E_SQLITE3.DLL_1" Name="e_sqlite3.dll" Source="..\..\UI\Horsesoft.Music.Horsify.Importer.UI.WPF\bin\Debug\x86\e_sqlite3.dll" />
-            </Component>
-          </Directory>-->
         </Directory>
+		
         <Directory Id="ProgramMenuFolder">
           <Directory Id="ApplicationProgramsFolder" Name="Horsify" />
         </Directory>
@@ -496,6 +474,7 @@
     </ComponentGroup>
   </Fragment>
   <Fragment>
+  
     <ComponentGroup Id="ProductServiceComponents" Directory="SERVICE">
       <Component Id="API_MS_WIN_CORE_CONSOLE_L1_1_0.DLL_1" DiskId="1" Guid="EE32A327-C8DB-40D5-8162-BFD019909047">
         <File Id="API_MS_WIN_CORE_CONSOLE_L1_1_0.DLL_1" Name="api-ms-win-core-console-l1-1-0.dll" Source="..\..\Services\Horsesoft.Music.Horsify.Api\bin\Release\netcoreapp2.1\win7-$(var.Platform)\publish\api-ms-win-core-console-l1-1-0.dll" />

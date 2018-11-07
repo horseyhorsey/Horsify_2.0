@@ -22,7 +22,7 @@ build:
 before_build:
   # Display .NET Core version  
   - cmd: dotnet --version
-  - nuget restore "Horsify 2.0.sln"  
+  - nuget restore "src/Horsify 2.0.sln"  
   # Display minimal restore text
   # - ps: .\Services\Horsesoft.Music.Horsify.Api\build.ps1
   # - cmd: dotnet restore ./Data/Horsesoft.Music.Data.Model/Horsesoft.Music.Data.Model.csproj --verbosity m
@@ -44,7 +44,6 @@ cache:
 
 # Build platforms
 platform:
-  - x86
   - x64
 # build Configuration, i.e. Debug, Release, etc.
 configuration:

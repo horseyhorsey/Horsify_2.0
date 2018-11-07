@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.DjHorsify.Views.CreateFilterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:model="clr-namespace:Horsesoft.Music.Data.Model.Horsify;assembly=Horsesoft.Music.Data.Model"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"             
+             >
+
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="SearchTypes" ObjectType="{x:Type Sys:Enum}" MethodName="GetValues" >
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:SongFilterType"></x:Type>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    
+    <Border CornerRadius="55,55,55,55" Margin="-1"
+            Background="{DynamicResource BackgroundGradient3}">
+
+        <Grid x:Name="Grid_CreateFilter">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="CREATE FILTER" HorizontalAlignment="Center"                       
+                       Style="{StaticResource TextBlockStyle_BebasXxLarge}"
+                       VerticalAlignment="Top"
+                       />
+            
+            <TextBlock Grid.Row="1" Text="SELECT FILTER TYPE" HorizontalAlignment="Center"                       
+                       Style="{StaticResource TextBlockStyle_BebasMed}"
+                       VerticalAlignment="Top"
+                       />
+
+            <ListView Grid.Row="2" Margin="25" x:Name="FilterListView"
+                      ItemsSource="{Binding Source={StaticResource SearchTypes}}"
+                      SelectedItem="{Binding SelectedSearchType, UpdateSourceTrigger=PropertyChanged}"
+                      Background="Transparent"
+                      BorderThickness="4" BorderBrush="AntiqueWhite"
+                      >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListView}, Path=ActualWidth}"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=.}" Margin="10"
+                                   FontSize="44"
+                                   HorizontalAlignment="Center"           
+                                   Foreground="Black"
+                                   />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
+
+            <Button Content="CANCEL" Grid.Row="3" 
+                    Background="Red"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="50,5"
+                    FontSize="64"
+                    Command="{Binding NavigateBackCommand}"
+                    />
+
+        </Grid>
+        
+    </Border>
+    
+</UserControl>

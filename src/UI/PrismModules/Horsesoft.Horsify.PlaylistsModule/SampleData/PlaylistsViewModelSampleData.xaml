@@ -1,0 +1,67 @@
+﻿<ViewModels:PlaylistsViewModel xmlns:ViewModels="clr-namespace:Horsesoft.Horsify.PlaylistsModule.ViewModels"
+                               xmlns:Commands="clr-namespace:Prism.Commands;assembly=Prism"
+                               xmlns:Model="clr-namespace:Horsesoft.Music.Data.Model;assembly=Horsesoft.Music.Data.Model"
+                               Title="Playlists View Model">
+    
+    <ViewModels:PlaylistsViewModel.HelpWindowCommand>
+        <Commands:DelegateCommand IsActive="True"/>
+    </ViewModels:PlaylistsViewModel.HelpWindowCommand>
+
+    <ViewModels:PlaylistsViewModel.OpenPlayListViewModels>
+
+        <ViewModels:PlaylistTabViewModel IsSelected="True" 
+                                     TabHeader="Preperation List">
+        </ViewModels:PlaylistTabViewModel>
+
+        <ViewModels:PlaylistTabViewModel IsSelected="False" 
+                                     TabHeader="My Playlist">
+            
+            <ViewModels:PlaylistTabViewModel.PlayListItemViewModels>
+                
+                <ViewModels:PlaylistItemViewModel PlayedState="12">
+                    <ViewModels:PlaylistItemViewModel.Song>
+                        <Model:AllJoinedTable AddedDate="1533134147" 
+                                              Album="Est consequat vivamus praesent nullam" Artist="Nam aliquam sed" Comment="Adipiscing aliquam aliquet aptent" 
+                                              Country="Mauris duis" FileLocation="Vestibulum faucibus adipiscing diam" Genre="Hac donec amet bibendum" Id="52" ImageLocation="Congue cursus dictumst ante" 
+                                              IsDamaged="Conubia vestibulum fusce" LastPlayed="1533134147" Label="Accumsan nunc blandit dignissim auctor" MusicKey="Vestibulum curae convallis" 
+                                              Time="Aenean class integer quisque" Title="Maecenas dis curabitur phasellus cras"/>
+                    </ViewModels:PlaylistItemViewModel.Song>
+                </ViewModels:PlaylistItemViewModel>
+
+                <ViewModels:PlaylistItemViewModel PlayedState="23">
+                    <ViewModels:PlaylistItemViewModel.Song>
+                        <Model:AllJoinedTable AddedDate="1533134147" Album="Est consequat vivamus praesent nullam" Artist="Nam aliquam sed" 
+                                              Comment="Adipiscing aliquam aliquet aptent" Country="Mauris duis" FileLocation="Vestibulum faucibus adipiscing diam" Genre="Hac donec amet bibendum" Id="52" 
+                                              ImageLocation="Congue cursus dictumst ante" IsDamaged="Conubia vestibulum fusce" LastPlayed="1533134147" Label="Accumsan nunc blandit dignissim auctor" MusicKey="Vestibulum curae convallis" Time="Aenean class integer quisque" Title="Maecenas dis curabitur phasellus cras"/>
+                    </ViewModels:PlaylistItemViewModel.Song>
+                </ViewModels:PlaylistItemViewModel>
+
+
+                <ViewModels:PlaylistItemViewModel  PlayedState="15">
+                    <ViewModels:PlaylistItemViewModel.Song>
+                        <Model:AllJoinedTable AddedDate="1533134147" Album="Est consequat vivamus praesent nullam" Artist="Nam aliquam sed" Comment="Adipiscing aliquam aliquet aptent" Country="Mauris duis" FileLocation="Vestibulum faucibus adipiscing diam" Genre="Hac donec amet bibendum" Id="52" ImageLocation="Congue cursus dictumst ante" IsDamaged="Conubia vestibulum fusce"
+                                              LastPlayed="1533134147" Label="Accumsan nunc blandit dignissim auctor" MusicKey="Vestibulum curae convallis" Time="Aenean class integer quisque" Title="Maecenas dis curabitur phasellus cras"/>
+                    </ViewModels:PlaylistItemViewModel.Song>
+                </ViewModels:PlaylistItemViewModel>
+
+                <ViewModels:PlaylistItemViewModel PlayedState="32">
+                    <ViewModels:PlaylistItemViewModel.Song>
+                        <Model:AllJoinedTable AddedDate="1533134147" Album="Est consequat vivamus praesent nullam" Artist="Nam aliquam sed" Comment="Adipiscing aliquam aliquet aptent" Country="Mauris duis" FileLocation="Vestibulum faucibus adipiscing diam" Genre="Hac donec amet bibendum" Id="52" ImageLocation="Congue cursus dictumst ante" IsDamaged="Conubia vestibulum fusce" 
+                                              LastPlayed="1533134147" Label="Accumsan nunc blandit dignissim auctor" MusicKey="Vestibulum curae convallis" Time="Aenean class integer quisque" Title="Maecenas dis curabitur phasellus cras"/>
+                    </ViewModels:PlaylistItemViewModel.Song>
+                </ViewModels:PlaylistItemViewModel>
+
+                <ViewModels:PlaylistItemViewModel PlayedState="6">
+                    <ViewModels:PlaylistItemViewModel.Song>
+                        <Model:AllJoinedTable AddedDate="1533134147" Album="Est consequat vivamus praesent nullam" Artist="Nam aliquam sed" Comment="Adipiscing aliquam aliquet aptent" Country="Mauris duis" FileLocation="Vestibulum faucibus adipiscing diam" Genre="Hac donec amet bibendum" Id="52" ImageLocation="Congue cursus dictumst ante" IsDamaged="Conubia vestibulum fusce" 
+                                              LastPlayed="1533134147" Label="Accumsan nunc blandit dignissim auctor" MusicKey="Vestibulum curae convallis" Time="Aenean class integer quisque" Title="Maecenas dis curabitur phasellus cras"/>
+                    </ViewModels:PlaylistItemViewModel.Song>
+                </ViewModels:PlaylistItemViewModel>
+                
+            </ViewModels:PlaylistTabViewModel.PlayListItemViewModels>
+            
+        </ViewModels:PlaylistTabViewModel>
+        
+    </ViewModels:PlaylistsViewModel.OpenPlayListViewModels>
+
+</ViewModels:PlaylistsViewModel>

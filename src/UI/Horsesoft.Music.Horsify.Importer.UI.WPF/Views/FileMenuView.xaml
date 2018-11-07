@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Horsesoft.Music.Horsify.Importer.UI.WPF.Views.FileMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Menu Margin="13, 8" TextElement.FontSize="16" TextElement.FontStyle="Italic"
+              Background="PaleTurquoise" BorderThickness="1" BorderBrush="Black"
+              HorizontalAlignment="Left" VerticalAlignment="Top"              
+              Height="25"
+              >
+            <MenuItem Header="File">
+                <MenuItem Header="Tag Settings" DataContext="{Binding TagImportOption}">
+                    <MenuItem Header="Artwork" IsCheckable="True" IsChecked="{Binding ImportArt}"/>
+                    <MenuItem Header="Country" IsCheckable="True" IsChecked="{Binding ImportCountry}"/>
+                    <MenuItem Header="DiscogId" IsCheckable="True" IsChecked="{Binding ImportDiscog}"/>
+                    <MenuItem Header="Label" IsCheckable="True" IsChecked="{Binding ImportLabel}"/>
+                </MenuItem>
+                <MenuItem Header="Import">
+                    <MenuItem Header="Start" Command="{Binding ScanMusicCommand}"/>
+                    <MenuItem Header="Stop" Command="{Binding StopScanMusicCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Quit" Command="{x:Static ApplicationCommands.Close}"/>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</UserControl>

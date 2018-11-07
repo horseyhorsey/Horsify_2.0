@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!--CHANGE DIRECTORY BASED ON PLATFORM-->
+  <?if $(var.Platform) = x64 ?>
+  <?define bitness = "(64 bit)" ?>
+  <?define Win64 = "yes" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?else ?>
+  <?define bitness = "(32 bit)" ?>
+  <?define Win64 = "no" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+  
+  <Product Id="*" Name="Horsify2.Installer" Language="1033" Version="1.0.0.0" Manufacturer="Horsesoft" UpgradeCode="d5c43f06-5cd5-42b2-ab3d-4c700f15ab57">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+    <Feature Id="ProductFeature" Title="Horsify2.Installer" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+    <UI />
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Horsify2">
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+      <Component Id="cmp11DE1C5E82E4A100761BD3E0AEBB503E"  Guid="{C1B04B20-E35E-4577-ABF9-685FAA90DCC9}">
+        <File Id="fil0039CD123134A1D00B6F0BAABEE6605E" KeyPath="yes" Source="..\..\Build\$(var.Platform)\e_sqlite3.dll" />
+      </Component>
+      <Component Id="cmpFF6F0FB6D8A8F1E21CCEAF3E9DB95B3B"  Guid="{7B2575D0-64DA-4E5B-A53F-ECBB4FE33E4D}">
+        <File Id="fil72B40BF02C7CE46B42200423B4FA4C45" KeyPath="yes" Source="..\..\Build\$(var.Platform)\genres.json" />
+      </Component>
+      <Component Id="cmpCE47CEF0DBB149784F7D674C0B50BFD8"  Guid="{F98ED859-7FC1-4925-BB8C-20D9B9678B85}">
+        <File Id="fil92F19B0FFC287FE528F51E0618F1BA54" KeyPath="yes" Source="..\..\Build\$(var.Platform)\GongSolutions.Wpf.DragDrop.dll" />
+      </Component>
+      <Component Id="cmp8DD7DDC9C57050C82C1A21A4D785BA3C"  Guid="{15BBAECB-AE17-497A-AE05-77FD0BABAC22}">
+        <File Id="fil81607F2AE15FD418056287C8D74964EF" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.DjHorsify.dll" />
+      </Component>
+      <Component Id="cmpE612A38A3E8CF2A06640C91F2EFF3F0F"  Guid="{FCC54F25-8C1C-4D24-951F-B56CA75F66F0}">
+        <File Id="fil56B0F42CC3D654CEE30AF5172BB969F9" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.MediaPlayer.dll" />
+      </Component>
+      <Component Id="cmpC2CA19AA229454A4C1A94B1C1BDCF92D"  Guid="{EEDFBFAF-0867-45C0-A7DD-A078F94FBD0E}">
+        <File Id="filC16CFDC57A0EAA43AF4CBB94AEBA0412" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.PlaylistsModule.dll" />
+      </Component>
+      <Component Id="cmp57C9060E1185F14FFB5201D68C43130E"  Guid="{E680A3F3-D5AB-4C8D-A914-C3772EFAEBAD}">
+        <File Id="fil1340EFC281F8A1D689B5A2D67D4B5D5A" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.QueueModule.dll" />
+      </Component>
+      <Component Id="cmp96C36EE692BA3EC5C175AD3D49AF14E2"  Guid="{79734E4F-8B2D-443E-A063-BCC0F72D2BB5}">
+        <File Id="fil27C4899A587E49566A5AD4F67721AD5F" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.Resource.dll" />
+      </Component>
+      <Component Id="cmpED87A5F8A63D17785769FEA533383153"  Guid="{54C5F100-6334-4B55-A6C7-78F5EAE753B4}">
+        <File Id="filD8B712C9B89C82D454588E1BDF9109E4" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.SearchModule.dll" />
+      </Component>
+      <Component Id="cmpABCB7FA6D616996287DC0224F9E703C1"  Guid="{427AD6A7-9473-4438-9E44-051867C8230E}">
+        <File Id="filD4BB580176B50B7AEBC505348F61DBAC" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.ServicesModule.dll" />
+      </Component>
+      <Component Id="cmp6C5E732E50BA7015BF30E4A71B5F4778"  Guid="{720CACDC-6777-4E55-B1D8-B92BBB425143}">
+        <File Id="filDB87C3BEBC82C97F0E29AF50CBC4C995" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.ServicesModule.dll.config" />
+      </Component>
+      <Component Id="cmp67B4A1A9C2E3DCD4CBA14420BF840DAE"  Guid="{F50D3545-E48F-43E1-9DDD-6E5D96CCABA3}">
+        <File Id="filBA33A6AD35855E828AEF47CA3639B9EE" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.SettingsModule.dll" />
+      </Component>
+      <Component Id="cmp1D9252E04A79D6704F1383E57F49B49C"  Guid="{4149AEA5-536F-4862-86E8-E9CF8446165B}">
+        <File Id="filD814E46C5061621227C5E0096A219EF0" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.SideMenu.dll" />
+      </Component>
+      <Component Id="cmp8DD7815BFC0C64E827693EBBACA16AE9"  Guid="{1FF26D8E-2C9B-47E1-A2D0-C1D173B8BB62}">
+        <File Id="filBF8483062CE20E8EA0C6F55ABA001C8E" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Data.Model.dll" />
+      </Component>
+      <Component Id="cmp572B502AE0EEDCA504C591811EAE2A29"  Guid="{09AB9AFD-0FB9-4887-AA19-A5D549408E9B}">
+        <File Id="filE3964D454B0DCD578BB266A5D51222D2" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Data.Sqlite.dll" />
+      </Component>
+      <Component Id="cmpA3CEC5A45473898E55E2F4D5BB680A2C"  Guid="{426337EB-5EBF-468E-9315-6DF343E50198}">
+        <File Id="filD6D385217864F6B1A14251540B494508" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Data.Sqlite.dll.config" />
+      </Component>
+      <Component Id="cmp9EF3BD937E8776E9A09B4E959F9DD699"  Guid="{FD4328FD-FAE8-4907-8052-0B848F0D0F6D}">
+        <File Id="filAB211A12924620BF294E6F25891CAA8F" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Engine.dll" />
+      </Component>
+      <Component Id="cmpDE505D583B64610584F1852E9C01D106"  Guid="{304F457D-EDCB-4C81-8AB5-188313BA2D4A}">
+        <File Id="fil9C9380AAE818A219BC86464387607A24" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Engine.dll.config" />
+      </Component>
+      <Component Id="cmp1238F0118E9577413F48AEADDCC06819"  Guid="{C63295A4-6161-4738-B7A6-3CF2F11E73F7}">
+        <File Id="fil1771DA63030B72AF587BA5DA91396AE4" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Horsify.Base.dll" />
+      </Component>
+      <Component Id="cmpB010649A75A60BD7F2D64B9044115DD2"  Guid="{F6721879-A611-4ACD-B56A-95E60985B02C}">
+        <File Id="filF59B50F90FDFCA4BC3A896F8C8CFCD47" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Horsify.Base.dll.config" />
+      </Component>
+      <Component Id="cmp4F52C07A0FA38AAF8F4FEF00AC637B93"  Guid="{C7E6D96C-447E-4D4F-934B-DAF2BDEA4B35}">
+        <File Id="filF9D11098EBBD54DB4AF2D1CAC7EA848A" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Horsify.Repositories.dll" />
+      </Component>
+      <Component Id="cmp3F0FD761B8FB553E94877271B7648462"  Guid="{603A4300-BCCF-4243-9E44-BE52FBC354D1}">
+        <File Id="fil03CFB203403EAEF02848BDD025223689" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Music.Horsify.Repositories.dll.config" />
+      </Component>
+      <Component Id="cmpC2CC3F55AA65E03C9C823E4BE876E965"  Guid="{5FCDB9DB-F049-4BC7-8D1B-4D99483906E0}">
+        <File Id="fil61F9B53B34A2DAD0988EEBA2FDCDDE37" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Vlc.dll" />
+      </Component>
+      <Component Id="cmp6AAC4258959B041243FE166A9DDC674F"  Guid="{26B5A6B7-B8CF-4370-BD51-B8F597C5417D}">
+        <File Id="filA2A1906D192E1BCE6674E588BDBD7110" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Wpf.Controls.Audio.dll" />
+      </Component>
+      <Component Id="cmpD04F27D6BEDF700F3BF0B0045ECDDACE"  Guid="{A1A71AFF-E81D-4A1A-8442-A6B400F18545}">
+        <File Id="filDA56F92A544B0EDFD3EE272731A24E7A" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsify Importer.exe" />
+      </Component>
+      <Component Id="cmp448A9EABA18F43A0BF4BB40C85393CDF"  Guid="{F5340A03-56E1-4CB0-A9FE-70D50AE67245}">
+        <File Id="filAEC7AF846F4D62C2ABA136FE4E12CBB8" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsify Importer.exe.config" />
+      </Component>
+      <Component Id="cmp2AE3EC014F312534AA9B3BA5E97A04B0"  Guid="{76DB791C-4822-42FB-93ED-51641BFC4146}">
+        <File Id="fil3CAB3902392D08C78B2D2194E368638B" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsify Jukebox.exe" />
+      </Component>
+      <Component Id="cmp3BBF21943F3E2A99AE8DCF689BD9A3B8"  Guid="{E2FD1013-214C-4BCD-BFE8-6AFD1A1D084F}">
+        <File Id="fil6F3A054D7A5A503512E6888F18E438B4" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsify Jukebox.exe.config" />
+      </Component>
+      <Component Id="cmpCEC79A48BD27963EE55591FF7B166329"  Guid="{6F1B3D6C-3C0E-46EC-B01D-DEF30EC16080}">
+        <File Id="fil9E1BAA58C752D799D861CA32301FCA7F" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Id3.dll" />
+      </Component>
+      <Component Id="cmp559F87F5769C1A294C2570E359A3B76A"  Guid="{A593C279-E996-41D9-8C53-990B7A6E86A3}">
+        <File Id="filC9AAA73143182DA9B684F4B38F2FCD7A" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Data.Sqlite.dll" />
+      </Component>
+      <Component Id="cmpE1F602DBC1AB263256446337CEC63BE5"  Guid="{8B61A86B-96C4-461D-B48F-150D3C0790F2}">
+        <File Id="fil6CB400623FDB514FE96AB9B102E4E2A2" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+      </Component>
+      <Component Id="cmp6A11F8BF00209972E84F6AA3A89E2ADC"  Guid="{E73ED740-6218-4BAE-9D5D-37753B807966}">
+        <File Id="fil1DC68CF8E6AE115A63A14448D838A7A9" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.EntityFrameworkCore.Design.dll" />
+      </Component>
+      <Component Id="cmpAC855F791D2E2CC044A7D96F77A14908"  Guid="{EA93C058-FB7E-495E-B7B5-2F723835B7C3}">
+        <File Id="fil16CBC2F8CCF3A54472D817765BFE7BA0" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.EntityFrameworkCore.dll" />
+      </Component>
+      <Component Id="cmp4B7EA46D18E510352E56C2C2D3B10CD2"  Guid="{C04CDD38-BCF8-4890-9DC3-C4BB20C294FF}">
+        <File Id="fil717A778B7D9ED81D741101B8109FA9D4" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.EntityFrameworkCore.Relational.dll" />
+      </Component>
+      <Component Id="cmp26A00FB4CC0B74639B3AC8B7FA0E33B5"  Guid="{A56F32D0-3431-4455-9F0F-42841FF1C263}">
+        <File Id="filDFA3D76BBC06B637BBD0A4D8B9158997" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.EntityFrameworkCore.Sqlite.dll" />
+      </Component>
+      <Component Id="cmpB90445A7ACE6DB26DFB11BCC87A2B5CD"  Guid="{D344715E-EB9B-4E25-8787-EFC1CE9BD6E7}">
+        <File Id="fil6D810B54088C683A98A02C4AAFC7BC2E" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Caching.Abstractions.dll" />
+      </Component>
+      <Component Id="cmpE37EFC5934FFAB85B42D08B00640E3F9"  Guid="{DEAE34AE-133C-4F09-8CBD-1281BF6988AD}">
+        <File Id="fil8C413A0D2AD90E1061B26A2633BAD295" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Caching.Memory.dll" />
+      </Component>
+      <Component Id="cmp8FF20BB6E9E1039BAAF705C6E421B34E"  Guid="{1FE9F27E-AD92-40F2-AFCF-88E1621FE25E}">
+        <File Id="filF640FB5F13E97BAD50106FFC74CA0515" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Configuration.Abstractions.dll" />
+      </Component>
+      <Component Id="cmp9600FEB1902D7DA917FD445DDA9F3CBA"  Guid="{81687552-A773-4C70-B8C6-73F2D9DE96B5}">
+        <File Id="fil773A346D214AC0962FABFD5068676C36" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Configuration.Binder.dll" />
+      </Component>
+      <Component Id="cmp9F2C63E021EEC1097662A0016E3A9437"  Guid="{93ED6E2D-867F-4105-B225-433DDCD217F0}">
+        <File Id="fil2A9A0281FD23F23037DB0F8E3D6A5CBD" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Configuration.dll" />
+      </Component>
+      <Component Id="cmpBCA2D2639D9EACD23CDC73FE80070E9B"  Guid="{95A0DFBA-9230-4057-A95A-4030C6BFE135}">
+        <File Id="fil80254EA06ED1970F3724C7F2D98F487C" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+      </Component>
+      <Component Id="cmpA81A02C8B473EDEBF6F26F9844427DBC"  Guid="{8A80B562-4CD8-4E55-8CDB-CFF25F957571}">
+        <File Id="fil0279174A8B678BBAEA3CB15C09A05058" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.DependencyInjection.dll" />
+      </Component>
+      <Component Id="cmp51357B8BE38BDBEC4650E16F679193C1"  Guid="{4DBE3103-6212-49AF-8554-8EB0731D4954}">
+        <File Id="filCEE87DAF42DD244A77D3FF1358934C20" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Logging.Abstractions.dll" />
+      </Component>
+      <Component Id="cmp23B7C44B649DFD4F12BF865A29A494C2"  Guid="{A409492D-F650-48AA-8DA8-02BB1629F56E}">
+        <File Id="filC6B97A68142D712CE291E1D18CCE23B8" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Logging.dll" />
+      </Component>
+      <Component Id="cmpF2C47B5B4FF40FF256F58C4C998FA865"  Guid="{EE63689F-F679-422A-81A4-42E0C11BD84A}">
+        <File Id="fil6C5BAA927055E2EA4DDC0C2759255D9F" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Options.dll" />
+      </Component>
+      <Component Id="cmp067948BD791077DB950FC74F23D9632C"  Guid="{1D7FDEEE-67F4-485A-A96A-EDECA8257209}">
+        <File Id="filE8C60BD18DF0BCBB77CEC821646DA670" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Extensions.Primitives.dll" />
+      </Component>
+      <Component Id="cmp16511F0BADC7EEC196CE5B9ABD21FEEA"  Guid="{81EB59FA-2307-462D-8532-8C0F1D0DAD6E}">
+        <File Id="filBCEFCC1D8DF6BD6C8D728D7CC68EF9DF" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Practices.ServiceLocation.dll" />
+      </Component>
+      <Component Id="cmp1DC93C9B9717EAD8750A792146F77D7D"  Guid="{AF118EDF-10F5-41E5-9638-AF623C2666AC}">
+        <File Id="fil44CF71DBAFBA4DD5D77797B5593D31F5" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Practices.Unity.Configuration.dll" />
+      </Component>
+      <Component Id="cmp99D7CA3AF9638A2540E0D11A22B49DE4"  Guid="{2E5B1C6B-2A41-49C7-846F-08826AB0CAEF}">
+        <File Id="filE4F3B4CA535219EBA642390A5311FD9B" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Practices.Unity.dll" />
+      </Component>
+      <Component Id="cmp7D80F73390C17077281DE499BDEDB737"  Guid="{57689E37-B8CB-47E0-8D5E-F47E832E5711}">
+        <File Id="filA466F4356716621894E87A9B05CB93AB" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+      </Component>
+      <Component Id="cmp72974F93C3F42DAFDBFB2867D92E41D9"  Guid="{583A8AB1-434C-42EA-A125-9ADE490269C4}">
+        <File Id="fil7F15BA8094994ADAD04DA907E934B5BD" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Newtonsoft.Json.dll" />
+      </Component>
+      <Component Id="cmp6B3D4B287C7C86EAC3C0F64DBCDDCC6D"  Guid="{9B26C020-FC31-4E87-ADBE-8FC267E2BCE7}">
+        <File Id="filFB5BDE98F1F558FC0EAE7E65C66CD726" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Prism.dll" />
+      </Component>
+      <Component Id="cmp19FEAABB4159504E3A1F2078277DF252"  Guid="{93775284-0F63-47CD-AAC1-1E32AAD6FEE6}">
+        <File Id="filDD2F9AFDCC337C2174F2B1E720122B87" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Prism.Unity.Wpf.dll" />
+      </Component>
+      <Component Id="cmp4F3B8E6E9354C403A682AA6763F98331"  Guid="{27F0FC39-7493-4983-9204-2BFB1C94D3BD}">
+        <File Id="filF18A0475CB43A153CBE8244DDBCB0E69" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Prism.Wpf.dll" />
+      </Component>
+      <Component Id="cmpEF26FCE5ABEBDEBB048EF38FB9DFCE24"  Guid="{8EEA3163-39F8-4527-8E7D-E58D870EDDB5}">
+        <File Id="filF7AE3C4DFF915052DB0E3CB2B1E0AF01" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Remotion.Linq.dll" />
+      </Component>
+      <Component Id="cmp85006A39828AD6287A0A7BA5C93A7316"  Guid="{2BD925F8-FAB9-48C2-9154-B342C5428029}">
+        <File Id="fil7EC9A578B53CDFA0B84E5877BF5EB96C" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.dll" />
+      </Component>
+      <Component Id="cmpEC6A75A3C04D9A3D5E56DF245E7CD150"  Guid="{FEC266FE-9E37-4B15-9BD8-EB9CBD2B2C54}">
+        <File Id="fil305291DE444A712034744368AB5747DB" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.Extensions.Logging.dll" />
+      </Component>
+      <Component Id="cmp865AD798F16E24D4D0D23B578FA6885A"  Guid="{0D00C12B-9E34-420D-BC31-03626EB6467A}">
+        <File Id="fil3472BAA5ECE1663E4DC6737A7E23D214" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.Extensions.Logging.File.dll" />
+      </Component>
+      <Component Id="cmpE772DF469EA003204804A9484C264860"  Guid="{3A28A1C1-287B-4259-8293-47414C5A59F2}">
+        <File Id="filBF4F9183D716FD986615B7B4C627D4FA" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.Formatting.Compact.dll" />
+      </Component>
+      <Component Id="cmpF0CF9A2D159D6846CE79328E1DD34B90"  Guid="{75221804-3DB9-44C8-A121-9281B27D8EB4}">
+        <File Id="fil7EDCA8A7A95014C7908EADE071889680" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.Sinks.Async.dll" />
+      </Component>
+      <Component Id="cmp9075985A78A1DF13230357DE5CB220F8"  Guid="{AE65D4EF-7AB4-483B-9D41-7BF2C2570C33}">
+        <File Id="fil973844A6487E78B7324E885EC6786AAB" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.Sinks.File.dll" />
+      </Component>
+      <Component Id="cmp91D561945F4A52D8711EFC2D18D64C6E"  Guid="{B5C5D08C-8D62-4E38-A9AD-32064C650C62}">
+        <File Id="fil78E8A4B889629F4181F2E8A5DE540A5D" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Serilog.Sinks.RollingFile.dll" />
+      </Component>
+      <Component Id="cmp26F3FF95C3CDBE8B0B5A75D61C52E214"  Guid="{D2E95317-A384-4BD7-BB87-A614AE2EC68D}">
+        <File Id="fil0E4BC6E7725C46C2CCCABE9212D76310" KeyPath="yes" Source="..\..\Build\$(var.Platform)\SQLitePCLRaw.batteries_green.dll" />
+      </Component>
+      <Component Id="cmpF3A79092EE02E9F33CE3BD793FC3082B"  Guid="{36A320FF-2269-4552-BE38-E7CBA7A725BF}">
+        <File Id="filCCEC77E442830256C3C139613A02CC42" KeyPath="yes" Source="..\..\Build\$(var.Platform)\SQLitePCLRaw.batteries_v2.dll" />
+      </Component>
+      <Component Id="cmp1DF1A903ED10374AACE99276B571F382"  Guid="{5AD1766B-CCCF-4EC1-B1F2-3B2C58A61337}">
+        <File Id="filC094E002B1823984550A3D696AA33A17" KeyPath="yes" Source="..\..\Build\$(var.Platform)\SQLitePCLRaw.core.dll" />
+      </Component>
+      <Component Id="cmpBC4C61DB84F4E53831D6BCAB23E25D64"  Guid="{EAA5E475-A084-44BC-88CF-9DEC70DA1048}">
+        <File Id="fil08B02E55A36D5BD73E581FE34012953A" KeyPath="yes" Source="..\..\Build\$(var.Platform)\SQLitePCLRaw.provider.e_sqlite3.dll" />
+      </Component>
+      <Component Id="cmp103AA2498B48A2D877F1A69C29B5ADA4"  Guid="{7EB494CB-938C-491D-A144-BD4DCD548C11}">
+        <File Id="filF0FA56EA80D185B2B59477B71BFDDF24" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Buffers.dll" />
+      </Component>
+      <Component Id="cmp0F4C8F52DDD465C497789CAED6AF8AB3"  Guid="{2E49FE92-FD8B-40FC-8815-1470E8136D17}">
+        <File Id="fil842A10E0CCD8A41FE6AA8AC1D5A7E0AC" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Collections.Immutable.dll" />
+      </Component>
+      <Component Id="cmpED1C43E1C5B940E854249589B1BD9D8D"  Guid="{FAE571E1-FCA4-4B84-9A42-B5C7DC2FE3A5}">
+        <File Id="fil732CBB8EAD74162885908B091865400F" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.ComponentModel.Annotations.dll" />
+      </Component>
+      <Component Id="cmp89B2EED2E84D323F7068961881613FD1"  Guid="{24DA363E-8C36-4DF6-82CF-826D2B18612F}">
+        <File Id="filC0F512AC480BC0F30E82276D591B8302" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Configuration.ConfigurationManager.dll" />
+      </Component>
+      <Component Id="cmpCF7D159A9F6C4F17685CC3AA3AB77C61"  Guid="{6736CFC3-00F4-460E-ACED-985D1CCE7AAB}">
+        <File Id="filD3EB07A321DD85414B0192F70A4841E8" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Data.Common.dll" />
+      </Component>
+      <Component Id="cmpC0D8E872F37E44ADA17AB4E350EE9758"  Guid="{FF5C954A-5C39-4611-836F-DB6859D85D21}">
+        <File Id="fil295ABE2533D292BB1B333BE3D9119ED5" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Diagnostics.DiagnosticSource.dll" />
+      </Component>
+      <Component Id="cmp8F2F2AFC021587C179C141365A3D6BB6"  Guid="{A20C637A-34A1-4278-8D42-11D41126BEA5}">
+        <File Id="filFEE32DF5E1B121F6551C575EC215FA6C" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Diagnostics.StackTrace.dll" />
+      </Component>
+      <Component Id="cmpAA3288E4E0F8EDD4B915BDB149D58D86"  Guid="{432A6C0A-24B9-4098-8443-5BCF604A0876}">
+        <File Id="fil44F3D27E20C6EEE750BADDBD54625F17" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Diagnostics.Tracing.dll" />
+      </Component>
+      <Component Id="cmp5BFCA70DF937223BA6FF946025D6DFA4"  Guid="{287CB674-1404-4E50-9CB9-30FDAC4A1D01}">
+        <File Id="fil01B3FF593E90506A42DD4994429ACA3D" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Globalization.Extensions.dll" />
+      </Component>
+      <Component Id="cmpA404D00D15844085E350633A13D265A3"  Guid="{8229F4EA-E8D9-45CC-AF13-4DCF3427D3B7}">
+        <File Id="filD7AC97DD7BA9401FA56E6EB99323F6E8" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Interactive.Async.dll" />
+      </Component>
+      <Component Id="cmp2863E64FC19A1CA67C2F6C9F8AEC7200"  Guid="{8DB9FFE4-C284-4B8E-9AD2-5900BD10F03A}">
+        <File Id="filFDEF66DA4A6F50DF9FF96A902F0CC718" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.IO.Compression.dll" />
+      </Component>
+      <Component Id="cmpAA931085A427DC09AD4D46D96C6693B9"  Guid="{CA65EFA8-786A-4B69-9BD4-C187AF03C595}">
+        <File Id="filA4D16EB7AC475E3874DCD8A725D3EA83" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Memory.dll" />
+      </Component>
+      <Component Id="cmpEE6F3C97F8A13DFF50C82F2086ACD931"  Guid="{D9AA2862-C237-40A9-A6F7-3F86828AF5A4}">
+        <File Id="fil8D921BBEABD9993326747E67D5B657A6" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Net.Http.dll" />
+      </Component>
+      <Component Id="cmpAAFBD0B608B2D5A98F19D1B368C06F5E"  Guid="{477C004C-C230-4365-92F3-8A0FA8357AF8}">
+        <File Id="fil36CD1E810E86D89C7288E2DFB4415CB8" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Net.Sockets.dll" />
+      </Component>
+      <Component Id="cmp77DEEA2755E9EB6E4B625F52AFF24A64"  Guid="{CD2039B6-9EFD-462E-A3F0-BC9B58E3FB3C}">
+        <File Id="fil664734CE08B5E2F178B844B83E064F0C" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Numerics.Vectors.dll" />
+      </Component>
+      <Component Id="cmp123018225749B93143B4E5497284F4D8"  Guid="{CF9FD422-17B6-4E8F-92C2-A4C5D079DD3C}">
+        <File Id="fil1C1483B93071FAB4EB45AA05BC0E0369" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Runtime.CompilerServices.Unsafe.dll" />
+      </Component>
+      <Component Id="cmp348EB75981D71CE0A8A70C1BCA0D236D"  Guid="{3190560C-BDD3-40C4-8998-085FADE018F2}">
+        <File Id="fil1E17BF1986DE702B327B2C028B4F1CE9" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Runtime.Serialization.Primitives.dll" />
+      </Component>
+      <Component Id="cmp8BF434D97178A200B47CD27B267D81DA"  Guid="{2F9BE375-60DA-4C52-B367-E5AF7F26F408}">
+        <File Id="filA858093977ED722444FDFC1DE125148C" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Security.AccessControl.dll" />
+      </Component>
+      <Component Id="cmp900E7668FF32775261855B5787428B31"  Guid="{FE51A992-39B6-48D6-AF53-C92275A13434}">
+        <File Id="filD98117EA909B9817139579A365507ECC" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Security.Cryptography.Algorithms.dll" />
+      </Component>
+      <Component Id="cmpC38F0CC4B05ED3A8A2278AE4DE4CEDE1"  Guid="{A2ADD3D8-EB0A-45C5-9B3D-1D7239CF8122}">
+        <File Id="filEB19DC08680CCB7EA76029C2827286DB" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Security.Permissions.dll" />
+      </Component>
+      <Component Id="cmp7FFA1EB56B5EBE560AE6F567D2758508"  Guid="{0B500734-6CE4-4DA4-85C3-5BBA1D47D8A5}">
+        <File Id="filE02438EE309E6326C216DE7F0BA5F952" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Security.Principal.Windows.dll" />
+      </Component>
+      <Component Id="cmpAC5022F8CFEE23504DFD4ED3AA985AA0"  Guid="{F03C98FF-3436-4102-B9DD-594665150229}">
+        <File Id="fil74AFDF74EF912E79AF9D8B41D7C19096" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Security.SecureString.dll" />
+      </Component>
+      <Component Id="cmp541CEA514938ABBA05B1A1B5DC384CD3"  Guid="{FBAB7C55-84CC-4CB0-A77C-6E332FB0A205}">
+        <File Id="fil05D4E4BB687C142B69C7EED4673F262A" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Threading.Overlapped.dll" />
+      </Component>
+      <Component Id="cmp6420500FF1ABC06969E348ACB0B55D77"  Guid="{27269B51-EE9E-45D1-9BD8-4050622C25F2}">
+        <File Id="filA545F6C5C51315B4671A7FE6553F80CE" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="cmp7C8D238EF735D170352B03B6D6CD1FBD"  Guid="{00108DDE-F0A6-4D04-9B9A-1ED7D16B30F0}">
+        <File Id="fil47BCC2ACB34A0B8CC927AAE69CBE5A50" KeyPath="yes" Source="..\..\Build\$(var.Platform)\System.Xml.XPath.XDocument.dll" />
+      </Component>
+      <Component Id="cmp1B6C331831A6BE1C0C6679D9966BE52C"  Guid="{2BF28829-1095-457F-A4E9-D39C4E2BC75C}">
+        <File Id="fil2E99D59E802019D4902140741B8DCC36" KeyPath="yes" Source="..\..\Build\$(var.Platform)\taglib-sharp.dll" />
+      </Component>
+      <Component Id="cmp198BD392B4E0F1A90077EB0CE4257A2B"  Guid="{100191FD-0133-4B5F-9040-74EEF3239857}">
+        <File Id="filDDCB15B5161B7A238B3B91B76470C065" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Vlc.DotNet.Core.dll" />
+      </Component>
+      <Component Id="cmpC70687AFE8B4C89D3102F74E8BD449AC"  Guid="{23C983B0-6A50-4B25-8C39-BCDB46BACFD5}">
+        <File Id="fil89891BFBCEFA13C7C83292E61ED2C7DF" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Vlc.DotNet.Core.Interops.dll" />
+      </Component>
+      <!--<Component Id="cmp250BA6379D531DE743DB9E02A22422B2" Guid="{F78CAFE2-DA18-4199-B930-DF44F9D3EBC6}">
+            <File Id="fil05035DB4625E1891FC6E712C7B5D7AB6" KeyPath="yes" Source="..\..\Build\$(var.Platform)\x64\e_sqlite3.dll" />
+          </Component>
+          <Component Id="cmpACDCD443BEEBBE8294504FFEC694AED2" Guid="{99E25B50-C536-4E58-8235-0EEB0FE31BA9}">
+            <File Id="fil7C5ED42409AFE7D8EC58FDF466B47DCA" KeyPath="yes" Source="..\..\Build\$(var.Platform)\x86\e_sqlite3.dll" />
+          </Component>-->
+    </ComponentGroup>
+  </Fragment>
+</Wix>

@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.MediaPlayer.UserControls.ucFadingSongInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignData /SampleData/SelectedSongSampleData.xaml}"
+             d:DesignHeight="100" d:DesignWidth="300">
+
+    <UserControl.Resources>
+
+        <!--FADING ANIMATIONS-->
+        <Storyboard x:Key="FadingInfoStory" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock5">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:7" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:8" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:10" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:11" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:12" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock3">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:12" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:13" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:14" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock4">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:15" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:16" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:17" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:18" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </UserControl.Resources>
+
+    <!--LOAD THE ANIMATION ON USER CONTROL LOAD-->
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="FadingTextGrid">
+            <BeginStoryboard Storyboard="{StaticResource FadingInfoStory}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid x:Name="FadingTextGrid"
+        DataContext="{Binding MediaControlModel.SelectedSong}"
+        TextElement.FontFamily="Bebas Neue"
+        TextElement.FontSize="66"
+        TextElement.FontStyle="Italic"
+        TextElement.Foreground="Silver"        
+                        >
+
+        <TextBlock x:Name="textBlock5" TextAlignment="Center" Text="{Binding Artist}"/>
+        <TextBlock x:Name="textBlock" TextAlignment="Center" Text="{Binding Title}"/>
+        <TextBlock x:Name="textBlock1" TextAlignment="Center" Text="{Binding Album}"/>
+        <TextBlock x:Name="textBlock2" TextAlignment="Center" Text="{Binding Year}"/>
+        <TextBlock x:Name="textBlock3" TextAlignment="Center" Text="{Binding Genre}"/>
+        <TextBlock x:Name="textBlock4" TextAlignment="Center" Text="{Binding Label}"/>
+
+    </Grid>
+
+</UserControl>

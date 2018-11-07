@@ -1,5 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <FontFamily x:Key="BebasNeue">pack://application:,,,/Horsesoft.Horsify.Resource;component/Fonts/#Bebas Neue</FontFamily>
-    <FontFamily x:Key="Digital">pack://application:,,,/Horsesoft.Horsify.Resource;component/Fonts/#led.real-regular</FontFamily>
-</ResourceDictionary>

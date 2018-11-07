@@ -1,0 +1,690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="TARGETDIR">
+            <Directory Id="dirE31083E605AB44DF12DD289862A1B80C" Name="x64" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp015B3D83020076BAFA42760659E5FB8C" Guid="{E39B194F-F30A-4B63-9AF2-C4E4CD23812B}">
+                <File Id="fil8E2AF89D30E1D76D0C9F915943BEDD14" KeyPath="yes" Source="SourceDir\System.Runtime.Serialization.Primitives.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp02C3F6DBC8D0ED3BB71F2691C63FDF0E" Guid="{329297DC-EFEF-4FF8-81C3-94E3168A6597}">
+                <File Id="fil5A4DE163B02F6EBF7DF39B4ED49C5451" KeyPath="yes" Source="SourceDir\System.Security.Cryptography.Algorithms.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp07CAF4BA68860BA1F674B8A3F2655EF7" Guid="{988D39AD-E3C0-4D7D-BE6C-57ABA70D47F8}">
+                <File Id="fil0CC4407029BEC3A021A0E1EF7507403C" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Configuration.Binder.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp08628A017BD5CAB79A0AE80A45887360" Guid="{2A772B0B-D0BA-43CA-BE06-16A8B87A9DEB}">
+                <File Id="filA3061E165C864FC73852019CB8621EF6" KeyPath="yes" Source="SourceDir\System.Net.Http.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp087AEA5D676438804F028C946732F3D8" Guid="{2EEEBAD6-556E-43A8-99E7-9E28E5C11748}">
+                <File Id="filEE349D0F00B1808026515A3B6521B00D" KeyPath="yes" Source="SourceDir\Prism.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp0889EE2E3DA8A30DF48B794A8A8CA69E" Guid="{4091EE49-71B2-4162-8433-61311EFBC309}">
+                <File Id="fil6A6523ED2CCEE89713BBC2CDED1D680D" KeyPath="yes" Source="SourceDir\Serilog.Sinks.File.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp094A0EFEA0C8DB4095E1E7595FC802F3" Guid="{0F4202EC-B64D-4056-A2AC-B225A84264A5}">
+                <File Id="filED4F2707076D215087EE64817FCA9356" KeyPath="yes" Source="SourceDir\System.Diagnostics.DiagnosticSource.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp0B26F018CB5EDFEA42F948207E4DC267" Guid="{3D465E02-3190-4660-BCBF-43A22A60EBE6}">
+                <File Id="fil77BB6F253B2DFFA9EF4BA6D85762E0D3" KeyPath="yes" Source="SourceDir\Newtonsoft.Json.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp0B663ECE289C73585307A46D9D85C305" Guid="{14FC5213-A393-484A-AC13-780D76891DFB}">
+                <File Id="fil8AFEC3BEDCEE3289179099EC3B268118" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Primitives.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp0B73E51469D9E5B59BEE3B484B3830A6" Guid="{5DF3205F-26B0-4859-919F-FDD5B8C6B94F}">
+                <File Id="fil9015D22B50EC5E98C4D54A7F2E29F099" KeyPath="yes" Source="SourceDir\System.Configuration.ConfigurationManager.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp11B7C69E6527FD44375A67D219B7B460" Guid="{51661854-F6C4-4510-BCF5-CEA64FFFB05B}">
+                <File Id="fil584350B44FC170A76BC85653C63DB81E" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Engine.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp129913EB380E3D496764AA1649C96E75" Guid="{6E9B5A65-F5B8-44B3-8983-E1014CF4CBC9}">
+                <File Id="filCF8A566DC1900001F5CAF9E8BC2AEB26" KeyPath="yes" Source="SourceDir\e_sqlite3.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp13C87BCC73A378CF894525CF799849A2" Guid="{A0A92375-9310-4F74-986F-A9CCDEB5C6AE}">
+                <File Id="fil5C106C7D366BD0BDE9D3723DA646C4C7" KeyPath="yes" Source="SourceDir\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp143B6510E3C815740881341E037F0AD5" Guid="{852B0D07-6937-453F-ADB5-6088B4624BAD}">
+                <File Id="fil6C998AD6A86F1B87B83310C6E78F0EDB" KeyPath="yes" Source="SourceDir\System.Security.SecureString.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp148594AD03A77F7188BA94C880E394EA" Guid="{BDC07684-DC25-4C3E-92C1-2C1C62296696}">
+                <File Id="filA51A0B36BE024AD3557FEBF50785829C" KeyPath="yes" Source="SourceDir\SQLitePCLRaw.batteries_v2.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp153EB599F49F6E1D525563AAD1CB158C" Guid="{4347FCB7-5091-4341-AF7F-3F080E78AEB5}">
+                <File Id="fil621B7B803742E8655D402E2990DE6BDF" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.MediaPlayer.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp16176A4A62D8DEAF8CD4A5C960FC8B5B" Guid="{1EDC0160-1E49-4034-8C28-EA0CB953E246}">
+                <File Id="filC427E789B9BD0EBE1F272B48FF9F4B1F" KeyPath="yes" Source="SourceDir\Microsoft.EntityFrameworkCore.Sqlite.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp17F55DFCBF65A5EF0C16ADB4875BB08F" Guid="{B5BD5489-E4A0-4B07-9F66-E7763218A0F5}">
+                <File Id="filD814557EAE04975EFBEA9E1832297755" KeyPath="yes" Source="SourceDir\System.Security.Principal.Windows.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp1C5F7E838325B2B4B305D90876045098" Guid="{6DD078E1-A43D-4306-863A-F2C7AFFBF020}">
+                <File Id="filBFEB3D08D3DCA44AB373DCDC1E6770B7" KeyPath="yes" Source="SourceDir\System.Buffers.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp232BC90DF5EED377AD7FED75FBA0DFC8" Guid="{BB358752-68A3-4564-A302-DCDFF77133F5}">
+                <File Id="filC53FB63CCCCA1A74FEECAFF920156888" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.ServicesModule.dll.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp258461F01AE46CD531237C75D0206779" Guid="{95362ED9-0CFB-49F7-A85B-63C9C9AA5568}">
+                <File Id="filBFDACE30F05B10CEC882C4F1580EB690" KeyPath="yes" Source="SourceDir\Microsoft.Data.Sqlite.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp275254A39072261B51C6F757B0790BDA" Guid="{B1590850-ED09-4DF7-B91C-8C08B689B2B8}">
+                <File Id="fil31819ABD36977DD6D4BD0482DE4E15D3" KeyPath="yes" Source="SourceDir\Microsoft.EntityFrameworkCore.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp2892295A756A6B8567304550A75E61E6" Guid="{AB8B3125-2B53-4080-A083-7AB5883AFC6B}">
+                <File Id="filFFAA6F2FF8C3EBC8BF1BEB1644118570" KeyPath="yes" Source="SourceDir\Prism.Wpf.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp2E728E3E1CBBEC103DEFFF34327E5F11" Guid="{494B3569-85EB-4161-8DDA-A10A19F95424}">
+                <File Id="fil4AE76D407162E7DF6AC6BABF6706ECA2" KeyPath="yes" Source="SourceDir\Serilog.Sinks.RollingFile.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp2FE52DAE73D4F05F6706A48D206BE699" Guid="{6652FF96-C19F-4390-92C0-7455F8B89E2D}">
+                <File Id="filF81FC70C4E44240D2899E5FCC45C3923" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Caching.Memory.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp330732EA866F147801A1B3B650C783B6" Guid="{0E5CA1D3-6E16-4E7E-A3FB-D360702FFE0E}">
+                <File Id="fil56030B2ABC5F402286F72637374AB6E2" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp36492B13ACB9A980F5996A2ABA2982F1" Guid="{7C67C332-BC39-4A16-9E97-747E72740556}">
+                <File Id="fil4F61F243B3FC6BBF352EBE8E5E1F46F1" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Logging.Abstractions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp38011BB00EABE00D20182CA5A8B45229" Guid="{CAF96B20-09F0-4259-B1DC-8A6C75518020}">
+                <File Id="fil7817E28FD119B2AB7095D16A23293AB0" KeyPath="yes" Source="SourceDir\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp38D05DBFF992DA3506E61DF2C94FDA60" Guid="{7901AAEA-9881-44AC-B3A2-FD31D1C60F63}">
+                <File Id="filF56D515F05B1E57993B17BA6DD7BEB0C" KeyPath="yes" Source="SourceDir\taglib-sharp.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp3D7CCA3F131DEE9ED786F48255809582" Guid="{F331D6C2-2FD0-4856-8DD7-54E687B7711D}">
+                <File Id="filB11B1CB56D222ABCBB5F321FADC4087C" KeyPath="yes" Source="SourceDir\Microsoft.Practices.Unity.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp4558CBD7FA230B679EC687A25A5CB755" Guid="{96AFE06B-DD30-453A-A7FF-E05481BD4F17}">
+                <File Id="fil564456199A966D13B8F68E2BFE9B1663" KeyPath="yes" Source="SourceDir\System.Memory.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp47F0C5B0EAAA583758E76FD160173048" Guid="{F06649FB-F39B-46E3-9A57-27CAE57BFC52}">
+                <File Id="filB8AE14B56E986C0FAFEF93F6E182A5F7" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.SettingsModule.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp4806E216AA12BDAB60B4E79B7936E112" Guid="{A80E48DF-9B40-49DF-8121-39DA64CEC835}">
+                <File Id="filF894957B32F2C1DE96E0502BBC3BE3AB" KeyPath="yes" Source="SourceDir\Remotion.Linq.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp49149FD5239C3FE34B9021715382A436" Guid="{2C9B260A-F8EC-4EC5-98F1-27C574898D0A}">
+                <File Id="fil82E556E406BF726987C2583BB90F246F" KeyPath="yes" Source="SourceDir\System.Threading.Overlapped.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp49407AA447ABA57CFB31C5B53D57872B" Guid="{086683B5-F2FD-4093-9320-42F4BBD00BBA}">
+                <File Id="fil5F10695BC2E99BE194CEC246D811C499" KeyPath="yes" Source="SourceDir\Horsify Jukebox.exe.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp4F0251D5B25B616F800C8BBB1C75CE3E" Guid="{D57C71CB-0169-4719-9F15-171ECA2AE62B}">
+                <File Id="fil9DCFDBEEAFE321587178B206754659F3" KeyPath="yes" Source="SourceDir\System.Data.Common.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp50628A3FEC6A605DC506F3AF3EBF244B" Guid="{846BCAC3-D173-4521-8224-AD09D32D8F18}">
+                <File Id="fil379990441AA9B6888A8A67AE1EBFE450" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Configuration.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp55067B7BB658CA176CDD4156312C9D5A" Guid="{6472A671-55BB-45AF-AEA4-DBC69AA04A19}">
+                <File Id="fil06677BA2ACC100A4C6BD579F288CCF4E" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Options.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp599456D0C2F2C04A13A1FDA87AD13D13" Guid="{75E480F3-7D21-4334-B35A-49B22E147A03}">
+                <File Id="fil8FDF66A7B53CBE3F5D7A95BA43ECFA3F" KeyPath="yes" Source="SourceDir\genres.json" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp5AA1A7C2C677F04E8293FF8C1CC47C74" Guid="{50351C51-B483-455D-A91F-CAA022F9A27C}">
+                <File Id="filC76D76D71A85C99D4AF07EF0B29D8889" KeyPath="yes" Source="SourceDir\SQLitePCLRaw.batteries_green.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp5E2C048AFC829A0264EBA81E01926CE7" Guid="{8B02B734-2F05-47DB-970B-FAC5CF89462F}">
+                <File Id="filE139D1FE86C47E6D822E19F0BB0053ED" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.Resource.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp5E3A0CBE688CC96EB925C951A815F349" Guid="{FE55C1D1-0D97-47A0-A818-750D1F7B0972}">
+                <File Id="fil38382496181DD036EFA6413BC2B3EB6F" KeyPath="yes" Source="SourceDir\Serilog.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp5F7E0309C6351093928293BF66E689DC" Guid="{CBFE8984-2251-4FE9-A937-80C5AC17D995}">
+                <File Id="fil659DF502F1E540544862313CE22B3126" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.QueueModule.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp62E2C968DC6C50A73EAB861B4AF64D3D" Guid="{7F8DC887-982C-42CB-B534-151AC14B27F3}">
+                <File Id="filB0B0FF2BE53F45DCA3E9EA249D47773D" KeyPath="yes" Source="SourceDir\System.Diagnostics.Tracing.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp63FDD65FE7F7E8CC7B6909F36AAD3975" Guid="{ADB4D799-72A1-43FD-96AE-A995A8BBBA91}">
+                <File Id="fil30051E316A1F933D6776BBC7757DCB44" KeyPath="yes" Source="SourceDir\Microsoft.Practices.Unity.Configuration.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp640D14BFAEB306503C76D01F8137B88A" Guid="{44A7414E-E97D-4836-AF1C-E1FC6FCCA29D}">
+                <File Id="filA2BBA4E4ABAC9252FFC7E0E512E47D26" KeyPath="yes" Source="SourceDir\Id3.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp658CF6477C8C9EBF6AC55E49992CCD58" Guid="{2BC806FC-C9EA-4E79-94B1-4E8BB68BAB3B}">
+                <File Id="filCB190BF8F62C41BE5E1555A21E0BBAFC" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.DependencyInjection.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp65BC0B15A366FC32E8918EBEF9C36BEF" Guid="{05485095-3D84-4D9D-864C-3E86E92663E1}">
+                <File Id="filED03F1E830B80342AED32256AF3D5232" KeyPath="yes" Source="SourceDir\Horsesoft.Wpf.Controls.Audio.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp67B9CDFADFEC5E7E0F94ACE288C5440E" Guid="{AC68126F-AAA2-4801-9AFF-85F7D2B16C49}">
+                <File Id="fil244CC426266E782A78BE2268DABEC9E1" KeyPath="yes" Source="SourceDir\System.IO.Compression.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp6E729E4FFBA641C888B2D00110FB1678" Guid="{245E6276-34E2-49FD-9AA6-7DE7DC4898A4}">
+                <File Id="filB50680909454CE6A753E9D1BA299DCB1" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Data.Model.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp6F2371C61A79E93EF739A422639D4681" Guid="{415F21BC-3D1C-4575-89BE-B7C5A42B81D1}">
+                <File Id="fil3226F076C53561DB2E9B3AD9DED67FCF" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Horsify.Repositories.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp72C5894AAC305E277DD6E59346E741D0" Guid="{79E38AAB-116F-4CF3-96B8-A579E22E4B9D}">
+                <File Id="fil820005A598E50CB46CCA7F58A67BAFC7" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.PlaylistsModule.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp7435A326A46A5A9BC2F34213980C8E96" Guid="{A2ADC7E3-DF1B-4C4E-99AF-7368AE4ED96E}">
+                <File Id="fil59DE58A892AD7DD01C807FFD6138B23A" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Data.Sqlite.dll.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp74AB927814BA3CFCE39A380531E7EB19" Guid="{B1891C16-3D16-43A9-9E91-373A1EB5DE2A}">
+                <File Id="fil608E594BD426EEB90867D9430B423407" KeyPath="yes" Source="SourceDir\System.Security.Permissions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp803E5D03EAD78A823B05410D662B883F" Guid="{F88F88D5-538A-4233-85EB-8E7DFCF7A1F9}">
+                <File Id="filA76AA16B7C01B6EB0C78AC66D73933F1" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Data.Sqlite.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp83C3E4BB3E04F2AC63F918F31873BDFA" Guid="{5E22E6F9-0279-4361-81CD-8437382192D8}">
+                <File Id="fil487064C0A379E3BD5878BF9910943385" KeyPath="yes" Source="SourceDir\Serilog.Extensions.Logging.File.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp847169EE5DBFECBCE2882AF946DAA96D" Guid="{A58DA119-DAA6-41C8-A473-F8AD6CFEEDD8}">
+                <File Id="fil8BEDC811B974DE482E3E6534B373BB9C" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.ServicesModule.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp86E2C6821EB34E3D60362FD6C00A5B38" Guid="{D3E092AF-8A72-49C7-88D0-7AC806CB65F0}">
+                <File Id="filBD8D9FFD6B9E91BDCF73F2C9F021ACDB" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Caching.Abstractions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp8A787E85DF1B79AE73E7567891F6E736" Guid="{6960EC99-D1B2-4668-8840-4A80A7888B04}">
+                <File Id="fil2069EAC5CF48DD8516DCCD59C74673AB" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Logging.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp8AB336269AD90306FFA5A9045A07AB6C" Guid="{38AD21E9-977A-404A-99C8-B3116199FC0B}">
+                <File Id="filC7C1B00B6D20C5C9F1CA5F204565A8AE" KeyPath="yes" Source="SourceDir\Horsify Importer.exe" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp8B33E2CD3FDBDC4F3C263F02597DE70E" Guid="{B1009FD5-22CF-4349-B10B-F8C67C4EBC9C}">
+                <File Id="fil550F2732C53E438741885832B4CA6E73" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Horsify.Base.dll.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp8DB394644EBF02C6E11D79330922E070" Guid="{1658E87E-E58F-4249-AE6D-7E7CA09114DC}">
+                <File Id="fil6A135F6E7356A67F29A992196220D632" KeyPath="yes" Source="SourceDir\Serilog.Sinks.Async.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp8DD1A2F5BC841B9E7C4F861641B4B0BC" Guid="{12EA1A44-9A32-42B4-8215-99AE5B33E534}">
+                <File Id="filDE696846B7E66FEDF28F99079E9E9AF5" KeyPath="yes" Source="SourceDir\Microsoft.Practices.ServiceLocation.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp92B099839E294D3E0A260340B77875B2" Guid="{54E7F6B9-47AF-4EF8-A74F-62B77B16E602}">
+                <File Id="fil0DD4CFD7E8F52A318064A71D2E8B6345" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Engine.dll.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp94FE305440BAC7EADC8C5A3D2472529C" Guid="{1FF2373D-C7DB-4B6C-944F-55AF8ED6365B}">
+                <File Id="filB3BFA6210EE80E46FE6369A3DA7FAED7" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Horsify.Base.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmp9A21067A9FE0C3183162DAFFE772F9C4" Guid="{B8C9DF3F-5E60-4E6D-BA99-3048804168B9}">
+                <File Id="fil444143D4127BC9C91B586F4F72451897" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.SideMenu.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpA6121A4CD8C6111A2F08017F9F9F293C" Guid="{740A4316-CFDD-41DC-BDE9-16CD1C932BC0}">
+                <File Id="fil9A49CFA62F23069AD8499A6284B3F40C" KeyPath="yes" Source="SourceDir\System.Collections.Immutable.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir19479C2A34A37E44D0D3818B56888B68">
+            <Component Id="cmpA6F1AC2BED61DDEFA01A74571FBEF608" Guid="{93EDAC1F-05CC-4D7D-BFD2-57A2E39DB005}">
+                <File Id="filD97341260251372622E4BF8260188860" KeyPath="yes" Source="SourceDir\x64\e_sqlite3.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpA9C1CF59A6A18FC185E275790ADED86D" Guid="{37C6009D-2AD0-4EEB-ACC5-114815EF8175}">
+                <File Id="fil5903A8308BCA5CEFEFCF79A177E66955" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.SearchModule.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpAAE4027294F837B2F20EFE5DA1332402" Guid="{1A94F123-A9D5-47A2-950E-C7E734AA8CD0}">
+                <File Id="fil1962DE1ADA0ABFE6FD7476770DD9D430" KeyPath="yes" Source="SourceDir\System.Xml.XPath.XDocument.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpB216D294736E994B508F4F63F83C26C0" Guid="{E56D27BF-EEE6-450A-B89B-7022EAE8CC92}">
+                <File Id="filDB5F7297EC26370E48244704E287C1EE" KeyPath="yes" Source="SourceDir\Horsify Importer.exe.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpB5F328A224BBA41D177BEF32E914D792" Guid="{F6FF8986-1F3C-414E-9635-57D94A4205F0}">
+                <File Id="fil94D3C07B195DC3FC21A1F92F1161FC62" KeyPath="yes" Source="SourceDir\System.Numerics.Vectors.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpB6588FB1CCA837A9903E4F76C9A5DF0D" Guid="{FDBAEDBF-AAD1-490E-B62F-B75E3DD9E97F}">
+                <File Id="fil5CED3B36C76AB4BF693727979E91BC78" KeyPath="yes" Source="SourceDir\Microsoft.EntityFrameworkCore.Design.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpB6B32FDC2855DCA976AA36A9D4B37847" Guid="{F395BD76-399D-4181-A6B2-6D46BB6989E5}">
+                <File Id="fil10864A2119E9B7B926008F760EF11DA5" KeyPath="yes" Source="SourceDir\SQLitePCLRaw.provider.e_sqlite3.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpB723BBBEAD4D4EA2A754815A65943513" Guid="{FD82D4F2-BB59-46B1-87AB-C33C38C8C66E}">
+                <File Id="fil8994A4EB6E4EEC149C86E535B76E15F0" KeyPath="yes" Source="SourceDir\System.Diagnostics.StackTrace.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpBA1767F523167FE5E419E6CABD049A23" Guid="{3FF66CC7-FBC8-4297-AAE1-231D6C0A41DA}">
+                <File Id="fil5463ACABF96B94DEE3A81DAA1BEA5E44" KeyPath="yes" Source="SourceDir\System.Net.Sockets.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpBACC0996A76574FC3633E7DFC30EE7FF" Guid="{EE8C24DC-B342-4880-96AD-A9AAAD2F77AE}">
+                <File Id="fil649C98ECDB5D13429DBC505837E7612F" KeyPath="yes" Source="SourceDir\System.Interactive.Async.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpBD427D8AF2D80EF39F8A31E0887DD977" Guid="{5301BBCC-56C3-4987-B823-B684C60D5278}">
+                <File Id="filBE9DB9466DF65DF957284CD6A38407EB" KeyPath="yes" Source="SourceDir\Microsoft.EntityFrameworkCore.Relational.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpC4511426C36C87E954C91DAF8A94C44C" Guid="{2E14DD00-FBDC-46D7-90FD-6C22562C44AC}">
+                <File Id="fil1B247C84F754C01AC0B4A39505008202" KeyPath="yes" Source="SourceDir\System.Windows.Interactivity.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpC5CD4E646E05E2D306C91832EF483680" Guid="{4D6F4653-B28A-4A88-B656-5DAC6DF2C606}">
+                <File Id="fil35245C955A21B15963C1010EE67AE529" KeyPath="yes" Source="SourceDir\System.ComponentModel.Annotations.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpC6EEF22D6DA9CB93395084489A8DCFA6" Guid="{9455923A-F689-4193-A9C1-43C8142B2845}">
+                <File Id="fil0AB31279A13C60B9A2F6E1438F412A5E" KeyPath="yes" Source="SourceDir\Horsesoft.Vlc.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpC8479896A43320A035516689277A9C9A" Guid="{93DA6E83-4415-4B40-BF61-57BB8D6B4492}">
+                <File Id="filCE5035A99615B267028320494579861E" KeyPath="yes" Source="SourceDir\System.Security.AccessControl.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpC945DC10AFCF96BE3B24FDC08996B3E2" Guid="{DAE4E9DC-9AC7-46A8-B61D-DB4549A38377}">
+                <File Id="fil6A7A3AEEDB74D013F130BF6FF805BF2B" KeyPath="yes" Source="SourceDir\Prism.Unity.Wpf.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpCA903EABD0B12C828EEF0A3E9FE10F5D" Guid="{C36E6AEC-EECD-4451-97F8-4625B6BC87C4}">
+                <File Id="fil064A6B686B42741CC20FF2BD9635937F" KeyPath="yes" Source="SourceDir\Horsify Jukebox.exe" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpCB5FB07058A3118B3FA10FA00A2C9E40" Guid="{E1EDF36C-FB6C-43D2-A3E0-976EA2702825}">
+                <File Id="fil2B52D5B2F72C2328534F20A987DE7488" KeyPath="yes" Source="SourceDir\GongSolutions.Wpf.DragDrop.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir3399A38A0DA246303D0A4B122FC274F7">
+            <Component Id="cmpCBD5EDEF1A5EF3891A24C14A37E9858B" Guid="{0E8F3376-CF16-4D06-B2EC-C186A3770477}">
+                <File Id="filDC56059090B6EB40397D89F5A1E8AA86" KeyPath="yes" Source="SourceDir\x86\e_sqlite3.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpDC892410B46B15962E254C0EA7697745" Guid="{4C36C44A-6B4B-4C9B-9C60-2DF1EA4E4860}">
+                <File Id="filAB303436C39E7B0287CE1818C1C70ACD" KeyPath="yes" Source="SourceDir\SQLitePCLRaw.core.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpE5C07D3BE532C645384018DC5E222051" Guid="{B91C3962-A54E-40C6-A9E4-E149D51C1733}">
+                <File Id="fil86E584AD0D44AC753AA0A0FA6CEC2050" KeyPath="yes" Source="SourceDir\Microsoft.Extensions.Configuration.Abstractions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpE764EE78F47BFC9FC37D5BCB01F9268E" Guid="{0B4F178F-8DBE-437B-AE96-CDFF5263F2AD}">
+                <File Id="fil72D2C4F9C05CBD38AF414539A4D8F67E" KeyPath="yes" Source="SourceDir\System.Runtime.CompilerServices.Unsafe.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpE8CC262DAD448BE742641B3EF05F72AD" Guid="{CD2B0B6C-88F3-4102-A157-26838F528606}">
+                <File Id="filF07E9BB59D77BC0BB2BA9BC67651F102" KeyPath="yes" Source="SourceDir\Horsesoft.Music.Horsify.Repositories.dll.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpEFAF22FDDE858F1BA74BF2806F38E745" Guid="{973E8C78-E526-474B-BF1E-39C8883637C6}">
+                <File Id="filCFB81B49B3607D5B03C1E00B94E8E21F" KeyPath="yes" Source="SourceDir\Vlc.DotNet.Core.Interops.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpF04A8146AF28A9842E49B5ED5A36ECBD" Guid="{2D820B2E-B4B5-4091-B8F2-672BDCE52B5B}">
+                <File Id="fil8E1366B54B73EDD9DA1971F7315405BB" KeyPath="yes" Source="SourceDir\Serilog.Extensions.Logging.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpF373F2CE768E46DB51BCBBE25897AFCA" Guid="{9EDAB37A-F3D6-4CDF-B265-30830BB7E2A1}">
+                <File Id="fil3C8979B0E2D60AA79614AA5DFC5CA9BF" KeyPath="yes" Source="SourceDir\Serilog.Formatting.Compact.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpF83628F028B0990542E832F7AE98841F" Guid="{394007E8-E2A4-4AE3-ADA1-174D34BB4B7F}">
+                <File Id="filF58333F2FCF0DDD41CE21415C9D2A348" KeyPath="yes" Source="SourceDir\System.Globalization.Extensions.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpF8CC351AA07C340DD491BAB50E1CB581" Guid="{5E768EDA-6C79-493F-8B1E-629C345280F5}">
+                <File Id="fil2F7D52004372D673E1165679960C51AA" KeyPath="yes" Source="SourceDir\Horsesoft.Horsify.DjHorsify.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Component Id="cmpF9FF2FC30CFF69FE254D5A8E63EC3961" Guid="{90C6BE0D-E91F-4C64-9923-5D1CE5E23F15}">
+                <File Id="fil84B475C41B9743047498F39985FEF597" KeyPath="yes" Source="SourceDir\Vlc.DotNet.Core.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Directory Id="dir19479C2A34A37E44D0D3818B56888B68" Name="x64" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE31083E605AB44DF12DD289862A1B80C">
+            <Directory Id="dir3399A38A0DA246303D0A4B122FC274F7" Name="x86" />
+        </DirectoryRef>
+    </Fragment>
+</Wix>

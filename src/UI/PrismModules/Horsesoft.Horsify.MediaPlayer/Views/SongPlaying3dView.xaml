@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.MediaPlayer.Views.SongPlaying3dView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"                          
+             xmlns:base="clr-namespace:Horsesoft.Music.Horsify.Base;assembly=Horsesoft.Music.Horsify.Base"
+             xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.MediaPlayer.UserControls"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" 
+             d:DesignWidth="1920" d:DesignHeight="1080"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <!--BRUSHES - SADDLE-->
+        <SolidColorBrush x:Key="Brush_Brown" Opacity="0.4">
+            <SolidColorBrush.Color>SaddleBrown</SolidColorBrush.Color>
+        </SolidColorBrush>
+
+        <!--ON LOAD ANIMATION-->
+        <Storyboard x:Key="OnLoaded1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="viewport3D">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-460"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="viewport3D">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="RotateAlbumArt" AutoReverse="True" RepeatBehavior="Forever">
+            <Vector3DAnimationUsingKeyFrames Storyboard.TargetProperty="(ProjectionCamera.LookDirection)" Storyboard.TargetName="perspectiveCamera">
+                <EasingVector3DKeyFrame KeyTime="0" Value="0.15,-0.1,-1.4"/>
+                <EasingVector3DKeyFrame KeyTime="0:0:10" Value="0.3,-0.1,-1.4"/>
+            </Vector3DAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </UserControl.Resources>
+
+    <!--LOAD THE ANIMATION ON USER CONTROL LOAD-->
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="viewport3D">
+            <BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
+            <BeginStoryboard Storyboard="{StaticResource RotateAlbumArt}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.4*"/>
+            <ColumnDefinition Width="2*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--3D CONTROL-->
+        <Grid Grid.RowSpan="2">
+
+            <!--ALUBUM ART 3D-->
+            <Viewport3D x:Name="viewport3D" ClipToBounds="False"                                                        
+                            RenderTransformOrigin="0.5,0.5">
+
+                <Viewport3D.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Viewport3D.RenderTransform>
+
+                <!--CAMERA-->
+                <Viewport3D.Camera>
+                    <PerspectiveCamera x:Name="perspectiveCamera" 
+                                           Position="-0.25,0.05,0.80"
+                                           LookDirection="0.125,-.1,-1.5"
+                                           FieldOfView="143"
+                                       />
+                </Viewport3D.Camera>
+
+                <Viewport3D.Children>
+
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <DirectionalLight Direction="-0.2,-0.6,-1"/>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+
+                    <Viewport2DVisual3D>
+
+                        <Viewport2DVisual3D.Geometry>
+                            <MeshGeometry3D Positions="-1.2,1.,0 -1.3,-1.7,0 1.0,-1.7,0 1.0,1.0,0"
+                                            TextureCoordinates="0,0 0,1 1,1 1,0"
+                                            TriangleIndices="0 1 2 0 2 3"
+                                            />
+                        </Viewport2DVisual3D.Geometry>
+
+                        <Viewport2DVisual3D.Material>
+                            <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True"/>
+                        </Viewport2DVisual3D.Material>
+
+                        <!--SELECTED SONG - ucSongViewBoxWithRating--> 
+                        <usercontrols:ucSongViewBoxWithRating/>
+
+                    </Viewport2DVisual3D>
+
+                </Viewport3D.Children>
+
+            </Viewport3D>
+
+            <!--DROP SHADDOW-->
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="25"                                      
+                                      Direction="145"
+                                      BlurRadius="65"
+                                      />
+            </Grid.Effect>
+
+        </Grid>
+
+        <!--TURNTABLE VIEW-->
+        <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BorderThickness="0" BorderBrush="Silver"                    
+                    Margin="0,0,90,0"
+                    >
+            <Viewbox MinWidth="250">
+                <ContentControl prism:RegionManager.RegionName="{x:Static base:Regions.SongPlayingViewRightRegion}"/>
+            </Viewbox>
+        </Border>
+
+        <!--SONG INFORMATION-->
+        <usercontrols:ucFadingSongInfo Grid.ColumnSpan="2"
+                                           Grid.Row="1"
+                                           Margin="5"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Top"
+                                           />
+
+    </Grid>
+
+</UserControl>
+
+    

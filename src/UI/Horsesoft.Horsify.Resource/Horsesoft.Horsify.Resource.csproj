@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4D8055D-B9BB-4968-B3AA-F0C9E59A1C26}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Horsesoft.Horsify.Resource</RootNamespace>
+    <AssemblyName>Horsesoft.Horsify.Resource</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="ShaderEffectLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ShaderEffectLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ImporterImageResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImporterStringResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Properties\DesignTimeResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
+    </Page>
+    <Page Include="Svg\HorsifyHoofExport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ucKeypadControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucOnScreenKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UserControls\ucKeypadControl.xaml.cs">
+      <DependentUpon>ucKeypadControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucOnScreenKeyboard.xaml.cs">
+      <DependentUpon>ucOnScreenKeyboard.xaml</DependentUpon>
+    </Compile>
+    <Resource Include="Fonts\BEBASNEUE.TTF" />
+    <Resource Include="Fonts\digital-7.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VinylWithHole.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj">
+      <Project>{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}</Project>
+      <Name>Horsesoft.Music.Data.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_Arm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_ArmCover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_OnOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_PitchSlider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_Platter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deck\1200_StartStop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Horses\horsesmile1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Horses\SmilingHorse.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\BrushedMetal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\bubbles.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CassetteTDK666.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\chesterfield.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HorseWithHeadphones.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\leather.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\leopard.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\powdercoat.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\repeat-wood-6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\repeating_plastic_black.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Screw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Textures\SideWood.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoImage\noimage.jpg" />
+  </ItemGroup>
+  <Import Project="..\Horsesoft.Shared\Horsesoft.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

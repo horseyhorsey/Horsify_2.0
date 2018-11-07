@@ -62,7 +62,7 @@ test: off
       # - '**\bin\$(configuration)\*Tests.dll'    
 
 build_script:
-- ps: build.ps1
+- ps: .\build.ps1
   
 after_build:
   # For once the build has completed

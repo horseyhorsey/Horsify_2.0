@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <!--<PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifiers>win7-x86;win7-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <!--<PropertyGroup Condition="'$(PlatformTarget)'=='x86'">
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeIdentifiers>win7-x86;win-x64</RuntimeIdentifiers>    
   </PropertyGroup>-->
 
-  <PropertyGroup Condition="'$(PlatformTarget)'=='x86'">
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>    
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(PlatformTarget)'=='x64'">
+  <!--<PropertyGroup Condition="'$(PlatformTarget)'=='x64'">
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <ItemGroup>
     <Folder Include="wwwroot\" />

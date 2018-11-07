@@ -63,6 +63,7 @@ test: off
 
 build_script:
 - ps: .\build.ps1
+- ps: .\src\Services\Horsesoft.Music.Horsify.Api\build.ps1
   
 after_build:
   # For once the build has completed

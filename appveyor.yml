@@ -18,7 +18,7 @@ build:
   parallel: false
   # path to Visual Studio solution or project      
   #project: Horsify 2.0.sln
-  - ps: build.ps1  
+  ps: build.ps1  
   
 before_build:
   # Display .NET Core version  

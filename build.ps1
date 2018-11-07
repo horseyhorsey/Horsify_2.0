@@ -14,3 +14,6 @@ msbuild "src/UI/Horsesoft.Music.Horsify.Importer.UI.WPF/Horsesoft.Music.Horsify.
 # Run the API build script (builds x86 and x64) (Copies to Build folder under Service)
 cd src/Services/Horsesoft.Music.Horsify.Api
 ./build.ps1
+
+
+

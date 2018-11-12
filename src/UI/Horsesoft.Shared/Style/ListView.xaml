@@ -79,7 +79,7 @@
 
     <!--LISTVIEW SONGS SEARCH PANEL-->
     <ControlTemplate x:Key="ListViewTemplate" TargetType="{x:Type ListView}">
-        <DockPanel>
+        <DockPanel Background="Transparent">
 
             <DockPanel.Resources>
                 <Style TargetType="{x:Type RepeatButton}">
@@ -126,7 +126,7 @@
                     BorderThickness="2" DockPanel.Dock="Left" CornerRadius="15">
 
                 <Grid>
-                    <Border Background="{DynamicResource BackgroundGradient4}" Opacity="0.06"/>
+                    <Border Background="Transparent" Opacity="0.06"/>
 
                     <ScrollViewer x:Name="scrollviewer" >
                         <ItemsPresenter Margin="0,5"/>
@@ -175,7 +175,7 @@
 
     <!--LISTSTYLE HIDES BACKGROUND-->
     <Style x:Key="ListViewTransparent" TargetType="{x:Type ListView}">
-        <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -221,7 +221,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
 
-                    <GroupBox FontSize="32" Background="{DynamicResource BackgroundGradient}">
+                    <GroupBox FontSize="32" Background="Transparent">
 
                         <!--enumtoboolconverter-->
 

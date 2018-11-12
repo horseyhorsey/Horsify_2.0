@@ -338,7 +338,7 @@
                         MaxHeight="60" Height="60"
                          BorderBrush="Transparent" BorderThickness="0"
                         VerticalAlignment="Bottom"
-                         Background="{DynamicResource Color_Primary4}">
+                         Background="Transparent">
 
                     <!--HEADER-->
                     <TabItem.Header>
@@ -353,7 +353,7 @@
                             CornerRadius="0,10,20,20" 
                             BorderThickness="0"
                             BorderBrush="Transparent"
-                            Background="{DynamicResource BackgroundGradient2}">
+                            Background="Transparent">
                         <Grid>
 
                             <Grid.RowDefinitions>
@@ -375,6 +375,7 @@
                                 ScrollViewer.IsDeferredScrollingEnabled="False"
                                 ScrollViewer.PanningDeceleration="5"  
                                 IsSynchronizedWithCurrentItem="True"
+                                                   Background="Transparent"
                                 >
 
                                 <horsify:ListViewTouch.ItemsPanel>
@@ -417,6 +418,7 @@
                             BorderThickness="0"                                               
                             ItemsSource="{Binding IncludedFiltersView, UpdateSourceTrigger=PropertyChanged}"                           
                             Style="{DynamicResource ListViewTransparent}" 
+                            Background="Transparent"
                             ItemContainerStyle="{DynamicResource HorsifyFilterContainerStyle}"     
                             Template="{DynamicResource ListViewTemplate}"
                             IsSynchronizedWithCurrentItem="True"
@@ -466,7 +468,6 @@
                         <horsify:ListViewTouch x:Name="AndListView" 
                                                    Grid.Column="1"
                             BorderThickness="0"
-                                               Background="{DynamicResource BackgroundGradient4}"
                             ItemsSource="{Binding IncludedAndFiltersView, UpdateSourceTrigger=PropertyChanged}"                           
                             Style="{DynamicResource ListViewTransparent}" 
                             ItemContainerStyle="{DynamicResource HorsifyFilterContainerStyle}"     
@@ -476,7 +477,8 @@
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.IsDeferredScrollingEnabled="False"
-                                ScrollViewer.PanningDeceleration="5"                                                 
+                                ScrollViewer.PanningDeceleration="5"    
+                                               Background="Transparent"
                             >
                             <horsify:ListViewTouch.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -523,6 +525,7 @@
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 ScrollViewer.IsDeferredScrollingEnabled="False"
                                 ScrollViewer.PanningDeceleration="5"  
+                                               Background="Transparent"
                                                
                             >
                             <horsify:ListViewTouch.ItemsPanel>

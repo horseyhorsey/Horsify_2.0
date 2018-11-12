@@ -26,6 +26,7 @@
         <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/Svg.xaml"/>
         <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/TurntableSliderResources.xaml"/>
         <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/Skins/YellowSkin.xaml"/>-->
+        <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/Horsesoft.Shared/Style/Buttons.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

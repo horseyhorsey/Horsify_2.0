@@ -63,15 +63,15 @@ test: off
 
 build_script:
 - ps: .\build.ps1
-- ps: .\src\Services\Horsesoft.Music.Horsify.Api\build.ps1
+#- ps: .\src\Services\Horsesoft.Music.Horsify.Api\build.ps1
   
 after_build:
   # For once the build has completed
 artifacts:
-    - path: '\Installer\Horsify.Installer\bin\x64\Release\Horsify.Installer.msi'
-      name: HorsifyInstallerX64
-    - path: '\Installer\Horsify.Installer\bin\x86\Release\Horsify.Installer.msi'
-      name: HorsifyInstallerX86
+    - path: 'src\Build\Installer\x64\Horsify2.Installer.msi'
+      name: Horsify_Installer_X64
+    - path: 'src\Build\Installer\x86\Horsify2.Installer.msi'
+      name: Horsify_Installer_X86
 clone_depth: 1
 on_finish :
 deploy: off

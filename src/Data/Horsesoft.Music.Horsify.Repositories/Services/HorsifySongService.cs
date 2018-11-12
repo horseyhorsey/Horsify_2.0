@@ -22,6 +22,11 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             _sqliteRepo = new HorsifyDataSqliteRepo();
         }
 
+        public HorsifyDataSqliteRepo GetRepo()
+        {
+            return (HorsifyDataSqliteRepo)_sqliteRepo;
+        }
+
         public Task<IEnumerable<Playlist>> GetAllPlaylistsAsync()
         {
             return Task.Run(() => this.GetAllPlaylists());

@@ -3,11 +3,9 @@
 @using Horsesoft.Music.Data.Model.Horsify
 @inject HttpClient http
 
-<h1>Weather forecast</h1>
+<h1>Horsify Stats</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (songsl == null)
+@if (stats == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -16,30 +14,32 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Artist</th>
-                <th>Title</th>
+                <th>Songs</th>
+                <th>Albums</th>
+                <th>UnRated</th>
+                <th>Untagged</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var song in songsl)
-            {
-                <tr>
-                    <td>@song.Artist</td>
-                    <td>@song.Title</td>
-                </tr>
-            }
+             
+            <tr>
+                <td>@stats.SongCount</td>
+                <td>@stats.AlbumCount</td>
+                <td>@stats.Unrated</td>
+                <td>@stats.Untagged</td>
+            </tr>
         </tbody>
     </table>
 }
 
 @functions {
-    IEnumerable<AllJoinedTable> songsl;
+    Stat stats;
 
     protected override async Task OnInitAsync()
     {
         http.BaseAddress = new Uri("http://localhost:8089/");
-        songsl = await http.GetJsonAsync<IEnumerable<AllJoinedTable>>("api/Songs/MostPlayed");
-        Console.WriteLine(songsl);
+        stats = await http.GetJsonAsync<Stat>("api/Stats");
+        Console.WriteLine(stats);
         //songs = await _api.ExtraSearch(ExtraSearchType.MostPlayed);
     }
 }

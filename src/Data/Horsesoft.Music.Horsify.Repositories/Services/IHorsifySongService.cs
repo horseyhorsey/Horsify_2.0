@@ -19,5 +19,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists);
         Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist);
         Task<IEnumerable<Playlist>> GetAllPlaylistsAsync();
+
+        HorsifyDataSqliteRepo GetRepo();
     }
 }

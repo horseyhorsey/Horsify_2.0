@@ -49,7 +49,9 @@ namespace Horsesoft.Vlc
         /// </summary>
         public void Init()
         {
-            _vlcMediaPlayer = new VlcMediaPlayer(libDirectory);
+            if (_vlcMediaPlayer == null)
+                _vlcMediaPlayer = new VlcMediaPlayer(libDirectory);
+
             _vlcMediaPlayer.TimeChanged += _vlcMediaPlayer_TimeChanged;
             _vlcMediaPlayer.EncounteredError += _vlcMediaPlayer_EncounteredError;
             _vlcMediaPlayer.EndReached += _vlcMediaPlayer_EndReached;
@@ -64,7 +66,7 @@ namespace Horsesoft.Vlc
         public void Init(string[] options)
         {
             _vlcMediaPlayer = new VlcMediaPlayer(libDirectory, options);
-            _vlcMediaPlayer.TimeChanged += _vlcMediaPlayer_TimeChanged;
+            this.Init();            
         }
 
         /// <summary>

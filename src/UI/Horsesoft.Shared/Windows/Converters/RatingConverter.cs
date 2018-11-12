@@ -1,5 +1,4 @@
-﻿using Horsesoft.Music.Data.Model.Import;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
 
@@ -11,7 +10,6 @@ namespace Horsesoft.Horsify.Resource.Windows.Converters
         {
             if (value != null)
             {
-                //TODO
                 var currentRating = System.Convert.ToByte(value);
                 var param = System.Convert.ToInt32(parameter);                
 

@@ -106,7 +106,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
                 if (SelectedCharachter != null)
                 {
-                    //HACK: Get out of here
                     if (changed)
                     {
                         SearchResults.Clear();
@@ -132,8 +131,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             set
             {
                 bool changed = SetProperty(ref _selectedSearchType, value);
-
-                //HACK: Get out of here
                 if (changed)
                 {
                     SearchType type = SearchType.Artist;

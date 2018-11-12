@@ -141,12 +141,10 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                //TODO: Tidy up, doesn't need all this work going on
                 var filterToUpdate = _dbFilters.FirstOrDefault(x => x.Id == dbFilter.Id);
                 filterToUpdate.SearchTerms = dbFilter.SearchTerms;
                 filterToUpdate.Name = dbFilter.Name;
 
-                //TODO: ID already being tracked in database
                 _horsifySongApi.UpdateFilter(dbFilter.Id, filterToUpdate);
 
                 //Get db filter

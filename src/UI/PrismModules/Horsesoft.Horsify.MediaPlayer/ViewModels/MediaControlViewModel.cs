@@ -103,7 +103,6 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 
         /// <summary>
         /// Resets the selected song and time. 
-        /// TODO: Do we really need this? This is fired everytime user skips the queue, not just when finished
         /// </summary>
         private void ResetSelectedSong()
         {

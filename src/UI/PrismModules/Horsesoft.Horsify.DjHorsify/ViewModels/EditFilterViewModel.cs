@@ -168,9 +168,12 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             
         }
 
+        /// <summary>
+        /// Opens Create or Edit Filter Views
+        /// </summary>
+        /// <param name="navigationContext"></param>
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            //TODO: Get edit view and populate the searchTerms here
             var filter = navigationContext.Parameters["create_new_filter"];
             if (filter != null)
             {
@@ -180,6 +183,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 SelectedSearchType = (SongFilterType)filter;
                 this.CurrentFilter = new DjHorsifyFilterModel();
                 this.lastFilter = this.CurrentFilter;
+                return;
             }
 
             filter = navigationContext.Parameters["edit_filter"];

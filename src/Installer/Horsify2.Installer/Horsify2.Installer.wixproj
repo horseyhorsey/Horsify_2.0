@@ -19,8 +19,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <SuppressAllWarnings>True</SuppressAllWarnings>
+    <SuppressAllWarnings>False</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
+    <VerboseOutput>False</VerboseOutput>
+    <SuppressSpecificWarnings>80;0204;</SuppressSpecificWarnings>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DefineConstants>Debug;</DefineConstants>
@@ -36,7 +39,7 @@
     <Pedantic>False</Pedantic>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="JukeAndImporterFiles.wxs" />
+    <!-- <Compile Include="JukeAndImporterFiles.wxs" /> -->
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>

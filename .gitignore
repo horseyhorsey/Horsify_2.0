@@ -264,3 +264,6 @@ __pycache__/
 /Data/Horsesoft.Music.Data.Sqlite/Sql/HorsifyTestDb.7z
 *Thumbs.db
 /BLL/Horsesoft.Vlc/libvlc/win-x86
+/src/Build/JukeAndImporter.wxs
+/src/Build/Apix86Service.wxs
+/src/Build/ApiService.wxs

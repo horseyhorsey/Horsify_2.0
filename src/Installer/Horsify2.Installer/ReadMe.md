@@ -13,8 +13,10 @@ eg. Source="..\..\Build\$(var.Platform)\e_sqlite3.dll"
 
 Heat Command
 
-	heat dir ".\x64" -cg Binaries -srd -sreg -gg -out "JukeAndImporter.wxs"
+	heat dir ".\x64" -cg Binaries -sreg -gg -out "JukeAndImporter.wxs"
 
 API FILES:
 
-	heat dir ".\x64\Service" -cg Binaries -srd -sreg -gg -out "ApiFiles.wxs"
+	Service uses different runtime files for each platform
+	heat dir ".\x86\service" -cg Binaries -sreg -suid -gg -out "Apix86Service.wxs"
+	heat dir ".\x64\service" -cg Binaries -sreg -suid -gg -out "Apix64Service.wxs"

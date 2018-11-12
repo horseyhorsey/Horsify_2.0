@@ -204,7 +204,7 @@ namespace Horsesoft.Horsify.ServicesModule
         public async Task<bool> InsertFilterAsync(Filter filter)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}api/playlists/", content);
+            var response = await _client.PostAsync($"{BaseAddress}/api/filters/", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return true;

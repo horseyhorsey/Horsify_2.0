@@ -92,7 +92,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         private void OnAddSearchTerm()
         {
-            if (CurrentSearchTerm?.Length > 3)
+            if (CurrentSearchTerm?.Length > 0)
             {
                 if (!SearchTerms.Any(x => x == CurrentSearchTerm))
                     SearchTerms.Add(CurrentSearchTerm);
@@ -113,7 +113,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         {
             try
             {
-                if (this.CurrentFilter.FileName?.Length > 2)
+                if (this.CurrentFilter.FileName?.Length > 0)
                 {
                     SaveFilter();
                 }

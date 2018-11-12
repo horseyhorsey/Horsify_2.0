@@ -200,11 +200,17 @@ namespace Horsesoft.Horsify.ServicesModule
 
             return null;
         }
-
-        //TODO
-        public void InsertFilter(Filter filter)
+        
+        public async Task<bool> InsertFilterAsync(Filter filter)
         {
-            var response = GetResponse($@"api/filters/");
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{BaseAddress}api/playlists/", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void UpdateFilter(long id, Filter filterToUpdate)

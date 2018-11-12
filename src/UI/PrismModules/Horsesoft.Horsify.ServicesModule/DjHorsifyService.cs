@@ -1,6 +1,7 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Base.Model;
 using Prism.Logging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,8 @@ namespace Horsesoft.Horsify.ServicesModule
             _loggerFacade = loggerFacade;            
         }
 
-        public ObservableCollection<Filter> Filters { get; private set; }        
+        public ObservableCollection<Filter> Filters { get; private set; }
+        public ObservableCollection<DjHorsifyFilterModel> HorsifyFilters { get; set; }
 
         #region IDjHorsifyService Methods
 
@@ -33,11 +35,15 @@ namespace Horsesoft.Horsify.ServicesModule
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public bool AddFilter(Music.Data.Model.Filter filter)
+        public async Task<bool> AddFilterAsync(Filter filter)
         {
             try
             {
-                _horsifySongApi.InsertFilter(filter);
+                if (await _horsifySongApi.InsertFilterAsync(filter))
+                {
+                    this.Filters.Add(filter);
+                    return true;
+                }                    
             }
             catch (System.Exception ex)
             {

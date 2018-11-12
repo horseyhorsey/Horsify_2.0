@@ -1,5 +1,6 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Horsify.Base.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,11 +10,12 @@ namespace Horsesoft.Music.Horsify.Base.Interface
 {
     public interface IDjHorsifyService
     {
-        bool AddFilter(Filter filter);
+        Task<bool> AddFilterAsync(Filter filter);
 
         IDjHorsifyOption DjHorsifyOption { get; set; }
 
         ObservableCollection<Filter> Filters { get; }
+        ObservableCollection<DjHorsifyFilterModel> HorsifyFilters { get; set; }
 
         Task GetDatabaseFiltersAsync();
 

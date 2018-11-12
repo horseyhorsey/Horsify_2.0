@@ -1,0 +1,45 @@
+﻿@page "/fetchdata"
+@using Horsesoft.Music.Data.Model
+@using Horsesoft.Music.Data.Model.Horsify
+@inject HttpClient http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (songsl == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var song in songsl)
+            {
+                <tr>
+                    <td>@song.Artist</td>
+                    <td>@song.Title</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+    IEnumerable<AllJoinedTable> songsl;
+
+    protected override async Task OnInitAsync()
+    {
+        http.BaseAddress = new Uri("http://localhost:8089/");
+        songsl = await http.GetJsonAsync<IEnumerable<AllJoinedTable>>("api/Songs/MostPlayed");
+        Console.WriteLine(songsl);
+        //songs = await _api.ExtraSearch(ExtraSearchType.MostPlayed);
+    }
+}

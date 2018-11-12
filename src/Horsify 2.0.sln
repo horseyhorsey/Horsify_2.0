@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horsesoft.Music.Horsify.Api
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Horsify2.Installer", "Installer\Horsify2.Installer\Horsify2.Installer.wixproj", "{42E3478F-94AC-466B-A40E-526F87216FFB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HorsifyBlazor", "UI\HorsifyBlazor\HorsifyBlazor.csproj", "{402F66E5-01FB-4D70-9CA0-B3EC2C564255}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UI\Horsesoft.Shared\Horsesoft.Shared.projitems*{8c66c47f-cfea-4d41-8abb-a58b10681a67}*SharedItemsImports = 13
@@ -412,6 +414,22 @@ Global
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x64.Build.0 = Release|x86
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x86.ActiveCfg = Release|x86
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x86.Build.0 = Release|x86
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|ia64.ActiveCfg = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|ia64.Build.0 = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|x64.Build.0 = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|x86.Build.0 = Debug|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|ia64.ActiveCfg = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|ia64.Build.0 = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|x64.ActiveCfg = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|x64.Build.0 = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|x86.ActiveCfg = Release|Any CPU
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -441,6 +459,7 @@ Global
 		{441B84D0-BFF8-4970-8009-1B2F2B90CC27} = {0F1A3FBA-9F22-4AE9-9407-9157D2487743}
 		{DC051983-8F65-4377-AD43-ADD0E70EADAB} = {98CE15E5-746E-4DAB-86F3-E38D2FE68E8F}
 		{42E3478F-94AC-466B-A40E-526F87216FFB} = {52E04471-A96B-4597-B467-BC53BDF14E91}
+		{402F66E5-01FB-4D70-9CA0-B3EC2C564255} = {C5DAF414-9D26-498A-B3CC-E2017A850E3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D063F5F-3122-4E5F-9CD3-04EE73DFBE06}

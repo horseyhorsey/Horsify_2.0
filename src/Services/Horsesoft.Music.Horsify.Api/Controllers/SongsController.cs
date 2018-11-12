@@ -59,9 +59,9 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<AllJoinedTable> MostPlayed()
+        public Task<IEnumerable<AllJoinedTable>> MostPlayed()
         {
-            return _horsifySongService.GetMostPlayed();                
+            return _horsifySongService.GetMostPlayedAsync();
         }
 
         [HttpGet]

@@ -15,8 +15,9 @@
 
         <!--d:DesignSource="{d:DesignData Source=../SampleData/DjHorsifyFilterModelSampleData.xaml}"-->
         <CollectionViewSource x:Key="OpenPlaylistViewModelViewSource"
-                              Source="{Binding OpenPlayListViewModels}"                              
-                              d:DesignSource="{Binding OpenPlayListViewModels}"                         
+                              Source="{Binding OpenPlayListViewModels}"              
+                              d:DesignSource="{d:DesignData Source=../SampleData/DjHorsifyFilterModelSampleData.xaml}"
+                                                       
                               />
 
         <!--#region TEMPLATES-->
@@ -56,14 +57,14 @@
                     <ItemsControl
                       ItemsSource="{Binding Source={StaticResource PlaylistItemsViewModelSource}}"
                       ItemTemplate="{DynamicResource JukeboxLabelThinTemplate}"                        
-                      FontSize="32"
+                      FontSize="32"                        
                       Background="Transparent"
                       AlternationCount="{Binding Items.Count, RelativeSource={RelativeSource Self}}"
                       >
 
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="1"/>
+                                <UniformGrid Columns="2" Rows="10"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 

@@ -52,6 +52,7 @@
         <!--270 == 15 items-->
         <!--No height set == 10 items-->
         <Grid x:Name="songItemGrid" MaxHeight="200"
+              Background="Transparent"
               Style="{DynamicResource FadingLabel}">
 
             <!--ALBUM ART & RATING-->
@@ -75,6 +76,7 @@
                                Stroke="Black" Opacity="1"/>
 
                 <Border x:Name="AlbumFrame" Grid.Row="0"
+                        Grid.RowSpan="2" 
                         Background="Transparent" >
                     <Grid>
                         <!--ALBUM ART-->
@@ -121,15 +123,16 @@
                 </Border>
 
                 <!--DETAILS LABEL-->
-                <Border VerticalAlignment="Bottom" Grid.Row="1"            
-                          CornerRadius="2,2,5,5"                          
-                          Background="{DynamicResource Brush_Metal}"
+                <Border VerticalAlignment="Bottom" Grid.Row="1"
+                          CornerRadius="2,2,5,5"               
+                        Opacity="0.8"
+                          Background="{DynamicResource Brush_Metal}"                          
                           TextElement.Foreground="Black" 
                           Height="100"
                           MaxWidth="280"
                           Width="280"
                           >
-                    <StackPanel
+                    <StackPanel Background="Transparent"
                           TextElement.FontSize="18.5"
                           TextElement.FontWeight="Medium"
                           TextElement.FontFamily="Impact"
@@ -173,12 +176,13 @@
         <Border Background="#FFB99106" 
                 BorderThickness="2" Margin="3"
                 BorderBrush="#FF975405">
-            <Grid TextElement.FontSize="18"
+            <Grid TextElement.FontSize="16"
                   MaxHeight="180" Height="180"
                   Width="450"
                   >
 
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -219,6 +223,9 @@
                 </Border>
 
                 <TextBlock Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
+                <TextBlock Grid.Row="2" Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
+                <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
+                <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
 
                 <!--RATING-->
                 <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
@@ -365,7 +372,7 @@
                 </Style>
             </Border.Style>
             
-            <Grid TextElement.FontSize="26">
+            <Grid TextElement.FontSize="22" MaxHeight="185">
 
                 <!--#region GRID DEFS-->
                 <Grid.RowDefinitions>
@@ -460,7 +467,7 @@
                 </Border>
 
                 <!--PLAYLIST QUEUE-->
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="3">
+                <StackPanel HorizontalAlignment="Center" Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="3">
                     <Button Content="QUEUE" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.AddToQueueCommand}" 
                         CommandParameter="{Binding}"/>

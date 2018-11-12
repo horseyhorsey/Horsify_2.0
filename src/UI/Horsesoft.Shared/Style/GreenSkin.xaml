@@ -20,19 +20,19 @@
 
     <LinearGradientBrush x:Key="BackgroundGradient" 
                          EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="{Binding Source={StaticResource Color_Primary}, Path=Color}" Offset="0"/>
+        <GradientStop Color="{Binding Source={StaticResource Color_Primary2}, Path=Color}" Offset="0"/>
         <GradientStop Color="Black" Offset="1.5"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="BackgroundGradient2" 
                          EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="{Binding Source={StaticResource Color_Primary2}, Path=Color}" Offset="0"/>
+        <GradientStop Color="{Binding Source={StaticResource Color_Primary3}, Path=Color}" Offset="0"/>
         <GradientStop Color="Black" Offset="1.5"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="BackgroundGradient3" 
                          EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="{Binding Source={StaticResource Color_Primary3}, Path=Color}" Offset="0"/>
+        <GradientStop Color="{Binding Source={StaticResource Color_Primary4}, Path=Color}" Offset="0"/>
         <GradientStop Color="Black" Offset="2.7"/>
     </LinearGradientBrush>
 
@@ -46,7 +46,7 @@
     <LinearGradientBrush x:Key="BackgroundGradient5" 
                          EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="Black" Offset="1.35"/>
-        <GradientStop Color="{Binding Source={StaticResource Color_Primary5}, Path=Color}" Offset="0"/>
+        <GradientStop Color="{Binding Source={StaticResource Color_Primary2}, Path=Color}" Offset="0"/>
     </LinearGradientBrush>
 
 </ResourceDictionary>

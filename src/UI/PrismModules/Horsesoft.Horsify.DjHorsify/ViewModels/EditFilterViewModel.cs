@@ -1,6 +1,7 @@
 ﻿using Horsesoft.Horsify.DjHorsify.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Model;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Logging;

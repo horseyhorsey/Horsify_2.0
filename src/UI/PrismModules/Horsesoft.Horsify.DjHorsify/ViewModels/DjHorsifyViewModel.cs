@@ -3,6 +3,7 @@ using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Helpers;
 using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Base.Model;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Logging;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -49,6 +51,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 _djHorsifyService.GetDatabaseFiltersAsync().Wait();
 
                 GenerateHorsifyFilters();
+
+                this.HorsifyFilters = _djHorsifyService.HorsifyFilters;
             }
             catch (Exception ex)
             {
@@ -56,8 +60,20 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 throw;
             }
 
-            #region Setup filtering
-            AvailableFiltersView = new MyCollectionView(this.HorsifyFilters);
+            //Generate the the filtering views collection
+            CreateFilterViews();
+
+            #region Commands
+            CreateFilterCommand = new DelegateCommand(OnCreateFilter);
+            EditFilterCommand = new DelegateCommand<DjHorsifyFilterModel>(OnEditFilter);
+            RunSearchCommand = new DelegateCommand(OnRunSearch);
+            RunSingleSearchCommand = new DelegateCommand<DjHorsifyFilterModel>(OnRunSearch);
+            #endregion            
+        }
+
+        private void CreateFilterViews()
+        {
+            AvailableFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
             AvailableFiltersView.Filter = (o) =>
             {
                 var item = o as DjHorsifyFilterModel;
@@ -73,7 +89,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 return false;
             };
 
-            IncludedFiltersView = new MyCollectionView(this.HorsifyFilters);
+            IncludedFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
             IncludedFiltersView.Filter = (o) =>
             {
                 var item = o as DjHorsifyFilterModel;
@@ -89,7 +105,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 return false;
             };
 
-            IncludedAndFiltersView = new MyCollectionView(this.HorsifyFilters);
+            IncludedAndFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
             IncludedAndFiltersView.Filter = (o) =>
             {
                 var item = o as DjHorsifyFilterModel;
@@ -104,7 +120,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 return false;
             };
 
-            ExcludedFiltersView = new MyCollectionView(this.HorsifyFilters);
+            ExcludedFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
             ExcludedFiltersView.Filter = (o) =>
             {
                 var item = o as DjHorsifyFilterModel;
@@ -117,15 +133,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                     return true;
                 }
                 return false;
-            }; 
-            #endregion
-
-            #region Commands
-            CreateFilterCommand = new DelegateCommand(OnCreateFilter);
-            EditFilterCommand = new DelegateCommand<DjHorsifyFilterModel>(OnEditFilter);
-            RunSearchCommand = new DelegateCommand(OnRunSearch);
-            RunSingleSearchCommand = new DelegateCommand<DjHorsifyFilterModel>(OnRunSearch);
-            #endregion            
+            };
         }
 
         private void GenerateHorsifyFilters()
@@ -134,14 +142,16 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             if (horsifyFilters?.Count() > 0)
             {
                 //If null create the collection and populate it, otherwise addrange
-                if (HorsifyFilters == null)
+                if (_djHorsifyService.HorsifyFilters == null)
                 {
-                    HorsifyFilters = new ObservableCollection<DjHorsifyFilterModel>(horsifyFilters);                    
+                    _djHorsifyService.HorsifyFilters = new ObservableCollection<DjHorsifyFilterModel>(horsifyFilters);
                 }
                 else
                 {
-                    HorsifyFilters.AddRange(horsifyFilters);
-                }                
+                    _djHorsifyService.HorsifyFilters.AddRange(horsifyFilters);
+                }
+
+                this.HorsifyFilters = _djHorsifyService.HorsifyFilters;
             }            
         }
 
@@ -166,7 +176,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         }
 
         #region Properties
-        //public ICollectionView AvailableFiltersView { get; set; }
+        public ICollectionView AvailableFiltersView { get; set; }
         public ICollectionView IncludedFiltersView { get; set; }
         public ICollectionView ExcludedFiltersView { get; set; }
         public ICollectionView IncludedAndFiltersView { get; set; }        
@@ -183,9 +193,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         {
             get { return _horsifyFilters; }
             set { SetProperty(ref _horsifyFilters, value); }
-        }
-
-        public ICollectionView AvailableFiltersView { get; }
+        }        
         #endregion
 
         #region Private Methods
@@ -239,6 +247,15 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager.RequestNavigate(Regions.ContentRegion, "CreateFilterView");
         }
 
+        private void RefreshFilterViews()
+        {
+            Log("Refreshing filters.");
+            AvailableFiltersView.Refresh();
+            IncludedFiltersView.Refresh();
+            IncludedAndFiltersView.Refresh();
+            ExcludedFiltersView.Refresh();
+        }
+
         #endregion
 
         #region Navigate
@@ -251,9 +268,17 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 Music.Data.Model.Filter dbFilter = CreateDbFilter(filter);
                 try
                 {
-                    var result = _djHorsifyService.AddFilter(dbFilter);
+                    bool result = false;
+                    Task.Run(async () =>
+                    {
+                        result = await _djHorsifyService.AddFilterAsync(dbFilter);
+                    }).Wait();
+                    
                     if (result)
-                        this.HorsifyFilters.Add(filter as DjHorsifyFilterModel);
+                    {
+                        this._djHorsifyService.HorsifyFilters.Add(filter as DjHorsifyFilterModel);
+                        CreateFilterViews();
+                    }                        
                     else
                         Log("Couldn't create service filters", Category.Debug);
                 }

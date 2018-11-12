@@ -224,7 +224,7 @@
         <!--#endregion-->
 
         <!---->
-        <CollectionViewSource x:Key="AvailableFiltersViewSource"
+        <!--<CollectionViewSource x:Key="AvailableFiltersViewSource"
                               d:DesignSource="{Binding Source=HorsifyFilters}"                              
                               >
 
@@ -232,7 +232,7 @@
                 <scm:SortDescription PropertyName="FileName" />
             </CollectionViewSource.SortDescriptions>
 
-        </CollectionViewSource>
+        </CollectionViewSource>-->
 
         <!--<CollectionViewSource x:Key="AvailableFiltersViewSource"                                 
                               d:DesignSource="{Binding AvailableFiltersView}"/>-->
@@ -365,7 +365,7 @@
                             <!--AVAILABLE SAVED FILTERS-->
                             <horsify:ListViewTouch x:Name="AvailableFilterList" Grid.Row="1" 
                                 BorderBrush="Transparent" BorderThickness="0"
-                                ItemsSource="{Binding AvailableFiltersView}"
+                                ItemsSource="{Binding AvailableFiltersView, UpdateSourceTrigger=PropertyChanged}"
                                 ItemContainerStyle="{DynamicResource HorsifyFilterContainerStyle}"
                                 Template="{DynamicResource ListViewTemplate}"                             
                                 Style="{DynamicResource ListViewTransparent}"

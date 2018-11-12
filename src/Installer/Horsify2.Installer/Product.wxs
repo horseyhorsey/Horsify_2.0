@@ -1652,7 +1652,7 @@
   <Fragment>
     <ComponentGroup Id="ProductData" Directory="DATAFOLDER">
       <!--JSON Menus-->
-      <Component Win64="$(var.Win64)" Id="genres.json" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
+      <Component Id="genres.json" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
         <File Id="genres.json" Source="..\..\Build\$(var.Platform)\genres.json" />
       </Component>
     </ComponentGroup>

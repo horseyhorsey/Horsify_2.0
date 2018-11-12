@@ -2,6 +2,7 @@
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Logging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -93,7 +94,7 @@ namespace Horsesoft.Horsify.ServicesModule
 
             if (results?.Count() > 0)
             {
-                SearchedSongs.AddRange(results);
+                SearchedSongs.AddRange(results);                
             }
         }
 

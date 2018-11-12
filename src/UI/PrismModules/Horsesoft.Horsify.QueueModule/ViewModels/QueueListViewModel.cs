@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -159,7 +160,26 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
                             //Get DjHorsify Songs
                             songs = await _djHorsifyService.GetSongsAsync(null);
                             if (songs != null)
-                                _queuedSongDataProvider.QueueSongs.AddRange(songs);
+                            {
+                                var songList = songs.ToList();
+                                //Only get the song if not recently played within 2 hours
+                                foreach (var song in songs)
+                                {
+                                    if (song.LastPlayed.HasValue)
+                                    {
+                                        var actualDate = DateTimeOffset.FromUnixTimeSeconds(song.LastPlayed.Value);
+                                        if (actualDate.DateTime < (DateTime.Now - TimeSpan.FromHours(2)))
+                                        {
+                                        }
+                                        else
+                                        {
+                                            songList.Remove(song);
+                                        }
+                                    }
+                                }
+
+                                _queuedSongDataProvider.QueueSongs.AddRange(songList);
+                            }                            
 
                             //Start playing a song if queue was empty when DJ Horsify is run
                             if (queueIsEmpty)

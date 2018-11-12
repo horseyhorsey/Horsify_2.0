@@ -81,6 +81,9 @@ namespace Horsesoft.Horsify.ServicesModule
                 }                
             }
 
+            if (term.Contains("filters"))
+                term += "&";
+
             //Apply rating query
             if (searchFilter.RatingRange != null && searchFilter.RatingRange.IsEnabled)
             {

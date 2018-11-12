@@ -50,15 +50,9 @@ namespace Horsesoft.Music.Data.Model.Menu
             menuItems.Add(new MenuItem() { Name = "Back", Parent = parentMenu });
 
             menuItems.Add(new MenuItem { Name = $"{searchStartYear}%", SearchType = SearchType.Year });
-            for (int i = startYear; i < endYear; i++)
-            {
-                if (string.IsNullOrWhiteSpace(imagepath))
-                    menuItems.Add(new MenuItem { Name = $"{i}", SearchType = SearchType.Year });
-                else
-                {
-                    menuItems.Add(new MenuItem { Name = $"{i}", SearchType = SearchType.Year });
-                }
-
+            for (int i = endYear -1; i > startYear -1; i--)
+            {                
+                menuItems.Add(new MenuItem { Name = $"{i}", SearchType = SearchType.Year });
             }
 
             return new Menu

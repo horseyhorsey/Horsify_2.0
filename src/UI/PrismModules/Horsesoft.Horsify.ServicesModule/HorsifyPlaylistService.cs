@@ -1,9 +1,9 @@
-﻿using Horsesoft.Music.Horsify.Base.Interface;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Horsesoft.Music.Data.Model;
 using Prism.Logging;
+using Horsesoft.Music.Data.Model.Horsify;
 
 namespace Horsesoft.Horsify.ServicesModule
 {

@@ -8,6 +8,7 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Horsify.ServicesModule;
 using Horsesoft.Horsify.DjHorsify.Model;
 using Prism.Logging;
+using Horsesoft.Music.Data.Model.Horsify;
 
 namespace Horsesoft.Music.Horsify.WPF.Shell
 {

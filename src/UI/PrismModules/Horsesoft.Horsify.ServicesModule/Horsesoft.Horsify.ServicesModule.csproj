@@ -71,7 +71,6 @@
     <Compile Include="Extensions\ShuffleExtensions.cs" />
     <Compile Include="HorsifyMediaController.cs" />
     <Compile Include="HorsifyPlaylistService.cs" />
-    <Compile Include="IHorsifySongApi.cs" />
     <Compile Include="QueuedSongDataProvider.cs" />
     <Compile Include="SearchHistory.cs" />
     <Compile Include="ServicesModuleModule.cs" />

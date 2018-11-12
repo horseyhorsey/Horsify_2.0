@@ -1,9 +1,7 @@
-﻿using Horsesoft.Music.Data.Model;
-using Horsesoft.Music.Data.Model.Horsify;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Horsesoft.Music.Horsify.Base.Interface
+namespace Horsesoft.Music.Data.Model.Horsify
 {
     public interface IHorsifySongApi
     {

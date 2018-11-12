@@ -1,5 +1,6 @@
 ﻿using Horsesoft.Horsify.SearchModule.Model;
 using Horsesoft.Music.Data.Model;
+using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;

@@ -57,7 +57,7 @@ namespace Horsesoft.Horsify.ServicesModule
         /// </summary>
         /// <param name="playlist">The playlist.</param>
         /// <returns></returns>
-        public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
+        public Task<IEnumerable<AllJoinedTable>> GetSongsAsync(Playlist playlist)
         {
             return _horsifySongApi.GetSongsFromPlaylistAsync(playlist);            
         }
@@ -121,20 +121,6 @@ namespace Horsesoft.Horsify.ServicesModule
                 SearchedSongs.Clear();
         }
 
-        public Task<AllJoinedTable[]> GetSongsAsync(Playlist playlist)
-        {
-            return null;
-        }
-
-        Task<AllJoinedTable[]> ISongDataProvider.GetSongs(Playlist playlist)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Task<AllJoinedTable[]> ISongDataProvider.GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount)
-        {
-            throw new System.NotImplementedException();
-        }
         #endregion
     }
 }

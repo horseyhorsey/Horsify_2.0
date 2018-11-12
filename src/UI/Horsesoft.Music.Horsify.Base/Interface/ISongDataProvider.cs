@@ -1,5 +1,6 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -9,8 +10,8 @@ namespace Horsesoft.Music.Horsify.Base.Interface
     {
         Task ExtraSearch(ExtraSearchType extraSearchType);
         Task<AllJoinedTable> GetSongById(int id);
-        Task<AllJoinedTable[]> GetSongs(Playlist playlist);
-        Task<AllJoinedTable[]> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1);
+        Task<IEnumerable<AllJoinedTable>> GetSongsAsync(Playlist playlist);
+        Task<IEnumerable<AllJoinedTable>> GetSongsAsync(SearchType searchTypes, string wildCardSearch, short randomAmount = 10, short maxAmount = -1);
 
         /// <summary>
         /// Searches and populates the <see cref="SearchedSongs"/>

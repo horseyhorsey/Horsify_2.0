@@ -31,7 +31,7 @@ namespace Horsesoft.Horsify.ServicesModule
         public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
         {
             _loggerFacade.Log($"Getting Playlist songs from service {playlist.Items}", Category.Debug, Priority.Low);
-            return Task.Run(() => _horsifySongApi.GetSongsFromPlaylistAsync(playlist));
+            return _horsifySongApi.GetSongsFromPlaylistAsync(playlist);
         }
 
         public async Task UpdateFromDatabaseAsync()

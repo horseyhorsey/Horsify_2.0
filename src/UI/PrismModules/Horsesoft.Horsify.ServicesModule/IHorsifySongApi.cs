@@ -150,7 +150,7 @@ namespace Horsesoft.Horsify.ServicesModule
         public async Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(playlist), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}/api/playlists/getsongs", content);
+            var response = await _client.PostAsync($"{BaseAddress}api/playlists/getsongs/", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var result = await response.Content.ReadAsStringAsync();

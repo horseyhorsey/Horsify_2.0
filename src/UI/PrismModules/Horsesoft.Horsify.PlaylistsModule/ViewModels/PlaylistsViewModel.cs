@@ -9,6 +9,7 @@ using Prism.Logging;
 using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -138,7 +139,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             OnOpenPlaylist(obj);
         }        
 
-        private void OnOpenPlaylist(PlaylistTabViewModel playlistTabViewModel)
+        private async void OnOpenPlaylist(PlaylistTabViewModel playlistTabViewModel)
         {
             Log("Opening playlist", Category.Debug);
             //var views = _regionManager.Regions[Regions.PlaylistTabsRegion].Views;
@@ -148,7 +149,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
                 {
                     OpenPlayListViewModels.Add(playlistTabViewModel);
-                    OnViewLoaded(playlistTabViewModel);
+                    await OnViewLoaded(playlistTabViewModel);
                 }
 
                 //Reset and select tab
@@ -199,7 +200,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             }
         }
 
-        private void OnViewLoaded(PlaylistTabViewModel x)
+        private async Task OnViewLoaded(PlaylistTabViewModel x)
         {
             if (x == null) return;
             if (x.GetItemCount() > 0) return;
@@ -212,7 +213,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 
                 if (x.Playlist.Count > 0)
                 {
-                    var playlistSongs = _horsifyPlaylistService.GetSongs(x.Playlist).Result;
+                    var playlistSongs = await _horsifyPlaylistService.GetSongs(x.Playlist);
 
                     //Add item view models for all the returned songs
                     foreach (var song in playlistSongs)

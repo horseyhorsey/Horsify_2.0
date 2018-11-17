@@ -38,24 +38,10 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
             return _horsifySongService.SearchLike(searchTypes, term);
         }
 
-        [HttpGet]
-        public Task<IEnumerable<AllJoinedTable>> SearchFilter(string[] filters, int[] rating = null, int[] bpm = null, short randomAmount = 0, short maxAmount = -1)
+        [HttpPost]
+        public Task<IEnumerable<AllJoinedTable>> SearchFilters([FromBody] SearchFilter searchFilter, short randomAmount = 0, short maxAmount = -1)
         {
-            SearchFilter sf = new SearchFilter(filters);
-
-            if (rating?.Length > 1)
-            {
-                sf.RatingRange = new RangeFilterOption<byte>((byte)rating[0], (byte)rating[1]);
-                sf.RatingRange.IsEnabled = true;
-            }
-
-            if (bpm?.Length > 1)
-            {
-                sf.BpmRange = new RangeFilterOption<byte>((byte)bpm[0], (byte)bpm[1]);
-                sf.BpmRange.IsEnabled = true;
-            }
-
-            return _horsifySongService.SearchLikeFiltersAsync(sf, randomAmount, maxAmount);
+            return _horsifySongService.SearchLikeFiltersAsync(searchFilter, randomAmount, maxAmount);
         }
 
         [HttpGet]

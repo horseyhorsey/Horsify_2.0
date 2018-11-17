@@ -66,41 +66,12 @@ namespace Horsesoft.Music.Data.Model.Horsify
             //TODO MusicKeys query
 
             //Apply filters if any available
-            string term = $"api/songs/searchFilter?";
-            var filters = searchFilter.Filters;            
-            if (filters?.Count() > 0)
-            {
-                for (int i = 0; i < filters.Count(); i++)
-                {
-                    var filter = filters.ElementAt(0);
-                    term += $"filters[{i}]={filter.Filters[0].Replace("%","*").Replace(" ","%20%").Replace("&", "%26%")}";
-                }                
-            }
-
-            if (term.Contains("filters"))
-                term += "&";
-
-            //Apply rating query
-            if (searchFilter.RatingRange != null && searchFilter.RatingRange.IsEnabled)
-            {
-                term += $"rating[0]={searchFilter.RatingRange.Low}&rating[1]={searchFilter.RatingRange.Hi}";
-            }
-
-            //Apply bpm query
-            if (searchFilter.BpmRange != null && searchFilter.BpmRange.IsEnabled)
-            {
-                if (searchFilter.RatingRange != null && searchFilter.RatingRange.IsEnabled)
-                {
-                    term += "&";
-                }
-
-                term += $"bpm[0]={searchFilter.BpmRange.Low}&bpm[1]={searchFilter.BpmRange.Hi}";
-            }
-
-            term += $"&randomAmount={randomAmount}";
+            string term = $"api/songs/SearchFilters?";
+            term += $"randomAmount={randomAmount}";
             term += $"&maxAmount={maxAmount}";
 
-            var response = await GetResponse(term);
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter), Encoding.UTF8, "application/json");            
+            var response = await _client.PostAsync($"{BaseAddress}{term}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var result = await response.Content.ReadAsStringAsync();

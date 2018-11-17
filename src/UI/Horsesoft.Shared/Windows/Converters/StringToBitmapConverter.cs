@@ -27,8 +27,8 @@ namespace Horsesoft.Horsify.Resource.Windows.Converters
             {
                 var uri = new Uri((string)value);
                 var bmp = new BitmapImage(uri);
-                bmp.DecodePixelHeight = 250;
-                bmp.DecodePixelWidth = 250;
+                //bmp.DecodePixelHeight = 250;
+                //bmp.DecodePixelWidth = 250;
                 bmp.Freeze();
                 return bmp;
             }

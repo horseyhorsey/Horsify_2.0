@@ -13,7 +13,6 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         private IRegionManager _regionManager;
 
         public ICommand NavigateBackCommand { get; private set; }
-        public ICommand SelectedSearchTypeCommand { get; private set; }        
 
         public CreateFilterViewModel(IRegionManager regionManager)
         {
@@ -21,24 +20,19 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager = regionManager;
 
             NavigateBackCommand = new DelegateCommand(OnNavigateBack);
-            SelectedSearchTypeCommand = new DelegateCommand<object>(OnSearchTypeSelected);
         }
 
-        private void OnSearchTypeSelected(object obj)
-        {
-            
-        }
-
-        private SongFilterType? _searchType;
-        public SongFilterType? SelectedSearchType
+        private string _searchType;
+        public string SelectedSearchType
         {
             get { return _searchType; }
             set
             {
                 SetProperty(ref _searchType, value);
 
-                if (SelectedSearchType.HasValue)
-                    NavigateEditFilterView(SelectedSearchType.Value);
+                //Convert the string selection to SongFilterType
+                if (!string.IsNullOrEmpty(SelectedSearchType))
+                    NavigateEditFilterView((SongFilterType)Enum.Parse(typeof(SongFilterType), SelectedSearchType));
             }
         }
 

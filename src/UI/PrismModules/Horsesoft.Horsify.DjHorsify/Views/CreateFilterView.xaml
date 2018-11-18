@@ -9,12 +9,15 @@
              >
 
     <UserControl.Resources>
-        <ObjectDataProvider x:Key="SearchTypes" ObjectType="{x:Type Sys:Enum}" MethodName="GetValues" >
+        <!--TODO: Remove? Enum for SongFilterType-->
+        <!--<ObjectDataProvider x:Key="SearchTypes" ObjectType="{x:Type Sys:Enum}" MethodName="GetValues" >
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="model:SongFilterType"></x:Type>
             </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+        </ObjectDataProvider>-->
     </UserControl.Resources>
+    
+    
     
     <Border CornerRadius="55,55,55,55" Margin="-1"
             Background="{DynamicResource BackgroundGradient3}">
@@ -38,10 +41,10 @@
                        VerticalAlignment="Top"
                        />
 
-            <ListView Grid.Row="2" Margin="25" x:Name="FilterListView"
-                      ItemsSource="{Binding Source={StaticResource SearchTypes}}"
-                      SelectedItem="{Binding SelectedSearchType, UpdateSourceTrigger=PropertyChanged}"
-                      Background="Transparent"
+            <ListView Grid.Row="2" Margin="25" x:Name="FilterListView"                      
+                      SelectedValue="{Binding SelectedSearchType, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="Content"
+                      Background="Transparent" FontSize="65"
                       BorderThickness="4" BorderBrush="AntiqueWhite"
                       >
                 <ListView.ItemsPanel>
@@ -59,7 +62,23 @@
                                    />
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
+
+                <ListViewItem>
+                    Artist
+                </ListViewItem>
+                <ListViewItem>
+                    Country    
+                </ListViewItem>
+                <ListViewItem>
+                    Genre
+                </ListViewItem>
+                <ListViewItem>
+                    Label
+                </ListViewItem>
+                <ListViewItem>
+                    Year
+                </ListViewItem>
+
             </ListView>
 
             <Button Content="CANCEL" Grid.Row="3" 

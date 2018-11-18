@@ -317,4 +317,7 @@
     <!-- <None Include="$(MSBuildThisFileDirectory)Style\VolumeControl.xaml" /> -->
     <!-- <None Include="$(MSBuildThisFileDirectory)Style\YellowSkin.xaml" /> -->
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Resource\Images\icon\" />
+  </ItemGroup>
 </Project>

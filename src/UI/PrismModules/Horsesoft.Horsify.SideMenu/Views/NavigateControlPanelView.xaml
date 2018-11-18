@@ -96,7 +96,7 @@
 
                         <!--TURNTABLEVIEW-->
                         <horsify:SmartButton x:Name="buttonsearch" ToolBar.OverflowMode="AsNeeded"
-                                    Content="{Binding Source={StaticResource GraphIcon}}"
+                                    Content="{Binding Source={StaticResource VinylIconSvg}}"
                                     Grid.Row="0" HorizontalAlignment="Center"
                                     Margin="5" Height="50" Width="50"                                       
                                     Background="{DynamicResource Brush_Metal}"                    
@@ -116,8 +116,9 @@
                         DockPanel.Dock="Top" IsTabStop="False"                     
                         Margin="5" Height="50" Width="50"
                         VerticalAlignment="Center" HorizontalAlignment="Center" 
-                        Content="DJ"                                                              
-                        FontWeight="DemiBold" FontSize="32"
+                        Content="DJ"     
+                                
+                        FontWeight="ExtraBold" FontSize="32"
                         Background="{DynamicResource Brush_Metal}"
                         Style="{DynamicResource ButtonTopMenuStyle}"
                         Command="{Binding NavigateViewCommand}" CommandParameter="DjHorsifyView"
@@ -132,13 +133,14 @@
 
                         <Button x:Name="openPlaylistButton" Grid.Row="0"  
                                 ToolBar.OverflowMode="AsNeeded"
-                        HorizontalAlignment="Center"
-                    Margin="5" Height="50" Width="50"
-                    Background="{DynamicResource Brush_Metal}"
-                    BorderThickness="0.7"                        
-                    Command="{Binding NavigateViewCommand}" CommandParameter="PlaylistsView"
-                    Style="{DynamicResource ButtonTopMenuStyle}"
-                        Content="PL"
+                                HorizontalAlignment="Center"
+                                Margin="5" Height="50" Width="50"
+                                Background="{DynamicResource Brush_Metal}"
+                                BorderThickness="0.7"                        
+                                Command="{Binding NavigateViewCommand}" CommandParameter="PlaylistsView"
+                                Style="{DynamicResource ButtonTopMenuStyle}"
+                                Content="{Binding Source={StaticResource PlaylistSvg}}"
+                                
                         FontWeight="DemiBold" FontSize="32"
                         >
 

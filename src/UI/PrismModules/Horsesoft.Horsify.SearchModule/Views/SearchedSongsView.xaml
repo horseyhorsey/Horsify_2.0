@@ -106,6 +106,26 @@
                         Executed="CommandBinding_Executed"/>
     </UserControl.CommandBindings>
 
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding RequestRandomViewRequest}">
+            <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="True" WindowStartupLocation="CenterOwner"                               
+                                     >
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="WindowStyle" Value="None"/>
+                        <Setter Property="AllowsTransparency" Value="True"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+
+                <prism:PopupWindowAction.WindowContent>
+                    <usercontrols:ucRandomSelector/>
+                </prism:PopupWindowAction.WindowContent>
+
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
     <Grid x:Name="LayoutRoot">
 
         <Grid.ColumnDefinitions>
@@ -122,6 +142,17 @@
         <!--#region SONGS & PAGING-->
 
         <Grid Grid.Column="1" d:IsHidden="False">
+
+            <Grid.Style>
+                <Style>
+                    <Setter Property="UIElement.Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
+                            <Setter Property="UIElement.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
             <!--MAIN SONGS LIST-->
             <!--IF CANCONTENTSCROLL NOT SET TO TRUE< WILL CRASH-->
@@ -173,12 +204,8 @@
 
             </horsify:ListViewTouch>
 
-        </Grid>
-
-        <!--#endregion-->
-
-        <!--SORTING TOOLBAR-->
-        <ToolBarTray 
+            <!--SORTING TOOLBAR-->
+            <ToolBarTray 
             d:IsHidden="False"
             HorizontalAlignment="Right" 
                      VerticalAlignment="Top"
@@ -187,22 +214,22 @@
                      Background="Transparent"                                          
                      >
 
-            <ToolBarTray.Style>
-                <Style>
-                    <Setter Property="UIElement.Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
-                            <Setter Property="UIElement.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ToolBarTray.Style>
+                <ToolBarTray.Style>
+                    <Style>
+                        <Setter Property="UIElement.Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
+                                <Setter Property="UIElement.Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToolBarTray.Style>
 
-            <ToolBar Header="Sort       " FontSize="20" 
+                <ToolBar Header="Sort       " FontSize="20" 
                      Background="{DynamicResource Color_Primary}"
                      HorizontalContentAlignment="Left">
 
-                <horsify:ButtonWithLabel 
+                    <horsify:ButtonWithLabel 
                         Width="75" Height="75"
                         ToolBar.OverflowMode="Always"
                         Content="{Binding Source={StaticResource StarSvgStroker}}"
@@ -212,7 +239,7 @@
                         Text="Rating"
                         />
 
-                <horsify:ButtonWithLabel 
+                    <horsify:ButtonWithLabel 
                         Width="75" Height="75"
                         ToolBar.OverflowMode="Always"
                         Content="{Binding Source={StaticResource ArtistIcon}}"
@@ -222,7 +249,7 @@
                         Text="Artist"
                         />
 
-                <horsify:ButtonWithLabel 
+                    <horsify:ButtonWithLabel 
                         Width="75" Height="75"
                         ToolBar.OverflowMode="Always"
                         Content="{Binding Source={StaticResource ArtistIcon}}"
@@ -232,7 +259,7 @@
                         Text="Genre"
                         />
 
-                <horsify:ButtonWithLabel 
+                    <horsify:ButtonWithLabel 
                         Width="75" Height="75"
                         ToolBar.OverflowMode="Always"
                         Content="{Binding Source={StaticResource ArtistIcon}}"
@@ -241,74 +268,60 @@
                         CommandParameter="Year"
                         Text="Year"
                         />
-            </ToolBar>
+                </ToolBar>
 
-            <ToolBar Header="Order       " FontSize="20" 
+                <ToolBar Header="Order       " FontSize="20" 
                      Background="{DynamicResource Color_Primary}"
                      HorizontalContentAlignment="Left">
 
-                <RadioButton ToolBar.OverflowMode="Always" 
+                    <RadioButton ToolBar.OverflowMode="Always" 
                              Background="{DynamicResource Color_Primary4}"
                              Click="RadioButton_Click"
                              Content="Ascending"/>
-                <RadioButton ToolBar.OverflowMode="Always" 
+                    <RadioButton ToolBar.OverflowMode="Always" 
                              Background="{DynamicResource Color_Primary4}"
                              Command="{Binding SelectedSortDirectionCommand}"
                              CommandParameter="Descending"
                              Click="RadioButton_Click"
                              Content="Descending"/>
 
-            </ToolBar>
+                </ToolBar>
 
-            <ToolBar Header="Random" FontSize="20"                        
-                     Background="{DynamicResource Color_Primary3}"
-                     IsHitTestVisible="True"                  
-                     >
 
-                <!--//TODO: Add attached behaviour so doesn't disappear if click the background of the control-->
 
-                <horsify:AmountSelectControl Grid.Column="1" TextElement.FontSize="12"  
-                                             HorizontalAlignment="Center" 
-                                             Background="Transparent"
-                                             ToolBar.OverflowMode="Always"   
-                                             Value="{Binding DataContext.Amount, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                             ShowLargerIncrementButtons="False"/>
 
-                <horsify:RatingRangeControl Grid.Column="2"  ToolBar.OverflowMode="Always"
-                                         RangeLower="{Binding DataContext.RatingLower, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         RangeUpper="{Binding DataContext.RatingUpper, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         StarWidth="20"                                            
-                                         />
+            </ToolBarTray>
 
-                <Button Grid.Column="3" FontSize="28" Width="45"  ToolBar.OverflowMode="Always"   
-                            Height="35"
-                        Style="{DynamicResource ButtonQueueMetal}" 
-                        Command="{Binding GetRandomSongsCommand}"                                                                                      
-                        IsEnabled="True"                        
-                        />
+            <Button Width="50" Height="60" 
+                Style="{DynamicResource ButtonQueueMetal}" 
+                Command="{Binding RequestViewCommand}"
+                CommandParameter="RandomSelectView"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"
+                Margin="25,160"
+                />
 
-                <Label Content="LAST SEARCH" FontSize="14" ToolBar.OverflowMode="Always" />
-            </ToolBar>
-
-        </ToolBarTray>
-
-        <usercontrols:ucSongTemplateSwitcher 
+            <usercontrols:ucSongTemplateSwitcher 
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
             Margin="20"/>
 
-        <StackPanel VerticalAlignment="Bottom" 
+            <StackPanel VerticalAlignment="Bottom" 
                     Orientation="Horizontal" HorizontalAlignment="Center"
                     TextElement.FontSize="32"
                     TextElement.Foreground="White"
                     Margin="0,-6"
                     >
 
-            <TextBlock Text="LAST SEARCH - "  />
-            <TextBlock Text="{Binding RecentSearch.SearchTerm}"  />
-            <TextBlock Text="{Binding HorsifyHistory.SearchType, StringFormat=Type: \{0\}}"/>
-            <TextBlock Text="{Binding RecentSearch.ResultCount, StringFormat='  : \{0\}'}" />
-        </StackPanel>
+                <TextBlock Text="LAST SEARCH - "  />
+                <TextBlock Text="{Binding RecentSearch.SearchTerm}"  />
+                <TextBlock Text="{Binding HorsifyHistory.SearchType, StringFormat=Type: \{0\}}"/>
+                <TextBlock Text="{Binding RecentSearch.ResultCount, StringFormat='  : \{0\}'}" />
+            </StackPanel>
+
+        </Grid>
+
+        <!--#endregion-->
 
     </Grid>
 

@@ -84,6 +84,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UserControls\ucRandomSelector.xaml.cs">
+      <DependentUpon>ucRandomSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ucSongTemplateSwitcher.xaml.cs">
       <DependentUpon>ucSongTemplateSwitcher.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
     <Page Include="SampleData\SongsListSampleData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ucRandomSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ucSongTemplateSwitcher.xaml">
       <SubType>Designer</SubType>

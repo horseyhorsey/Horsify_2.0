@@ -15,6 +15,7 @@ using Horsesoft.Music.Data.Model.Horsify;
 using Prism.Logging;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using System.Collections.ObjectModel;
+using Prism.Interactivity.InteractionRequest;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
@@ -33,7 +34,14 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         public DelegateCommand<AllJoinedTable> SongItemSelectedCommand
         { get; private set; }
         public DelegateCommand GetRandomSongsCommand
-        { get; private set; }        
+        { get; private set; }
+        public DelegateCommand<string> RequestViewCommand
+        { get; private set; }
+
+        #endregion
+
+        #region Requests
+        public InteractionRequest<INotification> RequestRandomViewRequest { get; private set; }
         #endregion
 
         #region Commands To Move
@@ -58,7 +66,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             RecentSearch = new RecentSearch();
 
             SearchedSongs = _songDataProvider.SearchedSongs;
-        
+            RequestRandomViewRequest = new InteractionRequest<INotification>();
+
             //SongsListView = CollectionViewSource.GetDefaultView(SearchedSongs);
             //SongsListView.CurrentChanged += (s, e) =>
             //{
@@ -83,16 +92,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     await OnSearchedSong(filter);
                 }, ThreadOption.UIThread);
 
-            GetRandomSongsCommand = new DelegateCommand(() =>
-            {
-                if(SearchedSongs?.Count != null)
-                {
-                    if (Amount > 0)
-                    {
-                        QueueRandomSongs(Amount);
-                    }
-                }
-            });
+            RequestViewCommand = new DelegateCommand<string>((viewName) => OnRequestView(viewName));
         }
 
         #endregion
@@ -325,6 +325,36 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         }
 
+        /// <summary>
+        /// Requests for a view control. Eg: RandomSelectView
+        /// </summary>
+        /// <remarks>
+        /// RandomSelectView
+        /// </remarks>
+        /// <param name="viewName"></param>
+        private void OnRequestView(string viewName)
+        {            
+            if (viewName == "RandomSelectView")
+            {
+                if (SearchedSongs?.Count != null)
+                {
+                    this.RequestRandomViewRequest.Raise(new Notification { Content = "Notification Message", Title = "Horsify - Random Select" }
+                    , r =>
+                    {
+                        Log("Queuing songs from selection RandomSelectView");
+
+                        RandomSelectOption randomSelectOption = r.Content as RandomSelectOption;
+                        if (randomSelectOption?.Amount > 0)
+                        {
+                            QueueRandomSongs(randomSelectOption);
+                            Log("Queued songs from selection RandomSelectView");
+                        }
+                    });
+                }
+            }
+            
+        }
+
         private void OnSongItemSelected(AllJoinedTable songItem)
         {
             if (songItem != null)
@@ -337,26 +367,24 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         }
 
         private Random _random = new Random();
-        private void QueueRandomSongs(int amount)
+        private void QueueRandomSongs(RandomSelectOption options)
         {
             if (_songDataProvider.SearchedSongs?.Count > 0)
             {
                 Log($"Queuing random songs", Category.Debug);
 
                 var songs = new List<AllJoinedTable>();
-                if (RatingLower > RatingUpper)
-                    RatingUpper = RatingLower;
 
                 var filtered = _songDataProvider.SearchedSongs
-                    .Where(x => x.Rating >= this.RatingLower && 
-                                x.Rating <= this.RatingUpper
+                    .Where(x => x.Rating >= options.RatingLower && 
+                                x.Rating <= options.RatingHigher
                     ).ToArray();
 
                 //Pick random songs from filtered
                 var filterCount = filtered.Count() - 1;
                 if (filterCount > 1)
                 {
-                    for (int i = 0; i < amount; i++)
+                    for (int i = 0; i < options.Amount; i++)
                     {
                         //Select random id from the fitlered count.
                         //Only add song if not already exisiting.
@@ -368,6 +396,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 }                
             }
         }
+
         #endregion
 
         #region Sorting

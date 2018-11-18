@@ -30,6 +30,8 @@
                 <Grid>
                     <Image Stretch="Fill"
                            MaxHeight="500"
+                           MaxWidth="500"
+                           Width="500"
                            Height="500">
 
                         <Image.Style>

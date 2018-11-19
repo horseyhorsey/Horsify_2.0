@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Events;
-using System.Windows.Input;
 using Prism.Commands;
 using System.Linq;
 using Prism.Regions;
@@ -16,12 +15,13 @@ using Prism.Logging;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using System.Collections.ObjectModel;
 using Prism.Interactivity.InteractionRequest;
+using System.Windows.Data;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
     public class SearchedSongsViewModel : HorsifyBindableBase, INavigationAware
-    {        
-        private ISongDataProvider _songDataProvider;        
+    {
+        private ISongDataProvider _songDataProvider;
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
         private IQueuedSongDataProvider _queuedSongDataProvider;
@@ -33,8 +33,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         #region Commands
         public DelegateCommand<AllJoinedTable> SongItemSelectedCommand
         { get; private set; }
-        public DelegateCommand GetRandomSongsCommand
-        { get; private set; }
         public DelegateCommand<string> RequestViewCommand
         { get; private set; }
 
@@ -42,18 +40,12 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         #region Requests
         public InteractionRequest<INotification> RequestRandomViewRequest { get; private set; }
-        #endregion
-
-        #region Commands To Move
-        public DelegateCommand<object> SelectedSortDescriptionCommand
-        { get; private set; }
-        public DelegateCommand<object> SelectedSortDirectionCommand
-        { get; private set; }
+        public InteractionRequest<INotification> RequestSortDialogRequest { get; private set; }
         #endregion
 
         #region Constructor
-        public SearchedSongsViewModel(ISongDataProvider songDataProvider, 
-            IQueuedSongDataProvider queuedSongDataProvider, ISearchHistoryProvider searchHistory, 
+        public SearchedSongsViewModel(ISongDataProvider songDataProvider,
+            IQueuedSongDataProvider queuedSongDataProvider, ISearchHistoryProvider searchHistory,
             IEventAggregator eventAggregator, IRegionManager regionManager, IDjHorsifyService djHorsifyService, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _eventAggregator = eventAggregator;
@@ -66,19 +58,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             RecentSearch = new RecentSearch();
 
             SearchedSongs = _songDataProvider.SearchedSongs;
-            RequestRandomViewRequest = new InteractionRequest<INotification>();
-
-            //SongsListView = CollectionViewSource.GetDefaultView(SearchedSongs);
-            //SongsListView.CurrentChanged += (s, e) =>
-            //{
-            //    var selectedSong = SongsListView.CurrentItem as AllJoinedTable;
-            //    _songDataProvider.SelectedSong = selectedSong;
-            //};
-            //SongsListView.SortDescriptions.Add(new SortDescription() { PropertyName = "Rating", Direction = ListSortDirection.Descending });
+            SongsListView = new ListCollectionView(_songDataProvider.SearchedSongs);
 
             SongItemSelectedCommand = new DelegateCommand<AllJoinedTable>(OnSongItemSelected);
-            SelectedSortDescriptionCommand = new DelegateCommand<object>(OnSelectedSortDescription);
-            SelectedSortDirectionCommand = new DelegateCommand<object>(OnSelectedSortDirection);
 
             _eventAggregator.GetEvent<OnSearchedSongEvent>().Subscribe(async () =>
             {
@@ -92,6 +74,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     await OnSearchedSong(filter);
                 }, ThreadOption.UIThread);
 
+            //Dialog requests
+            RequestRandomViewRequest = new InteractionRequest<INotification>();
+            RequestSortDialogRequest = new InteractionRequest<INotification>();
             RequestViewCommand = new DelegateCommand<string>((viewName) => OnRequestView(viewName));
         }
 
@@ -105,25 +90,11 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             set { SetProperty(ref _recentSearch, value); }
         }
 
-        private int _amount;
-        public int Amount
+        private string _SongResultInfo;
+        public string SongResultInfo
         {
-            get { return _amount; }
-            set { SetProperty(ref _amount, value); }
-        }
-
-        private int _ratingLower = 196;
-        public int RatingLower
-        {
-            get { return _ratingLower; }
-            set { SetProperty(ref _ratingLower, value); }
-        }
-
-        private int _ratngUpper = 255;
-        public int RatingUpper
-        {
-            get { return _ratngUpper; }
-            set { SetProperty(ref _ratngUpper, value); }
+            get { return _SongResultInfo; }
+            set { SetProperty(ref _SongResultInfo, value); }
         }
 
         public ObservableCollection<AllJoinedTable> SearchedSongs { get; set; }
@@ -134,9 +105,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
             _journal = navigationContext.NavigationService.Journal;
-            
+
             if (navigationContext.Parameters.Count() > 0)
-            {                
+            {
                 //Convert incoming search filter
                 try
                 {
@@ -169,7 +140,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                                 {
                                     PublishSearchFinished();
                                     return;
-                                }                                    
+                                }
                             }
                         }
 
@@ -204,6 +175,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
                         //this.SortDescription(SongFilterType.TimesPlayed);
                     }
+
+                    SongsListView.SortDescriptions.Clear();
                 }
                 catch (Exception ex)
                 {
@@ -211,9 +184,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 }
                 finally
                 {
-                    
+
                 }
-            }            
+            }
         }
 
         private void PublishSearchFinished()
@@ -258,7 +231,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             history.ResultCount = resultCnt;
 
             RecentSearch.ResultCount = (int)resultCnt;
-            RecentSearch.SearchTerm = extraSearchType.ToString();                       
+            RecentSearch.SearchTerm = extraSearchType.ToString();
         }
 
         private async Task OnSearchedSong()
@@ -310,19 +283,32 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             Log($"Recent Search history count: {_searchHistory.RecentSearches.Count}");
 
+            RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
             if (resultCnt != 0)
             {
                 RecentSearch.ResultCount = (int)resultCnt;
-                RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
                 Log($"Songs found: {RecentSearch.ResultCount}");
+
+                UpdateSortingInfo();
             }
             else
             {
                 RecentSearch.ResultCount = 0;
                 Log("No Songs found in search");
-                RecentSearch.SearchTerm = "No songs for: " + filter.Filters?.ElementAt(0).Filters[0];
+                RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
+                SongResultInfo = $"No songs found";
             }
 
+        }
+
+        private void UpdateSortingInfo()
+        {
+            SongResultInfo = null;
+            SongResultInfo += " Sorted by: ";
+            foreach (var sortDesc in SongsListView.SortDescriptions)
+            {
+                SongResultInfo += sortDesc.PropertyName + " " + sortDesc.Direction.ToString();
+            }
         }
 
         /// <summary>
@@ -333,7 +319,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         /// </remarks>
         /// <param name="viewName"></param>
         private void OnRequestView(string viewName)
-        {            
+        {
             if (viewName == "RandomSelectView")
             {
                 if (SearchedSongs?.Count != null)
@@ -352,7 +338,16 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     });
                 }
             }
-            
+            else if (viewName == "SortDialogView")
+            {
+                this.RequestSortDialogRequest.Raise(new Notification { Content = SongsListView, Title = "Sort " },
+                    r =>
+                    {
+                        this.UpdateSortingInfo();
+                        Log("Opening sort dialog");
+                        Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
+                    });
+            }
         }
 
         private void OnSongItemSelected(AllJoinedTable songItem)
@@ -376,7 +371,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 var songs = new List<AllJoinedTable>();
 
                 var filtered = _songDataProvider.SearchedSongs
-                    .Where(x => x.Rating >= options.RatingLower && 
+                    .Where(x => x.Rating >= options.RatingLower &&
                                 x.Rating <= options.RatingHigher
                     ).ToArray();
 
@@ -393,7 +388,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                         if (!_queuedSongDataProvider.QueueSongs.Contains(song))
                             _queuedSongDataProvider.QueueSongs.Add(song);
                     }
-                }                
+                }
             }
         }
 
@@ -404,33 +399,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         private SongFilterType _lastSortDescription;
         private ListSortDirection _lastSortDirection = ListSortDirection.Descending;
         private SearchFilter _lastSearchFilter;
-
-        private void OnSelectedSortDirection(object obj)
-        {
-            if (obj != null)
-            {
-                ListSortDirection sortDirection = ListSortDirection.Descending;
-                if ((string)obj == "Ascending")
-                {
-                    sortDirection = ListSortDirection.Ascending;
-                }
-
-                if (sortDirection != _lastSortDirection)
-                {
-                    _lastSortDirection = sortDirection;
-                    UpdateSortDescription();
-                }
-            }
-        }
-
-        private void OnSelectedSortDescription(object obj)
-        {
-            var searchType = (obj as object[])?[0];
-            if (searchType != null)
-            {
-                SortDescription((SongFilterType)searchType);
-            }
-        }
 
         /// <summary>
         /// Sorts the description and sets the last description from the incoming filter type
@@ -444,6 +412,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private void UpdateSortDescription()
         {
+            //TODO: Check if needed anymore
             SongsListView.SortDescriptions.Clear();
             SongsListView.SortDescriptions.Add(new SortDescription()
             { PropertyName = _lastSortDescription.ToString(), Direction = _lastSortDirection });

@@ -76,7 +76,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <!--#endregion-->
 
         <horsify:SongItemTemplateSelector x:Key="SongItemSelector" />
@@ -93,20 +93,31 @@
                               d:DesignSource="{d:DesignData /SampleData/SongsListSampleData.xaml}"
                               >
         </CollectionViewSource>
-        
-        <!--#endregion-->        
+
+        <!--#endregion-->
 
     </UserControl.Resources>
 
-    <UserControl.CommandBindings>
-        <CommandBinding 
-                        Command="local:Commands.SortCommand"
-                        CanExecute="SortCommand_CanExecute"
-                        PreviewExecuted="CommandBinding_Executed"
-                        Executed="CommandBinding_Executed"/>
-    </UserControl.CommandBindings>
-
     <i:Interaction.Triggers>
+
+        <!--SORTING SELECTOR-->
+        <prism:InteractionRequestTrigger SourceObject="{Binding RequestSortDialogRequest}">
+            <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="True" WindowStartupLocation="CenterOwner">
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="WindowStyle" Value="None"/>
+                        <Setter Property="AllowsTransparency" Value="True"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+
+                <prism:PopupWindowAction.WindowContent>
+                    <usercontrols:ucSortSongDialog/>
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+        
+        <!--RANDOM SELECTOR-->
         <prism:InteractionRequestTrigger SourceObject="{Binding RequestRandomViewRequest}">
             <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="True" WindowStartupLocation="CenterOwner"                               
                                      >
@@ -162,7 +173,7 @@
             <horsify:ListViewTouch x:Name="ListviewTouch" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                                    d:IsHidden="False"
                           BorderThickness="0" Margin="-8,0,-15,0"                                            
-                          ItemsSource="{Binding Source={StaticResource SearchedSongsViewSource}}"
+                          ItemsSource="{Binding SongsListView}"
                           Template="{DynamicResource ListViewTemplate}"
                           ItemContainerStyle="{DynamicResource SongListContainerStyle}"    
                           ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
@@ -174,11 +185,6 @@
                           Tag="JukeboxLabel"
                           IsSynchronizedWithCurrentItem="True"                                                                                  
                           >
-                
-                <!--ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"-->
-                <!--ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"-->
-            <!--ItemTemplate="{StaticResource SongItemTest}"-->
-            <!--ItemTemplate="{DynamicResource SongItemTemplate}"-->
 
             <horsify:ListViewTouch.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -199,107 +205,34 @@
                             />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-
-            <!--QUEUE SELECTED SONG-->
-
             </horsify:ListViewTouch>
 
-            <!--SORTING TOOLBAR-->
-            <ToolBarTray 
-            d:IsHidden="False"
-            HorizontalAlignment="Right" 
-                     VerticalAlignment="Top"
-                     Orientation="Vertical" Margin="10,35"
-                     Width="80"
-                     Background="Transparent"                                          
-                     >
+            <!--LIST SORT / RANDOM-->
+            <StackPanel Margin="25,50">
+                
+                <!--SORTING BUTTON-->
+                <Button Width="50" Height="60" 
+                        Margin="5"
+                Style="{DynamicResource ButtonQueueMetal}" 
+                Command="{Binding RequestViewCommand}"
+                Content="{DynamicResource SortIconSvg}"
+                CommandParameter="SortDialogView"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Top"                
+                />
 
-                <ToolBarTray.Style>
-                    <Style>
-                        <Setter Property="UIElement.Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding RecentSearch.ResultCount}" Value="0">
-                                <Setter Property="UIElement.Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ToolBarTray.Style>
-
-                <ToolBar Header="Sort       " FontSize="20" 
-                     Background="{DynamicResource Color_Primary}"
-                     HorizontalContentAlignment="Left">
-
-                    <horsify:ButtonWithLabel 
-                        Width="75" Height="75"
-                        ToolBar.OverflowMode="Always"
-                        Content="{Binding Source={StaticResource StarSvgStroker}}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
-                        Command="local:Commands.SortCommand"
-                        CommandParameter="Rating"
-                        Text="Rating"
-                        />
-
-                    <horsify:ButtonWithLabel 
-                        Width="75" Height="75"
-                        ToolBar.OverflowMode="Always"
-                        Content="{Binding Source={StaticResource ArtistIcon}}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
-                        Command="local:Commands.SortCommand"
-                        CommandParameter="Artist"
-                        Text="Artist"
-                        />
-
-                    <horsify:ButtonWithLabel 
-                        Width="75" Height="75"
-                        ToolBar.OverflowMode="Always"
-                        Content="{Binding Source={StaticResource ArtistIcon}}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
-                        Command="local:Commands.SortCommand"
-                        CommandParameter="Genre"
-                        Text="Genre"
-                        />
-
-                    <horsify:ButtonWithLabel 
-                        Width="75" Height="75"
-                        ToolBar.OverflowMode="Always"
-                        Content="{Binding Source={StaticResource ArtistIcon}}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
-                        Command="local:Commands.SortCommand"
-                        CommandParameter="Year"
-                        Text="Year"
-                        />
-                </ToolBar>
-
-                <ToolBar Header="Order       " FontSize="20" 
-                     Background="{DynamicResource Color_Primary}"
-                     HorizontalContentAlignment="Left">
-
-                    <RadioButton ToolBar.OverflowMode="Always" 
-                             Background="{DynamicResource Color_Primary4}"
-                             Click="RadioButton_Click"
-                             Content="Ascending"/>
-                    <RadioButton ToolBar.OverflowMode="Always" 
-                             Background="{DynamicResource Color_Primary4}"
-                             Command="{Binding SelectedSortDirectionCommand}"
-                             CommandParameter="Descending"
-                             Click="RadioButton_Click"
-                             Content="Descending"/>
-
-                </ToolBar>
-
-
-
-
-            </ToolBarTray>
-
-            <Button Width="50" Height="60" 
+                <!--RANDOM SELECT-->
+                <Button Width="50" Height="60" 
+                        Margin="5"
                 Style="{DynamicResource ButtonQueueMetal}" 
                 Command="{Binding RequestViewCommand}"
                 CommandParameter="RandomSelectView"
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Top"
-                Margin="25,160"
+                
                 />
+            </StackPanel>
+            
 
             <usercontrols:ucSongTemplateSwitcher 
             HorizontalAlignment="Left" 
@@ -316,7 +249,8 @@
                 <TextBlock Text="LAST SEARCH - "  />
                 <TextBlock Text="{Binding RecentSearch.SearchTerm}"  />
                 <TextBlock Text="{Binding HorsifyHistory.SearchType, StringFormat=Type: \{0\}}"/>
-                <TextBlock Text="{Binding RecentSearch.ResultCount, StringFormat='  : \{0\}'}" />
+                <TextBlock Text="{Binding RecentSearch.ResultCount, StringFormat='  (\{0\}) - '}" />
+                <TextBlock Text="{Binding SongResultInfo}"  />
             </StackPanel>
 
         </Grid>

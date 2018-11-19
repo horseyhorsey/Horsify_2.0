@@ -2,10 +2,6 @@
 {
     public class RandomSelectOption
     {
-        private int value;
-        private int rangeLower;
-        private int rangeUpper;
-
         /// <summary>
         /// Creates option for selecting random amounts with rating.
         /// </summary>
@@ -22,8 +18,8 @@
             if (rangeLower > rangeUpper)
                 rangeUpper = rangeLower;
 
-            this.rangeLower = rangeLower;
-            this.rangeUpper = rangeUpper;
+            this.RatingLower = rangeLower;
+            this.RatingHigher = rangeUpper;
         }
 
         public int Amount { get; }

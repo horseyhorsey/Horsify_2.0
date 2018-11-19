@@ -32,13 +32,13 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="SORT SONGS" HorizontalAlignment="Center" FontSize="46" FontWeight="ExtraBold" Margin="0,25"/>
 
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
             
             <!--RATING-->
             <horsify:ButtonWithLabel
@@ -95,7 +95,7 @@
                         />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center"
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center"
                     TextElement.FontSize="42"
                     Margin="25"
                     >

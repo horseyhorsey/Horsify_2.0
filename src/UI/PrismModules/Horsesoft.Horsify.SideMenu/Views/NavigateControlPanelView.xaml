@@ -75,6 +75,7 @@
                     <ToolBar Background="Transparent"
                              Style="{DynamicResource NavigationToolBarStyle}">
 
+                         <!--SEARCH RESULTS-->
                         <Button x:Name="button" Grid.Row="0" 
                                 Content="{Binding Source={StaticResource HorsifySearchSvg}}"
                                 HorizontalAlignment="Center" 
@@ -112,6 +113,7 @@
                         </horsify:SmartButton>
 
 
+                        <!--DJ HORSIFY-->
                         <Button x:Name="ButtonDJ" ToolBar.OverflowMode="AsNeeded"
                         DockPanel.Dock="Top" IsTabStop="False"                     
                         Margin="5" Height="50" Width="50"
@@ -131,6 +133,7 @@
                         </Button>
 
 
+                        <!--PLAYLIST-->
                         <Button x:Name="openPlaylistButton" Grid.Row="0"  
                                 ToolBar.OverflowMode="AsNeeded"
                                 HorizontalAlignment="Center"
@@ -149,8 +152,9 @@
                             </Button.Effect>
                         </Button>
 
-
-                        <Button x:Name="ButtonSettings" ToolBar.OverflowMode="Always"
+                        
+                        <!--SETTINGS-->
+                        <Button x:Name="ButtonSettings" ToolBar.OverflowMode="AsNeeded"
                         DockPanel.Dock="Top" IsTabStop="False"                     
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         Content="⚙" Margin="5" 

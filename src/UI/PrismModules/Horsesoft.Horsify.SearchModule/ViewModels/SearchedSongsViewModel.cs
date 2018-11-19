@@ -21,20 +21,18 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
     public class SearchedSongsViewModel : HorsifyBindableBase, INavigationAware
     {
+        #region Fields
         private ISongDataProvider _songDataProvider;
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
         private IQueuedSongDataProvider _queuedSongDataProvider;
         private IDjHorsifyService _djHorsifyService;
         private ISearchHistoryProvider _searchHistory;
-        private IRegionNavigationJournal _journal;
-        public ICollectionView SongsListView { get; set; }
+        private IRegionNavigationJournal _journal;        
+        #endregion
 
         #region Commands
-        public DelegateCommand<AllJoinedTable> SongItemSelectedCommand
-        { get; private set; }
-        public DelegateCommand<string> RequestViewCommand
-        { get; private set; }
+        public DelegateCommand<string> RequestViewCommand{ get; private set; }
 
         #endregion
 
@@ -43,7 +41,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         public InteractionRequest<INotification> RequestSortDialogRequest { get; private set; }
         #endregion
 
-        #region Constructor
+        #region Constructors
         public SearchedSongsViewModel(ISongDataProvider songDataProvider,
             IQueuedSongDataProvider queuedSongDataProvider, ISearchHistoryProvider searchHistory,
             IEventAggregator eventAggregator, IRegionManager regionManager, IDjHorsifyService djHorsifyService, ILoggerFacade loggerFacade) : base(loggerFacade)
@@ -60,7 +58,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             SearchedSongs = _songDataProvider.SearchedSongs;
             SongsListView = new ListCollectionView(_songDataProvider.SearchedSongs);
 
-            SongItemSelectedCommand = new DelegateCommand<AllJoinedTable>(OnSongItemSelected);
+            SongsListView.CurrentChanged += SongsListView_CurrentChanged;
 
             _eventAggregator.GetEvent<OnSearchedSongEvent>().Subscribe(async () =>
             {
@@ -98,6 +96,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         }
 
         public ObservableCollection<AllJoinedTable> SearchedSongs { get; set; }
+        public ICollectionView SongsListView { get; set; }
         #endregion
 
         #region Navigation
@@ -276,39 +275,21 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             _eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish("SearchedSongsView");
         }
 
-        private void UpdateSearchHistory(ISearchFilter filter)
+        /// <summary>
+        /// Opens up song selection view when CurrentItem changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SongsListView_CurrentChanged(object sender, EventArgs e)
         {
-            var resultCnt = _songDataProvider.SearchedSongs?.Count;
-            _searchHistory.RecentSearches.Last().ResultCount = resultCnt;
-
-            Log($"Recent Search history count: {_searchHistory.RecentSearches.Count}");
-
-            RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
-            if (resultCnt != 0)
+            var song = SongsListView.CurrentItem as AllJoinedTable;
+            if (song == null)
             {
-                RecentSearch.ResultCount = (int)resultCnt;
-                Log($"Songs found: {RecentSearch.ResultCount}");
-
-                UpdateSortingInfo();
-            }
-            else
-            {
-                RecentSearch.ResultCount = 0;
-                Log("No Songs found in search");
-                RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
-                SongResultInfo = $"No songs found";
+                Log("Selected song is null", Category.Warn);
+                return;
             }
 
-        }
-
-        private void UpdateSortingInfo()
-        {
-            SongResultInfo = null;
-            SongResultInfo += " Sorted by: ";
-            foreach (var sortDesc in SongsListView.SortDescriptions)
-            {
-                SongResultInfo += sortDesc.PropertyName + " " + sortDesc.Direction.ToString();
-            }
+            OnSongItemSelected(song);
         }
 
         /// <summary>
@@ -389,6 +370,41 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             _queuedSongDataProvider.QueueSongs.Add(song);
                     }
                 }
+            }
+        }
+
+        private void UpdateSearchHistory(ISearchFilter filter)
+        {
+            var resultCnt = _songDataProvider.SearchedSongs?.Count;
+            _searchHistory.RecentSearches.Last().ResultCount = resultCnt;
+
+            Log($"Recent Search history count: {_searchHistory.RecentSearches.Count}");
+
+            RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
+            if (resultCnt != 0)
+            {
+                RecentSearch.ResultCount = (int)resultCnt;
+                Log($"Songs found: {RecentSearch.ResultCount}");
+
+                UpdateSortingInfo();
+            }
+            else
+            {
+                RecentSearch.ResultCount = 0;
+                Log("No Songs found in search");
+                RecentSearch.SearchTerm = filter.Filters?.ElementAt(0).Filters[0];
+                SongResultInfo = $"No songs found";
+            }
+
+        }
+
+        private void UpdateSortingInfo()
+        {
+            SongResultInfo = null;
+            SongResultInfo += " Sorted by: ";
+            foreach (var sortDesc in SongsListView.SortDescriptions)
+            {
+                SongResultInfo += sortDesc.PropertyName + " " + sortDesc.Direction.ToString();
             }
         }
 

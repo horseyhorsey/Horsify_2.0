@@ -169,42 +169,32 @@
             <!--IF CANCONTENTSCROLL NOT SET TO TRUE< WILL CRASH-->
             <!--ItemsSource="{Binding Source={StaticResource SearchedSongsViewSource}}"-->
             <!--ItemsSource="{Binding SongsListView}"-->
-            <!---->
+            <!---->            
             <horsify:ListViewTouch x:Name="ListviewTouch" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                                    d:IsHidden="False"
-                          BorderThickness="0" Margin="-8,0,-15,0"                                            
-                          ItemsSource="{Binding SongsListView}"
-                          Template="{DynamicResource ListViewTemplate}"
-                          ItemContainerStyle="{DynamicResource SongListContainerStyle}"    
-                          ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
-                          ScrollViewer.CanContentScroll="True"   
-                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          ScrollViewer.IsDeferredScrollingEnabled="False"
-                          ScrollViewer.PanningDeceleration="5"                    
-                          Tag="JukeboxLabel"
-                          IsSynchronizedWithCurrentItem="True"                                                                                  
+                                   BorderThickness="0" Margin="-8,0,-15,0"                                       
+                                   ItemsSource="{Binding SongsListView}"
+                                   Template="{DynamicResource ListViewTemplate}"
+                                   ItemContainerStyle="{DynamicResource SongListContainerStyle}"    
+                                   ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
+                                   ScrollViewer.CanContentScroll="True"   
+                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                   ScrollViewer.IsDeferredScrollingEnabled="False"
+                                   ScrollViewer.PanningDeceleration="5"                    
+                                   Tag="JukeboxLabel"
+                                   IsSynchronizedWithCurrentItem="True"
                           >
 
-            <horsify:ListViewTouch.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
-                                                        Orientation="Vertical"
-                                                        VirtualizingPanel.IsVirtualizing="True" 
-                                                        VirtualizingPanel.ScrollUnit="Item"
-                                                        VirtualizingPanel.VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </horsify:ListViewTouch.ItemsPanel>
-
-            <!--SONG ITEM SELECTED COMMAND -->
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction 
-                            Command="{Binding SongItemSelectedCommand}"
-                            CommandParameter="{Binding Path=Items/, ElementName=ListviewTouch}"
-                            />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                <horsify:ListViewTouch.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
+                                                            Orientation="Vertical"
+                                                            VirtualizingPanel.IsVirtualizing="True" 
+                                                            VirtualizingPanel.ScrollUnit="Item"
+                                                            VirtualizingPanel.VirtualizationMode="Recycling"/>
+                    </ItemsPanelTemplate>
+                </horsify:ListViewTouch.ItemsPanel>
             </horsify:ListViewTouch>
 
             <!--LIST SORT / RANDOM-->

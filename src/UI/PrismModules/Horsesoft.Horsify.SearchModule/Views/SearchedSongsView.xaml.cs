@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Horsesoft.Horsify.Resource.Windows.CustomControls;
+using System.Windows.Controls;
 
 namespace Horsesoft.Horsify.SearchModule.Views
 {

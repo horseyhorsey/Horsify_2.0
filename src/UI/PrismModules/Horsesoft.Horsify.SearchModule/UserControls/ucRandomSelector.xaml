@@ -11,9 +11,7 @@
 
     <Grid Background="{DynamicResource BackgroundGradient3}">
 
-        <Grid>
-            <TextBlock HorizontalAlignment="Center" FontSize="44" Text="Random Select Songs"/>
-        </Grid>
+
 
         <Grid>
             <Grid.RowDefinitions>
@@ -24,14 +22,22 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <horsify:AmountSelectControl x:Name="AmountControl" Grid.Row="0" TextElement.FontSize="42"  
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="44" 
+                           Text="SELECT RANDOM SONGS"/>
+            </Grid>
+            
+            <horsify:AmountSelectControl x:Name="AmountControl" Grid.Row="1" TextElement.FontSize="42"  
                                              HorizontalAlignment="Center" 
-                                             Background="Transparent"                                             
+                                             Background="Transparent"      
+                                             Value="5"
                                              ShowLargerIncrementButtons="False"/>
 
-            <horsify:RatingRangeControl Grid.Row="1" x:Name="RangeControl" StarWidth="50"/>
+            <horsify:RatingRangeControl Grid.Row="2" x:Name="RangeControl" StarWidth="50"
+                                        RangeLower="196" RangeUpper="255"
+                                        />
 
-            <Button Grid.Row="2" FontSize="48" 
+            <Button Grid.Row="3" FontSize="48" 
                 Width="85"
                 Height="65"
                 Style="{DynamicResource ButtonQueueMetal}" 
@@ -39,7 +45,7 @@
                 IsEnabled="True"                        
                         />
 
-            <horsify:ButtonWithLabel Grid.Row="3" 
+            <horsify:ButtonWithLabel Grid.Row="4" 
                                      Click="BackButton_Click"
                                      MaxHeight="110" MaxWidth="70"
                                      HorizontalAlignment="Center"                                                                          

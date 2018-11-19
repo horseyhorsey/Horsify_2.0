@@ -10,6 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="1280" d:DesignWidth="225"
              d:DataContext="{d:DesignData /SampleData/SideBarViewModelSampleData.xaml}"
+             IsTabStop="False"
              >
 
     <UserControl.Resources>
@@ -78,9 +79,9 @@
         </Grid.RowDefinitions>
 
         <!--METAL COLOR OVERLAY-->
-        <Rectangle Grid.RowSpan="4" 
+        <Rectangle Grid.RowSpan="4"
                    Opacity="0.9" Margin="-2"
-                   Fill="{DynamicResource Brush_Grill}" />
+                   Fill="{DynamicResource Brush_PanelMetal}" />
 
         <!--LOGO-->
         <ContentPresenter Height="50" Grid.Row="0"

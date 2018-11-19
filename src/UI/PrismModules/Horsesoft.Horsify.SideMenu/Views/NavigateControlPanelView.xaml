@@ -42,7 +42,7 @@
         <Grid>
 
             <!--BLURRED EDGE-->
-            <Border Background="{DynamicResource Brush_Grill}" 
+            <Border Background="{DynamicResource Brush_PanelMetal}" 
                     CornerRadius="4"
                     Margin="5"/>
 

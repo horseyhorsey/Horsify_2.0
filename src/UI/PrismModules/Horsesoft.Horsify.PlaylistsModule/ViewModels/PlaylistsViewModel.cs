@@ -7,6 +7,7 @@ using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Logging;
 using Prism.Regions;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 
         #region Commands/Requests
         public ICommand CloseTabCommand { get; set; }
+        public ICommand CreatePlaylistCommand { get; set; }                
+        public ICommand OpenSavedPlaylistCommand { get; set; }
         public DelegateCommand HelpWindowCommand { get; set; }
         public InteractionRequest<INotification> HelpNotificationRequest { get; set; }
         #endregion
@@ -43,7 +46,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             OpenPlayListViewModels = new ObservableCollection<PlaylistTabViewModel>();
 
             #region Commands
-            CreatePlaylistCommand = new DelegateCommand<string>(OnCreatePlaylist);
+            CreatePlaylistCommand = new DelegateCommand<string>(OnCreatePlaylist);            
             OpenSavedPlaylistCommand = new DelegateCommand<PlaylistTabViewModel>(OnOpenSavedPlaylist);
 
             #endregion
@@ -62,11 +65,6 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             HelpWindowCommand = new DelegateCommand(RaiseHelpNotification);
             #endregion
         }
-        #endregion
-
-        #region Commands
-        public ICommand CreatePlaylistCommand { get; set; }
-        public ICommand OpenSavedPlaylistCommand { get; set; }
         #endregion
 
         #region Properties

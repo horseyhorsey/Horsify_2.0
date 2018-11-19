@@ -26,6 +26,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #region Commands                
         public ICommand AddToQueueCommand { get; set; }
         public ICommand ClearItemsCommand { get; set; }
+        public ICommand DeletePlaylistCommand { get; set; }
         public ICommand RemoveItemCommand { get; set; }        
         public ICommand SavePlaylistCommand { get; set; }               
         public ICommand PlayItemCommand { get; set; }
@@ -53,6 +54,8 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             AddToQueueCommand = new DelegateCommand<PlaylistItemViewModel>(OnAddToQueue);
             RemoveItemCommand = new DelegateCommand<PlaylistItemViewModel>(OnRemoveItem);
             PlayItemCommand = new DelegateCommand<PlaylistItemViewModel>(OnPlayItem);
+
+            DeletePlaylistCommand = new DelegateCommand(OnDeletePlaylist);
         }
 
         #endregion
@@ -150,6 +153,14 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             Log($"Clearing playlist items");
             PlayListItemViewModels?.Clear();
         }
+
+        //TODO: Delete Playlists
+        private void OnDeletePlaylist()
+        {
+            var tab = this;
+            //_horsifyPlaylistService.DeletePlaylist();
+        }
+
 
         /// <summary>
         /// Called when [save playlist command], converts the songs to ids and saves to db

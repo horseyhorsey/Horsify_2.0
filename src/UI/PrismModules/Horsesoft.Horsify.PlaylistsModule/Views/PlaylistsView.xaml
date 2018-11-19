@@ -42,6 +42,9 @@
                 <Button Content="Clear" Command="{Binding ClearItemsCommand}"
                         HorizontalAlignment="Left" MinWidth="75" Margin="3"/>
 
+                <Button Content="DELETE" Command="{Binding DeletePlaylistCommand}" 
+                        HorizontalAlignment="Right" Margin="90,3" MinWidth="75"/>
+
                 <Button Content="Save" Command="{Binding SavePlaylistCommand}" 
                         HorizontalAlignment="Right" MinWidth="75" Margin="3"/>
 

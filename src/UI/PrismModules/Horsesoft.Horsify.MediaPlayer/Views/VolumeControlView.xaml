@@ -16,7 +16,7 @@
                                    Value="{Binding CurrentVolume, UpdateSourceTrigger=PropertyChanged}"
                                    Style="{DynamicResource VolumeControlStyle}" 
                                    Width="250"
-                                   Height="50"
+                                   Height="50"                                   
                                    >
                 <horsify:VolumeControl.LayoutTransform>
                     <RotateTransform Angle="-90"/>

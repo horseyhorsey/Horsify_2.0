@@ -173,7 +173,7 @@
             <horsify:ListViewTouch x:Name="ListviewTouch" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                                    d:IsHidden="False"
                                    BorderThickness="0" Margin="-8,0,-15,0"                                       
-                                   ItemsSource="{Binding SongsListView}"
+                                   ItemsSource="{Binding SongsListView, UpdateSourceTrigger=PropertyChanged}"
                                    Template="{DynamicResource ListViewTemplate}"
                                    ItemContainerStyle="{DynamicResource SongListContainerStyle}"    
                                    ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
@@ -224,7 +224,7 @@
             </StackPanel>
             
 
-            <usercontrols:ucSongTemplateSwitcher 
+            <usercontrols:ucSongTemplateSwitcher DataContext="{Binding}"
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"
             Margin="20"/>

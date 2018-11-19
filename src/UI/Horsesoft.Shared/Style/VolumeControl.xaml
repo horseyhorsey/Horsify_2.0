@@ -20,17 +20,12 @@
                   <DockPanel Margin="1">
                     <Rectangle Name="PART_Indicator">
                     </Rectangle>
-                    <Rectangle Name="Mask" MinWidth="{TemplateBinding Width}" Fill="#C0C0C0"/>
+                    <Rectangle Name="Mask" MinWidth="{TemplateBinding Width}" Fill="#FF939393"/>
                   </DockPanel>
                 </Grid>
               </ControlTemplate>
             </Setter.Value>
           </Setter>
-    </Style>
-
-
-    <Style x:Key="VolumeControlStyle2" TargetType="{x:Type ProgressBar}">
-        
     </Style>
     
 </ResourceDictionary>

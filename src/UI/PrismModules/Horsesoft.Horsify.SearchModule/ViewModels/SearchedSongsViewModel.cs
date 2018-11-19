@@ -81,6 +81,12 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Flag to not pick up on CurrentItem changed for the SongsListView
+        /// </summary>
+        private bool _noSongSelectionAllowed;
+
         private RecentSearch _recentSearch;
         public RecentSearch RecentSearch
         {
@@ -281,15 +287,15 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SongsListView_CurrentChanged(object sender, EventArgs e)
-        {
+        {            
             var song = SongsListView.CurrentItem as AllJoinedTable;
             if (song == null)
             {
                 Log("Selected song is null", Category.Warn);
                 return;
             }
-
-            OnSongItemSelected(song);
+            
+            OnSongItemSelected(song);            
         }
 
         /// <summary>
@@ -319,27 +325,33 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     });
                 }
             }
+            //Unsubscribe from CurrentChanging when going into this dialog as to not fire it when coming back
             else if (viewName == "SortDialogView")
             {
+                SongsListView.CurrentChanged -= SongsListView_CurrentChanged;
                 this.RequestSortDialogRequest.Raise(new Notification { Content = SongsListView, Title = "Sort " },
                     r =>
                     {
+                        SongsListView.CurrentChanged += SongsListView_CurrentChanged;
                         this.UpdateSortingInfo();
                         Log("Opening sort dialog");
-                        Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
+                        Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");                        
                     });
             }
         }
 
         private void OnSongItemSelected(AllJoinedTable songItem)
         {
-            if (songItem != null)
+            if (songItem != null && _lastSelectedSong != songItem)
             {
                 Log($"Selected song : {songItem.FileLocation}", Category.Debug);
                 var navParams = new NavigationParameters();
                 navParams.Add("song", songItem);
                 _regionManager.RequestNavigate("ContentRegion", "SongSelectedView", navParams);
+                _lastSelectedSong = songItem;
             }
+
+            _noSongSelectionAllowed = false;
         }
 
         private Random _random = new Random();
@@ -415,6 +427,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         private SongFilterType _lastSortDescription;
         private ListSortDirection _lastSortDirection = ListSortDirection.Descending;
         private SearchFilter _lastSearchFilter;
+        private AllJoinedTable _lastSelectedSong;        
 
         /// <summary>
         /// Sorts the description and sets the last description from the incoming filter type

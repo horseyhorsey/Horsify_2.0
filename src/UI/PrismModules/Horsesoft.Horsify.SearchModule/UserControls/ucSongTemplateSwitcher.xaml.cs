@@ -1,7 +1,7 @@
 ﻿using Horsesoft.Horsify.Resource.Windows.Selectors;
+using Horsesoft.Horsify.SearchModule.ViewModels;
 using System;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Horsesoft.Horsify.SearchModule.UserControls
 {
@@ -30,8 +30,9 @@ namespace Horsesoft.Horsify.SearchModule.UserControls
             {
                 SongItemTemplateSelector.CurrentSongItem = itemToChangeTo;
 
-                var view = FindResource("SearchedSongsViewSource") as CollectionViewSource;
-                view?.View.Refresh();
+                //TODO: Remove the use of a ViewModel Reference?
+                var vm = DataContext as SearchedSongsViewModel;
+                vm?.SongsListView.Refresh();
             }
         }
     }

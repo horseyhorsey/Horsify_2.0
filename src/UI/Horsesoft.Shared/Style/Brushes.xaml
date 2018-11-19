@@ -27,7 +27,7 @@
             <TransformGroup>
                 <ScaleTransform ScaleX="0.5" ScaleY="0.1"/>
                 <SkewTransform/>
-                <RotateTransform Angle="0"/>
+                <RotateTransform Angle="220"/>
                 <TranslateTransform/>
             </TransformGroup>
         </ImageBrush.Transform>
@@ -42,6 +42,20 @@
                 <SkewTransform/>
                 <RotateTransform Angle="0"/>
                 <TranslateTransform/>
+            </TransformGroup>
+        </ImageBrush.Transform>
+    </ImageBrush>
+
+    <ImageBrush x:Key="Brush_PanelMetal"                
+                    ImageSource="{DynamicResource Bitmap_Metal}"
+                    TileMode="FlipXY"                    
+                    >
+        <ImageBrush.Transform>
+            <TransformGroup>
+                <ScaleTransform ScaleX="5.5" ScaleY="0.45"/>
+                <SkewTransform/>
+                <RotateTransform Angle="90"/>
+                <TranslateTransform X="-60"/>
             </TransformGroup>
         </ImageBrush.Transform>
     </ImageBrush>

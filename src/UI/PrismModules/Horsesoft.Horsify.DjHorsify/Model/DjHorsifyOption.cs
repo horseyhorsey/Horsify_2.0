@@ -11,6 +11,10 @@ namespace Horsesoft.Horsify.DjHorsify.Model
         public DjHorsifyOption()
         {
             SelectedFilters = new ObservableCollection<IFilter>();
+            BpmRange.Low = 110;
+            BpmRange.Hi = 120;
+            RatingRange.Low = 196;
+            RatingRange.Hi = 255;
         }
 
         private bool _isEnabled = false;
@@ -27,8 +31,8 @@ namespace Horsesoft.Horsify.DjHorsify.Model
             set { SetProperty(ref _amount, value); }
         }
 
-        private int _harmonicEnabled;
-        public int HarmonicEnabled
+        private bool _harmonicEnabled;
+        public bool HarmonicEnabled
         {
             get { return _harmonicEnabled; }
             set { SetProperty(ref _harmonicEnabled, value); }

@@ -256,6 +256,7 @@
         <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" >
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="125"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -281,12 +282,12 @@
 
                     <!--ENABLED-->
                     <ToggleButton BorderThickness="0"
-                                  Margin="15,0"                                  
+                                  Margin="10,0"                                  
                                   ToolBar.OverflowMode="Never"
                                   VerticalAlignment="Center" HorizontalAlignment="Center"
                                   IsTabStop="False"
                                   DataContext="{Binding DjHorsifyOption}"                                                                                                                                        
-                                  Content="Enabled" 
+                                  Content="Enabled"                                   
                                   IsChecked="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}" 
                                   Template="{DynamicResource ToggleButtonBaseControlTemplate1}"/>
 
@@ -325,8 +326,17 @@
                 </ToolBar>
             </ToolBarTray>
 
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+
+                <Button Content="ClearFilters" Command="{Binding ClearSelectionsCommand}"/>
+                <TextBlock Grid.Row="1" Text="{Binding FiltersInfo}"
+                       FontSize="18"
+                       Margin="5"
+                       />
+            </StackPanel>
+
             <TabControl 
-                    Grid.Row="1" Margin="20"                    
+                    Grid.Row="2" Margin="20"                    
                     TabStripPlacement="Top" 
                     Background="Transparent"
                     BorderBrush="Transparent"    
@@ -349,21 +359,16 @@
                         </Grid>
                     </TabItem.Header>
 
-                    <Border Grid.Row="1" Grid.Column="1" 
+                    <Border
                             CornerRadius="0,10,20,20" 
                             BorderThickness="0"
                             BorderBrush="Transparent"
                             Background="Transparent">
                         <Grid>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
                             <!--Template="{DynamicResource DataGridFilters}"-->
                             <!--AVAILABLE SAVED FILTERS-->
-                            <horsify:ListViewTouch x:Name="AvailableFilterList" Grid.Row="1" 
+                            <horsify:ListViewTouch x:Name="AvailableFilterList" Grid.Row="0" 
                                 BorderBrush="Transparent" BorderThickness="0"
                                 ItemsSource="{Binding AvailableFiltersView, UpdateSourceTrigger=PropertyChanged}"
                                 ItemContainerStyle="{DynamicResource HorsifyFilterContainerStyle}"
@@ -371,8 +376,8 @@
                                 Style="{DynamicResource ListViewTransparent}"
                                 ScrollViewer.CanContentScroll="True"   
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ScrollViewer.IsDeferredScrollingEnabled="False"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.IsDeferredScrollingEnabled="True"
                                 ScrollViewer.PanningDeceleration="5"  
                                 IsSynchronizedWithCurrentItem="True"
                                                    Background="Transparent"
@@ -380,8 +385,8 @@
 
                                 <horsify:ListViewTouch.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel HorizontalAlignment="Center"
-                                                        Orientation="Vertical"/>
+                                        <WrapPanel HorizontalAlignment="Center" Orientation="Vertical"
+                                                        />
                                     </ItemsPanelTemplate>
                                 </horsify:ListViewTouch.ItemsPanel>
 

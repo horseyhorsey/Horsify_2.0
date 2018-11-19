@@ -127,6 +127,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         private void SaveFilter()
         {
+            Log("saving Filter: ");
             if (this.SearchTerms.Count > 0)
             {                
                 //Create the filters or clear existing
@@ -143,6 +144,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 var navParams = new NavigationParameters();
                 if (!this.IsEditingFilter)
                 {
+                    Log("Adding NEW Filter");
                     //searchFilter.Id = -1;
                     navParams.Add("add_new_filter", this.CurrentFilter);
                 }

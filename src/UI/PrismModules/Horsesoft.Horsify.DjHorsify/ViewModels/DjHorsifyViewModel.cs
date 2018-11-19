@@ -34,6 +34,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         #region Commands        
         public ICommand CreateFilterCommand { get; set; }
+        public ICommand ClearSelectionsCommand { get; set; }        
         public ICommand EditFilterCommand { get; set; }
         public ICommand RunSearchCommand { get; set; }
         public ICommand RunSingleSearchCommand { get; set; }        
@@ -44,15 +45,12 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager = regionManager;
 
             _djHorsifyService = djHorsifyService;
-            DjHorsifyOption = _djHorsifyService.DjHorsifyOption as DjHorsifyOption;
+            DjHorsifyOption = _djHorsifyService.DjHorsifyOption as DjHorsifyOption;            
 
             try
             {
                 _djHorsifyService.GetDatabaseFiltersAsync().Wait();
-
                 GenerateHorsifyFilters();
-
-                this.HorsifyFilters = _djHorsifyService.HorsifyFilters;
             }
             catch (Exception ex)
             {
@@ -65,114 +63,11 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
             #region Commands
             CreateFilterCommand = new DelegateCommand(OnCreateFilter);
+            ClearSelectionsCommand = new DelegateCommand(OnClearSelections);
             EditFilterCommand = new DelegateCommand<DjHorsifyFilterModel>(OnEditFilter);
             RunSearchCommand = new DelegateCommand(OnRunSearch);
             RunSingleSearchCommand = new DelegateCommand<DjHorsifyFilterModel>(OnRunSearch);
             #endregion            
-        }
-
-        private void CreateFilterViews()
-        {
-            AvailableFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
-            AvailableFiltersView.Filter = (o) =>
-            {
-                var item = o as DjHorsifyFilterModel;
-                if (item.SearchAndOrOption == SearchAndOrOption.None)
-                {
-                    if (DjHorsifyOption.SelectedFilters.Any(x => x == item))
-                    {
-                        DjHorsifyOption.SelectedFilters.Remove(item);
-                    }
-                    return true;
-                }
-
-                return false;
-            };
-
-            IncludedFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
-            IncludedFiltersView.Filter = (o) =>
-            {
-                var item = o as DjHorsifyFilterModel;
-                if (item.SearchAndOrOption == SearchAndOrOption.Or)
-                {
-                    if (!DjHorsifyOption.SelectedFilters.Any(x => x == item))
-                    {
-                        DjHorsifyOption.SelectedFilters.Add(item);
-                    }
-                    return true;
-                }
-
-                return false;
-            };
-
-            IncludedAndFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
-            IncludedAndFiltersView.Filter = (o) =>
-            {
-                var item = o as DjHorsifyFilterModel;
-                if (item.SearchAndOrOption == SearchAndOrOption.And)
-                {
-                    if (!DjHorsifyOption.SelectedFilters.Any(x => x == item))
-                    {
-                        DjHorsifyOption.SelectedFilters.Add(item);
-                    }
-                    return true;
-                }
-                return false;
-            };
-
-            ExcludedFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
-            ExcludedFiltersView.Filter = (o) =>
-            {
-                var item = o as DjHorsifyFilterModel;
-                if (item.SearchAndOrOption == SearchAndOrOption.Not)
-                {
-                    if (!DjHorsifyOption.SelectedFilters.Any(x => x == item))
-                    {
-                        DjHorsifyOption.SelectedFilters.Add(item);
-                    }
-                    return true;
-                }
-                return false;
-            };
-        }
-
-        private void GenerateHorsifyFilters()
-        {
-            var horsifyFilters = GenerateHorsifyFilters(_djHorsifyService.Filters.ToArray());
-            if (horsifyFilters?.Count() > 0)
-            {
-                //If null create the collection and populate it, otherwise addrange
-                if (_djHorsifyService.HorsifyFilters == null)
-                {
-                    _djHorsifyService.HorsifyFilters = new ObservableCollection<DjHorsifyFilterModel>(horsifyFilters);
-                }
-                else
-                {
-                    _djHorsifyService.HorsifyFilters.AddRange(horsifyFilters);
-                }
-
-                this.HorsifyFilters = _djHorsifyService.HorsifyFilters;
-            }            
-        }
-
-        /// <summary>
-        /// Generates the horsify filters from database filters.
-        /// </summary>
-        /// <param name="filters">The filters.</param>
-        /// <returns></returns>
-        private IEnumerable<DjHorsifyFilterModel> GenerateHorsifyFilters(Music.Data.Model.Filter[] filters)
-        {
-            var horsifyFilters = new List<DjHorsifyFilterModel>();
-            foreach (var filter in filters)
-            {
-                var horsifyFilter = HorsifyFilter.GetFilterFromString(filter.SearchTerms, filter);
-                horsifyFilter.FileName = filter.Name;
-                horsifyFilter.Id = (int)filter.Id;
-
-                horsifyFilters.Add(new DjHorsifyFilterModel(horsifyFilter));
-            }
-
-            return horsifyFilters;
         }
 
         #region Properties
@@ -193,10 +88,157 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         {
             get { return _horsifyFilters; }
             set { SetProperty(ref _horsifyFilters, value); }
-        }        
+        }
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Creates all Collections for AND/OR/NOT and Available
+        /// </summary>
+        private void CreateFilterViews()
+        {
+            if (AvailableFiltersView != null)
+            {
+                AvailableFiltersView.Refresh();
+            }
+            else
+            {
+                AvailableFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
+                AvailableFiltersView.Filter = (o) =>
+                {
+                    var item = o as DjHorsifyFilterModel;
+                    if (item.SearchAndOrOption == SearchAndOrOption.None)
+                    {
+                        if (DjHorsifyOption.SelectedFilters.Any(x => x == item))
+                        {
+                            DjHorsifyOption.SelectedFilters.Remove(item);
+                        }
+                        return true;
+                    }
+
+                    return false;
+                };
+            }
+
+            if (IncludedFiltersView != null)
+            {
+                IncludedFiltersView.Refresh();
+            }
+            else
+            {
+                IncludedFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
+                IncludedFiltersView.Filter = (o) =>
+                {
+                    var item = o as DjHorsifyFilterModel;
+                    if (item.SearchAndOrOption == SearchAndOrOption.Or)
+                    {
+                        if (!DjHorsifyOption.SelectedFilters.Any(x => x == item))
+                        {
+                            DjHorsifyOption.SelectedFilters.Add(item);
+                        }
+                        return true;
+                    }
+
+                    return false;
+                };
+            }
+
+            if (IncludedAndFiltersView != null)
+            {
+                IncludedAndFiltersView.Refresh();
+            }
+            else
+            {
+                IncludedAndFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
+                IncludedAndFiltersView.Filter = (o) =>
+                {
+                    var item = o as DjHorsifyFilterModel;
+                    if (item.SearchAndOrOption == SearchAndOrOption.And)
+                    {
+                        if (!DjHorsifyOption.SelectedFilters.Any(x => x == item))
+                        {
+                            DjHorsifyOption.SelectedFilters.Add(item);
+                        }
+                        return true;
+                    }
+
+                    return false;
+                };
+            }
+
+            if (ExcludedFiltersView != null)
+            {
+                ExcludedFiltersView.Refresh();
+            }
+            else
+            {
+                ExcludedFiltersView = new MyCollectionView(_djHorsifyService.HorsifyFilters);
+                ExcludedFiltersView.Filter = (o) =>
+                {
+                    var item = o as DjHorsifyFilterModel;
+                    if (item.SearchAndOrOption == SearchAndOrOption.Not)
+                    {
+                        if (!DjHorsifyOption.SelectedFilters.Any(x => x == item))
+                        {
+                            DjHorsifyOption.SelectedFilters.Add(item);
+                        }
+                        return true;
+                    }
+
+                    return false;
+                };
+            }
+        }
+
+        /// <summary>
+        /// Generates the horsify filters from database filters.
+        /// </summary>
+        /// <param name="filters">The filters.</param>
+        /// <returns></returns>
+        private IEnumerable<DjHorsifyFilterModel> GenerateHorsifyFilters(IEnumerable<Music.Data.Model.Filter> filters)
+        {
+            var horsifyFilters = new List<DjHorsifyFilterModel>();
+            foreach (var filter in filters)
+            {
+                var horsifyFilter = HorsifyFilter.GetFilterFromString(filter.SearchTerms, filter);
+                horsifyFilter.FileName = filter.Name;
+                horsifyFilter.Id = (int)filter.Id;
+                horsifyFilters.Add(new DjHorsifyFilterModel(horsifyFilter));
+            }
+
+            return horsifyFilters;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GenerateHorsifyFilters()
+        {
+            var horsifyFilters = GenerateHorsifyFilters(_djHorsifyService.Filters);
+            if (horsifyFilters?.Count() > 0)
+            {
+                //If null create the collection and populate it, otherwise addrange
+                if (_djHorsifyService.HorsifyFilters == null)
+                {
+                    _djHorsifyService.HorsifyFilters = new ObservableCollection<DjHorsifyFilterModel>(horsifyFilters);
+                    this.HorsifyFilters = _djHorsifyService.HorsifyFilters;
+                }
+                else
+                {
+                    _djHorsifyService.HorsifyFilters.AddRange(horsifyFilters);
+                }                
+            }
+        }
+
+        private void OnClearSelections()
+        {
+            foreach (var item in this.HorsifyFilters.Where(x => x.SearchAndOrOption != SearchAndOrOption.None))
+            {
+                item.SearchAndOrOption = SearchAndOrOption.None;
+            }
+        }
+
         private void OnEditFilter(DjHorsifyFilterModel filter)
         {
             Log($"Editing previous filter: {filter?.FileName}");
@@ -212,8 +254,11 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
             try
             {
-                var searchFilter = _djHorsifyService.GenerateSearchFilter(this.DjHorsifyOption);
+                //Reset the selected keys if not enabled and have any selected.
+                if (!this.DjHorsifyOption.HarmonicEnabled)
+                    this.DjHorsifyOption.SelectedKeys = Music.Data.Model.Import.OpenKeyNotation.None;
 
+                var searchFilter = _djHorsifyService.GenerateSearchFilter(this.DjHorsifyOption);
                 if (searchFilter == null)
                     throw new NullReferenceException("Generating search filter from Dj Horsify option failed.");
 
@@ -273,7 +318,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                     
                     if (result)
                     {
-                        this._djHorsifyService.HorsifyFilters.Add(filter as DjHorsifyFilterModel);
+                        Log("Successfully added filter to database");
+                        this.HorsifyFilters.Add(filter as DjHorsifyFilterModel);
                         CreateFilterViews();
                     }                        
                     else

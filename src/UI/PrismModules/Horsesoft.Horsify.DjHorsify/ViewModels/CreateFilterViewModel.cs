@@ -8,20 +8,22 @@ using System.Windows.Input;
 
 namespace Horsesoft.Horsify.DjHorsify.ViewModels
 {
+    /// <summary>
+    /// This view model captures the SearchType from user to use in a filter
+    /// </summary>
     public class CreateFilterViewModel : BindableBase, INavigationAware
     {
         private IRegionManager _regionManager;
-
         public ICommand NavigateBackCommand { get; private set; }
 
         public CreateFilterViewModel(IRegionManager regionManager)
         {
-
             _regionManager = regionManager;
 
             NavigateBackCommand = new DelegateCommand(OnNavigateBack);
         }
 
+        #region Properties
         private string _searchType;
         public string SelectedSearchType
         {
@@ -35,7 +37,9 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                     NavigateEditFilterView((SongFilterType)Enum.Parse(typeof(SongFilterType), SelectedSearchType));
             }
         }
+        #endregion
 
+        #region Private Methods
         /// <summary>
         /// Navigates the edit filter view. Passing in create_new_filter into params
         /// </summary>
@@ -59,7 +63,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            
+
         }
 
         private void OnNavigateBack()
@@ -67,6 +71,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             //On the presumption that we have come from the Dj Horsify View
             _regionManager
                 .RequestNavigate("ContentRegion", "DjHorsifyView");
-        }
+        } 
+        #endregion
     }
 }

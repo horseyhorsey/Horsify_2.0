@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.SearchModule.UserControls.ucSortSongDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Horsesoft.Horsify.SearchModule"
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
+             mc:Ignorable="d" Background="{DynamicResource BackgroundGradient3}"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Opacity="0.95"
+             >
+
+    <UserControl.CommandBindings>
+        <CommandBinding 
+                        Command="local:Commands.SortCommand"
+                        CanExecute="SortCommand_CanExecute"
+                        PreviewExecuted="CommandBinding_Executed"
+                        Executed="CommandBinding_Executed"/>
+    </UserControl.CommandBindings>
+
+    <UserControl.Resources>
+        <Style TargetType="horsify:ButtonWithLabel">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{StaticResource Brush_Metal}"/>
+            <Setter Property="Command" Value="local:Commands.SortCommand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="SORT SONGS" HorizontalAlignment="Center" FontSize="46" FontWeight="ExtraBold" Margin="0,25"/>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            
+            <!--RATING-->
+            <horsify:ButtonWithLabel
+                Content="{Binding Source={StaticResource StarSvgStroker}}"                                
+                CommandParameter="Rating"
+                Text="Rating"
+                />
+
+            <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        CommandParameter="Artist"
+                        Text="Artist"
+                        />
+
+            <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        CommandParameter="Album"
+                        Text="Album"
+                        />
+
+            <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        CommandParameter="Bpm"
+                        Text="Bpm"
+                        />
+
+            <horsify:ButtonWithLabel 
+                        Content="{Binding Source={StaticResource Icon_Genre}}"
+                        CommandParameter="Genre"
+                        Text="Genre"
+                        />
+
+            <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        CommandParameter="Label"
+                        Text="Label"
+                        />
+
+            <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"
+                        Background="{StaticResource Brush_Metal}"                                                                     
+                        CommandParameter="MusicKey"
+                        Text="Key"
+                        />
+
+            <horsify:ButtonWithLabel 
+                        Content="{Binding Source={StaticResource YearIcon}}"
+                        CommandParameter="Year"
+                        Text="Year"
+                        />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center"
+                    TextElement.FontSize="42"
+                    Margin="25"
+                    >
+            <RadioButton ToolBar.OverflowMode="Always" 
+                            Background="{DynamicResource Color_Primary4}"
+                            Click="RadioButton_Click"
+                            Content="ASCENDING"/>
+
+            <RadioButton ToolBar.OverflowMode="Always" 
+                            Background="{DynamicResource Color_Primary4}"
+                            CommandParameter="Descending"
+                            Click="RadioButton_Click"
+                            IsChecked="True"
+                            Content="DESCENDING"/>
+        </StackPanel>
+
+    </Grid>
+    
+</UserControl>

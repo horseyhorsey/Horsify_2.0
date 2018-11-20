@@ -24,6 +24,8 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount = 0, short maxAmount = -1);
 
+        Task<bool> DeleteFilterSearchAsync(int? id);
+
         Task<AllJoinedTable> GetById(int id);
 
         Task<bool> InsertFilterAsync(Filter filter);
@@ -51,5 +53,6 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter);
         Task<bool> UpdateSavedSearchFiltersAsync(FiltersSearch filter);
+        
     }
 }

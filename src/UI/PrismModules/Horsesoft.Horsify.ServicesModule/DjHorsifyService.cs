@@ -189,6 +189,11 @@ namespace Horsesoft.Horsify.ServicesModule
             return _horsifySongApi.UpdateSavedSearchFiltersAsync(filter);
         }
 
+        public Task<bool> DeleteFilterAsync(int? id)
+        {
+            return _horsifySongApi.DeleteFilterSearchAsync(id);
+        }
+
         #endregion
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +7,34 @@ namespace Horsesoft.Music.Data.Model.Horsify
 {
     public class HorsifySongApi : IHorsifySongApi
     {
-        public string BaseAddress { get; set; }
+        #region Properties / Fields
         private HttpClient _client;
+        public string BaseAddress { get; set; } 
+        #endregion
 
+        #region Constructors
+
+        /// <summary>
+        /// Horsify API Helper
+        /// </summary>
+        /// <param name="address"></param>
         public HorsifySongApi(string address)
         {
             BaseAddress = address;
+            _client = new HttpClient();
+        }
+        #endregion
 
-            _client = new HttpClient();            
+        #region Public Methods
+        public async Task<bool> DeleteFilterSearchAsync(int? id)
+        {
+            var response = await _client.DeleteAsync($"{BaseAddress}/api/filterssearch/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<IEnumerable<AllJoinedTable>> ExtraSearch(ExtraSearchType extraSearchType)
@@ -46,9 +65,123 @@ namespace Horsesoft.Music.Data.Model.Horsify
             return null;
         }
 
+        public async Task<AllJoinedTable> GetById(int id)
+        {
+            var response = await GetResponse($@"api/songs/getbyid/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<AllJoinedTable>(result);
+            }
+
+            return null;
+        }
+
+        public IEnumerable<string> GetEntries(SearchType searchType, char firstChar)
+        {
+            return GetEntries(searchType, firstChar.ToString());
+        }
+
+        public IEnumerable<string> GetEntries(SearchType searchType, string searchTerm, short maxAmount = -1)
+        {
+            //return _horsifySongService.GetAllFromTableAsStrings(searchType, searchTerm, maxAmount);            
+            var response = GetResponse($@"api/songs/GetStringEntries?searchType={searchType}&search={searchTerm}&maxAmount={maxAmount}").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<string>>(result);
+            }
+
+            return null;
+        }
+
+        public async Task<IEnumerable<Filter>> GetFilters()
+        {
+            var response = GetResponse($@"api/filters/").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Filter>>(result);
+            }
+
+            return null;
+        }
+
+        public async Task<IEnumerable<Playlist>> GetPlaylists()
+        {
+            var response = GetResponse($@"api/playlists/").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Playlist>>(result);
+            }
+
+            return null;
+        }
+
+        public async Task<IEnumerable<FiltersSearch>> GetSavedSearchFiltersAsync()
+        {
+            var response = GetResponse($@"api/filterssearch/").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<FiltersSearch>>(result);
+            }
+
+            return null;
+        }
+
+        public async Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
+        {
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(playlist), Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{BaseAddress}api/playlists/getsongs/", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AllJoinedTable>>(result);
+            }
+
+            return null;
+        }
+
+        public async Task<bool> InsertFilterAsync(Filter filter)
+        {
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{BaseAddress}/api/filters/", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists)
+        {
+            var id = playlists?[0].Id;
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(playlists[0]), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"{BaseAddress}/api/playlists/{id}", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+            }
+
+        }
+
+        public async Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter)
+        {
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter), Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{BaseAddress}/api/filterssearch/", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<IEnumerable<AllJoinedTable>> SearchAsync(string term, SearchType searchTypes)
         {
-            term = $"api/songs/search?term={term.Replace("&","&amp;")}";
+            term = $"api/songs/search?term={term.Replace("&", "&amp;")}";
             term = searchTypes != SearchType.All ? $@"{term}?{searchTypes}" : term;
 
             var response = await GetResponse(term);
@@ -83,52 +216,12 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         }
 
-        public async Task<AllJoinedTable> GetById(int id)
+        public void UpdateFilter(long id, Filter filterToUpdate)
         {
-            var response = await GetResponse($@"api/songs/getbyid/{id}");
+            var response = GetResponse($@"api/filters/{id}?filter={filterToUpdate}").Result;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var result = await response.Content.ReadAsStringAsync();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<AllJoinedTable>(result);
             }
-
-            return null;
-        }
-
-        private Task<HttpResponseMessage> GetResponse(string url)
-        {
-            return _client.GetAsync(BaseAddress + url);
-        }
-
-        public IEnumerable<string> GetEntries(SearchType searchType, char firstChar)
-        {
-            return GetEntries(searchType, firstChar.ToString());
-        }
-
-        public IEnumerable<string> GetEntries(SearchType searchType, string searchTerm, short maxAmount = -1)
-        {
-            //return _horsifySongService.GetAllFromTableAsStrings(searchType, searchTerm, maxAmount);            
-            var response = GetResponse($@"api/songs/GetStringEntries?searchType={searchType}&search={searchTerm}&maxAmount={maxAmount}").Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var result = response.Content.ReadAsStringAsync().Result;
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<string>>(result);
-            }
-
-            return null;
-        }
-
-        public async Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist)
-        {
-            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(playlist), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}api/playlists/getsongs/", content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AllJoinedTable>>(result);
-            }
-
-            return null;
         }
 
         public async Task<bool> UpdatePlayedSongAsync(int id, int? rating)
@@ -148,85 +241,6 @@ namespace Horsesoft.Music.Data.Model.Horsify
             return false;
         }
 
-        public async Task<IEnumerable<Filter>> GetFilters()
-        {
-            var response = GetResponse($@"api/filters/").Result;            
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Filter>>(result);
-            }
-
-            return null;
-        }
-
-        public async Task<IEnumerable<Playlist>> GetPlaylists()
-        {
-            var response = GetResponse($@"api/playlists/").Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Playlist>>(result);
-            }
-
-            return null;
-        }
-        
-        public async Task<bool> InsertFilterAsync(Filter filter)
-        {
-            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}/api/filters/", content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public void UpdateFilter(long id, Filter filterToUpdate)
-        {
-            var response = GetResponse($@"api/filters/{id}?filter={filterToUpdate}").Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-            }
-        }
-
-        public async Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists)
-        {
-            var id = playlists?[0].Id;
-            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(playlists[0]), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"{BaseAddress}/api/playlists/{id}", content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {                
-            }
-
-        }
-
-        public async Task<IEnumerable<FiltersSearch>> GetSavedSearchFiltersAsync()
-        {
-            var response = GetResponse($@"api/filterssearch/").Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<FiltersSearch>>(result);
-            }
-
-            return null;
-        }
-
-        public async Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter)
-        {            
-            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}/api/filterssearch/", content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public async Task<bool> UpdateSavedSearchFiltersAsync(FiltersSearch filter)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
@@ -237,17 +251,14 @@ namespace Horsesoft.Music.Data.Model.Horsify
             }
 
             return false;
-        }
+        } 
+        #endregion
 
-        public async Task<bool> DeleteFilterSearchAsync(int? id)
-        {            
-            var response = await _client.DeleteAsync($"{BaseAddress}/api/filterssearch/{id}");
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        #region Private Methods
+        private Task<HttpResponseMessage> GetResponse(string url)
+        {
+            return _client.GetAsync(BaseAddress + url);
+        } 
+        #endregion
     }
 }

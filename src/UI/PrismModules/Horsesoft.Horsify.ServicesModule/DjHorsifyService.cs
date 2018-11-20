@@ -11,12 +11,11 @@ using System.Threading.Tasks;
 namespace Horsesoft.Horsify.ServicesModule
 {
     public class DjHorsifyService : IDjHorsifyService
-    {        
-        public IDjHorsifyOption DjHorsifyOption { get; set; }
-
+    {
+        #region Fields
         private IHorsifySongApi _horsifySongApi;
-        private ILoggerFacade _loggerFacade;
-        private IEnumerable<Filter> _dbFilters;
+        private ILoggerFacade _loggerFacade; 
+        #endregion
 
         public DjHorsifyService(IDjHorsifyOption djHorsifyOption, IHorsifySongApi horsifySongApi, ILoggerFacade loggerFacade)
         {            
@@ -25,10 +24,15 @@ namespace Horsesoft.Horsify.ServicesModule
             _loggerFacade = loggerFacade;            
         }
 
+        #region Properties
+        public IDjHorsifyOption DjHorsifyOption { get; set; }
+        private IEnumerable<Filter> _dbFilters;
         public ObservableCollection<Filter> Filters { get; private set; }
         public ObservableCollection<DjHorsifyFilterModel> HorsifyFilters { get; set; }
+        public ObservableCollection<FiltersSearch> SavedFilters { get; set; }
+        #endregion
 
-        #region IDjHorsifyService Methods
+        #region Public Methods        
 
         /// <summary>
         /// Adds the filter with the running song service
@@ -43,7 +47,7 @@ namespace Horsesoft.Horsify.ServicesModule
                 {
                     this.Filters.Add(filter);
                     return true;
-                }                    
+                }
             }
             catch (System.Exception ex)
             {
@@ -54,44 +58,9 @@ namespace Horsesoft.Horsify.ServicesModule
             return true;
         }
 
-        /// <summary>
-        /// Gets the database filters and converts to Horsify Filters
-        /// </summary>
-        public async Task GetDatabaseFiltersAsync()
+        public Task<bool> AddSavedSearchFilterAsync(FiltersSearch searchFilter)
         {
-            try
-            {
-                _dbFilters = await _horsifySongApi.GetFilters();
-                if (Filters == null)
-                {
-                    if (_dbFilters != null)
-                    {
-                        Filters = new ObservableCollection<Filter>(_dbFilters);
-                    }
-                }
-                else
-                {
-                    Filters.Clear();
-                }               
-            }
-            catch (System.Exception ex)
-            {
-                _loggerFacade.Log($"{ex.Message}", Category.Exception, Priority.Medium);
-                System.Windows.MessageBox.Show("Horsify service not running or failed to query.");
-            }
-
-        }
-
-        /// <summary>
-        /// Gets the songs using the DjHorsifyOption
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<AllJoinedTable> GetSongs(IDjHorsifyOption djHorsifyOption)
-        {
-            var searchFilter = GenerateSearchFilter(djHorsifyOption);
-
-            return _horsifySongApi.SearchLikeFiltersAsync(searchFilter, (short)djHorsifyOption.Amount, (short)djHorsifyOption.Amount).Result;
-
+            return _horsifySongApi.InsertSavedSearchFiltersAsync(searchFilter);
         }
 
         public SearchFilter GenerateSearchFilter(IDjHorsifyOption djHorsifyOption)
@@ -128,7 +97,52 @@ namespace Horsesoft.Horsify.ServicesModule
                 RatingRange = djHorsifyOption.RatingRange,
                 MusicKeys = djHorsifyOption.SelectedKeys.ToString()
             };
-                       
+
+        }
+
+        /// <summary>
+        /// Gets the database filters and converts to Horsify Filters
+        /// </summary>
+        public async Task GetDatabaseFiltersAsync()
+        {
+            try
+            {
+                _dbFilters = await _horsifySongApi.GetFilters();
+                if (Filters == null)
+                {
+                    if (_dbFilters != null)
+                    {
+                        Filters = new ObservableCollection<Filter>(_dbFilters);
+                    }
+                }
+                else
+                {
+                    Filters.Clear();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                _loggerFacade.Log($"{ex.Message}", Category.Exception, Priority.Medium);
+                System.Windows.MessageBox.Show("Horsify service not running or failed to query.");
+            }
+
+        }
+
+        public Task<IEnumerable<FiltersSearch>> GetSavedSearchFilters()
+        {
+            return _horsifySongApi.GetSavedSearchFiltersAsync();
+        }
+
+        /// <summary>
+        /// Gets the songs using the DjHorsifyOption
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<AllJoinedTable> GetSongs(IDjHorsifyOption djHorsifyOption)
+        {
+            var searchFilter = GenerateSearchFilter(djHorsifyOption);
+
+            return _horsifySongApi.SearchLikeFiltersAsync(searchFilter, (short)djHorsifyOption.Amount, (short)djHorsifyOption.Amount).Result;
+
         }
 
         public Task<IEnumerable<AllJoinedTable>> GetSongsAsync(IDjHorsifyOption djHorsifyOption)
@@ -138,10 +152,6 @@ namespace Horsesoft.Horsify.ServicesModule
 
             return Task.Run(() => GetSongs(djHorsifyOption));
         }
-
-        #endregion
-
-        #region Private Methods
 
         public bool UpdateFilter(Music.Data.Model.Filter dbFilter)
         {
@@ -172,6 +182,11 @@ namespace Horsesoft.Horsify.ServicesModule
                 _loggerFacade.Log($"UpdateFilter - {ex.Message}", Category.Exception, Priority.Medium);
                 return false;
             }
+        }
+
+        public Task<bool> UpdateSearchFilterAsync(FiltersSearch filter)
+        {
+            return _horsifySongApi.UpdateSavedSearchFiltersAsync(filter);
         }
 
         #endregion

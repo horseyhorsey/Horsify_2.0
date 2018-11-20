@@ -2,6 +2,7 @@
 using Horsesoft.Music.Data.Model.Import;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Horsesoft.Horsify.DjHorsify.Model
@@ -16,6 +17,8 @@ namespace Horsesoft.Horsify.DjHorsify.Model
             RatingRange.Low = 196;
             RatingRange.Hi = 255;
         }
+
+        #region Properties
 
         private bool _isEnabled = false;
         public bool IsEnabled
@@ -38,14 +41,14 @@ namespace Horsesoft.Horsify.DjHorsify.Model
             set { SetProperty(ref _harmonicEnabled, value); }
         }
 
-        private RangeFilterOption<byte> _bpmRange = new RangeFilterOption<byte>(0,0);
+        private RangeFilterOption<byte> _bpmRange = new RangeFilterOption<byte>(0, 0);
         public RangeFilterOption<byte> BpmRange
         {
             get { return _bpmRange; }
             set { SetProperty(ref _bpmRange, value); }
         }
 
-        private RangeFilterOption<byte> _ratingRange = new RangeFilterOption<byte>(0,0);
+        private RangeFilterOption<byte> _ratingRange = new RangeFilterOption<byte>(0, 0);
         public RangeFilterOption<byte> RatingRange
         {
             get { return _ratingRange; }
@@ -64,6 +67,24 @@ namespace Horsesoft.Horsify.DjHorsify.Model
         {
             get { return _selectedKeys; }
             set { SetProperty(ref _selectedKeys, value); }
+        } 
+        #endregion
+
+        /// <summary>
+        /// Converts a string of keys separated with ',' to OpenKeyNotation selected flags
+        /// </summary>
+        /// <param name="musicKeys"></param>
+        /// <returns></returns>
+        public OpenKeyNotation ConvertKeys(string musicKeys)
+        {
+            OpenKeyNotation keys = OpenKeyNotation.None;
+            var mKeys = musicKeys.Split(',');
+            foreach (var key in mKeys)
+            {                
+                keys |= (OpenKeyNotation)Enum.Parse(typeof(OpenKeyNotation), key);
+            }
+
+            return keys;
         }
     }
 }

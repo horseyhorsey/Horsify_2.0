@@ -107,6 +107,14 @@ namespace Horsesoft.Music.Data.Sqlite.Context
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
+            modelBuilder.Entity<FiltersSearch>(entity =>
+            {
+                entity.HasIndex(e => e.Name)
+                    .IsUnique();
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
             modelBuilder.Entity<Playlist>(entity =>
             {
                 entity.HasIndex(e => e.Name)

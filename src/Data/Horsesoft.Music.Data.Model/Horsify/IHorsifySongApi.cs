@@ -46,5 +46,10 @@ namespace Horsesoft.Music.Data.Model.Horsify
         Task<IEnumerable<Playlist>> GetPlaylists();
 
         Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists);
+
+        Task<IEnumerable<FiltersSearch>> GetSavedSearchFiltersAsync();
+
+        Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter);
+        Task<bool> UpdateSavedSearchFiltersAsync(FiltersSearch filter);
     }
 }

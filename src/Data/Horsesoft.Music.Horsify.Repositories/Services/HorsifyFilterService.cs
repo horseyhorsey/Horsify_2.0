@@ -1,6 +1,7 @@
 ﻿using Horsesoft.Music.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Horsesoft.Music.Horsify.Repositories.Services
 {
@@ -11,6 +12,11 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             return _sqliteRepo.FilterRepository.Get(orderBy: x => x.OrderBy(z => z.Name));
         }
 
+        public Task<IEnumerable<FiltersSearch>> GetFilterSearchesAsync()
+        {
+            return Task.Run(() =>  _sqliteRepo.FiltersSearchRepository.Get());
+        }        
+
         public Filter GetFilter(int id)
         {
             return _sqliteRepo.FilterRepository.GetById((long)id);
@@ -20,6 +26,32 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         {
             _sqliteRepo.FilterRepository.Insert(filter);
             ((IUnitOfWork)_sqliteRepo).Save();
+        }
+
+        public Task<bool> InsertFilterSearchAsync(FiltersSearch filtersSearch)
+        {
+            try
+            {
+                Task.Run(() =>
+                {
+                    _sqliteRepo.FiltersSearchRepository.Insert(filtersSearch);
+                    ((IUnitOfWork)_sqliteRepo).Save();
+
+                    return true;
+                });
+            }
+            catch (System.Exception)
+            {
+                
+            }
+
+            return Task.FromResult(false);
+        }
+
+        public Task UpdateFilterSearchAsync(FiltersSearch filtersSearch)
+        {
+            _sqliteRepo.FiltersSearchRepository.Update(filtersSearch);
+            return ((IUnitOfWork)_sqliteRepo).SaveAsync();
         }
 
         public void RemoveFilter(Filter filter)

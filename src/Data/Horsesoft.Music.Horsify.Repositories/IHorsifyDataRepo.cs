@@ -42,6 +42,7 @@ namespace Horsesoft.Music.Horsify.Repositories
         IGenericRepository<Discog> DiscogRepository { get; }
         IGenericRepository<Data.Model.File> FileRepository { get; }
         IGenericRepository<Data.Model.Filter> FilterRepository { get; }
+        IGenericRepository<FiltersSearch> FiltersSearchRepository { get; }
         IGenericRepository<Genre> GenreRepository { get; }
         IGenericRepository<Label> LabelRepository { get; }
         IGenericRepository<MusicalKey> MusicalKeyRepository { get; }
@@ -125,6 +126,8 @@ namespace Horsesoft.Music.Horsify.Repositories
                 var cmd = conn.CreateCommand();
                 //Create playlist table
                 cmd.CommandText = $"CREATE TABLE IF NOT EXISTS Filter (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT UNIQUE, SearchTerms TEXT);";
+                cmd.CommandText = $"CREATE TABLE FiltersSearch(Id INTEGER PRIMARY KEY NOT NULL, Name STRING NOT NULL UNIQUE, MaxAmount INTEGER, RandomAmount INTEGER, SearchFilterContent STRING NOT NULL); ";
+
                 var playlistResult = await cmd.ExecuteNonQueryAsync();
                 return false;
             }            
@@ -904,6 +907,17 @@ namespace Horsesoft.Music.Horsify.Repositories
             }
         }
 
+        private IGenericRepository<FiltersSearch> _filtersSearchRepository;
+        public IGenericRepository<FiltersSearch> FiltersSearchRepository
+        {
+            get
+            {
+                if (_filtersSearchRepository == null)
+                    _filtersSearchRepository = new GenericRepository<FiltersSearch>(_context);
+
+                return _filtersSearchRepository;
+            }
+        }
 
         #endregion
     }

@@ -69,8 +69,9 @@ namespace Horsesoft.Music.Data.Model.Horsify
             string term = $"api/songs/SearchFilters?";
             term += $"randomAmount={randomAmount}";
             term += $"&maxAmount={maxAmount}";
-
-            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter), Encoding.UTF8, "application/json");            
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter);
+            //var filter = Newtonsoft.Json.JsonConvert.DeserializeObject<SearchFilter>(json);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync($"{BaseAddress}{term}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -200,6 +201,42 @@ namespace Horsesoft.Music.Data.Model.Horsify
             {                
             }
 
+        }
+
+        public async Task<IEnumerable<FiltersSearch>> GetSavedSearchFiltersAsync()
+        {
+            var response = GetResponse($@"api/filterssearch/").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<FiltersSearch>>(result);
+            }
+
+            return null;
+        }
+
+        public async Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter)
+        {            
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter), Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{BaseAddress}/api/filterssearch/", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateSavedSearchFiltersAsync(FiltersSearch filter)
+        {
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"{BaseAddress}/api/filterssearch/{filter.Id}", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

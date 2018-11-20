@@ -162,23 +162,22 @@ namespace Horsesoft.Horsify.ServicesModule
         {
             try
             {
-                var filterToUpdate = _dbFilters.FirstOrDefault(x => x.Id == dbFilter.Id);
+                var filterToUpdate = Filters.FirstOrDefault(x => x.Id == dbFilter.Id);
                 filterToUpdate.SearchTerms = dbFilter.SearchTerms;
                 filterToUpdate.Name = dbFilter.Name;
 
-                _horsifySongApi.UpdateFilter(dbFilter.Id, filterToUpdate);
-
-                //Get db filter
-                var f = this.Filters.FirstOrDefault(x => x.Id == filterToUpdate.Id);
-                //Create horsify filter
-                var newFilter = Music.Data.Model.Horsify.HorsifyFilter.GetFilterFromString(filterToUpdate.SearchTerms, f);
-
-                newFilter.FileName = filterToUpdate.Name;
-                newFilter.Filters = newFilter.Filters;
-                newFilter.Id = (int)dbFilter.Id;
-
-                this.Filters.Remove(f);
-                this.Filters.Add(f);
+                //TODO: REmove all this?
+                //Update filter
+                //_horsifySongApi.UpdateFilterAsync(dbFilter.Id, filterToUpdate);
+                ////Get db filter
+                //var f = this.Filters.FirstOrDefault(x => x.Id == filterToUpdate.Id);
+                ////Create horsify filter
+                //var newFilter = Music.Data.Model.Horsify.HorsifyFilter.GetFilterFromString(filterToUpdate.SearchTerms, f);
+                //newFilter.FileName = filterToUpdate.Name;
+                //newFilter.Filters = newFilter.Filters;
+                //newFilter.Id = (int)dbFilter.Id;
+                //this.Filters.Remove(f);
+                //this.Filters.Add(f);
 
                 return true;
             }

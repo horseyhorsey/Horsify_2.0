@@ -229,11 +229,13 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         }
 
-        public void UpdateFilter(long id, Filter filterToUpdate)
+        public async Task UpdateFilterAsync(long id, Filter filterToUpdate)
         {
-            var response = GetResponse($@"api/filters/{id}?filter={filterToUpdate}").Result;
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filterToUpdate), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"{BaseAddress}/api/filters/{id}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
+                    
             }
         }
 

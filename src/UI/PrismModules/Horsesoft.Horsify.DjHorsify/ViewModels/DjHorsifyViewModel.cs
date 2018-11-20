@@ -352,12 +352,14 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 {
                     var existingFilter = _djHorsifyService.HorsifyFilters.FirstOrDefault(x => x.Id == filter.Id);
                     if (existingFilter != null)
-                    {
-                        existingFilter.FileName = filter.FileName;
-                        existingFilter.Filters = filter.Filters;
-                        existingFilter.SearchAndOrOption = filter.SearchAndOrOption;
-                        existingFilter.SearchType = filter.SearchType;
-                    }
+                        RefreshFilterViews();
+                    //if (existingFilter != null)
+                    //{
+                    //    existingFilter.FileName = filter.FileName;
+                    //    existingFilter.Filters = filter.Filters;
+                    //    existingFilter.SearchAndOrOption = filter.SearchAndOrOption;
+                    //    existingFilter.SearchType = filter.SearchType;
+                    //}
 
                     Log($"Filter {dbFilter.Name} saved successfully", Category.Info);
                 }

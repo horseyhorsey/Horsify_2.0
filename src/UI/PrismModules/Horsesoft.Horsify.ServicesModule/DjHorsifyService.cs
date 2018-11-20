@@ -166,18 +166,8 @@ namespace Horsesoft.Horsify.ServicesModule
                 filterToUpdate.SearchTerms = dbFilter.SearchTerms;
                 filterToUpdate.Name = dbFilter.Name;
 
-                //TODO: REmove all this?
                 //Update filter
-                //_horsifySongApi.UpdateFilterAsync(dbFilter.Id, filterToUpdate);
-                ////Get db filter
-                //var f = this.Filters.FirstOrDefault(x => x.Id == filterToUpdate.Id);
-                ////Create horsify filter
-                //var newFilter = Music.Data.Model.Horsify.HorsifyFilter.GetFilterFromString(filterToUpdate.SearchTerms, f);
-                //newFilter.FileName = filterToUpdate.Name;
-                //newFilter.Filters = newFilter.Filters;
-                //newFilter.Id = (int)dbFilter.Id;
-                //this.Filters.Remove(f);
-                //this.Filters.Add(f);
+                _horsifySongApi.UpdateFilterAsync(dbFilter.Id, filterToUpdate);           
 
                 return true;
             }

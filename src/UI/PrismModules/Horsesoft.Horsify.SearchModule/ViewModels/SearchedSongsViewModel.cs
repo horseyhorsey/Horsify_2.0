@@ -82,11 +82,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         #region Properties
 
-        /// <summary>
-        /// Flag to not pick up on CurrentItem changed for the SongsListView
-        /// </summary>
-        private bool _noSongSelectionAllowed;
-
         private RecentSearch _recentSearch;
         public RecentSearch RecentSearch
         {
@@ -350,8 +345,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 _regionManager.RequestNavigate("ContentRegion", "SongSelectedView", navParams);
                 _lastSelectedSong = songItem;
             }
-
-            _noSongSelectionAllowed = false;
         }
 
         private Random _random = new Random();

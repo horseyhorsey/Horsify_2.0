@@ -15,10 +15,6 @@ namespace Horsesoft.Music.Data.Model.Menu
             MenuComponents = new List<IMenuComponent>();
         }
 
-        public int Tets { get; set; }
-
-        readonly IEnumerable<IMenuComponent> iterator = null;
-
         public override IEnumerator<IMenuComponent> GetIterator()
         {
             return MenuComponents.GetEnumerator();

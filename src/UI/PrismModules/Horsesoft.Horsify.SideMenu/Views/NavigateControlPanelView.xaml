@@ -68,15 +68,8 @@
                         />
                 </StackPanel>
 
-
-                <ToolBarTray Orientation="Vertical" 
-                             Background="Transparent"
-                             IsLocked="True">
-                    <ToolBar Background="Transparent"
-                             Style="{DynamicResource NavigationToolBarStyle}">
-
-                         <!--SEARCH RESULTS-->
-                        <Button x:Name="button" Grid.Row="0" 
+                <!--SEARCH RESULTS-->
+                <Button x:Name="button" Grid.Row="0" 
                                 Content="{Binding Source={StaticResource HorsifySearchSvg}}"
                                 HorizontalAlignment="Center" 
                                 ToolBar.OverflowMode="AsNeeded"
@@ -89,14 +82,14 @@
                                 CommandParameter="SearchedSongsView"          
                                 >
 
-                            <Button.Effect>
-                                <DropShadowEffect ShadowDepth="1"/>
-                            </Button.Effect>
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="1"/>
+                    </Button.Effect>
 
-                        </Button>
+                </Button>
 
-                        <!--TURNTABLEVIEW-->
-                        <horsify:SmartButton x:Name="buttonsearch" ToolBar.OverflowMode="AsNeeded"
+                <!--TURNTABLEVIEW-->
+                <horsify:SmartButton x:Name="buttonsearch" ToolBar.OverflowMode="AsNeeded"
                                     Content="{Binding Source={StaticResource VinylIconSvg}}"
                                     Grid.Row="0" HorizontalAlignment="Center"
                                     Margin="5" Height="50" Width="50"                                       
@@ -107,14 +100,14 @@
                                     Style="{DynamicResource ButtonTopMenuStyle}"                     
                                     >
 
-                            <horsify:SmartButton.Effect>
-                                <DropShadowEffect ShadowDepth="1"/>
-                            </horsify:SmartButton.Effect>
-                        </horsify:SmartButton>
+                    <horsify:SmartButton.Effect>
+                        <DropShadowEffect ShadowDepth="1"/>
+                    </horsify:SmartButton.Effect>
+                </horsify:SmartButton>
 
 
-                        <!--DJ HORSIFY-->
-                        <Button x:Name="ButtonDJ" ToolBar.OverflowMode="AsNeeded"
+                <!--DJ HORSIFY-->
+                <Button x:Name="ButtonDJ" ToolBar.OverflowMode="AsNeeded"
                         DockPanel.Dock="Top" IsTabStop="False"                     
                         Margin="5" Height="50" Width="50"
                         VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -127,14 +120,14 @@
                         
                         >
 
-                            <Button.Effect>
-                                <DropShadowEffect ShadowDepth="1.5"/>
-                            </Button.Effect>
-                        </Button>
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="1.5"/>
+                    </Button.Effect>
+                </Button>
 
 
-                        <!--PLAYLIST-->
-                        <Button x:Name="openPlaylistButton" Grid.Row="0"  
+                <!--PLAYLIST-->
+                <Button x:Name="openPlaylistButton" Grid.Row="0"  
                                 ToolBar.OverflowMode="AsNeeded"
                                 HorizontalAlignment="Center"
                                 Margin="5" Height="50" Width="50"
@@ -147,14 +140,14 @@
                         FontWeight="DemiBold" FontSize="32"
                         >
 
-                            <Button.Effect>
-                                <DropShadowEffect ShadowDepth="1"/>
-                            </Button.Effect>
-                        </Button>
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="1"/>
+                    </Button.Effect>
+                </Button>
 
-                        
-                        <!--SETTINGS-->
-                        <Button x:Name="ButtonSettings" ToolBar.OverflowMode="AsNeeded"
+
+                <!--SETTINGS-->
+                <Button x:Name="ButtonSettings" ToolBar.OverflowMode="AsNeeded"
                         DockPanel.Dock="Top" IsTabStop="False"                     
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         Content="⚙" Margin="5" 
@@ -166,12 +159,10 @@
                         CommandParameter="SettingsView"
                         >
 
-                            <Button.Effect>
-                                <DropShadowEffect ShadowDepth="1"/>
-                            </Button.Effect>
-                        </Button>
-                    </ToolBar>
-                </ToolBarTray>
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="1"/>
+                    </Button.Effect>
+                </Button>
 
             </StackPanel>
 

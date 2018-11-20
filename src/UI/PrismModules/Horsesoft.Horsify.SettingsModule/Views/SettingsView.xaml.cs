@@ -16,6 +16,12 @@ namespace Horsesoft.Horsify.SettingsModule.Views
             InitializeComponent();
         }
 
+        private void ChangeSkinColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;   
+            SwitchSkinColor(button.CommandParameter.ToString());
+        }
+
         private void SwitchSkinColor(string skinDictionary)
         {
             var mergedDicts = Application.Current.Resources.MergedDictionaries;
@@ -30,16 +36,6 @@ namespace Horsesoft.Horsify.SettingsModule.Views
 
                 mergedDicts.Add(dict);
             }
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
-            {
-                ComboBoxItem item = e.AddedItems[0] as ComboBoxItem;
-                SwitchSkinColor(item.Content.ToString());
-            }
-                
         }
     }
 }

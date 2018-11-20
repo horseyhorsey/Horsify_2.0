@@ -340,7 +340,8 @@
 
         <!--FILTERS TAB CONTROL-->
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
-
+            
+            
             <TabControl Margin="20"                    
                     TabStripPlacement="Top" 
                     Background="Transparent"
@@ -348,12 +349,19 @@
                     BorderThickness="0"
                 >
 
+                    <TabControl.Resources>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="Background" Value="{DynamicResource BackgroundGradient3}"/>
+                            <Setter Property="FontSize" Value="25"/>
+                            <Setter Property="MaxHeight" Value="60"/>
+                            <Setter Property="Height" Value="60"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </TabControl.Resources>
+
                 <!--FILTERS-->
-                <TabItem FontSize="25" 
-                        MaxHeight="60" Height="60"
-                         BorderBrush="Transparent" BorderThickness="0"
-                        VerticalAlignment="Bottom"
-                         Background="Transparent">
+                <TabItem>
 
                     <!--HEADER-->
                     <TabItem.Header>
@@ -403,9 +411,7 @@
                 </TabItem>
 
                 <!--OR-->
-                <TabItem FontSize="25" 
-                             MaxHeight="60" Height="60"                                
-                             Background="{DynamicResource Color_Primary4}">
+                <TabItem >
 
                     <TabItem.Header>
                         <Grid>
@@ -454,9 +460,7 @@
                 </TabItem>
 
                 <!--AND-->
-                <TabItem FontSize="25" 
-                             MaxHeight="60" Height="60"                                
-                             Background="{DynamicResource Color_Primary4}">
+                <TabItem>
 
                     <TabItem.Header>
                         <Grid>
@@ -502,10 +506,7 @@
                 </TabItem>
 
                 <!--NOT-->
-                <TabItem FontSize="25" 
-                             MaxHeight="60" Height="60"                                
-                             Background="{DynamicResource Color_Primary4}">
-
+                <TabItem>
                     <TabItem.Header>
                         <Grid>
                             <TextBlock>
@@ -551,12 +552,7 @@
                 </TabItem>
 
                 <!--OPTIONS-->
-                <TabItem FontSize="25" Header="Options" 
-                             MaxHeight="60" Height="60"
-                             VerticalAlignment="Bottom"
-                              BorderBrush="Transparent" BorderThickness="0"
-                             Background="{DynamicResource BackgroundGradient4}"
-                             >
+                <TabItem Header="Options">
 
                     <!--EXPANDERS-->
                     <Grid Grid.Column="0" Grid.Row="1"  MinWidth="350">

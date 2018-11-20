@@ -12,13 +12,13 @@
         <!--TEXTBLOCK-->
         <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle_BebasSmall}">
             <Setter Property="Margin" Value="3,0"/>
-            <Setter Property="Foreground" Value="{DynamicResource Color_Primary4}"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+
         </Style>
 
     </UserControl.Resources>
 
-    <StackPanel Orientation="Horizontal" Margin="3" 
-                TextElement.Foreground="{DynamicResource Color_Primary4}">
+    <StackPanel Orientation="Horizontal" Margin="3">
 
         <!--HIDE THE CONTROL IF SONG IS NULL-->
         <StackPanel.Style>
@@ -36,6 +36,7 @@
         <StackPanel.Resources>
             <Style  TargetType="{x:Type horsify:HorsifySearchButton}"  BasedOn="{StaticResource {x:Type horsify:HorsifySearchButton}}">
                 <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Foreground" Value="AntiqueWhite"/>
             </Style>
         </StackPanel.Resources>
 

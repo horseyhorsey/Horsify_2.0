@@ -2,15 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="Color_Primary" 
-                     Color="#6D5AFF"/>
+                     Color="#71B0FF"/>
     <SolidColorBrush x:Key="Color_Primary2" 
-                     Color="#5278E8"/>
+                     Color="#95C1E8"/>
     <SolidColorBrush x:Key="Color_Primary3" 
                      Color="#67C5FF"/>
     <SolidColorBrush x:Key="Color_Primary4" 
-                     Color="#52E5E8"/>
+                     Color="#82CAE8"/>
     <SolidColorBrush x:Key="Color_Primary5" 
-                     Color="#3F866C"/>
+                     Color="#54B5CF"/>
 
     <LinearGradientBrush x:Key="BackgroundGradient" 
                          EndPoint="0.5,1" StartPoint="0.5,0">

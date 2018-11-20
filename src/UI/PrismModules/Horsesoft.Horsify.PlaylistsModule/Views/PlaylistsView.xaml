@@ -273,8 +273,7 @@
                       IsExpanded="True">
 
                     <Expander.Header>
-                        <TextBlock Text="SAVED PLAYLISTS" FontSize="64"                                
-                               Foreground="{DynamicResource Color_Primary4}">
+                        <TextBlock Text="SAVED PLAYLISTS" FontSize="64">
                             <TextBlock.LayoutTransform>
                                 <RotateTransform Angle="90"/>
                             </TextBlock.LayoutTransform>

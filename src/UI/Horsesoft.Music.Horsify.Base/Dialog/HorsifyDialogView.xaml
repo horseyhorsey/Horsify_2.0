@@ -8,11 +8,9 @@
              d:DesignHeight="800" d:DesignWidth="1300"
              Width="{Binding ElementName=_mainWindow, Path=Window.ActualWidth, UpdateSourceTrigger=PropertyChanged}"
              >
-    <Border Background="{DynamicResource BackgroundGradient2}"
-                            CornerRadius="55,55,55,55" Margin="-1" 
-                            
+    <Border Background="{DynamicResource BackgroundGradient3}"
+                            CornerRadius="55,55,55,55" Margin="-1"                             
                             >
-
         <Grid>
 
             <Grid.RowDefinitions>

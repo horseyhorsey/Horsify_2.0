@@ -3,19 +3,19 @@
                     >
 
     <SolidColorBrush x:Key="Color_Primary" 
-                     Color="#BFAF00"/>
+                     Color="#D4D21D"/>
 
     <SolidColorBrush x:Key="Color_Primary2" 
-                     Color="#7F7500"/>
+                     Color="#BDB640"/>
 
     <SolidColorBrush x:Key="Color_Primary3" 
-                     Color="#FFEA00"/>
+                     Color="#D4C215"/>
 
     <SolidColorBrush x:Key="Color_Primary4" 
-                     Color="#403A00"/>
+                     Color="#BDAA30"/>
 
     <SolidColorBrush x:Key="Color_Primary5" 
-                     Color="#E5D200"/>
+                     Color="#66570F"/>
 
     <LinearGradientBrush x:Key="BackgroundGradient" 
                          EndPoint="0.5,1" StartPoint="0.5,0">

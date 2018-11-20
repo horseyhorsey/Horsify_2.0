@@ -49,9 +49,10 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         }
 
         //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("{id}")]
+        public Task<bool> Delete(int id)
+        {
+            return _horsifySongService.DeleteFilterSearchAsync(id);
+        }
     }
 }

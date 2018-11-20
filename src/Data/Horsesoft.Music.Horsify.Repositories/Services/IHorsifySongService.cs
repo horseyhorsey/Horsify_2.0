@@ -10,19 +10,24 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         AllJoinedTable GetSongById(int value);
 
         int GetTotals(string type = "Song");
+
+        Task<bool> DeleteFilterSearchAsync(int id);
+
+        Task<IEnumerable<Playlist>> GetAllPlaylistsAsync();
         Task<IEnumerable<FiltersSearch>> GetFilterSearchesAsync();
-        Task<IEnumerable<AllJoinedTable>> GetMostPlayedAsync();
+        Task<IEnumerable<AllJoinedTable>> GetMostPlayedAsync();        
         Task<IEnumerable<AllJoinedTable>> GetRecentlyAddedAsync();
         Task<IEnumerable<AllJoinedTable>> GetRecentlyPlayedAsync();
-        Task<bool> UpdatePlayedSongAsync(int id, int? rating);
-        Task<IEnumerable<AllJoinedTable>> SearchLikeAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount);        
-        Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount, short maxAmount);
-        Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists);
-        Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist);
-        Task<bool> InsertFilterSearchAsync(FiltersSearch filtersSearch);
-        Task<IEnumerable<Playlist>> GetAllPlaylistsAsync();
-
         HorsifyDataSqliteRepo GetRepo();
-        Task UpdateFilterSearchAsync(FiltersSearch filtersSearch);
+        Task<IEnumerable<AllJoinedTable>> GetSongsFromPlaylistAsync(Playlist playlist);
+
+        Task<bool> InsertFilterSearchAsync(FiltersSearch filtersSearch);
+        Task InsertOrUpdatePlaylistsAsync(Playlist[] playlists);
+
+        Task<IEnumerable<AllJoinedTable>> SearchLikeAsync(SearchType searchTypes, string wildCardSearch, short randomAmount, short maxAmount);
+        Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount, short maxAmount);
+        
+        Task UpdateFilterSearchAsync(FiltersSearch filtersSearch);        
+        Task<bool> UpdatePlayedSongAsync(int id, int? rating);
     }
 }

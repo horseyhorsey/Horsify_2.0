@@ -28,6 +28,18 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             ((IUnitOfWork)_sqliteRepo).Save();
         }
 
+        public async Task<bool> DeleteFilterSearchAsync(int id)
+        {
+            try
+            {
+                _sqliteRepo.FiltersSearchRepository.Delete(id);
+                await ((IUnitOfWork)_sqliteRepo).SaveAsync();
+                return true;
+            }
+            catch { return false;}
+            
+        }
+
         public Task<bool> InsertFilterSearchAsync(FiltersSearch filtersSearch)
         {
             try

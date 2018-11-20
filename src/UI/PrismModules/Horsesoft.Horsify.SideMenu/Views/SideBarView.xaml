@@ -28,7 +28,7 @@
         <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="Transparent"/>
 
         <!--SEARCH ICON-->
-        <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:Key="SearchIcon" x:Shared="false">
+        <Viewbox x:Key="SearchIcon" x:Shared="false">
             <Grid>
                 <Grid x:Name="backgroundGrid" Height="48" Visibility="Visible">
                     <Rectangle Fill="Transparent" x:Name="Rect" Visibility="Visible" />
@@ -81,7 +81,7 @@
         <!--METAL COLOR OVERLAY-->
         <Rectangle Grid.RowSpan="4"
                    Opacity="0.9" Margin="-2"
-                   Fill="{DynamicResource Brush_PanelMetal}" />
+                   Fill="{DynamicResource Brush_PanelMetalRight}" />
 
         <!--LOGO-->
         <ContentPresenter Height="50" Grid.Row="0"

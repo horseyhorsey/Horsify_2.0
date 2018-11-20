@@ -60,6 +60,20 @@
         </ImageBrush.Transform>
     </ImageBrush>
 
+    <ImageBrush x:Key="Brush_PanelMetalRight"                
+                    ImageSource="{DynamicResource Bitmap_Metal}"
+                    TileMode="FlipXY"                    
+                    >
+        <ImageBrush.Transform>
+            <TransformGroup>
+                <ScaleTransform ScaleX="5.5" ScaleY="0.45"/>
+                <SkewTransform/>
+                <RotateTransform Angle="0"/>
+                <TranslateTransform X="-60"/>
+            </TransformGroup>
+        </ImageBrush.Transform>
+    </ImageBrush>
+
     <!--#endregion-->
 
     <!--#region WOOD-->

@@ -9,7 +9,9 @@ using Prism.Events;
 using Prism.Logging;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -35,6 +37,15 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             SearchModel.PropertyChanged += SearchModel_PropertyChanged;
 
             ShowSearchKeyboardViewCommand = new DelegateCommand<object>(OnShowSearchKeyboard);
+
+            SearchResults = new ListCollectionView(SearchModel.AllJoinedTables);
+            SearchResults.CurrentChanged += SearchResults_CurrentChanged;
+        }
+
+        private void SearchResults_CurrentChanged(object sender, EventArgs e)
+        {
+            //TODO: Open up selected view
+            
         }
 
         private void OnShowSearchKeyboard(object showSearch)
@@ -166,6 +177,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             get { return _caretIndex; }
             set { SetProperty(ref _caretIndex, value); }
         }
+
+        public ICollectionView SearchResults { get; set; }
         #endregion
 
         #region Private Methods

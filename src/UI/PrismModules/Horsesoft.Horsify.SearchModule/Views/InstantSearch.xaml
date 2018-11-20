@@ -29,7 +29,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Margin="40">
+    <Grid x:Name="LayoutRoot" Margin="0">
 
         <!--#region DEFINITIONS-->
         <Grid.RowDefinitions>
@@ -44,7 +44,7 @@
             </Grid.ColumnDefinitions>-->
         <!--#endregion-->
 
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="80,0">
             <Label Content="SONG SEARCH" FontSize="45" HorizontalAlignment="Center"/>
             <Button Content="{Binding Source={StaticResource Icon_Search}}" 
                     MaxHeight="50"
@@ -60,20 +60,30 @@
                          />
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding SearchModel.AllJoinedTables}"
+        <horsify:ListViewTouch Grid.Row="1" ItemsSource="{Binding SearchResults}"
                           TextElement.FontSize="38" 
-                          ItemTemplate="{DynamicResource SearchItemTemplate}"                          
+                                   Template="{DynamicResource ListViewTemplate}"
+                          ItemTemplate="{DynamicResource SearchItemTemplate}" 
+                          IsSynchronizedWithCurrentItem="True"
+                                   ScrollViewer.CanContentScroll="True"   
+                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                   ScrollViewer.IsDeferredScrollingEnabled="False"
+                                   ScrollViewer.PanningDeceleration="5"                                     
                   >
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
-
+            <horsify:ListViewTouch.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
+                                                            Orientation="Vertical"
+                                                            VirtualizingPanel.IsVirtualizing="True" 
+                                                            VirtualizingPanel.ScrollUnit="Pixel"
+                                                            VirtualizingPanel.VirtualizationMode="Recycling"/>
+                </ItemsPanelTemplate>
+            </horsify:ListViewTouch.ItemsPanel>
+        </horsify:ListViewTouch>
+        
+        
         <DockPanel Grid.Row="1" Visibility="{Binding SearchKeyboardVisible, Converter={StaticResource bool2vis}}"
                   Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" 
                   >

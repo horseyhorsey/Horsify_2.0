@@ -23,7 +23,7 @@ namespace Horsesoft.Horsify.SearchModule.UserControls
 
         private void GetRandomButton_Click(object sender, RoutedEventArgs e)
         {
-            var randomOption = new RandomSelectOption(AmountControl.Value, RangeControl.RangeLower, RangeControl.RangeUpper);
+            var randomOption = new RandomSelectOption(AmountControl.Value, RatingEnabled.IsChecked, (byte)RangeControl.RangeLower, (byte)RangeControl.RangeUpper);
             Notification.Content = randomOption;
             
             FinishInteraction?.Invoke();

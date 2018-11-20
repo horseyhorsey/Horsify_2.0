@@ -11,19 +11,19 @@
         /// <param name="value"></param>
         /// <param name="rangeLower"></param>
         /// <param name="rangeUpper"></param>
-        public RandomSelectOption(int value, int rangeLower, int rangeUpper)
+        public RandomSelectOption(int value, bool? ratingEnabled, byte rangeLower, byte rangeUpper)
         {
             this.Amount = value;
 
             if (rangeLower > rangeUpper)
                 rangeUpper = rangeLower;
 
-            this.RatingLower = rangeLower;
-            this.RatingHigher = rangeUpper;
+            RatingRange = new RangeFilterOption<byte>(rangeLower, rangeUpper);
+            RatingRange.IsEnabled = ratingEnabled ?? false;
         }
 
         public int Amount { get; }
-        public int RatingLower { get; }
-        public int RatingHigher { get; }
+
+        public RangeFilterOption<byte> RatingRange { get; set; }
     }
 }

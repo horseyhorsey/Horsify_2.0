@@ -7,6 +7,7 @@
              xmlns:horsify="http://schemas/horsesoft.co.uk"
              mc:Ignorable="d" 
              Opacity="0.9"
+             IsTabStop="False"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="{DynamicResource BackgroundGradient3}">
@@ -15,29 +16,43 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="44" 
                            Text="SELECT RANDOM SONGS"/>
             </Grid>
-            
-            <horsify:AmountSelectControl x:Name="AmountControl" Grid.Row="1" TextElement.FontSize="42"  
+
+            <GroupBox Header="Amount" Grid.Row="1" TextElement.FontSize="42"  MaxWidth="400">
+                <horsify:AmountSelectControl x:Name="AmountControl" 
                                              HorizontalAlignment="Center" 
                                              Background="Transparent"      
-                                             Value="5"
+                                             Value="5"                                             
                                              ShowLargerIncrementButtons="False"/>
+            </GroupBox>
 
-            <horsify:RatingRangeControl Grid.Row="2" x:Name="RangeControl" StarWidth="50"
+            <GroupBox Header="Rating" TextElement.FontSize="42" Grid.Row="2" MaxWidth="400" >
+
+                <StackPanel>
+
+                    <CheckBox x:Name="RatingEnabled" Content="Enabled"/>
+
+                    <horsify:RatingRangeControl x:Name="RangeControl" StarWidth="50"
+                                                IsEnabled="{Binding ElementName=RatingEnabled, Path=IsChecked}"
                                         RangeLower="196" RangeUpper="255"
                                         />
+                </StackPanel>
+            </GroupBox>
 
-            <Button Grid.Row="3" FontSize="48" 
+
+            <GroupBox Header="Select" Grid.Row="3" TextElement.FontSize="42" MaxWidth="400">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    
+                    <Button Grid.Row="3" FontSize="48" Margin="15"
                 Width="85"
                 Height="65"
                 Style="{DynamicResource ButtonQueueMetal}" 
@@ -45,13 +60,17 @@
                 IsEnabled="True"                        
                         />
 
-            <horsify:ButtonWithLabel Grid.Row="4" 
+                    <horsify:ButtonWithLabel Grid.Row="4" 
                                      Click="BackButton_Click"
                                      MaxHeight="110" MaxWidth="70"
                                      HorizontalAlignment="Center"                                                                          
                                      Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                                     
                                      BorderThickness="0"
                         />
+                </StackPanel>
+            </GroupBox>
+            
+
         </Grid>
     </Grid>
 

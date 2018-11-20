@@ -533,7 +533,7 @@
     </Viewbox>
     
     <!--YEAR ICON-->
-    <Viewbox x:Key="YearIcon" Stretch="Uniform">
+    <Viewbox x:Key="YearIcon" x:Shared="false" Stretch="Uniform">
         <Canvas Name="svg4" Width="24" Height="24">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>
@@ -550,7 +550,7 @@
     </Viewbox>
 
     <!--BOOKMARKS-->
-    <Viewbox x:Key="BookmarksIcon" Stretch="Uniform">
+    <Viewbox x:Key="BookmarksIcon" x:Shared="false" Stretch="Uniform">
         <Canvas Width="24" Height="24">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>
@@ -566,7 +566,7 @@
         </Canvas>
     </Viewbox>
 
-    <Viewbox x:Key="SaveIcon"  Stretch="Uniform">
+    <Viewbox x:Key="SaveIcon" x:Shared="false"  Stretch="Uniform">
         <Canvas Width="24" Height="24">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>

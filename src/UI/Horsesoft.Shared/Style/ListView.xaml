@@ -317,7 +317,7 @@
                                     Background="Transparent" 
                                     HorizontalAlignment="Center"
                                     BorderThickness="0"
-                                    MaxWidth="185" Height="158"
+                                    MaxWidth="185" Height="160"
                                     EnableClickHold="True"                                    
                                     Command="{Binding ElementName=LayoutRoot,Path=DataContext.SelectMenuCommand}"
                                     CommandParameter="{Binding}"
@@ -358,7 +358,7 @@
                                 <Border Grid.Row="0" x:Name="Border_Label" 
                                             CornerRadius="0,0,0,0" 
                                             BorderThickness="3"
-                                            BorderBrush="{DynamicResource BackgroundGradient5}"
+                                            BorderBrush="{DynamicResource BackgroundGradient4}"
                                             Background="{DynamicResource Brush_MetalFlip}"/>
 
                                 <Rectangle Fill="{DynamicResource Silver}" Opacity="0.33"/>
@@ -374,7 +374,7 @@
                                     </Image.OpacityMask>
                                 </Image>
 
-                                <Rectangle Fill="{DynamicResource Color_Primary5}" 
+                                <Rectangle Fill="{DynamicResource Color_Primary4}" 
                                                VerticalAlignment="Bottom" Height="2.5"/>
 
                                 <!--BUTTON TEXT-->
@@ -387,7 +387,7 @@
                                     <Grid >
 
                                         <TextBlock Grid.Row="1" Text="{Binding SearchTitle}" FontSize="18" 
-                                                       Foreground="{DynamicResource Color_Primary4}"
+                                                       Foreground="{DynamicResource Color_Primary3}"
                                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                                     </Grid>

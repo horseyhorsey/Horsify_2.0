@@ -27,37 +27,68 @@
             <Grid Grid.Row="1" TextElement.FontSize="24" Margin="5,0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto" MinWidth="200"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="NAME: "/>
-                <TextBox Grid.Column="1" 
+                <GroupBox Header="Add Filters" Margin="50,0">
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" MinWidth="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="NAME: "/>
+                        <TextBox Grid.Column="1" 
                          Text="{Binding CurrentFilter.FileName, UpdateSourceTrigger=PropertyChanged}"
                          Margin="5,0"
                          />
 
-                <TextBlock Grid.Column="2" Text="ADD FILTER: "/>
-                
-                <TextBox Grid.Column="3" 
+                        <TextBlock Grid.Column="2" Text="ADD FILTER: "/>
+
+                        <TextBox Grid.Column="3" 
                          Text="{Binding CurrentSearchTerm, UpdateSourceTrigger=PropertyChanged}"
                          />
-                <Button Content="ADD" Grid.Column="4" IsDefault="True" Command="{Binding AddSearchTermCommand}"/>
-                
+                        <Button Content="ADD" Grid.Column="4" IsDefault="True" Command="{Binding AddSearchTermCommand}"/>
+                    </Grid>
+                </GroupBox>
+
+                <!--SAVE / CANCEL-->
+                <GroupBox Header="Save / Cancel" Grid.Column="5"
+                      HorizontalAlignment="Right"
+                      Margin="50,5">
+                    <StackPanel Orientation="Horizontal"
+                        >
+
+                        <Button Style="{DynamicResource ButtonMetal}"
+                    Content="{Binding Source={StaticResource DeleteIcon}}"
+                        FontSize="24" HorizontalAlignment="Left"
+                    Command="{Binding DeleteFilterCommand}"
+                    />
+
+
+                        <Button Content="CANCEL"             
+                        FontSize="24"
+                    Command="{Binding CancelCommand}"
+                    />
+
+                        <Button Content="{Binding Source={StaticResource  SaveIcon}}" 
+                        Style="{DynamicResource ButtonMetal}"
+                        Grid.Row="3"
+                        FontSize="24"
+                    Command="{Binding SaveFilterCommand}"
+                    />
+                    </StackPanel>
+                </GroupBox>
+
             </Grid>
 
             <!--ADD SEARCH TERM-->
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
-
-
+            <Grid Grid.Row="2" Margin="25">
 
                 <!--AVAILABLE FILTERS-->
                 <ListView Grid.Column="1" TextElement.FontSize="32" Margin="15"
@@ -74,23 +105,6 @@
                     </ListView.ItemsPanel>
                 </ListView>
             </Grid>
-
-            <!--SAVE / CANCEL-->
-            <StackPanel Grid.Row="3" Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        Margin="50,5"
-                        >
-                
-                <Button Content="CANCEL"             
-                        FontSize="24"
-                    Command="{Binding CancelCommand}"
-                    />
-
-                <Button Content="SAVE" Grid.Row="3"
-                        FontSize="24"
-                    Command="{Binding SaveFilterCommand}"
-                    />
-            </StackPanel>
 
         </Grid>
     </Border>

@@ -23,7 +23,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         #region Commands
         public ICommand AddSearchTermCommand { get; set; }
-        public ICommand CancelCommand { get; set; }        
+        public ICommand CancelCommand { get; set; }
+        public ICommand DeleteFilterCommand { get; set; }        
         public ICommand RemoveSearchTermCommand { get; set; }
         public ICommand SaveFilterCommand { get; set; }
         #endregion
@@ -38,6 +39,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
             AddSearchTermCommand = new DelegateCommand(OnAddSearchTerm);
             CancelCommand = new DelegateCommand(OnCancel);
+            DeleteFilterCommand = new DelegateCommand(OnDeleteFilter);
             RemoveSearchTermCommand = new DelegateCommand(OnRemoveSearchTerm);
             SaveFilterCommand = new DelegateCommand(OnSaveFilter);
         }
@@ -97,6 +99,19 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 if (!SearchTerms.Any(x => x == CurrentSearchTerm))
                     SearchTerms.Add(CurrentSearchTerm);
             }
+        }
+
+        /// <summary>
+        /// Sends a delete_filter request to DjHorsifyView to delete the filter.
+        /// </summary>
+        private void OnDeleteFilter()
+        {
+            //Create params based on whether we were editing or not
+            var navParams = new NavigationParameters();
+            Log("Adding NEW Filter");
+            //searchFilter.Id = -1;
+            navParams.Add("delete_filter", this.CurrentFilter);
+            _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView", navParams);
         }
 
         private void OnRemoveSearchTerm()

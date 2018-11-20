@@ -19,7 +19,7 @@ namespace Horsesoft.Music.Horsify.Base.Interface
         ObservableCollection<DjHorsifyFilterModel> HorsifyFilters { get; set; }
         ObservableCollection<FiltersSearch> SavedFilters { get; set; }
 
-        Task<bool> DeleteFilterAsync(int? id);
+        Task<bool> DeleteSearchFilterAsync(int? id);
 
         Task GetDatabaseFiltersAsync();
 
@@ -38,6 +38,7 @@ namespace Horsesoft.Music.Horsify.Base.Interface
         SearchFilter GenerateSearchFilter(IDjHorsifyOption djHorsifyOption);
 
         Task<bool> UpdateSearchFilterAsync(FiltersSearch filter);
-        
+
+        Task<bool> DeleteFilterAsync(Filter filter);
     }
 }

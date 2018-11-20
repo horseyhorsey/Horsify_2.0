@@ -93,7 +93,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             Log($"Deleting saved filters: {SelectedFilter ?.Name}");
             bool result = false;
             if (this.SelectedFilter?.Id > 0)
-                result = await _djHorsifyService.DeleteFilterAsync(this.SelectedFilter?.Id);
+                result = await _djHorsifyService.DeleteSearchFilterAsync(this.SelectedFilter?.Id);
 
             if (result)
             {

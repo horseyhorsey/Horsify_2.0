@@ -566,6 +566,7 @@
         </Canvas>
     </Viewbox>
 
+    <!--SAVE ICON-->
     <Viewbox x:Key="SaveIcon" x:Shared="false"  Stretch="Uniform">
         <Canvas Width="24" Height="24">
             <Canvas.RenderTransform>

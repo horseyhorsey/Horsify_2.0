@@ -53,6 +53,9 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter);
         Task<bool> UpdateSavedSearchFiltersAsync(FiltersSearch filter);
-        
+
+        Task<bool> DeleteFilterAsync(Filter filter);
+
+
     }
 }

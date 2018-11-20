@@ -26,6 +26,19 @@ namespace Horsesoft.Music.Data.Model.Horsify
         #endregion
 
         #region Public Methods
+
+        public async Task<bool> DeleteFilterAsync(Filter filter)
+        {
+            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
+            var response = await _client.DeleteAsync($"{BaseAddress}/api/filters/{filter.Name}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<bool> DeleteFilterSearchAsync(int? id)
         {
             var response = await _client.DeleteAsync($"{BaseAddress}/api/filterssearch/{id}");

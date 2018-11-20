@@ -361,9 +361,42 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
                     Log($"Filter {dbFilter.Name} saved successfully", Category.Info);
                 }
+                return;
+            }
+
+            filter = navigationContext.Parameters["delete_filter"] as DjHorsifyFilterModel;
+            if (filter != null)
+            {
+                Music.Data.Model.Filter dbFilter = CreateDbFilter(filter);
+                bool result = false;
+                Task.Run(async () =>
+                {
+                    result = await _djHorsifyService.DeleteFilterAsync(dbFilter);
+                }).Wait();
+
+                if (result)
+                {
+                    var inListFilter = _djHorsifyService.Filters.FirstOrDefault(x => x.Name == dbFilter.Name);
+                    if (inListFilter != null)
+                    {                        
+                        var deleted = _djHorsifyService.Filters.Remove(inListFilter);
+                        filter.SearchAndOrOption = SearchAndOrOption.None;
+                        _djHorsifyService.HorsifyFilters.Remove(filter);
+                        Log($"Deleted filter from database: {deleted}");
+                    }
+                    else
+                    {
+                        Log($"Couldn't find filter to remove");
+                    }
+
+                }
+                else
+                    Log("Couldn't delete filter from database", Category.Warn);
 
                 return;
             }
+
+            
 
             var savedfilter = navigationContext.Parameters["load_filter"] as FiltersSearch;
             if (savedfilter != null)

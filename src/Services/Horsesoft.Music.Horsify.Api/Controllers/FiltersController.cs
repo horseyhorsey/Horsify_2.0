@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Horsify.Repositories.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -45,10 +46,18 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{filter}")]
-        public void Delete(Filter filter)
+        [HttpDelete("{name}")]
+        public bool Delete(string name)
         {
-            _horsifySongService.RemoveFilter(filter);
+            var repo = _horsifySongService.GetRepo();
+            var filter = (repo.FilterRepository.Get(x => x.Name == name))?.ElementAt(0);
+            if (filter != null)
+            {
+                _horsifySongService.RemoveFilter(filter);
+                return true;
+            }
+
+            return false;
         }
     }
 }

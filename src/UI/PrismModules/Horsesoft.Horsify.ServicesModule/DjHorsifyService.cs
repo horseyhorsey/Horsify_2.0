@@ -63,6 +63,11 @@ namespace Horsesoft.Horsify.ServicesModule
             return _horsifySongApi.InsertSavedSearchFiltersAsync(searchFilter);
         }
 
+        public Task<bool> DeleteFilterAsync(Filter filter)
+        {
+            return _horsifySongApi.DeleteFilterAsync(filter);
+        }
+
         public SearchFilter GenerateSearchFilter(IDjHorsifyOption djHorsifyOption)
         {
             IList<HorsifyFilter> horsifyFilters = new List<HorsifyFilter>();
@@ -189,7 +194,7 @@ namespace Horsesoft.Horsify.ServicesModule
             return _horsifySongApi.UpdateSavedSearchFiltersAsync(filter);
         }
 
-        public Task<bool> DeleteFilterAsync(int? id)
+        public Task<bool> DeleteSearchFilterAsync(int? id)
         {
             return _horsifySongApi.DeleteFilterSearchAsync(id);
         }

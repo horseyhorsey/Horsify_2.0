@@ -179,14 +179,6 @@
                     <RowDefinition Height="0"/>
                 </Grid.RowDefinitions>
 
-                <Grid.Resources>
-
-                    <!--<Style x:Key="HorsifySearchButtonStyle" BasedOn="{StaticResource {x:Type horsify:HorsifySearchButton}}"
-               TargetType="horsify:HorsifySearchButton">
-                        <Setter Property="Visibility" Value="{Binding SearchString, Converter={StaticResource string2vis}}"/>
-                    </Style>-->
-                </Grid.Resources>
-
                 <!--#region BUTTONS-->
 
                 <Label Content="SEARCH" FontSize="16"/>
@@ -195,6 +187,7 @@
                 <!--ARTIST WITH SEARCH-->
                 <horsify:HorsifySearchButton Grid.Column="1"   Grid.Row="1"
                     SearchString="{Binding SelectedSong.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  
+                    Visibility="{Binding SelectedSong.Artist, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Artist"                        
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource ArtistIcon}}"
@@ -207,6 +200,7 @@
                 <!--TITLE SEARCH-->
                 <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="2" 
                     SearchString="{Binding SelectedSong.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"                                    
+                    Visibility="{Binding SelectedSong.Title, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Title"                        
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource Icon_Genre}}"
@@ -216,6 +210,7 @@
                 <!--ALBUM SEARCH-->
                 <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="3" 
                     SearchString="{Binding SelectedSong.Album, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding SelectedSong.Album, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Album"                        
                     Command="{Binding SearchSongsCommand}"
                     Content="{Binding Source={StaticResource RecordLabelIcon}}"
@@ -225,6 +220,7 @@
                 <!--GENRE SEARCH-->
                 <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="4" 
                     SearchString="{Binding SelectedSong.Genre, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"         
+                    Visibility="{Binding SelectedSong.Genre, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Genre"                        
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource Icon_Genre}}"
@@ -233,7 +229,7 @@
 
                 <!--LABEL SEARCH-->
                 <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="5" 
-                                             Visibility="{Binding SearchString, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
+                                             Visibility="{Binding SelectedSong.Label, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     SearchString="{Binding SelectedSong.Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Label"                        
                     Command="{Binding SearchSongsCommand}"                     
@@ -248,7 +244,7 @@
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource Icon_Genre}}"
                     FontSize="52"
-                    Visibility="{Binding SearchString, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding SelectedSong.Year, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     />
 
                 <!--#endregion-->

@@ -21,32 +21,27 @@
         </Style>
     </UserControl.Resources>
 
-    <Border x:Name="LayoutRoot" CornerRadius="55,55,55,55"
-            Background="{DynamicResource BackgroundGradient3}">
+    <Grid x:Name="LayoutRoot">
 
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="SAVED DJ HORSIFY FILTERS"
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="SAVED DJ HORSIFY FILTERS"
                    FontSize="32"
                    />
-                <Button Content="Back" 
+            <Button Content="Back" 
                         Command="{Binding ExitViewCommand}"/>
-            </StackPanel>
+        </StackPanel>
 
-            <ListView Grid.Row="1"
+        <ListView Grid.Row="1"
                 Margin="20"
                 SelectedItem="{Binding SelectedFilter}"
                 ItemsSource="{Binding SavedFilters}" ItemContainerStyle="{StaticResource SavedFilterStyle}">
 
-            </ListView>
-        </Grid>
-        
-    </Border>
-    
+        </ListView>
+    </Grid>
+
 </UserControl>

@@ -7,82 +7,68 @@
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"             
              >
-
-    <UserControl.Resources>
-        <!--TODO: Remove? Enum for SongFilterType-->
-        <!--<ObjectDataProvider x:Key="SearchTypes" ObjectType="{x:Type Sys:Enum}" MethodName="GetValues" >
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="model:SongFilterType"></x:Type>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>-->
-    </UserControl.Resources>
     
-    
-    
-    <Border CornerRadius="55,55,55,55" Margin="-1"
-            Background="{DynamicResource BackgroundGradient3}">
+    <Grid x:Name="Grid_CreateFilter">
 
-        <Grid x:Name="Grid_CreateFilter">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="CREATE FILTER" HorizontalAlignment="Center"                       
+        <TextBlock Text="CREATE FILTER" HorizontalAlignment="Center"                       
                        Style="{StaticResource TextBlockStyle_BebasXxLarge}"
                        VerticalAlignment="Top"
                        />
-            
-            <TextBlock Grid.Row="1" Text="SELECT FILTER TYPE" HorizontalAlignment="Center"                       
+
+        <TextBlock Grid.Row="1" Text="SELECT FILTER TYPE" HorizontalAlignment="Center"                       
                        Style="{StaticResource TextBlockStyle_BebasMed}"
                        VerticalAlignment="Top"
                        />
 
-            <ListView Grid.Row="2" Margin="25" x:Name="FilterListView"                      
+        <ListView Grid.Row="2" Margin="25" x:Name="FilterListView"                      
                       SelectedValue="{Binding SelectedSearchType, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Content"
                       Background="Transparent" FontSize="65"
                       BorderThickness="4" BorderBrush="AntiqueWhite"
                       MaxWidth="250"                       
                       >
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical" MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListView}, Path=ActualWidth}"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical" MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListView}, Path=ActualWidth}"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Path=.}" Margin="10"
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=.}" Margin="10"
                                    HorizontalAlignment="Right"
                                    FontSize="44"                                            
                                    Foreground="Black"
                                    />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                </DataTemplate>
+            </ListView.ItemTemplate>
 
-                <ListViewItem>
-                    Artist
-                </ListViewItem>
-                <ListViewItem>
-                    Country    
-                </ListViewItem>
-                <ListViewItem>
-                    Genre
-                </ListViewItem>
-                <ListViewItem>
-                    Label
-                </ListViewItem>
-                <ListViewItem>
-                    Year
-                </ListViewItem>
+            <ListViewItem>
+                Artist
+            </ListViewItem>
+            <ListViewItem>
+                Country
+            </ListViewItem>
+            <ListViewItem>
+                Genre
+            </ListViewItem>
+            <ListViewItem>
+                Label
+            </ListViewItem>
+            <ListViewItem>
+                Year
+            </ListViewItem>
 
-            </ListView>
+        </ListView>
 
-            <Button Content="CANCEL" Grid.Row="3" 
+        <Button Content="CANCEL" Grid.Row="3" 
                     Background="Red"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -91,8 +77,6 @@
                     Command="{Binding NavigateBackCommand}"
                     />
 
-        </Grid>
-        
-    </Border>
-    
+    </Grid>
+
 </UserControl>

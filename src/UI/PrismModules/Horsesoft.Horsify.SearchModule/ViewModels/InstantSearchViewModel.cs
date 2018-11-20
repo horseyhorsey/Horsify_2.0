@@ -72,6 +72,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             return _songDataProvider.GetSongById(allJoinedTable.Id);
         }
 
+
+        //TODO: Put this back in
         /// <summary>
         /// Gets the song from a searchstring. Searchstring must begin with an ID and be split with pipe char. |
         /// </summary>

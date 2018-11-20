@@ -9,9 +9,6 @@
              xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.Resource.UserControls;assembly=Horsesoft.Horsify.Resource"             
              d:DesignHeight="800" d:DesignWidth="1700">
 
-    <Border CornerRadius="55,55,55,55" Margin="-1"
-            Background="{DynamicResource BackgroundGradient3}">
-        
     <Grid x:Name="LayoutRoot" 
           FocusManager.FocusedElement="{Binding ElementName=OnScreenKeyboard}"
           >
@@ -21,11 +18,11 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
         <Button Grid.Column="1" Margin="63,10"     
                 Background="Transparent"
@@ -50,7 +47,7 @@
                     />
         </StackPanel>
 
-            <!--KEYBOARD-->
+        <!--KEYBOARD-->
         <usercontrols:ucOnScreenKeyboard Grid.Column="0" Grid.Row="1"       
                                          x:Name="OnScreenKeyboard"
                        HorizontalAlignment="Center"
@@ -60,7 +57,7 @@
                                     , UpdateSourceTrigger=PropertyChanged}"
             />
 
-            <Button Command="{Binding RunSearchCommand}" 
+        <Button Command="{Binding RunSearchCommand}" 
                     HorizontalAlignment="Right"
                 IsDefault="True"
                 FontSize="65"
@@ -70,6 +67,5 @@
                 VerticalAlignment="Top"/>
 
 
-        </Grid>
-    </Border>
+    </Grid>
 </UserControl>

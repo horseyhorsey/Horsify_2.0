@@ -29,76 +29,71 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Border CornerRadius="55,55,55,55" Margin="-1"
-            Background="{DynamicResource BackgroundGradient3}">
+    <Grid x:Name="LayoutRoot" Margin="40">
 
-        <Grid x:Name="LayoutRoot" Margin="40">
-            
-            <!--#region DEFINITIONS-->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <!--#region DEFINITIONS-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <!--<Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>-->
-            <!--#endregion-->
+        <!--#endregion-->
 
-            <StackPanel Orientation="Horizontal">
-                <Label Content="SONG SEARCH" FontSize="45" HorizontalAlignment="Center"/>
-                <Button Content="{Binding Source={StaticResource Icon_Search}}" 
+        <StackPanel Orientation="Horizontal">
+            <Label Content="SONG SEARCH" FontSize="45" HorizontalAlignment="Center"/>
+            <Button Content="{Binding Source={StaticResource Icon_Search}}" 
                     MaxHeight="50"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top" 
                     Margin="5"                    
                     Command="{Binding ShowSearchKeyboardViewCommand}" CommandParameter="True"
                     />
-                <TextBox x:Name="SearchTextBox"
+            <TextBox x:Name="SearchTextBox"
                          Text="{Binding SearchModel.SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Delay=750}"                         
                          MinWidth="250" Margin="5"
                          TextElement.FontSize="34"   
                          />
-            </StackPanel>
+        </StackPanel>
 
-            <ScrollViewer Grid.Row="1">
-                <ItemsControl ItemsSource="{Binding SearchModel.AllJoinedTables}"
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding SearchModel.AllJoinedTables}"
                           TextElement.FontSize="38" 
                           ItemTemplate="{DynamicResource SearchItemTemplate}"                          
                   >
 
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
 
-            <DockPanel Grid.Row="1" Visibility="{Binding SearchKeyboardVisible, Converter={StaticResource bool2vis}}"
+        <DockPanel Grid.Row="1" Visibility="{Binding SearchKeyboardVisible, Converter={StaticResource bool2vis}}"
                   Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" 
                   >
 
-                <Button Content="ESC" HorizontalAlignment="Right" VerticalAlignment="Top" 
+            <Button Content="ESC" HorizontalAlignment="Right" VerticalAlignment="Top" 
                         Height="55" Width="75" 
                         Background="Red" Margin="5"
                         FontWeight="DemiBold" FontSize="20"
                         Command="{Binding ShowSearchKeyboardViewCommand}" CommandParameter="False"
                         DockPanel.Dock="Right"
                         />
-                
-                <horsify:OnScreenKeyboard
+
+            <horsify:OnScreenKeyboard
                                           VerticalAlignment="Center" HorizontalAlignment="Center" 
                                       TextElement.FontSize="34"                                          
                                       CursorPosition="{Binding CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Text="{Binding SearchModel.SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Delay=750}" 
                                       />
-            </DockPanel>
+        </DockPanel>
 
-        </Grid>
-        
-    </Border>
+    </Grid>
 
 </UserControl>

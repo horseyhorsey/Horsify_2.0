@@ -8,49 +8,45 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <Border CornerRadius="55,55,55,55" Margin="-1"
-            Background="{DynamicResource BackgroundGradient3}">
+    <Grid Margin="50,100">
 
-        <Grid Margin="50,100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <GroupBox Header="Skin Color" FontSize="32">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Height" Value="50"/>
+                        <Setter Property="Width" Value="50"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                    </Style>
+                </StackPanel.Resources>
 
-            <GroupBox Header="Skin Color" FontSize="32">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Height" Value="50"/>
-                            <Setter Property="Width" Value="50"/>
-                            <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="BorderBrush" Value="Black"/>
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <Button x:Name="BlueSkin" Background="DodgerBlue" 
+                <Button x:Name="BlueSkin" Background="DodgerBlue" 
                             Click="ChangeSkinColorButton_Click"
                             CommandParameter="Style\\BlueSkin.xaml"
                             />
-                    <Button x:Name="GreenSkin"  Background="LightGreen" Click="ChangeSkinColorButton_Click"
+                <Button x:Name="GreenSkin"  Background="LightGreen" Click="ChangeSkinColorButton_Click"
                             CommandParameter="Style\\GreenSkin.xaml"
                             />
-                    <Button Background="Yellow" Click="ChangeSkinColorButton_Click"
+                <Button Background="Yellow" Click="ChangeSkinColorButton_Click"
                             CommandParameter="Style\\YellowSkin.xaml"
                             />
-                    <Button Background="Red" Click="ChangeSkinColorButton_Click"                            
+                <Button Background="Red" Click="ChangeSkinColorButton_Click"                            
                             CommandParameter="Style\\RedSkin.xaml"
                             />
-                    
-                    <Button Background="Orange" Click="ChangeSkinColorButton_Click"
+
+                <Button Background="Orange" Click="ChangeSkinColorButton_Click"
                             CommandParameter="Style\\MelonSkin.xaml"
                             />
-                    
-                </StackPanel>
-            </GroupBox>
-            
-        </Grid>
-    </Border>
-    
+
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+
 </UserControl>

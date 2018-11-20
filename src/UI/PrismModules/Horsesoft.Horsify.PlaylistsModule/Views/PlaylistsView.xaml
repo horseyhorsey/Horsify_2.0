@@ -229,62 +229,65 @@
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
-    <Border CornerRadius="55,55,55,55" Margin="-1" x:Name="LayoutRoot"
-            Background="{DynamicResource BackgroundGradient3}">
+    <!--<Border x:Name="LayoutRoot" Style="{StaticResource Border_MainContentRegion}">
 
-        <Grid Margin="5">
+      
 
-            <!--#region Definitions-->
-            <!--<Grid.ColumnDefinitions>
+    </Border>-->
+
+    <Grid >
+
+        <!--#region Definitions-->
+        <!--<Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>-->
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <!--#endregion-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--#endregion-->
 
-            <!--#region TITLE -->
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="         PLAYLISTS"   Grid.ColumnSpan="2"
+        <!--#region TITLE -->
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="         PLAYLISTS"   Grid.ColumnSpan="2"
                        HorizontalAlignment="Center"
                        FontSize="54"
                        Style="{StaticResource TextBlockStyle_BebasXxLarge}"
                        VerticalAlignment="Top"
                        />
 
-                <Button Content="?" FontSize="45" 
+            <Button Content="?" FontSize="45" 
                         VerticalContentAlignment="Top"
                         Height="50"
                         Command="{Binding HelpWindowCommand}"
                         />
-            </StackPanel>
-            <!--#endregion-->
+        </StackPanel>
+        <!--#endregion-->
 
 
-            <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="1">
 
-                <Expander Grid.Row="1" Grid.Column="0" 
+            <Expander Grid.Row="1" Grid.Column="0" 
                           DockPanel.Dock="Left"
                       ExpandDirection="Right"   
                       BorderBrush="Transparent"
                       IsExpanded="True">
 
-                    <Expander.Header>
-                        <TextBlock Text="SAVED PLAYLISTS" FontSize="64">
-                            <TextBlock.LayoutTransform>
-                                <RotateTransform Angle="90"/>
-                            </TextBlock.LayoutTransform>
-                        </TextBlock>
-                    </Expander.Header>
+                <Expander.Header>
+                    <TextBlock Text="SAVED PLAYLISTS" FontSize="64">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
 
-                    <local:SavedPlaylistsView/>
+                <local:SavedPlaylistsView/>
 
-                </Expander>
+            </Expander>
 
-                <TabControl x:Name="PlaylistTabControl" Margin="20"
+            <TabControl x:Name="PlaylistTabControl" Margin="20"
                             DockPanel.Dock="Right"
                             Style="{DynamicResource TabControlNoReorderStyle}"
                             Background="Transparent" BorderBrush="Transparent"
@@ -293,11 +296,9 @@
                             ItemsSource="{Binding OpenPlayListViewModels}"
                             ItemTemplate="{StaticResource PlaylistTabHeaderRemplate}" 
                             SelectedItem="{Binding SelectedTab, UpdateSourceTrigger=PropertyChanged}">
-                </TabControl>
-            </DockPanel>
+            </TabControl>
+        </DockPanel>
 
-        </Grid>
-
-    </Border>
+    </Grid>
 
 </UserControl>

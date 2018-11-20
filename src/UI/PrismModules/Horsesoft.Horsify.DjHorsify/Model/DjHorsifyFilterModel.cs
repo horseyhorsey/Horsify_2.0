@@ -1,9 +1,5 @@
-﻿using Horsesoft.Music.Data.Model.Horsify;
-using Prism.Mvvm;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using System.Windows.Data;
 
 namespace Horsesoft.Horsify.DjHorsify.Model

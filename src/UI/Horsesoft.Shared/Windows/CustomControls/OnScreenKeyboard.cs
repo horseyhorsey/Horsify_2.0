@@ -45,21 +45,24 @@ namespace Horsesoft.Horsify.Resource.Windows.CustomControls
             //Clear the text search box and return.
             if (key == "Clr")
             {
-                this.Text = string.Empty;                
+                this.Text = string.Empty;
+                CursorPosition = 0;
                 return;
             }
 
             //Delete the char or add
             if (key == "Del")
             {
-                if (this.CaretIndex > 0)
+                if (CursorPosition > 0)
                 {
-                    this.Text = this.Text.Remove(this.CaretIndex - 1, 1);
+                    this.Text = this.Text.Remove(CursorPosition - 1, 1);
+                    CursorPosition--;
                 }
             }
             else
             {
-                this.Text = this.Text.Insert(this.CaretIndex, key);                
+                this.Text = this.Text.Insert(CursorPosition, key);
+                CursorPosition++;
             }
 
         }

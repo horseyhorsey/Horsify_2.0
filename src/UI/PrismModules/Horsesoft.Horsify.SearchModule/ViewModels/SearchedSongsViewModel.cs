@@ -359,14 +359,22 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             if (_songDataProvider.SearchedSongs?.Count > 0)
             {
-                Log($"Queuing random songs", Category.Debug);
-
-                var songs = new List<AllJoinedTable>();
-
-                var filtered = _songDataProvider.SearchedSongs
-                    .Where(x => x.Rating >= options.RatingLower &&
-                                x.Rating <= options.RatingHigher
-                    ).ToArray();
+                Log($"Queuing random songs count: {_songDataProvider.SearchedSongs?.Count}", Category.Debug);
+                
+                IEnumerable<AllJoinedTable> filtered = null;
+                if (options.RatingRange.IsEnabled)
+                {
+                    Log("Rating random selected");
+                    filtered = _songDataProvider.SearchedSongs
+                   .Where(x => x.Rating >= options.RatingRange.Low &&
+                               x.Rating <= options.RatingRange.Hi
+                   );
+                }
+                else
+                {
+                    Log("Rating random not selected");
+                    filtered = _songDataProvider.SearchedSongs;
+                }
 
                 //Pick random songs from filtered
                 var filterCount = filtered.Count() - 1;
@@ -377,9 +385,12 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                         //Select random id from the fitlered count.
                         //Only add song if not already exisiting.
                         var id = _random.Next(filterCount);
-                        var song = filtered[id];
+                        var song = filtered.ElementAt(id);
                         if (!_queuedSongDataProvider.QueueSongs.Contains(song))
+                        {
                             _queuedSongDataProvider.QueueSongs.Add(song);
+                            Log($"Song added to queue: {song.Artist}  - {song.Title}");
+                        }                            
                     }
                 }
             }

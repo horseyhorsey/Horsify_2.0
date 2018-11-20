@@ -13,6 +13,7 @@
                             <Button Content="Load" Command="{Binding ElementName=LayoutRoot, Path=DataContext.LoadSavedFilterCommand}" Margin="3"/>
                             <Button Content="Search" Command="{Binding ElementName=LayoutRoot, Path=DataContext.SearchFilterCommand}" Margin="3"/>
                             <TextBlock Text="{Binding Name}" Margin="3"/>
+                            <Button Content="Delete" Command="{Binding ElementName=LayoutRoot, Path=DataContext.DeleteFilterCommand}" Margin="3"/>
                         </StackPanel>
                     </DataTemplate>
                 </Setter.Value>

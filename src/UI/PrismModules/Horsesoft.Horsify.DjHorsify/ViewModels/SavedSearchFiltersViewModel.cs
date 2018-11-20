@@ -22,6 +22,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         private IRegionManager _regionManager;
 
         #region Commands
+
+        public ICommand DeleteFilterCommand { get; private set; }
         public ICommand ExitViewCommand { get; private set; }
         public ICommand LoadSavedFilterCommand { get; private set; }
         public ICommand SearchFilterCommand { get; private set; } 
@@ -32,6 +34,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _djHorsifyService = djHorsifyService;
             _regionManager = regionManager;
 
+            DeleteFilterCommand = new DelegateCommand(async ()=> await OnDeleteFilterCommand());
             ExitViewCommand = new DelegateCommand(() => _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView"));
             LoadSavedFilterCommand = new DelegateCommand(OnLoadSavedFilter);
             SearchFilterCommand = new DelegateCommand(OnRunSearchFilter);
@@ -83,6 +86,21 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 }
 
             });
+        }
+
+        private async Task OnDeleteFilterCommand()
+        {
+            Log($"Deleting saved filters: {SelectedFilter ?.Name}");
+            bool result = false;
+            if (this.SelectedFilter?.Id > 0)
+                result = await _djHorsifyService.DeleteFilterAsync(this.SelectedFilter?.Id);
+
+            if (result)
+            {
+                Log("Removing search filter from UI list");
+                _djHorsifyService.SavedFilters.Remove(SelectedFilter);
+            }
+                
         }
 
         private void OnLoadSavedFilter()

@@ -1,4 +1,5 @@
 ﻿using Horsesoft.Horsify.DjHorsify.Model;
+using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Helpers;
@@ -23,7 +24,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
     {
         DjHorsifyOption DjHorsifyOption { get; set; }
         ICollectionView IncludedFiltersView { get; set; }
-        ICollectionView IncludedAndFiltersView { get; set; }        
+        ICollectionView IncludedAndFiltersView { get; set; }
         ICollectionView ExcludedFiltersView { get; set; }
     }
 
@@ -34,10 +35,12 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         #region Commands        
         public ICommand CreateFilterCommand { get; set; }
-        public ICommand ClearSelectionsCommand { get; set; }        
+        public ICommand ClearSelectionsCommand { get; set; }
         public ICommand EditFilterCommand { get; set; }
         public ICommand RunSearchCommand { get; set; }
-        public ICommand RunSingleSearchCommand { get; set; }        
+        public ICommand RunSingleSearchCommand { get; set; }
+        public ICommand SaveFilterCommand { get; set; }        
+        public ICommand ShowSavedFiltersCommand { get; set; }
         #endregion
 
         public DjHorsifyViewModel(IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
@@ -45,7 +48,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager = regionManager;
 
             _djHorsifyService = djHorsifyService;
-            DjHorsifyOption = _djHorsifyService.DjHorsifyOption as DjHorsifyOption;            
+            DjHorsifyOption = _djHorsifyService.DjHorsifyOption as DjHorsifyOption;
 
             try
             {
@@ -63,18 +66,20 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
             #region Commands
             CreateFilterCommand = new DelegateCommand(OnCreateFilter);
-            ClearSelectionsCommand = new DelegateCommand(OnClearSelections);
+            ClearSelectionsCommand = new DelegateCommand(ClearSelections);
             EditFilterCommand = new DelegateCommand<DjHorsifyFilterModel>(OnEditFilter);
             RunSearchCommand = new DelegateCommand(OnRunSearch);
             RunSingleSearchCommand = new DelegateCommand<DjHorsifyFilterModel>(OnRunSearch);
-            #endregion            
+            SaveFilterCommand = new DelegateCommand(OnSaveFilter);
+            ShowSavedFiltersCommand = new DelegateCommand(OnShowSavedFilters);
+            #endregion
         }
 
         #region Properties
         public ICollectionView AvailableFiltersView { get; set; }
         public ICollectionView IncludedFiltersView { get; set; }
         public ICollectionView ExcludedFiltersView { get; set; }
-        public ICollectionView IncludedAndFiltersView { get; set; }        
+        public ICollectionView IncludedAndFiltersView { get; set; }
 
         private DjHorsifyOption _djHorsifyOption;
         public DjHorsifyOption DjHorsifyOption
@@ -227,11 +232,11 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 else
                 {
                     _djHorsifyService.HorsifyFilters.AddRange(horsifyFilters);
-                }                
+                }
             }
         }
 
-        private void OnClearSelections()
+        private void ClearSelections()
         {
             foreach (var item in this.HorsifyFilters.Where(x => x.SearchAndOrOption != SearchAndOrOption.None))
             {
@@ -298,6 +303,16 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             ExcludedFiltersView.Refresh();
         }
 
+        private void OnSaveFilter()
+        {
+            _regionManager.RequestNavigate("ContentRegion", "SaveSearchFilterView");
+        }
+
+        private void OnShowSavedFilters()
+        {
+            _regionManager.RequestNavigate("ContentRegion", "SavedSearchFiltersView");
+        }
+
         #endregion
 
         #region Navigate
@@ -315,13 +330,13 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                     {
                         result = await _djHorsifyService.AddFilterAsync(dbFilter);
                     }).Wait();
-                    
+
                     if (result)
                     {
                         Log("Successfully added filter to database");
                         this.HorsifyFilters.Add(filter as DjHorsifyFilterModel);
                         CreateFilterViews();
-                    }                        
+                    }
                     else
                         Log("Couldn't create service filters", Category.Debug);
                 }
@@ -331,33 +346,78 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 }
                 finally
                 {
-
                 }
+
+                return;
             }
-            else
-            {
-                filter = navigationContext.Parameters["edited_filter"] as DjHorsifyFilterModel;
-                if (filter != null)
-                {
-                    Music.Data.Model.Filter dbFilter = CreateDbFilter(filter);
-                    var result = _djHorsifyService.UpdateFilter(dbFilter);
-                    if (!result)
-                        Log("Couldn't update service filters", Category.Debug);
-                    else
-                    {                        
-                        var existingFilter = this.HorsifyFilters.FirstOrDefault(x => x.Id == filter.Id);
-                        if (existingFilter != null)
-                        {
-                            existingFilter.FileName = filter.FileName;
-                            existingFilter.Filters = filter.Filters;
-                            existingFilter.SearchAndOrOption = filter.SearchAndOrOption;
-                            existingFilter.SearchType = filter.SearchType;
-                        }
 
-                        Log($"Filter {dbFilter.Name} saved successfully", Category.Info);
-                    }                       
-                        
+            filter = navigationContext.Parameters["edited_filter"] as DjHorsifyFilterModel;
+            if (filter != null)
+            {
+                Music.Data.Model.Filter dbFilter = CreateDbFilter(filter);
+                var result = _djHorsifyService.UpdateFilter(dbFilter);
+                if (!result)
+                    Log("Couldn't update service filters", Category.Debug);
+                else
+                {
+                    var existingFilter = this.HorsifyFilters.FirstOrDefault(x => x.Id == filter.Id);
+                    if (existingFilter != null)
+                    {
+                        existingFilter.FileName = filter.FileName;
+                        existingFilter.Filters = filter.Filters;
+                        existingFilter.SearchAndOrOption = filter.SearchAndOrOption;
+                        existingFilter.SearchType = filter.SearchType;
+                    }
+
+                    Log($"Filter {dbFilter.Name} saved successfully", Category.Info);
                 }
+
+                return;
+            }
+
+            var savedfilter = navigationContext.Parameters["load_filter"] as FiltersSearch;
+            if (savedfilter != null)
+            {
+                ClearSelections();
+                Log("Loading saved filter into DJ Horsify");
+
+                var searchFilter = savedfilter.ConvertToSearchFilter();
+                if (searchFilter != null)
+                {
+                    //Set ranges
+                    this.DjHorsifyOption.BpmRange = searchFilter.BpmRange;
+                    this.DjHorsifyOption.RatingRange = searchFilter.RatingRange;
+
+                    //Set up music keys TODO: not updating UI after load
+                    if (!searchFilter.MusicKeys.Contains("None"))
+                    {
+                        this.DjHorsifyOption.SelectedKeys = DjHorsifyOption.ConvertKeys(searchFilter.MusicKeys);
+                        this.DjHorsifyOption.HarmonicEnabled = true;
+                    }
+                    else
+                        this.DjHorsifyOption.HarmonicEnabled = false;
+
+                    //Set amount
+                    if (savedfilter.RandomAmount.Value > 0)
+                        this.DjHorsifyOption.Amount = savedfilter.RandomAmount.Value;
+
+                    if (searchFilter?.Filters?.Count() > 0)
+                    {
+                        //Go over each filename in filters and set the SearchAndOrOption type making the list update.
+                        foreach (var item in searchFilter?.Filters)
+                        {
+                            var existingFilter = this.HorsifyFilters.FirstOrDefault(x => x.FileName == item.FileName);
+                            if (existingFilter == null)
+                                Log("Couldn't find existing filter whilst loading saved.");
+                            else
+                                existingFilter.SearchAndOrOption = item.SearchAndOrOption;
+                        }
+                    }
+                    
+                    return;
+                }
+
+                Log("Couldn't load saved filter", Category.Warn);
             }
         }
 
@@ -383,7 +443,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
 
-        } 
+        }
         #endregion
     }
 }

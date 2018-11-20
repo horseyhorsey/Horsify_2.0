@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.DjHorsify.Views.SaveSearchFilterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.Resource.UserControls;assembly=Horsesoft.Horsify.Resource"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=OnScreenKeyboard}"> 
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>-->
+
+        <StackPanel TextElement.FontSize="72" HorizontalAlignment="Center">
+            <Label Content="SAVE SEARCH FILTER" />
+        </StackPanel>
+
+        <!--KEYBOARD-->
+        <usercontrols:ucOnScreenKeyboard Grid.Column="0" Margin="50"
+                                         Grid.Row="2"                                                
+                                         x:Name="OnScreenKeyboard"
+                       
+                        VerticalAlignment="Top"                                         
+                        DataContext="{Binding OnScreenKeyboardViewModel
+                                    , UpdateSourceTrigger=PropertyChanged}"
+            />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    >
+            <Button Content="{DynamicResource Icon_ArrowLeft}" Style="{DynamicResource ButtonMetal}" Command="{Binding CloseViewCommand}">
+
+            </Button>
+
+            <Button Content="{DynamicResource SaveIcon}" Style="{DynamicResource ButtonHouseMetal}" Command="{Binding SaveFilterCommand}">
+            
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

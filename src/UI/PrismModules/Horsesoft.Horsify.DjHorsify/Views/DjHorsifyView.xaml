@@ -8,7 +8,7 @@
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"             
              x:Class="Horsesoft.Horsify.DjHorsify.Views.DjHorsifyView"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="1024"
+             mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True" 
              d:DataContext="{d:DesignData ../SampleData/DjHorsifyViewModelSampleData.xaml}"
              >
@@ -19,7 +19,7 @@
         <SolidColorBrush x:Key="ToolBarToggleButtonVerticalBackground" Color="#FFEEF5FD"/>
         <SolidColorBrush x:Key="ToolBarButtonHover" Color="ForestGreen"/>
         <SolidColorBrush x:Key="ToolBarGripper" Color="#FF6D6D6D"/>
-        
+
         <Style x:Key="ToolBarVerticalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonVerticalBackground}"/>
             <Setter Property="MinHeight" Value="0"/>
@@ -59,7 +59,7 @@
         </Style>
         <SolidColorBrush x:Key="ToolBarVerticalBackground" Color="#FFEEF5FD"/>
         <SolidColorBrush x:Key="ToolBarToggleButtonHorizontalBackground" Color="#FFEEF5FD"/>
-        
+
         <Style x:Key="ToolBarHorizontalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonHorizontalBackground}"/>
             <Setter Property="MinHeight" Value="0"/>
@@ -136,7 +136,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="ToolBarMainPanelBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Margin" Value="0,0,11,0"/>
             <Setter Property="CornerRadius" Value="3,3,3,3"/>
@@ -146,7 +146,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="ToolBarStyle1" TargetType="{x:Type ToolBar}">
             <Setter Property="Background" Value="{StaticResource ToolBarHorizontalBackground}"/>
             <Setter Property="Template">
@@ -249,39 +249,26 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--#endregion-->
 
-        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" >
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="125"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <ToolBarTray Background="Transparent" IsLocked="True">
-                <ToolBar Background="Transparent" 
-                          Focusable="False"                         
-                          BorderBrush="Transparent"
-                            Margin="25,5" 
-                         Style="{DynamicResource ToolBarStyle1}">
-
-                    <TextBlock Text="DJ " FontSize="72"
+        <!--LOGO-->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="3"
+                    Margin="20,0">
+            <TextBlock Text="DJ " FontSize="84"
                                ToolBar.OverflowMode="Never"
                                VerticalAlignment="Center"
                                Style="{StaticResource TextBlockStyle_BebasLarge}"/>
 
-                    <!--LOGO-->
-                    <ContentPresenter x:Name="HorsifyLogo" d:IsHidden="True"
+            <ContentPresenter x:Name="HorsifyLogo" d:IsHidden="True"
                                       ToolBar.OverflowMode="Never"
                                       ContentTemplate="{StaticResource HorsifyLogoSvgStd}"
-                                      Height="50"
+                                      Height="70"                                      
                                       />
-
-                    <!--ENABLED-->
-                    <ToggleButton BorderThickness="0"
+            <!--ENABLED-->
+            <ToggleButton BorderThickness="0"
                                   Margin="10,0"                                  
                                   ToolBar.OverflowMode="Never"
                                   VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -291,52 +278,70 @@
                                   IsChecked="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}" 
                                   Template="{DynamicResource ToggleButtonBaseControlTemplate1}"/>
 
-                    <!--AMOUNT-->
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+
+            <!--AMOUNT-->
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                                 ToolBar.OverflowMode="AsNeeded"
                                 >
-                        <!--Amount control-->
-                        <TextBlock Text="Amount" HorizontalAlignment="Center" 
-                                   FontSize="40"/>
-                        <horsify:AmountSelectControl 
+                <!--Amount control-->
+                <TextBlock Text="Amount" HorizontalAlignment="Center" 
+                                   FontSize="30"/>
+                <horsify:AmountSelectControl 
                             TextElement.FontSize="48"
                             Value="{Binding DataContext.DjHorsifyOption.Amount, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         />
-                    </StackPanel>
-
-                    <!--TEST SEARCH-->
-                    <Button Margin="25"
-                            ToolBar.OverflowMode="AsNeeded"
-                            FontSize="36" VerticalAlignment="Bottom"
-                            Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"                            
-                            Style="{StaticResource ButtonSearchMetal}"
-                            />
-
-                    <Menu ToolBar.OverflowMode="Always" Background="Transparent">
-                        <Button Content="NEW FILTER"
-                                HorizontalAlignment="Center"
-                                        MinWidth="175"
-                                        FontFamily="{StaticResource BebasNeue}"
-                                        FontSize="32"
-                                        Style="{StaticResource ButtonMetal}"
-                                        VerticalAlignment="Center"
-                                        Command="{Binding CreateFilterCommand}"/>
-                    </Menu>
-
-                </ToolBar>
-            </ToolBarTray>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
-
-                <Button Content="ClearFilters" Command="{Binding ClearSelectionsCommand}"/>
-                <TextBlock Grid.Row="1" Text="{Binding FiltersInfo}"
-                       FontSize="18"
-                       Margin="5"
-                       />
             </StackPanel>
 
-            <TabControl 
-                    Grid.Row="2" Margin="20"                    
+            <!--TEST SEARCH-->
+            <Button Margin="15" 
+                    Height="70" Width="65"
+                    FontSize="58" VerticalAlignment="Bottom"                    
+                    Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"                            
+                    Style="{StaticResource ButtonSearchMetal}"
+                            />
+
+            <!--VIEW SAVED SEARCHES-->
+            <Button Margin="15" 
+                    Height="70" Width="65"
+                    FontSize="58" VerticalAlignment="Bottom"                                                                            
+                            Command="{Binding DataContext.ShowSavedFiltersCommand, ElementName=LayoutRoot}"                            
+                            Style="{StaticResource ButtonMetal}"
+                            Content="{DynamicResource BookmarksIcon}"
+                            />
+
+            <!--SAVE THIS SEARCH-->
+            <Button Margin="15" 
+                    Height="70" Width="65"
+                    FontSize="58" VerticalAlignment="Bottom"   
+                            Command="{Binding DataContext.SaveFilterCommand, ElementName=LayoutRoot}"                            
+                                                        Style="{StaticResource ButtonMetal}"
+                            Content="{DynamicResource SaveIcon}"
+                            />
+            <!---->
+        </StackPanel>
+
+
+        <!--FILTER OPTIONS-->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
+
+            <Button Command="{Binding ClearSelectionsCommand}"
+                    Style="{StaticResource ButtonMetal}"
+                    Content="{DynamicResource DeleteIcon}"
+                    Width="100"
+                    />
+
+            <Button Content="NEW FILTER" Margin="5" VerticalAlignment="Bottom"
+                                        MinWidth="175"
+                                        FontFamily="{StaticResource BebasNeue}"
+                                        FontSize="16"
+                                        Style="{StaticResource ButtonMetal}"                                        
+                                        Command="{Binding CreateFilterCommand}"/>
+        </StackPanel>
+
+        <!--FILTERS TAB CONTROL-->
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+
+            <TabControl Margin="20"                    
                     TabStripPlacement="Top" 
                     Background="Transparent"
                     BorderBrush="Transparent"    
@@ -596,14 +601,24 @@
                                 </Style>
                             </Expander.Style>
 
-                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Vertical" MaxWidth="270">
                                 <CheckBox x:Name="RatingChecked" IsTabStop="False" Content="Enabled" VerticalContentAlignment="Center"
                                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42"
                                           IsChecked="{Binding DjHorsifyOption.RatingRange.IsEnabled, Mode=TwoWay}"/>
-                                <horsify:RatingRangeControl Grid.Column="1" StarWidth="45"
+                                <horsify:RatingRangeControl Grid.Column="1" StarWidth="45" Margin="0,90"
+                                                            StarRotation="90"
                                          RangeLower="{Binding DataContext.DjHorsifyOption.RatingRange.Low, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         RangeUpper="{Binding DataContext.DjHorsifyOption.RatingRange.Hi, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                                            
-                                         />
+                                         RangeUpper="{Binding DataContext.DjHorsifyOption.RatingRange.Hi, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.5"                                                            
+                                         >
+                                    <horsify:RatingRangeControl.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="270"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </horsify:RatingRangeControl.RenderTransform>
+                                </horsify:RatingRangeControl>
                             </StackPanel>
 
 
@@ -689,7 +704,8 @@
                                     <Viewbox MaxWidth="550" MaxHeight="360" Stretch="Uniform"
                                                  HorizontalAlignment="Left"
                                                  StretchDirection="Both">
-                                        <horsify:OpenKeyNotationControl SelectedOpenKeys="{Binding DjHorsifyOption.SelectedKeys, Mode=TwoWay}"/>
+                                        <horsify:OpenKeyNotationControl 
+                                            SelectedOpenKeys="{Binding DjHorsifyOption.SelectedKeys, UpdateSourceTrigger=PropertyChanged}"/>
                                     </Viewbox>
 
                                 </StackPanel>

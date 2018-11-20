@@ -20,11 +20,16 @@ namespace Horsesoft.Horsify.DjHorsify
 
         public void Initialize()
         {
+            //normal filters
             _container.RegisterTypeForNavigation<CreateFilterView>("CreateFilterView");
             _container.RegisterTypeForNavigation<EditFilterView>("EditFilterView");
 
+            //bundled filters
+            _container.RegisterTypeForNavigation<SaveSearchFilterView>("SaveSearchFilterView");
+            _container.RegisterTypeForNavigation<SavedSearchFiltersView>("SavedSearchFiltersView");
+
             _regionManager.RegisterViewWithRegion(Regions.ContentRegion, typeof(DjHorsifyView));
-            _regionManager.RegisterViewWithRegion(Regions.DjHorsifyFilterScreenRegion, typeof(DjHorsifyFilterScreenView));
+            _regionManager.RegisterViewWithRegion(Regions.DjHorsifyFilterScreenRegion, typeof(DjHorsifyFilterScreenView));          
         }
     }
 }

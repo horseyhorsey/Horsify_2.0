@@ -91,6 +91,8 @@
     <Compile Include="ViewModels\DjHorsifyFilterScreenViewModel.cs" />
     <Compile Include="ViewModels\DjHorsifyViewModel.cs" />
     <Compile Include="ViewModels\EditFilterViewModel.cs" />
+    <Compile Include="ViewModels\SavedSearchFiltersViewModel.cs" />
+    <Compile Include="ViewModels\SaveSearchFilterViewModel.cs" />
     <Compile Include="Views\CreateFilterView.xaml.cs">
       <DependentUpon>CreateFilterView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +104,12 @@
     </Compile>
     <Compile Include="Views\EditFilterView.xaml.cs">
       <DependentUpon>EditFilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SavedSearchFiltersView.xaml.cs">
+      <DependentUpon>SavedSearchFiltersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaveSearchFilterView.xaml.cs">
+      <DependentUpon>SaveSearchFilterView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -149,6 +157,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditFilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SavedSearchFiltersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SaveSearchFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

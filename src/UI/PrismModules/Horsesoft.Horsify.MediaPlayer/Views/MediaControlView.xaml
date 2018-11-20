@@ -38,7 +38,7 @@
                     </Button.Style>
                 </Button>
 
-                <Slider x:Name="Slider_Arm" VerticalAlignment="Center" MinWidth="100" MaxWidth="100"
+                <Slider x:Name="Slider_Arm" VerticalAlignment="Center" MinWidth="140" MaxWidth="150"
                                                     Minimum="0.0" IsMoveToPointEnabled="True"
                                                     Maximum="{Binding MediaControlModel.CurrentSongTime.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                                     Value="{Binding MediaControlModel.CurrentSongPosition.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"

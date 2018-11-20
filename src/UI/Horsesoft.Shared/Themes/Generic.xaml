@@ -615,6 +615,8 @@
                             <!--CursorPosition="{Binding CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
                             <controls:TextboxWithCaretIndex x:Name="SearchText" 
                                                             IsEnabled="True"
+                                                            Margin="5"
+                                                            FontSize="{TemplateBinding FontSize}"
                                                             CursorPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             />

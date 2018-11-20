@@ -96,10 +96,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ucOnScreenKeyboard.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Settings.Designer.cs">
@@ -109,9 +105,6 @@
     </Compile>
     <Compile Include="UserControls\ucKeypadControl.xaml.cs">
       <DependentUpon>ucKeypadControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucOnScreenKeyboard.xaml.cs">
-      <DependentUpon>ucOnScreenKeyboard.xaml</DependentUpon>
     </Compile>
     <Resource Include="Fonts\BEBASNEUE.TTF" />
     <Resource Include="Fonts\digital-7.ttf" />

@@ -177,7 +177,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\HorsifyBindableBase.cs" />
     <Compile Include="ViewModels\HorsifySongPlayBindableBase.cs" />
-    <Compile Include="ViewModels\OnScreenKeyboardViewModel.cs" />
     <Compile Include="ViewModels\SearchButtonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

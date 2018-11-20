@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/"
-             prism:ViewModelLocator.AutoWireViewModel="True"  
-             xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.Resource.UserControls;assembly=Horsesoft.Horsify.Resource"             
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
+             prism:ViewModelLocator.AutoWireViewModel="True"               
              d:DesignHeight="800" d:DesignWidth="1700">
 
     <Grid x:Name="LayoutRoot" 
@@ -36,35 +36,36 @@
 
         <StackPanel>
             <TextBlock Text="Search all - Artists, Titles, Genres etc" HorizontalAlignment="Center"
-                    FontSize="32"
+                    FontSize="64"
                     FontStyle="Italic"
                     Margin="0,20"
                     />
             <TextBlock Text="%'s a Wildcard. Eg, %Jackson%" HorizontalAlignment="Center"
-                    FontSize="26"
+                    FontSize="32"
                     FontStyle="Italic"
                     Margin="0,5"
                     />
         </StackPanel>
 
-        <!--KEYBOARD-->
-        <usercontrols:ucOnScreenKeyboard Grid.Column="0" Grid.Row="1"       
-                                         x:Name="OnScreenKeyboard"
-                       HorizontalAlignment="Center"
-                        VerticalAlignment="Top"                                         
-                        DataContext="{Binding ElementName=LayoutRoot, 
-                                    Path=DataContext.OnScreenKeyboardViewModel
-                                    , UpdateSourceTrigger=PropertyChanged}"
-            />
 
-        <Button Command="{Binding RunSearchCommand}" 
-                    HorizontalAlignment="Right"
+        <horsify:OnScreenKeyboard x:Name="OnScreenKeyboard" 
+                                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                  Grid.Column="0" Grid.Row="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  FontSize="32"
+                                  />
+
+        <Button Command="{Binding RunSearchCommand}"                     
+                Style="{DynamicResource ButtonMetal}"
                 IsDefault="True"
                 FontSize="65"
                 Content="&#128270;" 
                 Width="90"
                 Height="80"
-                VerticalAlignment="Top"/>
+                Grid.Row="1"
+                Margin="0,180"
+                VerticalAlignment="Bottom"/>
 
 
     </Grid>

@@ -1,8 +1,10 @@
 ﻿using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Helpers;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Logging;
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Windows.Input;
@@ -14,8 +16,9 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         ICommand CloseSearchViewCommand { get; set; }
     }
 
-    public class SearchViewModel : BindableBase
+    public class SearchViewModel : HorsifyBindableBase
     {
+        private IRegionManager _regionManager;
         #region Commands
         public ICommand CloseSearchViewCommand { get; set; }
         public ICommand RunSearchCommand { get; set; }
@@ -23,14 +26,10 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         #region Constructors
 
-        //IHorsifySettingsDataProvider horsifySettings, IQueuedSongsData queuedSongs, IAllJoinedSongsDataProvider allSongsData, INowPlayingInfo nowPlayingInfo, IHistoryDataProvider historyDataProvider
-
-        public SearchViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
+        public SearchViewModel(IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
-            //_horsifySettings = horsifySettings;
 
-            OnScreenKeyboardViewModel = new OnScreenKeyboardViewModel();
-
+            _regionManager = regionManager;
             CloseSearchViewCommand = new DelegateCommand(() =>
             {
                 //eventAggregator.GetEvent<OnNavigateViewEvent<string>>()
@@ -39,24 +38,25 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
             });
 
-            RunSearchCommand = new DelegateCommand(() =>
-            {
-                var filter = new SearchFilter(OnScreenKeyboardViewModel.SearchText);
-                eventAggregator.GetEvent<OnSearchedSongEvent<ISearchFilter>>().Publish(filter);
-                //Messenger.Default.Send(new SearchSongsQuickMessage(SearchText));
-            });
+            RunSearchCommand = new DelegateCommand(OnRunSearch);
         }
 
+        private void OnRunSearch()
+        {
+            var filter = new SearchFilter(SearchText);
+            var navparams = NavigationHelper.CreateSearchFilterNavigation(filter);
+            _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navparams);
+        }
         #endregion
 
-        private OnScreenKeyboardViewModel _OnScreenKeyboardViewModel;
+        private string _searchText;
         /// <summary>
-        /// Gets or Sets the OnScreenKeyboardViewModel
+        /// Gets or Sets the SearchText
         /// </summary>
-        public OnScreenKeyboardViewModel OnScreenKeyboardViewModel
+        public string SearchText
         {
-            get { return _OnScreenKeyboardViewModel; }
-            set { SetProperty(ref _OnScreenKeyboardViewModel, value); }
+            get { return _searchText; }
+            set { SetProperty(ref _searchText, value); }
         }
     }
 }

@@ -33,7 +33,6 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         {
             _djHorsifyService = djHorsifyService;
             _regionManager = regionManager;
-            OnScreenKeyboardViewModel = new OnScreenKeyboardViewModel();
 
             CloseViewCommand = new DelegateCommand(OnCloseView);
             SaveFilterCommand = new DelegateCommand(async () => await OnSaveFilterAsync());
@@ -42,14 +41,14 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         #endregion
 
         #region Properties
-        private OnScreenKeyboardViewModel _OnScreenKeyboardViewModel;
+        private string _searchFilterName;
         /// <summary>
-        /// Gets or Sets the OnScreenKeyboardViewModel
+        /// Gets or Sets the SearchFilterName
         /// </summary>
-        public OnScreenKeyboardViewModel OnScreenKeyboardViewModel
+        public string SearchFilterName
         {
-            get { return _OnScreenKeyboardViewModel; }
-            set { SetProperty(ref _OnScreenKeyboardViewModel, value); }
+            get { return _searchFilterName; }
+            set { SetProperty(ref _searchFilterName, value); }
         }
         #endregion
 
@@ -66,7 +65,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 _djHorsifyService.SavedFilters = new System.Collections.ObjectModel.ObservableCollection<FiltersSearch>();
 
             //Check if already have a savedfilter and update it
-            var filter = _djHorsifyService.SavedFilters.FirstOrDefault(x => x.Name == OnScreenKeyboardViewModel.SearchText);
+            var filter = _djHorsifyService.SavedFilters.FirstOrDefault(x => x.Name == SearchFilterName);
             if (filter != null)
             {
                 var id  = filter.Id;
@@ -120,7 +119,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             {
                 MaxAmount = -1,
                 RandomAmount = _djHorsifyService.DjHorsifyOption.Amount,
-                Name = OnScreenKeyboardViewModel.SearchText,
+                Name = SearchFilterName,
                 SearchFilterContent = content
             };
             return newFilter;

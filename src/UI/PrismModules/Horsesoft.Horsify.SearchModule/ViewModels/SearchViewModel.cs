@@ -1,4 +1,5 @@
-﻿using Horsesoft.Music.Horsify.Base;
+﻿using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
@@ -17,6 +18,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
     {
         #region Commands
         public ICommand CloseSearchViewCommand { get; set; }
+        public ICommand RunSearchCommand { get; set; }
         #endregion
 
         #region Constructors
@@ -27,7 +29,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             //_horsifySettings = horsifySettings;
 
-            OnScreenKeyboardViewModel = new OnScreenKeyboardViewModel(eventAggregator);
+            OnScreenKeyboardViewModel = new OnScreenKeyboardViewModel();
 
             CloseSearchViewCommand = new DelegateCommand(() =>
             {
@@ -35,6 +37,13 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 //    .Publish("SearchedSongsView");
 
                 regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
+            });
+
+            RunSearchCommand = new DelegateCommand(() =>
+            {
+                var filter = new SearchFilter(OnScreenKeyboardViewModel.SearchText);
+                eventAggregator.GetEvent<OnSearchedSongEvent<ISearchFilter>>().Publish(filter);
+                //Messenger.Default.Send(new SearchSongsQuickMessage(SearchText));
             });
         }
 

@@ -9,8 +9,7 @@ namespace Horsesoft.Music.Horsify.Base.ViewModels
     public interface IOnScreenKeyboardViewModel
     {
         ICommand SendKeyCommand { get; set; }
-        ICommand SelectionChanged { get; set; }
-        ICommand RunSearchCommand { get; set; }
+        ICommand SelectionChanged { get; set; }        
     }
 
     public class OnScreenKeyboardViewModel : BindableBase
@@ -22,16 +21,9 @@ namespace Horsesoft.Music.Horsify.Base.ViewModels
         #endregion
 
         #region Constructors
-        public OnScreenKeyboardViewModel(IEventAggregator eventAggregator)
+        public OnScreenKeyboardViewModel()
         {
             SendKeyCommand = new DelegateCommand<string>((key) => OnKeyCommandSent(key));
-
-            RunSearchCommand = new DelegateCommand(() =>
-            {
-                var filter = new SearchFilter(SearchText);
-                eventAggregator.GetEvent<OnSearchedSongEvent<ISearchFilter>>().Publish(filter);
-                //Messenger.Default.Send(new SearchSongsQuickMessage(SearchText));
-            });
         }
         #endregion
 

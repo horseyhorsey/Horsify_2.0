@@ -21,8 +21,8 @@
     <Grid x:Name="LayoutRoot">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -34,68 +34,80 @@
         </Grid.RowDefinitions>
 
         <controls:TextboxWithCaretIndex x:Name="SearchText" IsEnabled="True"
-                                        FontSize="55"
+                                        FontSize="55"      MaxWidth="900"                                                                                                              
                                         FontFamily="{DynamicResource BebasNeue}"                                        
                                         CursorPosition="{Binding CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button Command="{Binding RunSearchCommand}" 
-                IsDefault="True"
-                FontSize="65"
-                Grid.Column="1" Content="&#128270;" 
-                Width="90"
-                Height="80"
-                Margin="25,0" VerticalAlignment="Top"/>
+        <Grid Grid.Row="1">
 
-        <!--TOP ROW-->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" x:Name="Stack">
-            <Button Content="Q" />
-            <Button Content="W" />
-            <Button Content="E" />
-            <Button Content="R" />
-            <Button Content="T" />
-            <Button Content="Y" />
-            <Button Content="U" />
-            <Button Content="I" />
-            <Button Content="O" />
-            <Button Content="P" />
-            <Button Content="%" />
-        </StackPanel>
-
-        <!--MID ROW-->
-        <StackPanel Grid.Row="2" Margin="18,0" Orientation="Horizontal">
-            <Button Content="A" />
-            <Button Content="S" />
-            <Button Content="D" />
-            <Button Content="F" />
-            <Button Content="G" />
-            <Button Content="H" />
-            <Button Content="J" />
-            <Button Content="K" />
-            <Button Content="L" />
-            <Button Content="!" />
-            <Button Content="'" />
-        </StackPanel>
-
-        <!--BOTTOM ROW-->
-        <StackPanel Grid.Row="3" Margin="38,0" Orientation="Horizontal">
-            <Button Content="Z" />
-            <Button Content="X" />
-            <Button Content="C" />
-            <Button Content="V" />
-            <Button Content="B" />
-            <Button Content="N" />
-            <Button Content="M" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             
-            <Button Content="?" />
-            <!--SEND THE TEXTBOXES SELECTIONSTART INDEX IN-->
-            <Button Content="Del" Width="90"/>
-            <Button Content="Clr" Width="95"/>
-        </StackPanel>
+            <!--TOP ROW-->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" x:Name="Stack">
+                <Button Content="Q" />
+                <Button Content="W" />
+                <Button Content="E" />
+                <Button Content="R" />
+                <Button Content="T" />
+                <Button Content="Y" />
+                <Button Content="U" />
+                <Button Content="I" />
+                <Button Content="O" />
+                <Button Content="P" />
+                <Button Content="*" />
+                <Button Content="%" />
+            </StackPanel>
 
-        <UniformGrid Columns="3" Rows="4" Grid.Row="1"
-                     
-                     Grid.Column="1" Grid.RowSpan="3">
+            <!--MID ROW-->
+            <StackPanel Grid.Row="2" Margin="18,0" Orientation="Horizontal">
+                <Button Content="A" />
+                <Button Content="S" />
+                <Button Content="D" />
+                <Button Content="F" />
+                <Button Content="G" />
+                <Button Content="H" />
+                <Button Content="J" />
+                <Button Content="K" />
+                <Button Content="L" />
+                <Button Content="!" />
+                <Button Content="'" />
+            </StackPanel>
+
+            <!--BOTTOM ROW-->
+            <StackPanel Grid.Row="3" Margin="38,0"  Orientation="Horizontal">
+                <Button Content="Z" />
+                <Button Content="X" />
+                <Button Content="C" />
+                <Button Content="V" />
+                <Button Content="B" />
+                <Button Content="N" />
+                <Button Content="M" />
+
+                <Button Content="?" />
+                <!--SEND THE TEXTBOXES SELECTIONSTART INDEX IN-->
+                <Button Content="Del" Width="90"/>
+                <Button Content="Clr" Width="95"/>
+            </StackPanel>
+
+
+            <Button Content="SPACE"
+                CommandParameter=" "
+                HorizontalAlignment="Left" Grid.Row="4" 
+                Width="305" Margin="140,0" Background="White"
+                />
+        </Grid>
+
+
+        <!--NUMPAD-->
+        <UniformGrid Columns="3" Rows="4" Grid.Row="1"                     
+                     Grid.Column="1">
             <Button Content="7"/>
             <Button Content="8"/>
             <Button Content="9"/>
@@ -109,9 +121,6 @@
             <Button Content="."/>
         </UniformGrid>
 
-        <Button Content="SPACE"
-                CommandParameter=" "
-                HorizontalAlignment="Left" Margin="120,0" Grid.Row="4" Width="305" Background="White" Opacity="0.3"/>
     </Grid>
 </UserControl>
 

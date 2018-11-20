@@ -37,6 +37,16 @@ namespace Horsesoft.Horsify.Resource.Windows.CustomControls
         public static readonly DependencyProperty StarWidthProperty =
             DependencyProperty.Register("StarWidth", typeof(double), typeof(RatingControl), new PropertyMetadata(90.0));
 
+        public double StarRotation
+        {
+            get { return (double)GetValue(StarRotationProperty); }
+            set { SetValue(StarRotationProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for StarWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StarRotationProperty =
+            DependencyProperty.Register("StarRotation", typeof(double), typeof(RatingControl), new PropertyMetadata(0.0));
+
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />
         /// </summary>

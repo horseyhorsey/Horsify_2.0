@@ -347,6 +347,15 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:RatingControl}">
+
+                    <ControlTemplate.Resources>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="RenderTransformOrigin" Value="0.5,0.5">
+                                
+                            </Setter>
+                        </Style>
+                    </ControlTemplate.Resources>
+
                     <WrapPanel>
                         <Button x:Name="clearrating"                          
                           Width="{TemplateBinding StarWidth}"
@@ -354,40 +363,88 @@
                           MaxHeight="20" FontSize="12"
                           Content="X" FontWeight="DemiBold"                          
                           />
-                        <ToggleButton x:Name="rating1"                          
-                          Width="{TemplateBinding StarWidth}"
+                        <ToggleButton x:Name="rating1"            
+                                      RenderTransformOrigin="0.5,0.5"
+                          Width="{TemplateBinding StarWidth}"                                      
                           IsChecked="{TemplateBinding RatingValue, 
                             ConverterParameter=1,
                             Converter={StaticResource ratingconverter}}"
-                          Template="{DynamicResource RatingButton}"/>
+                          Template="{DynamicResource RatingButton}">
+                            <ToggleButton.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="{TemplateBinding StarRotation}"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ToggleButton.RenderTransform>
+                        </ToggleButton>
 
                         <ToggleButton x:Name="rating2" 
                           Width="{TemplateBinding StarWidth}"
                           IsChecked="{TemplateBinding RatingValue, 
                             ConverterParameter=64,
                             Converter={StaticResource ratingconverter}}"
-                          Template="{DynamicResource RatingButton}"/>
+                          Template="{DynamicResource RatingButton}"
+                                      RenderTransformOrigin="0.5,0.5"
+                                      >
+                            <ToggleButton.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="{TemplateBinding StarRotation}"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ToggleButton.RenderTransform>
+                        </ToggleButton>
 
                         <ToggleButton x:Name="rating3" 
                           Width="{TemplateBinding StarWidth}"
                           IsChecked="{TemplateBinding RatingValue, 
                             ConverterParameter=128,
                             Converter={StaticResource ratingconverter}}"
-                          Template="{DynamicResource RatingButton}"/>
+                          Template="{DynamicResource RatingButton}">
+                            <ToggleButton.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="{TemplateBinding StarRotation}"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ToggleButton.RenderTransform>
+                        </ToggleButton>
 
                         <ToggleButton x:Name="rating4" 
                           Width="{TemplateBinding StarWidth}" 
                           IsChecked="{TemplateBinding RatingValue, 
                             ConverterParameter=196,
                             Converter={StaticResource ratingconverter}}"
-                          Template="{DynamicResource RatingButton}"/>
+                          Template="{DynamicResource RatingButton}">
+                            <ToggleButton.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="{TemplateBinding StarRotation}"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ToggleButton.RenderTransform>
+                        </ToggleButton>
 
                         <ToggleButton x:Name="rating5" 
                           Width="{TemplateBinding StarWidth}"
                           IsChecked="{TemplateBinding RatingValue, 
                             ConverterParameter=255,
                             Converter={StaticResource ratingconverter}}"
-                          Template="{DynamicResource RatingButton}"/>
+                          Template="{DynamicResource RatingButton}">
+                            <ToggleButton.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="{TemplateBinding StarRotation}"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ToggleButton.RenderTransform>
+                        </ToggleButton>
                     </WrapPanel>
                 </ControlTemplate>
             </Setter.Value>
@@ -405,12 +462,14 @@
                         <StackPanel Orientation="Vertical">
                             <controls:RatingControl
                                 StarWidth="{TemplateBinding StarWidth}"
+                                StarRotation="{TemplateBinding StarRotation}"
                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                 RatingValue="{Binding Path=RangeLower, 
                                     RelativeSource={RelativeSource AncestorType={x:Type controls:RatingRangeControl}}, 
                                     Mode=TwoWay}"/>
                             <controls:RatingControl
                                 StarWidth="{TemplateBinding StarWidth}"
+                                StarRotation="{TemplateBinding StarRotation}"
                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                 RatingValue="{Binding Path=RangeUpper, 
                                     RelativeSource={RelativeSource AncestorType={x:Type controls:RatingRangeControl}}, 

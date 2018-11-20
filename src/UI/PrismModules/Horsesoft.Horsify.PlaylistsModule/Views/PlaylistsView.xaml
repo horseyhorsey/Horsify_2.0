@@ -229,13 +229,7 @@
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
-    <!--<Border x:Name="LayoutRoot" Style="{StaticResource Border_MainContentRegion}">
-
-      
-
-    </Border>-->
-
-    <Grid >
+    <Grid x:Name="LayoutRoot">
 
         <!--#region Definitions-->
         <!--<Grid.ColumnDefinitions>

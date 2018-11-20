@@ -10,7 +10,8 @@
              xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.Resource.UserControls;assembly=Horsesoft.Horsify.Resource"             
              xmlns:horsify="http://schemas/horsesoft.co.uk"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
+    
+    <Grid x:Name="LayoutRoot">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

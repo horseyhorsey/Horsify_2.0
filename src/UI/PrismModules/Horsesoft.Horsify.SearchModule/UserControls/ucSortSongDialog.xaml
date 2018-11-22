@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Horsesoft.Horsify.SearchModule"
              xmlns:horsify="http://schemas/horsesoft.co.uk"
-             mc:Ignorable="d" Background="{DynamicResource BackgroundGradient3}"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              Opacity="0.95"
              >
@@ -25,6 +25,7 @@
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="{StaticResource Brush_Metal}"/>
             <Setter Property="Command" Value="local:Commands.SortCommand"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
     </UserControl.Resources>
 

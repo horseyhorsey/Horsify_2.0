@@ -6,9 +6,16 @@
              xmlns:local="clr-namespace:Horsesoft.Horsify.SearchModule.UserControls"
              xmlns:horsify="http://schemas/horsesoft.co.uk"
              mc:Ignorable="d" 
-             Opacity="0.9"
+             Opacity="0.97"
              IsTabStop="False"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="850" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="GroupBox">
+            <Setter Property="MaxWidth" Value="400"/>
+            <Setter Property="TextElement.FontSize" Value="42"/>
+        </Style>
+    </UserControl.Resources>
 
     <Border Style="{StaticResource Border_MainContentRegion}">
         <Grid>
@@ -18,14 +25,16 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="44" 
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontSize="44" 
                            Text="SELECT RANDOM SONGS"/>
                 </Grid>
 
-                <GroupBox Header="Amount" Grid.Row="1" TextElement.FontSize="42"  MaxWidth="400">
+                <GroupBox Header="Amount" Grid.Row="1">
                     <horsify:AmountSelectControl x:Name="AmountControl" 
                                              HorizontalAlignment="Center" 
                                              Background="Transparent"      
@@ -33,7 +42,7 @@
                                              ShowLargerIncrementButtons="False"/>
                 </GroupBox>
 
-                <GroupBox Header="Rating" TextElement.FontSize="42" Grid.Row="2" MaxWidth="400" >
+                <GroupBox Header="Rating" Grid.Row="2" MaxWidth="400" >
 
                     <StackPanel>
 
@@ -47,26 +56,24 @@
                 </GroupBox>
 
 
-                <GroupBox Header="Select" Grid.Row="3" TextElement.FontSize="42" MaxWidth="400">
+                <GroupBox Header="Select" Grid.Row="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
                         <Button Grid.Row="3" FontSize="48" Margin="15"
-                Width="85"
-                Height="65"
-                Style="{DynamicResource ButtonQueueMetal}" 
-                Click="GetRandomButton_Click"                                                                                 
-                IsEnabled="True"                        
-                        />
-
-                        <horsify:ButtonWithLabel Grid.Row="4" 
-                                     Click="BackButton_Click"
-                                     MaxHeight="110" MaxWidth="70"
-                                     HorizontalAlignment="Center"                                                                          
-                                     Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                                     
-                                     BorderThickness="0"
+                            Width="85"
+                            Height="65"
+                            Style="{DynamicResource ButtonQueueMetal}" 
+                            Click="GetRandomButton_Click"                                                                                 
+                            IsEnabled="True"                        
                         />
                     </StackPanel>
                 </GroupBox>
+
+                <Button Grid.Row="4" MaxHeight="65" MaxWidth="85" Margin="10"
+                        Style="{DynamicResource TransparentButtonBases}"
+                                     Click="BackButton_Click"                                     
+                                     Content="{Binding Source={StaticResource Icon_ArrowLeft}}"
+                        />
 
 
             </Grid>

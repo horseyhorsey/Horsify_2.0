@@ -31,6 +31,23 @@
         </Grid>
     </DataTemplate>
 
+    <!--PLAY / QUEUE / PLAYLIST PANEL-->
+    <DataTemplate x:Key="SongCtrlPanel">
+        <StackPanel Orientation="Horizontal">
+            <Button Content="{DynamicResource IconQueueTwo}" 
+                            Height="32"
+                        Command="{Binding ElementName=LayoutRoot, Path=DataContext.QueueSongCommand}" 
+                        CommandParameter="{Binding}"
+                            />
+            <!--CommandParameter="{Binding}"-->
+            <Button Height="32"
+                            Content="{DynamicResource Icon_play_Two}" 
+                        Command="{Binding ElementName=LayoutRoot, Path=DataContext.PlaySongCommand}" 
+                        CommandParameter="{Binding}"
+                        />
+        </StackPanel>
+    </DataTemplate>
+
     <!--SONG ITEM TEMPLATE - FOR SEARCHED SONGS MAIN - Can change with selector-->
     <DataTemplate x:Key="SongItemTemplate">
 
@@ -59,7 +76,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="Auto" MinHeight="78.427"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.Effect>
@@ -100,15 +117,8 @@
                             </Image.Style>
                         </Image>
 
-                        <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
-                                                      Style="{DynamicResource RatingViewStyle}"
-                                                      StarWidth="30"
-                                                      VerticalAlignment="Top"
-                                                      HorizontalAlignment="Right"
-                                                      />
-
                         <!--MUSIC KEY ICON-->
-                        <Grid HorizontalAlignment="Left" VerticalAlignment="Top"                               
+                        <Grid HorizontalAlignment="Right" VerticalAlignment="Top"                               
                               Width="22" Height="22">
                             <Ellipse Fill="{Binding MusicKey,  Mode=OneWay, Converter={StaticResource MusicKeyToColorConverter}}"
                                              Stroke="Black"
@@ -125,10 +135,8 @@
                 <!--DETAILS LABEL-->
                 <Border VerticalAlignment="Bottom" Grid.Row="1"
                           CornerRadius="2,2,5,5"               
-                        Opacity="0.8"
                           Background="{DynamicResource Brush_Metal}"                          
-                          TextElement.Foreground="Black" 
-                          Height="100"
+                          TextElement.Foreground="Black"                           
                           MaxWidth="280"
                           Width="280"
                           >
@@ -164,6 +172,15 @@
                     </StackPanel>
                 </Border>
 
+
+                <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
+                                                      Style="{DynamicResource RatingViewStyle}"
+                                                      StarWidth="22"
+                                                      VerticalAlignment="Top"
+                                                      HorizontalAlignment="Left"
+                                                      Margin="0,0"
+                                                      />
+
             </Grid>
 
         </Grid>
@@ -173,69 +190,83 @@
     <!--JUKEBOX YELLOW STRIP-->
     <DataTemplate x:Key="JukeboxLabelTemplate">
 
-        <Border Background="#FFB99106" 
+        <Grid>
+
+            <Border Background="{DynamicResource BackgroundGradient4}" 
                 BorderThickness="2" Margin="3"
-                BorderBrush="#FF975405">
-            <Grid TextElement.FontSize="16"
-                  MaxHeight="180" Height="180"
-                  Width="450"
+                BorderBrush="{DynamicResource Color_Primary5}"
+                Width="460" CornerRadius="0,10,15,15"
+                MaxHeight="160" Height="155"
+                >
+                <Grid TextElement.FontSize="16"                  
                   >
 
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Image 
-                       Width="150" Height="200"
-                       MaxHeight="200" MaxWidth="200" Grid.RowSpan="4">
-                    <Image.CacheMode>
-                        <BitmapCache RenderAtScale="0.8" SnapsToDevicePixels="True"/>
-                    </Image.CacheMode>
+                    <Image 
+                    Width="100" Height="100"
+                    Grid.RowSpan="4">
+                        <Image.CacheMode>
+                            <BitmapCache RenderAtScale="0.8" SnapsToDevicePixels="True"/>
+                        </Image.CacheMode>
 
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Setter Property="Source" Value="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
 
-                            <Style.Triggers>
-                                <DataTrigger  Binding="{Binding ImageLocation}" Value="{x:Null}">
-                                    <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                    
-                </Image>
+                                <Style.Triggers>
+                                    <DataTrigger  Binding="{Binding ImageLocation}" Value="{x:Null}">
+                                        <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
 
-                <Border  BorderBrush="#FF975405" BorderThickness="2" Grid.Column="1">
-                    <Grid>
-                        <Rectangle Fill="#FFB1680A" Width="270" Height="20"/>
-                        <TextBlock Text="{Binding Artist}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </Border>
+                    </Image>
 
-                <TextBlock Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
-                <TextBlock Grid.Row="2" Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
-                <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
-                <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
+                    <Border  BorderBrush="Black" BorderThickness="2" Grid.Column="1" CornerRadius="0,5,0,0">
+                        <Grid>
+                            <Rectangle Fill="#FFB1680A" Width="270" Height="20"/>
+                            <TextBlock Text="{Binding Artist}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
 
-                <!--RATING-->
-                <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
+                    <TextBlock Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
+                    <TextBlock Grid.Row="2" Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="250" MaxHeight="20" HorizontalAlignment="Center" Grid.Column="1"/>
+                    <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
+                    <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="150" MaxHeight="20"  HorizontalAlignment="Center" Grid.Column="1"/>
+
+                    <!--RATING-->
+                    <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
                                                       Style="{DynamicResource RatingViewStyle}"
-                                                      StarWidth="25"
-                                                      VerticalAlignment="Top"
+                                                      StarWidth="20"
+                                              Grid.RowSpan="5" Grid.ColumnSpan="2"
+                                              VerticalAlignment="Bottom" HorizontalAlignment="Left"
                                                       />
+                </Grid>
 
-            </Grid>
-        </Border>
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect/>
+                </Border.BitmapEffect>
+            </Border>
+
+            <ContentPresenter ContentTemplate="{StaticResource SongCtrlPanel}" 
+                              Grid.RowSpan="5" Grid.Column="0" Margin="10"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Bottom" 
+                              />
+        </Grid>
 
     </DataTemplate>
 
@@ -304,12 +335,17 @@
                             </Image.Style>
                         </Image>
 
-                        <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
+
+                        <Border VerticalAlignment="Top" Background="{DynamicResource BackgroundGradient5}"
+                                HorizontalAlignment="Left" CornerRadius="2,10,10,2" Margin="2"
+                                Opacity="0.88"
+                                >
+                            <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
                                                       Style="{DynamicResource RatingViewStyle}"
-                                                      StarWidth="30"
-                                                      VerticalAlignment="Top"
-                                                      HorizontalAlignment="Left"
+                                                      StarWidth="20"
+                                                      Margin="10,0"                                                      
                                                       />
+                        </Border>
 
                         <!--MUSIC KEY ICON-->
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -327,29 +363,50 @@
 
                         <!--DETAILS LABEL - Width on the parent border is needed to keep items same width-->
                         <Border VerticalAlignment="Bottom" Grid.Row="1"            
-                                CornerRadius="2,2,5,5"                          
-                                TextElement.Foreground="{DynamicResource Color_Primary3}" 
-                                Background="{DynamicResource BackgroundGradient2}"   
+                                CornerRadius="2,2,5,5"
+                                TextElement.Foreground="White"  
                                 Width="280"
                                 >
-                            <StackPanel VerticalAlignment="Bottom"                                            
-                                    Margin="20,0"
+                            <Grid>
+
+                                <Border
+                                CornerRadius="2,1,5,5"
+                                    BorderThickness="2"
+                                    BorderBrush="Black" Opacity="0.8"
+                                Width="280"
+                                        Background="{DynamicResource BackgroundGradient}"   
+                                />
+
+                                <StackPanel VerticalAlignment="Bottom"                                            
+                                    Margin="5,0"
                                     TextElement.FontSize="18.5"
                                     TextElement.FontWeight="Medium"
                                     TextElement.FontFamily="Impact"
                                     >
-                                <!--ARTIST-YEAR-->
-                                <TextBlock Text="{Binding Artist, Mode=OneWay}"/>
+                                    <Grid>
+                                        <!--ARTIST-YEAR-->
+                                        <TextBlock Text="{Binding Artist, Mode=OneWay}"/>
 
-                                <!--TITLE-->
-                                <TextBlock Text="{Binding Title, Mode=OneWay}" HorizontalAlignment="Left"/>
-                            </StackPanel>
+                                        <!--YEAR-->
+                                        <TextBlock Text="{Binding Year, Mode=OneWay}" HorizontalAlignment="Right"/>
+                                    </Grid>
+
+                                    <!--TITLE-->
+                                    <TextBlock Text="{Binding Title, Mode=OneWay}" HorizontalAlignment="Left"/>
+
+                                </StackPanel>
+                            </Grid>
                         </Border>
 
                     </Grid>
                 </Border>
 
             </Grid>
+
+            <ContentPresenter ContentTemplate="{StaticResource SongCtrlPanel}"                               
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top" 
+                              />
         </Grid>
     </DataTemplate>
 
@@ -371,7 +428,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            
+
             <Grid TextElement.FontSize="22" MaxHeight="185">
 
                 <!--#region GRID DEFS-->
@@ -393,7 +450,7 @@
 
                 <!--IMAGE AND RATING-->
                 <Grid Grid.Column="0" Grid.RowSpan="3">
-                    
+
                     <!--IMAGE-->
                     <Image Width="150" Height="100"    
                        MaxWidth="100" HorizontalAlignment="Left">
@@ -441,7 +498,7 @@
                                HorizontalAlignment="Center"
                                />
                 </Grid>
-                
+
                 <!--ARTIST-->
                 <Border Grid.Column="1" Grid.Row="1" 
                         BorderBrush="#FF975405" BorderThickness="2">
@@ -467,14 +524,20 @@
                 </Border>
 
                 <!--PLAYLIST QUEUE-->
+                <!--TODO: MOVE PLAYLIST COMMANDS TO USE THE OTHER BASE VIEW MODEL-->
                 <StackPanel HorizontalAlignment="Center" Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="3">
-                    <Button Content="QUEUE" 
+                    <Button Content="{DynamicResource IconQueueTwo}" 
+                            Height="36"
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.AddToQueueCommand}" 
-                        CommandParameter="{Binding}"/>
-                    <Button Content="Play" 
+                        CommandParameter="{Binding}"
+                            
+                            />
+                    <Button Height="36"
+                            Content="{DynamicResource Icon_play_Two}" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.PlayItemCommand, FallbackValue={x:Null}}" 
                         CommandParameter="{Binding}"/>
-                    <Button Content="Remove" 
+                    <Button Height="36"
+                            Content="{DynamicResource DeleteIcon}" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.RemoveItemCommand, FallbackValue={x:Null}}" 
                         CommandParameter="{Binding}"/>
                 </StackPanel>
@@ -527,7 +590,7 @@
                                 <VirtualizingStackPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                        
+
                     </ListView>
 
                 </Grid>
@@ -621,7 +684,7 @@
             </Button>
 
             <!--QUEUED SONG INFO-->
-            <Rectangle Fill="{DynamicResource BackgroundGradient}" Opacity="0.8" Height="30" 
+            <Rectangle Fill="{DynamicResource BackgroundGradient5}" Opacity="0.8" Height="30" 
                            VerticalAlignment="Bottom" RadiusX="5" RadiusY="5"/>
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"
@@ -640,13 +703,14 @@
                 <TextBlock Text="{Binding QueuedSong.Artist, Mode=OneWay}"
                                FontSize="14"
                                MaxWidth="105" 
-                                Foreground="{DynamicResource Color_Primary4}"
+                                Foreground="White"
                                TextWrapping="NoWrap"/>
 
                 <!--SONG TITLE-->
                 <TextBlock Text="{Binding QueuedSong.Title,Mode=OneWay}"
                                FontSize="12"
-                               MaxWidth="105" Foreground="{DynamicResource Color_Primary4}"
+                           Foreground="White"
+                               MaxWidth="105" 
                                TextWrapping="NoWrap"/>
 
             </StackPanel>

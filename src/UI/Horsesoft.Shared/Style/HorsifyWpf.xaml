@@ -37,4 +37,12 @@
 
     <!--COLORS ARE LOADED FROM THE SKIN.....DEFAULTS TO BLUE-->
 
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButtonBases}">
+        <Setter Property="BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect Opacity="0.4"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

@@ -22,6 +22,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
 
+    <!--#region METAL BUTTONS-->
     <Style x:Key="ButtonMetal" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource Brush_Metal}"/>
         <Setter Property="Width" Value="50"/>
@@ -52,10 +53,21 @@
 
     <Style x:Key="ButtonMetalRounded" TargetType="Button"></Style>
     
+    <!--#endregion-->
+    
     <!--BUTTONS-->
     <ControlTemplate x:Key="ButtonBaseNoSelectionsControlTemplate" TargetType="{x:Type ButtonBase}">
-        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                Background="{TemplateBinding Background}" 
+                SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" 
+                              Content="{TemplateBinding Content}" 
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                              Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Button.IsDefaulted" Value="True">
@@ -120,9 +132,10 @@
         </Setter>
     </Style>
 
-    <!--BUTTON BASE TEMPLATE-->
+    <!--BUTTON BASE TEMPLATE - USED IN DJ HORSIFY ENABLE BUTTON-->
     <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                CornerRadius="5"
                     BorderThickness="{TemplateBinding BorderThickness}" 
                     Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
             <ContentPresenter x:Name="contentPresenter" 
@@ -141,21 +154,21 @@
                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>-->
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>-->
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
-                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                <!--<Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>-->
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                <!--<Setter Property="Background" TargetName="border" Value="Transparent"/>
                 <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>
+                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF838383"/>-->
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -239,18 +252,7 @@
 
     <!--#endregion-->
 
-    <!--ON SCREEN KEYBOARD BUTTONS-->
-    <Style x:Key="KeyboardButton" TargetType="Button">
-        <Setter Property="Focusable" Value="True"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="Impact"/>
-        <Setter Property="FontSize" Value="22"/>
-        <Setter Property="VerticalContentAlignment" Value="Top"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Width" Value="1.5cm"/>
-        <Setter Property="Height" Value="1.5cm"/>
-    </Style>
+
 
     <!--#region EXPANDERS-->
     <Style TargetType="Expander">
@@ -320,5 +322,31 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <!--#endregion-->
+    
+    <!--SEE THROUGH SCREEN BUTTONS-->
+
+    <Style x:Key="TransparentButtonBases" TargetType="{x:Type ButtonBase}">
+        <Setter Property="BorderBrush" Value="{DynamicResource BackgroundGradient5}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundGradient3}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="55"/>
+        <Setter Property="Template" Value="{StaticResource ButtonBaseControlTemplate1}"/>
+    </Style>
+
+    <!--ON SCREEN KEYBOARD BUTTONS-->
+    <Style x:Key="KeyboardButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="FontFamily" Value="Impact"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Width" Value="1.5cm"/>
+        <Setter Property="Height" Value="1.5cm"/>
+    </Style>
+
+
 
 </ResourceDictionary>

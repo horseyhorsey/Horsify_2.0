@@ -144,7 +144,7 @@
     </DataTemplate>
 
     <!--STAR-->
-    <Viewbox x:Key="Svg_Star_Viewbox" Stretch="None">
+    <Viewbox x:Key="Svg_Star_Viewbox" Stretch="None"  x:Shared="false" >
         <Canvas x:Name="svg14" Width="24" Height="24">
             <!--Unknown tag: metadata-->
             <!--Unknown tag: sodipodi:namedview-->
@@ -185,7 +185,7 @@
     </Viewbox>
 
     <!--HORSIFY SEARCH-->
-    <Viewbox x:Key="HorsifySearchSvg" Stretch="Uniform">
+    <Viewbox x:Key="HorsifySearchSvg" Stretch="Uniform"  x:Shared="false" >
         <Canvas Name="svg8" Width="90.43662" Height="89">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>
@@ -263,7 +263,7 @@
     </Viewbox>
 
     <!--VINYL ICON-->
-    <Viewbox x:Key="VinylIconSvg" Stretch="Uniform">
+    <Viewbox x:Key="VinylIconSvg" Stretch="Uniform"  x:Shared="false" >
         <Canvas Name="svgvinylicon" Width="24" Height="24">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>
@@ -278,7 +278,7 @@
     </Viewbox>
 
     <!--PLAYLIST ICON-->
-    <Viewbox x:Key="PlaylistSvg" Stretch="Uniform">
+    <Viewbox x:Key="PlaylistSvg" Stretch="Uniform"  x:Shared="false" >
         <Canvas Name="svg4" Width="24" Height="24">
             <Canvas.Resources/>
             <!--Unknown tag: metadata-->
@@ -292,7 +292,7 @@
     </Viewbox>
     
     <!--SORT ICON-->
-    <Viewbox  x:Key="SortIconSvg" Stretch="Uniform">
+    <Viewbox  x:Key="SortIconSvg" Stretch="Uniform"  x:Shared="false" >
         <Canvas Width="24" Height="24">
             <Canvas.RenderTransform>
                 <TranslateTransform X="0" Y="0"/>
@@ -300,7 +300,7 @@
             <Canvas.Resources/>
             <!--Unknown tag: metadata-->
             <!--Unknown tag: sodipodi:namedview-->
-            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000">
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="White">
                 <Path.Data>
                     <PathGeometry Figures="M8 10v4h4l-6 7-6-7h4v-4h-4l6-7 6 7h-4zm16 5h-10v2h10v-2zm0 6h-10v-2h10v2zm0-8h-10v-2h10v2zm0-4h-10v-2h10v2zm0-4h-10v-2h10v2z" FillRule="NonZero"/>
                 </Path.Data>

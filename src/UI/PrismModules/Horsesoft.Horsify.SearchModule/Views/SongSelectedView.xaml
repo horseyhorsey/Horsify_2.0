@@ -12,55 +12,17 @@
              d:DataContext="{d:DesignData /SampleData/SongSelectedViewModelSampleData.xaml}">
 
     <UserControl.Resources>
-        
         <!--BUTTON STYLE-->
-        <Style x:Key="SearchButton" TargetType="Button" BasedOn="{StaticResource ButtonMetal}">
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Margin" Value="0,0"/>
+        <Style TargetType="horsify:HorsifySearchButton">
             <Setter Property="Command" Value="{Binding SearchSongsCommand}"/>
+            <Setter Property="FontSize" Value="62"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="ButtonContentSize" Value="48"/>
         </Style>
-
-        <!--<Style x:Key="ButtonWithLabel" TargetType="Button" BasedOn="{StaticResource SearchButton}">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="100"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <StackPanel>
-                                <Label Content="{TemplateBinding Content}"
-                                       FontSize="24" Foreground="Black"/>
-                                <ContentPresenter Content="{TemplateBinding Background}"
-                                                  MaxHeight="50" MaxWidth="50"/>
-                            </StackPanel>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-        </Style>-->
-        
-        <!--TEXTBLOCK-->
-        <!--<Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle_Bebas}">
-            <Setter Property="Margin" Value="10, 0,0,0"/>
-            <Setter Property="FontSize" Value="32"/>
-            <Setter Property="Foreground" Value="GhostWhite"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>-->
-        
-        <!--STACKPANEL WITH DROP SHADOW-->
-        <Style x:Key="StackStyle" TargetType="StackPanel">
-            <!--<Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect/>
-                </Setter.Value>
-            </Setter>-->
-        </Style>
-
     </UserControl.Resources>
 
-    <Grid Margin="35" x:Name="LayoutRoot">
+    <Grid Margin="20" x:Name="LayoutRoot" Visibility="Visible">
 
         <!--#region GRID DEFINITIONS-->
 
@@ -72,20 +34,61 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!--#endregion-->
 
-        <horsify:ButtonWithLabel Grid.ColumnSpan="2"
-                                     MaxHeight="110" MaxWidth="70"
-                                     HorizontalAlignment="Left"
-                                     Margin="-20"
-                            Command="{Binding GoBackCommand}" 
-                            Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                            
-                            Text=""
-                            BorderThickness="0"
+        
+        <!--ALBUM ART BACKGROUND-->
+        <!--<Border x:Name="ImgBgBorder" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                BorderBrush="{DynamicResource Color_Primary}"
+                BorderThickness="2"
+                CornerRadius="30">
+
+            <Image Stretch="Fill" Opacity="0.3" StretchDirection="UpOnly"
+                   Height="2000" Width="5000"
+                   >
+                <Image.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=ImgBgBorder}"/>
+                </Image.OpacityMask>
+
+            </Image>
+        </Border>-->
+
+        <Border Grid.RowSpan="2" Grid.ColumnSpan="2"
+                
+                BorderBrush="{DynamicResource Color_Primary}" BorderThickness="3"
+                CornerRadius="40" >
+            <Grid>
+                <Border Name="myBorder" Opacity="0.1" CornerRadius="40" Background="Black"/>
+                <Image Stretch="Fill" StretchDirection="UpOnly">
+                    <Image.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=myBorder}"/>
+                    </Image.OpacityMask>
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                            <Style.Triggers>
+                                <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                                    <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Grid>
+        </Border>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Left"
+                    Margin="50,0"
+                    >
+            <Label Content="BACK" FontSize="22"/>
+            <Button                
+                Command="{Binding GoBackCommand}" 
+                Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                
                         />
+        </StackPanel>
 
         <!--ART< PLAY AND QUEUE-->
         <Grid Grid.Column="0" Margin="50" Grid.Row="1"
@@ -120,47 +123,41 @@
                 </Image.Style>
             </Image>
 
-            <Grid Grid.Row="1" Grid.Column="1" 
-                  HorizontalAlignment="Left" VerticalAlignment="Top">
-                <!--PLAY - QUEUE-->
-                <StackPanel Grid.Row="1" Orientation="Horizontal"                                               
-                            Style="{StaticResource StackStyle}">
+            <!--PLAY - QUEUE-->
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
 
-                    <StackPanel.Resources>
-                        <Style TargetType="horsify:ButtonWithLabel">
-                            <Setter Property="Width" Value="100"/>
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <horsify:ButtonWithLabel Margin="3"
-                            Command="{Binding PlayCommand}"
-                            Content="{Binding Source={StaticResource Icon_play_Two}}"
-                            Text="PLAY"
-                            BorderThickness="0"                                             
+                <StackPanel Orientation="Vertical">
+                    <Label Content="PLAY" FontSize="22"/>
+                    <Button Command="{Binding PlayCommand}" 
+                            Style="{DynamicResource TransparentButtonBases}"
+                Content="{Binding Source={StaticResource Icon_play_Two}}"                
                         />
-
-                    <horsify:ButtonWithLabel Margin="3"
-                            Command="{Binding QueueSongsCommand}"
-                            Content="{Binding Source={StaticResource IconQueueTwo}}"
-                            Text="QUEUE"
-                            BorderThickness="0"
-                        />
-
-                    <horsify:ButtonWithLabel Margin="3"
-                            Command="{Binding DataContext.AddToPlayListCommand, ElementName=LayoutRoot}"
-                            Content="{Binding Source={StaticResource IconQueueTwo}}"
-                            CommandParameter="{Binding Path=SelectedSong}"
-                            Text="PLAYLIST"
-                            BorderThickness="0"
-                        />
-
                 </StackPanel>
-            </Grid>
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="QUEUE" FontSize="22"/>
+                    <Button
+                Command="{Binding QueueSongsCommand}" 
+                Content="{Binding Source={StaticResource IconQueueTwo}}"    
+                        Style="{DynamicResource TransparentButtonBases}"
+                        />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="PLAYLIST" FontSize="22"/>
+                    <Button
+                Command="{Binding DataContext.AddToPlayListCommand, ElementName=LayoutRoot}" 
+                Content="{Binding Source={StaticResource PlaylistSvg}}"  
+                CommandParameter="{Binding Path=SelectedSong}"
+                        Style="{DynamicResource TransparentButtonBases}"
+                        />
+                </StackPanel>
+            </StackPanel>
 
         </Grid>
 
         <!--SEARCH BUTTONS GRID-->
-        <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" MaxWidth="500">
+        <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -177,20 +174,14 @@
             <!--#region BUTTONS-->
 
             <Label Content="SEARCH" FontSize="16"/>
-            <Separator VerticalAlignment="Bottom" Margin="5"/>
 
             <!--ARTIST WITH SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1"   Grid.Row="1"
+            <horsify:HorsifySearchButton Grid.Column="1" Grid.Row="1"
                     SearchString="{Binding SelectedSong.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  
                     Visibility="{Binding SelectedSong.Artist, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
-                    CommandParameter="Artist"                        
+                    CommandParameter="Artist"
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource ArtistIcon}}"
-                    FontSize="52"
-                    Background="{DynamicResource Brush_Metal}"
-                    >
-
-            </horsify:HorsifySearchButton>
+                    Content="{Binding Source={StaticResource ArtistIcon}}" />
 
             <!--TITLE SEARCH-->
             <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="2" 
@@ -199,7 +190,6 @@
                     CommandParameter="Title"                        
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource Icon_Genre}}"
-                    FontSize="52"
                     />
 
             <!--ALBUM SEARCH-->
@@ -209,7 +199,6 @@
                     CommandParameter="Album"                        
                     Command="{Binding SearchSongsCommand}"
                     Content="{Binding Source={StaticResource RecordLabelIcon}}"
-                    FontSize="42"
                     />
 
             <!--GENRE SEARCH-->
@@ -219,7 +208,6 @@
                     CommandParameter="Genre"                        
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource Icon_Genre}}"
-                    FontSize="52"
                     />
 
             <!--LABEL SEARCH-->
@@ -228,8 +216,7 @@
                     SearchString="{Binding SelectedSong.Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Label"                        
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource Icon_Genre}}"
-                    FontSize="52"                    
+                    Content="{Binding Source={StaticResource Icon_Genre}}"                    
                     />
 
             <!--YEAR SEARCH-->
@@ -238,7 +225,6 @@
                     CommandParameter="Year"                        
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource Icon_Genre}}"
-                    FontSize="52"
                     Visibility="{Binding SelectedSong.Year, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     />
 

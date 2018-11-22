@@ -34,7 +34,7 @@
         <!--#region NOW PLAYING INFO AND SEARCHING-->
 
         <StackPanel.Resources>
-            <Style  TargetType="{x:Type horsify:HorsifySearchButton}"  BasedOn="{StaticResource {x:Type horsify:HorsifySearchButton}}">
+            <Style TargetType="{x:Type horsify:HorsifySearchButton}"  BasedOn="{StaticResource {x:Type horsify:HorsifySearchButton}}">
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="Foreground" Value="AntiqueWhite"/>
             </Style>
@@ -60,10 +60,10 @@
                    Text="{Binding MediaControlModel.SelectedSong.Bpm, Mode=OneWay, StringFormat={}BPM: {0}}"/>
 
         <!--ARTIST WITH SEARCH-->
-        <horsify:HorsifySearchButton HorizontalAlignment="Center"                                     
+        <horsify:HorsifySearchButton HorizontalAlignment="Center"              
                                      SearchString="{Binding MediaControlModel.SelectedSong.Artist, Mode=OneWay}"
                                      Command="{Binding RunSearchCommand}"
-                                     CommandParameter="Artist"                    
+                                     CommandParameter="Artist"                                     
                                      Content="{DynamicResource ArtistIcon}"/>
 
         <!--TITLE-->

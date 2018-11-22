@@ -21,6 +21,7 @@
                             <Style TargetType="RepeatButton">
                                 <Setter Property="Background" Value="Transparent"/>
                                 <Setter Property="Margin" Value="15"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
                             </Style>
                         </StackPanel.Resources>
 
@@ -53,15 +54,15 @@
                             Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
                             Visibility="{Binding ShowLargerIncrementButtons, Mode=TwoWay, Converter={StaticResource bool2vis}}"
                             />
-                        
+
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
 
     </Style>
-   
-    
+
+
     <!--#region EXPANDER-->
     <SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="#FF5593FF"/>
     <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="#FFF3F9FF"/>
@@ -339,9 +340,9 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!--#endregion-->       
-    
+
+    <!--#endregion-->
+
     <!--RATING CONTROL - SINGLE WITH CLEAR-->
     <Style TargetType="{x:Type controls:RatingControl}">
         <Setter Property="Template">
@@ -351,7 +352,7 @@
                     <ControlTemplate.Resources>
                         <Style TargetType="ToggleButton">
                             <Setter Property="RenderTransformOrigin" Value="0.5,0.5">
-                                
+
                             </Setter>
                         </Style>
                     </ControlTemplate.Resources>
@@ -483,6 +484,9 @@
 
     <!--HorsifySearchButton-->
     <Style TargetType="controls:HorsifySearchButton">
+
+
+        <Setter Property="ButtonContentSize" Value="12"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:HorsifySearchButton}">
@@ -491,11 +495,13 @@
                     <StackPanel Orientation="Horizontal">
 
                         <!--SEARCH-->
-                        <Button Visibility="{TemplateBinding Visibility}"  
+                        <Button BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Visibility="{TemplateBinding Visibility}"  
                                 FontSize="{TemplateBinding FontSize}"
-                                                Height="{TemplateBinding Height}" 
-                                                Width="{TemplateBinding Width}"
-                                                Content="{TemplateBinding Property=Button.Content}"/>
+                                Height="{TemplateBinding ButtonContentSize}" 
+                                Width="{TemplateBinding ButtonContentSize}"
+                                Content="{TemplateBinding Property=Button.Content}"/>
 
                         <!--SEARCH TEXT-->
                         <TextBlock x:Name="ButtonInfoText" Margin="5,0"
@@ -505,9 +511,6 @@
                            Text="{TemplateBinding SearchString}"/>
 
                     </StackPanel>
-
-                    <!--SearchType="{TemplateBinding SearchType}"
-                                                SearchString="{TemplateBinding SearchString}"-->
 
                 </ControlTemplate>
             </Setter.Value>
@@ -523,15 +526,15 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
 
-                        <StackPanel>
-                            <Label FontSize="24" Content="{TemplateBinding Text}"/>
-                            <ContentPresenter Width="{TemplateBinding Width}"
-                                              Height="{TemplateBinding Height}"
+                        <StackPanel x:Name="IconLabelContainer" Margin="3">
+                            <Label FontSize="{TemplateBinding FontSize}" Content="{TemplateBinding Text}"/>
+                            <ContentPresenter Width="{Binding ElementName=IconLabelContainer,Path=ActualWidth}"
+                                              Height="{Binding ElementName=IconLabelContainer,Path=ActualHeight}"
                                               />
                         </StackPanel>
-                        
+
                     </Border>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -584,13 +587,13 @@
         </Style.Triggers>
     </Style>
     <!--#endregion-->
-    
+
     <!--#region KEYBOARD-->
     <Style TargetType="{x:Type controls:OnScreenKeyboard}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:OnScreenKeyboard}">
-                    <Border CornerRadius="20" Background="Gray"> 
+                    <Border CornerRadius="20" Background="Gray">
                         <Grid Margin="5">
                             <!--#region ROW/COL DEFS-->
                             <Grid.RowDefinitions>
@@ -605,10 +608,10 @@
 
                             <Grid.Resources>
                                 <!--KEYBOARD BUTTON WITH COMMAND - COMMAND PARAM IS THE BUTTONS CONTENT-->
-                                <Style BasedOn="{StaticResource KeyboardButton}" TargetType="Button">
+                                <Style TargetType="Button" BasedOn="{StaticResource KeyboardButton}">
                                     <Setter Property="Command" Value="{x:Static controls:OnScreenKeyboard.SendKeyCommand}"/>
                                     <Setter Property="CommandParameter" Value="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-                                    <Setter Property="Margin" Value="5"/>
+                                    <Setter Property="Margin" Value="3"/>
                                 </Style>
                             </Grid.Resources>
 
@@ -635,7 +638,7 @@
                                 <Button Content="0"/>
                                 <Button Content="Del" Width="90"/>
                             </StackPanel>
-                            
+
                             <StackPanel Grid.Row="2" 
                                         Orientation="Horizontal" 
                                         x:Name="Stack"

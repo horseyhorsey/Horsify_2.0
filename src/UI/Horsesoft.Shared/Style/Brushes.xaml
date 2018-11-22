@@ -108,7 +108,7 @@
             <TransformGroup>
                 <ScaleTransform/>
                 <SkewTransform/>
-                <RotateTransform Angle="90"/>
+                <RotateTransform Angle="180"/>
                 <TranslateTransform/>
             </TransformGroup>
         </ImageBrush.Transform>

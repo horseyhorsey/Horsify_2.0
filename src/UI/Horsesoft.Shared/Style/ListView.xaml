@@ -92,34 +92,39 @@
             </DockPanel.Resources>
 
             <!--PAGING LEFT-->
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center">
-                <RepeatButton x:Name="LineLeftButton" 
-                                      Width="50" Margin="25"
-                                      Height="55" FontSize="36" 
-                                    Background="{DynamicResource Brush_Metal}"
-                                      Content="◀" Command="{x:Static ScrollBar.LineLeftCommand}"      
-                                      CommandTarget="{Binding ElementName=scrollviewer}"/>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20">
+                <RepeatButton x:Name="LineLeftButton"
+                              Margin="5"
+                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
+                              Style="{DynamicResource TransparentButtonBases}" 
+                              Content="◀" Command="{x:Static ScrollBar.LineLeftCommand}"   
+                              FontSize="36"
+                              CommandTarget="{Binding ElementName=scrollviewer}"/>
 
                 <RepeatButton x:Name="LineLeftButton2" DockPanel.Dock="Left" 
-                                      Width="50" Margin="5"
-                                      Height="55" FontSize="36" Background="{DynamicResource Brush_Metal}"
+                                   FontSize="36" Margin="5"
+                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
+                              Style="{DynamicResource TransparentButtonBases}"                               
                                       Content="⇤" Command="{x:Static ScrollBar.ScrollToLeftEndCommand}"      
                                       CommandTarget="{Binding ElementName=scrollviewer}"/>
             </StackPanel>
 
             <!--PAGING RIGHT-->
-            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
-                <RepeatButton x:Name="LineRightButton" Margin="25"
-                                      Width="50" Background="{DynamicResource Brush_Metal}"
-                            Content="▶" Height="55" FontSize="36"
-                            Command="{x:Static ScrollBar.LineRightCommand}"      
-                            CommandTarget="{Binding ElementName=scrollviewer}"/>
+            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="20">
+                <RepeatButton x:Name="LineRightButton" Margin="5"
+                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
+                              Style="{DynamicResource TransparentButtonBases}" 
+                              Content="▶" FontSize="36"
+                              Command="{x:Static ScrollBar.LineRightCommand}"      
+                              CommandTarget="{Binding ElementName=scrollviewer}"/>
 
-                <RepeatButton x:Name="LineRightButton2" Margin="5"
-                                      Width="50" Background="{DynamicResource Brush_Metal}"
-                            Content="⇥" Height="55" FontSize="36"
-                            Command="{x:Static ScrollBar.ScrollToRightEndCommand}"      
-                            CommandTarget="{Binding ElementName=scrollviewer}"/>
+                <RepeatButton x:Name="LineRightButton2" Margin="5"           
+                              Content="⇥" FontSize="36"
+                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
+                              Style="{DynamicResource TransparentButtonBases}"                              
+                              Command="{x:Static ScrollBar.ScrollToRightEndCommand}"
+                              CommandTarget="{Binding ElementName=scrollviewer}">
+                </RepeatButton>
             </StackPanel>
 
             <Border                   
@@ -144,7 +149,7 @@
         <StackPanel Orientation="Horizontal">
 
             <Border Background="{DynamicResource Brush_Metal}" Width="35" Height="30" CornerRadius="10,0,0,10">
-                <ContentPresenter Content="{Binding Icon_Genre}" Width="20"/>
+                <ContentPresenter Content="{DynamicResource Icon_Genre}" Width="20"/>
             </Border>
 
             <Button Content="{DynamicResource DeleteIcon}" 
@@ -162,7 +167,7 @@
     <DataTemplate x:Key="HorsifyListViewItemNoDeleteTemplate">
         <StackPanel Orientation="Horizontal">
             <Border Background="{DynamicResource Brush_Metal}" Width="35" Height="30" CornerRadius="10,0,0,10">
-                <ContentPresenter Content="{Binding Icon_Genre}" Width="20"/>
+                <ContentPresenter Content="{DynamicResource Icon_Genre}" Width="20"/>
             </Border>
             <TextBlock Text="{Binding SearchType, StringFormat={}{0} -}" 
                                Margin="0,0,5,0"/>
@@ -221,7 +226,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
 
-                    <GroupBox FontSize="32" Background="Transparent">
+                    <GroupBox FontSize="32" Background="Transparent" >
 
                         <!--enumtoboolconverter-->
 
@@ -280,10 +285,11 @@
 
                             <ListView ItemsSource="{Binding Filters}" TextElement.FontSize="20"
                                         Background="Transparent" BorderBrush="Transparent"
+                                      MaxWidth="200"
                                         >
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel/>
+                                        <WrapPanel Orientation="Vertical"/>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                             </ListView>

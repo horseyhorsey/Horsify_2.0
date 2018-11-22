@@ -22,34 +22,39 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Templates" FontSize="22" Margin="-15, 10"
-                   Foreground="Black"
+        <TextBlock Text="VIEW" FontSize="22"
+                   Margin="8"
+                   Foreground="White"
                    />
 
         <StackPanel Grid.Row="1">
-            <Button Style="{StaticResource ToolBarButton}" 
-                        Content="1"
-                        ToolBar.OverflowMode="Always"
-                        Background="DodgerBlue" 
-                        CommandParameter="0"
-                        Click="SwitchTemplateButton_Click"
-                        />
-            <Button Style="{StaticResource ToolBarButton}" 
-                        Content="2"
-                        ToolBar.OverflowMode="Always"
-                        Background="DodgerBlue" 
-                        CommandParameter="1"
-                        Click="SwitchTemplateButton_Click"
-                        />
-            <Button 
-                    ToolBar.OverflowMode="Always"
-                    Style="{StaticResource ToolBarButton}" 
-                        Background="DodgerBlue" 
-                        CommandParameter="2"
-                        Click="SwitchTemplateButton_Click"
-                        Content="3"
-                        />
+
+            <StackPanel.Resources>
+                <Style x:Key="MyStyle" TargetType="ButtonBase" BasedOn="{StaticResource TransparentButtonBases}">
+                    <Setter Property="Template" Value="{StaticResource ButtonBaseNoSelectionsControlTemplate}"/>
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="Background" Value="{DynamicResource Color_Primary2}"/>
+                    <Setter Property="FontSize" Value="24"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Style="{DynamicResource MyStyle}"
+                Content="1"
+                CommandParameter="0"
+                Click="SwitchTemplateButton_Click"
+                />
+            <Button Style="{DynamicResource MyStyle}"
+                Content="2"
+                CommandParameter="1"
+                Click="SwitchTemplateButton_Click"
+                />
+            <Button Style="{DynamicResource MyStyle}"
+                CommandParameter="2"
+                Click="SwitchTemplateButton_Click"
+                Content="3"
+                />
         </StackPanel>
+        
         <!--SONG SELECTING TOOLBAR-->                      
         <!--<ToolBarTray
                      Orientation="Vertical"

@@ -20,6 +20,13 @@
                                                        
                               />
 
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+
         <!--#region TEMPLATES-->
 
         <!--PLAYLIST ITEM TEMPLATE-->
@@ -35,25 +42,34 @@
                     <CollectionViewSource x:Key="PlaylistItemsViewModelSource"
                               Source="{Binding PlayListItemViewModels}"
                               d:DesignSource="{d:DesignData Source=../SampleData/PlaylistItemViewModelSampleData.xaml}"/>
+
+
                 </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="192*"/>
+                    <ColumnDefinition Width="1361*"/>
+                </Grid.ColumnDefinitions>
 
-                <Rectangle Height="40" Fill="Gray"/>
+                <Rectangle Height="40" Fill="Gray" Grid.ColumnSpan="2"/>
 
-                <Button Content="Clear" Command="{Binding ClearItemsCommand}"
-                        HorizontalAlignment="Left" MinWidth="75" Margin="3"/>
+                <Button Content="Clear" 
+                        Command="{Binding ClearItemsCommand}"
+                        HorizontalAlignment="Left" 
+                        MinWidth="75" 
+                        Margin="3,4,0,4"/>
 
                 <Button Content="DELETE" Command="{Binding DeletePlaylistCommand}" 
-                        HorizontalAlignment="Right" Margin="90,3" MinWidth="75"/>
+                        HorizontalAlignment="Right" Margin="0,4,90,4" MinWidth="75" Grid.Column="1"/>
 
                 <Button Content="Save" Command="{Binding SavePlaylistCommand}" 
-                        HorizontalAlignment="Right" MinWidth="75" Margin="3"/>
+                        HorizontalAlignment="Right" MinWidth="75" Margin="0,4,3,4" Grid.Column="1"/>
 
                 <ScrollViewer  Grid.Row="1" 
                        CanContentScroll="True"                        
                         VerticalScrollBarVisibility="Auto"
                         HorizontalScrollBarVisibility="Disabled"
                         IsDeferredScrollingEnabled="False"
-                        PanningDeceleration="5"                                 
+                        PanningDeceleration="5" Grid.ColumnSpan="2"                                 
                        >
 
                     <!--SELECTED LIST playlist items-->
@@ -81,16 +97,20 @@
         <DataTemplate x:Key="PlaylistTabHeaderRemplate">
             <TextBlock x:Name="aadad" Background="Transparent" FontSize="24"><InlineUIContainer>
                     <TextBlock 
-                        Text="{Binding TabHeader}"  />
+                        Text="{Binding TabHeader}"/>
+                
                 </InlineUIContainer><Run Text=" "/><Run Text="--" /><Run Text=" "/><InlineUIContainer>
                     <TextBlock Text="{Binding PlayListItemViewModels.Count}"  />
                 </InlineUIContainer><Run Text=" "/><InlineUIContainer>
-                    <Button Content="X" 
+                
+                    <Button Content="X"
+                            Height="28" Width="32"
+                            FontSize="16"
                         Command="{Binding DataContext.CloseTabCommand, ElementName=LayoutRoot}"
                         CommandParameter="{Binding}"
                                     >
                         <Button.Style>
-                            <Style>    
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">    
                                 <Setter Property="UIElement.Visibility" Value="Visible"/>                                        
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding TabHeader}" Value="Preparation Playlist">
@@ -238,13 +258,13 @@
             </Grid.ColumnDefinitions>-->
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--#endregion-->
 
         <!--#region TITLE -->
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Visibility="Hidden">
             <TextBlock Text="         PLAYLISTS"   Grid.ColumnSpan="2"
                        HorizontalAlignment="Center"
                        FontSize="54"
@@ -252,9 +272,8 @@
                        VerticalAlignment="Top"
                        />
 
-            <Button Content="?" FontSize="45" 
-                        VerticalContentAlignment="Top"
-                        Height="50"
+            <Button Content="?" FontSize="16"
+                    Height="32" Margin="15"
                         Command="{Binding HelpWindowCommand}"
                         />
         </StackPanel>
@@ -263,34 +282,58 @@
 
         <DockPanel Grid.Row="1">
 
-            <Expander Grid.Row="1" Grid.Column="0" 
+            <Border Background="{DynamicResource BackgroundGradient}"
+                    CornerRadius="50,0,5,50"
+                    >
+                <Expander IsTabStop="False"
                           DockPanel.Dock="Left"
                       ExpandDirection="Right"   
                       BorderBrush="Transparent"
                       IsExpanded="True">
 
-                <Expander.Header>
-                    <TextBlock Text="SAVED PLAYLISTS" FontSize="64">
-                        <TextBlock.LayoutTransform>
-                            <RotateTransform Angle="90"/>
-                        </TextBlock.LayoutTransform>
-                    </TextBlock>
-                </Expander.Header>
+                    <Expander.Header >
+                        <TextBlock Text="SAVED PLAYLISTS" FontSize="64">
+                            <TextBlock.LayoutTransform>
+                                <RotateTransform Angle="90"/>
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                    </Expander.Header>
 
-                <local:SavedPlaylistsView/>
+                    <local:SavedPlaylistsView/>
 
-            </Expander>
+                </Expander>
+            </Border>
 
-            <TabControl x:Name="PlaylistTabControl" Margin="20"
-                            DockPanel.Dock="Right"
+            <Grid DockPanel.Dock="Right">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="{DynamicResource Color_Primary2}" CornerRadius="0,60,0,0"
+                        
+                        >
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Open Lists"
+                               FontSize="32"
+                                   Margin="3"
+                               />
+                        <Button Content="{DynamicResource DeleteIcon}" Command="{Binding }"/>
+                    </StackPanel>
+                </Border>
+
+                <TabControl x:Name="PlaylistTabControl"                           
+                            Grid.Row="1"
                             Style="{DynamicResource TabControlNoReorderStyle}"
                             Background="Transparent" BorderBrush="Transparent"
                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             ContentTemplate="{StaticResource PlaylistTabTemplate}" 
                             ItemsSource="{Binding OpenPlayListViewModels}"
-                            ItemTemplate="{StaticResource PlaylistTabHeaderRemplate}" 
+                            ItemTemplate="{DynamicResource PlaylistTabHeaderRemplate}" 
                             SelectedItem="{Binding SelectedTab, UpdateSourceTrigger=PropertyChanged}">
-            </TabControl>
+                </TabControl>
+            </Grid>
         </DockPanel>
 
     </Grid>

@@ -223,19 +223,7 @@
         </Style>
         <!--#endregion-->
 
-        <!---->
-        <!--<CollectionViewSource x:Key="AvailableFiltersViewSource"
-                              d:DesignSource="{Binding Source=HorsifyFilters}"                              
-                              >
 
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="FileName" />
-            </CollectionViewSource.SortDescriptions>
-
-        </CollectionViewSource>-->
-
-        <!--<CollectionViewSource x:Key="AvailableFiltersViewSource"                                 
-                              d:DesignSource="{Binding AvailableFiltersView}"/>-->
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -255,20 +243,24 @@
         <!--#endregion-->
 
         <!--LOGO-->
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="3"
-                    Margin="20,0">
-            <TextBlock Text="DJ " FontSize="84"
+        <Border Grid.ColumnSpan="4" Background="{DynamicResource BackgroundGradient3}"
+                CornerRadius="50,50,0,0"
+                >
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch"                                         
+                    Margin="20">
+                    <TextBlock Text="DJ " FontSize="84"
                                ToolBar.OverflowMode="Never"
                                VerticalAlignment="Center"
                                Style="{StaticResource TextBlockStyle_BebasLarge}"/>
 
-            <ContentPresenter x:Name="HorsifyLogo" d:IsHidden="True"
+                    <ContentPresenter x:Name="HorsifyLogo" d:IsHidden="True"
                                       ToolBar.OverflowMode="Never"
                                       ContentTemplate="{StaticResource HorsifyLogoSvgStd}"
                                       Height="70"                                      
                                       />
-            <!--ENABLED-->
-            <ToggleButton BorderThickness="0"
+                    <!--ENABLED-->
+                    <ToggleButton BorderThickness="0"
                                   Margin="10,0"                                  
                                   ToolBar.OverflowMode="Never"
                                   VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -279,70 +271,87 @@
                                   Template="{DynamicResource ToggleButtonBaseControlTemplate1}"/>
 
 
-            <!--AMOUNT-->
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                    <!--AMOUNT-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                                 ToolBar.OverflowMode="AsNeeded"
                                 >
-                <!--Amount control-->
-                <TextBlock Text="Amount" HorizontalAlignment="Center" 
+                        <!--Amount control-->
+                        <TextBlock Text="Amount" HorizontalAlignment="Center" 
                                    FontSize="30"/>
-                <horsify:AmountSelectControl 
-                            TextElement.FontSize="48"
+                        <horsify:AmountSelectControl 
+                            TextElement.FontSize="48" BorderBrush="Transparent"
                             Value="{Binding DataContext.DjHorsifyOption.Amount, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         />
-            </StackPanel>
+                    </StackPanel>
 
-            <!--TEST SEARCH-->
-            <Button Margin="15" 
+                    <!--TEST SEARCH-->
+                    <Button Margin="15" 
                     Height="70" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"                    
-                    Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"                            
-                    Style="{StaticResource ButtonSearchMetal}"
+                    Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"
+                    Content="{DynamicResource Icon_Search}"
+                    Style="{DynamicResource TransparentButtonBases}"
                             />
 
-            <!--VIEW SAVED SEARCHES-->
-            <Button Margin="15" 
+                    <!--VIEW SAVED SEARCHES-->
+                    <Button Margin="15" 
                     Height="70" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"                                                                            
                             Command="{Binding DataContext.ShowSavedFiltersCommand, ElementName=LayoutRoot}"                            
-                            Style="{StaticResource ButtonMetal}"
                             Content="{DynamicResource BookmarksIcon}"
+                    Style="{DynamicResource TransparentButtonBases}"
                             />
 
-            <!--SAVE THIS SEARCH-->
-            <Button Margin="15" 
+                    <!--SAVE THIS SEARCH-->
+                    <Button Margin="15" 
                     Height="70" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"   
-                            Command="{Binding DataContext.SaveFilterCommand, ElementName=LayoutRoot}"                            
-                                                        Style="{StaticResource ButtonMetal}"
+                            Command="{Binding DataContext.SaveFilterCommand, ElementName=LayoutRoot}"
                             Content="{DynamicResource SaveIcon}"
+                    Style="{DynamicResource TransparentButtonBases}"
                             />
-            <!---->
+                    <!---->
         </StackPanel>
+                <Separator Background="{DynamicResource BackgroundGradient5}" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Border>
 
 
         <!--FILTER OPTIONS-->
-        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
+        <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+                Background="{DynamicResource BackgroundGradient3}"
+                            
+                Grid.ColumnSpan="4">
+                        
+            <StackPanel 
+                    
+        Orientation="Horizontal"
+                    
+        Margin="50,0"
+        >
 
-            <Button Command="{Binding ClearSelectionsCommand}"
-                    Style="{StaticResource ButtonMetal}"
-                    Content="{DynamicResource DeleteIcon}"
-                    Width="100"
-                    />
+                <Button Command="{Binding ClearSelectionsCommand}"
+        Content="{DynamicResource DeleteIcon}"
+        Width="100"
+        Style="{DynamicResource TransparentButtonBases}"
+        />
 
-            <Button Content="NEW FILTER" Margin="5" VerticalAlignment="Bottom"
-                                        MinWidth="175"
-                                        FontFamily="{StaticResource BebasNeue}"
-                                        FontSize="16"
-                                        Style="{StaticResource ButtonMetal}"                                        
-                                        Command="{Binding CreateFilterCommand}"/>
-        </StackPanel>
+                <Button Content="NEW FILTER" Margin="5" VerticalAlignment="Bottom"
+        MinWidth="175"
+        FontFamily="{StaticResource BebasNeue}"
+        FontSize="16"                            
+        Style="{DynamicResource TransparentButtonBases}"
+        Command="{Binding CreateFilterCommand}"/>
+            </StackPanel>
+        </Border>
 
         <!--FILTERS TAB CONTROL-->
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
             
             
-            <TabControl Margin="20"                    
+            <TabControl
+                Margin="15"
+                IsTabStop="False"
                     TabStripPlacement="Top" 
                     Background="Transparent"
                     BorderBrush="Transparent"    
@@ -351,7 +360,7 @@
 
                     <TabControl.Resources>
                         <Style TargetType="{x:Type TabItem}">
-                            <Setter Property="Background" Value="{DynamicResource BackgroundGradient3}"/>
+                            <Setter Property="Background" Value="{DynamicResource BackgroundGradient}"/>
                             <Setter Property="FontSize" Value="25"/>
                             <Setter Property="MaxHeight" Value="60"/>
                             <Setter Property="Height" Value="60"/>
@@ -634,7 +643,7 @@
                                                  Value="True">
                                             <Setter Property="BorderBrush" Value="GreenYellow"/>
                                             <Setter Property="Background" 
-                                                    Value="{DynamicResource BackgroundGradient3}"/>
+                                                    Value="{DynamicResource BackgroundGradient}"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

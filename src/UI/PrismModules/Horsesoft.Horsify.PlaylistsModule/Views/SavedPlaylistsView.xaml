@@ -30,20 +30,30 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock Text="Create" Margin="4"/>
-            <TextBox  Grid.Column="1" Margin="4" x:Name="NewPlaylistNameTextBox"/>
+            <TextBox  Grid.Column="1" Margin="4" x:Name="NewPlaylistNameTextBox" MinWidth="200"
+                       Width="200"
+                      VerticalAlignment="Top"
+                      />
             <Button Grid.Column="2" Content="OK"
                     Command="{Binding CreatePlaylistCommand}" 
                     CommandParameter="{Binding ElementName=NewPlaylistNameTextBox, Path=Text}"
                     IsDefault="True" MinWidth="35"
+                    VerticalAlignment="Top"
                     />
+            <Button Grid.Column="3"  Content="?" FontSize="16"
+                    Height="32"
+                        Command="{Binding HelpWindowCommand}"
+                    VerticalAlignment="Top"
+                        />
         </Grid>
 
         <!--ItemsSource="{Binding SelectedFilters}"-->
-        <ListView Grid.Row="1" Margin="15"  x:Name="SavedPlaylistsListView"                     
-                      FontSize="32"
+        <ListView Grid.Row="1" x:Name="SavedPlaylistsListView"                     
+                      FontSize="32" BorderBrush="Transparent"
                       Background="Transparent"
                       ItemsSource="{Binding Source={StaticResource PlaylistViewModelViewSource}}"
                       >

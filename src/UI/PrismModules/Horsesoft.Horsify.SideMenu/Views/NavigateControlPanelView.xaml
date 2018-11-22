@@ -8,16 +8,15 @@
              xmlns:dialog="clr-namespace:Horsesoft.Music.Horsify.Base.Dialog;assembly=Horsesoft.Music.Horsify.Base"
              xmlns:horsify="http://schemas/horsesoft.co.uk"             
              x:Class="Horsesoft.Horsify.SideMenu.Views.NavigateControlPanelView"
-             mc:Ignorable="d"
+             mc:Ignorable="d"    
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <UserControl.Resources>
 
-    </UserControl.Resources>
     <!--d:DesignHeight="300"-->
 
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ShutdownNotificationRequest}">
-            <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="False" WindowStartupLocation="CenterScreen"                               
+            <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="False" 
+                                     WindowStartupLocation="CenterScreen"                               
                                      >
                 <prism:PopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type Window}">
@@ -56,12 +55,24 @@
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top"
                             HorizontalAlignment="Center"
                             >
-                    <Button Width="25" Height="20" 
+
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="Margin" Value="3"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Height" Value="20"/>
+                            <Setter Property="Width" Value="22"/>
+                            <Setter Property="FontWeight" Value="ExtraBold"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    
+                    <Button 
                             Background="#00ff00"
                             Content="_"
                         Command="{Binding MinimizeCommand}"/>
 
-                    <Button Width="25" Height="20"
+                    <Button 
                             Background="#ff0000"
                             Content="X"
                             Command="{Binding ShutdownCommand}"

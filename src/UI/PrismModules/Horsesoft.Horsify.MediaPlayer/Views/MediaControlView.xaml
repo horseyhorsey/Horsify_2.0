@@ -6,28 +6,34 @@
              prism:ViewModelLocator.AutoWireViewModel="True" 
              >
 
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="SmallmetalButton" BasedOn="{StaticResource ButtonMetal}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="MaxHeight" Value="30"/>
+            <Setter Property="MaxWidth" Value="30"/>
+        </Style>
+    </UserControl.Resources>
+    
     <Border Style="{DynamicResource Border_QueuePanelStyle}">
 
         <Grid>
 
             <!--PAUSE-->
             <!--<Button Content="&#10073;&#10073;"/>-->
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="3">
                 
-                <Button Content="&#9724;" Command="{Binding StopCommand}"/>
+                <!--STOP-->
+                <Button Content="&#9724;" Command="{Binding StopCommand}" Style="{StaticResource SmallmetalButton}"/>
 
-                <Button Command="{Binding PlayPauseCommand}">
+                <!--PLAY / PAUSE-->
+                <Button Content="&#9654;" Command="{Binding PlayPauseCommand}">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ButtonMetal}">
-
-                            <Setter Property="Content" Value="&#9654;"/>
-                            <Setter Property="FontSize" Value="22"/>
-                            <Setter Property="FontWeight" Value="DemiBold"/>
-                            <Setter Property="FontStyle" Value="Normal"/>
-                            <Setter Property="Margin" Value="5"/>
-                            <Setter Property="MaxHeight" Value="30"/>
-                            <Setter Property="MaxWidth" Value="30"/>
-
+                        <Style TargetType="Button" BasedOn="{StaticResource SmallmetalButton}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding MediaControlModel.IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
                                     <Setter Property="Content" Value="&#9654;"/>
@@ -38,10 +44,14 @@
                     </Button.Style>
                 </Button>
 
-                <Slider x:Name="Slider_Arm" VerticalAlignment="Center" MinWidth="140" MaxWidth="150"
-                                                    Minimum="0.0" IsMoveToPointEnabled="True"
-                                                    Maximum="{Binding MediaControlModel.CurrentSongTime.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
-                                                    Value="{Binding MediaControlModel.CurrentSongPosition.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                <!--SLIDER-->
+                <Slider x:Name="Slider_Arm" 
+                        VerticalAlignment="Center" MinWidth="140" 
+                        MaxWidth="150"
+                        Width="90"
+                        Minimum="0.0" IsMoveToPointEnabled="True"
+                        Maximum="{Binding MediaControlModel.CurrentSongTime.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                        Value="{Binding MediaControlModel.CurrentSongPosition.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                         >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseDown">

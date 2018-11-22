@@ -184,6 +184,7 @@
                                    ScrollViewer.PanningDeceleration="5"                    
                                    Tag="JukeboxLabel"
                                    IsSynchronizedWithCurrentItem="True"
+                                   IsTabStop="False"
                           >
 
                 <horsify:ListViewTouch.ItemsPanel>
@@ -198,31 +199,33 @@
             </horsify:ListViewTouch>
 
             <!--LIST SORT / RANDOM-->
-            <StackPanel Margin="25,50">
-                
+            <StackPanel Margin="5,40">
+
                 <!--SORTING BUTTON-->
-                <Button Width="50" Height="60" 
-                        Margin="5"
-                Style="{DynamicResource ButtonQueueMetal}" 
-                Command="{Binding RequestViewCommand}"
-                Content="{DynamicResource SortIconSvg}"
-                CommandParameter="SortDialogView"
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Top"                
+                <Button
+                    Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
+                    Style="{DynamicResource TransparentButtonBases}" 
+                    Margin="5"
+                    Command="{Binding RequestViewCommand}"
+                    Content="{DynamicResource SortIconSvg}"
+                    CommandParameter="SortDialogView"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top"                
                 />
 
                 <!--RANDOM SELECT-->
-                <Button Width="50" Height="60" 
-                        Margin="5"
-                Style="{DynamicResource ButtonQueueMetal}" 
-                Command="{Binding RequestViewCommand}"
-                CommandParameter="RandomSelectView"
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Top"
+                <Button Margin="5"
+                        Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
+                        Style="{DynamicResource TransparentButtonBases}" 
+                        Content="&#9861;" FontSize="38"
+                        Command="{Binding RequestViewCommand}"
+                        CommandParameter="RandomSelectView"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Top"
                 
                 />
             </StackPanel>
-            
+
 
             <usercontrols:ucSongTemplateSwitcher DataContext="{Binding}"
             HorizontalAlignment="Left" 

@@ -6,7 +6,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True"             
              xmlns:horsify="http://schemas/horsesoft.co.uk">
 
-    <Border Style="{DynamicResource Border_QueuePanelStyle}"            
+    <Border Style="{DynamicResource Border_QueuePanelStyle}" 
+            Background="{DynamicResource Brush_Wood2}"
             BorderThickness="1">
         <Grid>
 

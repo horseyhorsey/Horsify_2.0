@@ -19,7 +19,7 @@ using System.Windows.Data;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
-    public class SearchedSongsViewModel : HorsifyBindableBase, INavigationAware
+    public class SearchedSongsViewModel : HorsifySongPlayBindableBase, INavigationAware
     {
         #region Fields
         private ISongDataProvider _songDataProvider;
@@ -44,10 +44,12 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         #region Constructors
         public SearchedSongsViewModel(ISongDataProvider songDataProvider,
             IQueuedSongDataProvider queuedSongDataProvider, ISearchHistoryProvider searchHistory,
-            IEventAggregator eventAggregator, IRegionManager regionManager, IDjHorsifyService djHorsifyService, ILoggerFacade loggerFacade) : base(loggerFacade)
+            IEventAggregator eventAggregator, IRegionManager regionManager, IDjHorsifyService djHorsifyService, ILoggerFacade loggerFacade) : base(queuedSongDataProvider, eventAggregator, loggerFacade)
         {
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
+
+            //For queueing random songs
             _queuedSongDataProvider = queuedSongDataProvider;
             _djHorsifyService = djHorsifyService;
 
@@ -74,8 +76,13 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             //Dialog requests
             RequestRandomViewRequest = new InteractionRequest<INotification>();
+            RequestRandomViewRequest.Raised += (s, e) => { _randomDialogOpen = true; };
             RequestSortDialogRequest = new InteractionRequest<INotification>();
+            RequestSortDialogRequest.Raised += (s, e) => { _sortDialogOpen = true; };
             RequestViewCommand = new DelegateCommand<string>((viewName) => OnRequestView(viewName));
+
+
+            
         }
 
         #endregion
@@ -114,6 +121,18 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     var filter = navigationContext.Parameters["djhorsify_search"] as SearchFilter;
                     if (filter != null)
                     {
+                        if (_searchHistory.RecentSearches.Count > 0)
+                        {
+                            if (_lastSearchFilter != null)
+                            {
+                                if (filter.Equals(_lastSearchFilter))
+                                {
+                                    PublishSearchFinished();
+                                    return;
+                                }
+                            }
+                        }
+
                         this.RecentSearch.ResultCount = 0;
                         _songDataProvider.SearchLikeFiltersAsync(filter, 0)
                             .ContinueWith((x) =>
@@ -159,6 +178,10 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     var searchType = (ExtraSearchType)navigationContext.Parameters["extra_search"];
                     if (searchType != ExtraSearchType.None)
                     {
+                        //Don't run the same search again if navigating to it
+                        if (RecentSearch.SearchTerm == searchType.ToString())
+                            return;
+
                         this.RecentSearch.ResultCount = 0;
                         this.RecentSearch.SearchTerm += searchType;
 
@@ -201,7 +224,13 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            _journal?.GoForward();
+            //_journal?.GoForward();
+            //TODO: Close dialogs when leaving view or make the dialogs as views
+            //if (_sortDialogOpen || _randomDialogOpen)
+            //{
+            //    Log("Cannot Navigate away with dialogs open");
+            //    return;
+            //}            
         }
         #endregion
 
@@ -282,15 +311,21 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SongsListView_CurrentChanged(object sender, EventArgs e)
-        {            
-            var song = SongsListView.CurrentItem as AllJoinedTable;
-            if (song == null)
+        {
+            //Need to track position in the case of another view selecting the item for us on focus.
+            var currPos = (sender as ICollectionView).CurrentPosition;
+            if (_lastPostion != currPos)
             {
-                Log("Selected song is null", Category.Warn);
-                return;
-            }
-            
-            OnSongItemSelected(song);            
+                _lastPostion = currPos;
+                var song = SongsListView.CurrentItem as AllJoinedTable;
+                if (song == null)
+                {
+                    Log("Selected song is null", Category.Warn);
+                    return;
+                }
+
+                OnSongItemSelected(song);                
+            }            
         }
 
         /// <summary>
@@ -306,7 +341,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             {
                 if (SearchedSongs?.Count != null)
                 {
-                    this.RequestRandomViewRequest.Raise(new Notification { Content = "Notification Message", Title = "Horsify - Random Select" }
+                    this.RequestRandomViewRequest.Raise(
+                        new Notification { Content = "Notification Message", Title = "Horsify - Random Select" }
                     , r =>
                     {
                         Log("Queuing songs from selection RandomSelectView");
@@ -317,6 +353,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             QueueRandomSongs(randomSelectOption);
                             Log("Queued songs from selection RandomSelectView");
                         }
+
+                        _randomDialogOpen = false;
                     });
                 }
             }
@@ -330,21 +368,20 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                         SongsListView.CurrentChanged += SongsListView_CurrentChanged;
                         this.UpdateSortingInfo();
                         Log("Opening sort dialog");
-                        Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");                        
-                    });
+                        Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
+
+                        _sortDialogOpen = false;
+                    });                
             }
         }
 
         private void OnSongItemSelected(AllJoinedTable songItem)
         {
-            if (songItem != null && _lastSelectedSong != songItem)
-            {
-                Log($"Selected song : {songItem.FileLocation}", Category.Debug);
-                var navParams = new NavigationParameters();
-                navParams.Add("song", songItem);
-                _regionManager.RequestNavigate("ContentRegion", "SongSelectedView", navParams);
-                _lastSelectedSong = songItem;
-            }
+            Log($"Selected song : {songItem.FileLocation}", Category.Debug);
+            var navParams = new NavigationParameters();
+            navParams.Add("song", songItem);
+            _regionManager.RequestNavigate("ContentRegion", "SongSelectedView", navParams);
+            _lastSelectedSong = songItem;
         }
 
         private Random _random = new Random();
@@ -431,7 +468,10 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         private SongFilterType _lastSortDescription;
         private ListSortDirection _lastSortDirection = ListSortDirection.Descending;
         private SearchFilter _lastSearchFilter;
-        private AllJoinedTable _lastSelectedSong;        
+        private AllJoinedTable _lastSelectedSong;
+        private bool _sortDialogOpen;
+        private bool _randomDialogOpen;
+        private int _lastPostion;
 
         /// <summary>
         /// Sorts the description and sets the last description from the incoming filter type

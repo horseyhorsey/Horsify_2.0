@@ -6,34 +6,29 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1300"
+             MaxHeight="500"
              Width="{Binding ElementName=_mainWindow, Path=Window.ActualWidth, UpdateSourceTrigger=PropertyChanged}"
              >
     <Border Style="{StaticResource Border_MainContentRegion}">
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" MaxHeight="300"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-
-            <RichTextBox IsReadOnly="True" Background="Transparent" IsTabStop="False"
-                         FontSize="84"
+            <TextBlock Text="SHUTDOWN?"
+                         Background="Transparent"                          
+                         FontSize="96"                         
                          HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         >
-                <RichTextBox.Document>
-                    <FlowDocument>
-                        <Paragraph FontFamily="{StaticResource BebasNeue}"
-                                   TextAlignment="Center">
-                            SHUTDOWN?
-                        </Paragraph>
-                    </FlowDocument>
-                </RichTextBox.Document>
-            </RichTextBox>
+                         VerticalAlignment="Center"                
+                         />
 
-            <StackPanel Orientation="Horizontal" 
+
+            <StackPanel Orientation="Horizontal"                         
                         HorizontalAlignment="Center"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
                         >
 
                 <Button Margin="25" Grid.Row="1"
@@ -42,8 +37,6 @@
                         HorizontalAlignment="Center"
                         FontSize="32"
                         Click="NoButton_Click"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
                         IsTabStop="False"
                         >NO</Button>
                
@@ -52,9 +45,7 @@
                         IsTabStop="False"
                         VerticalAlignment="Bottom" 
                         HorizontalAlignment="Center"
-                        FontSize="32"
-                        Background="Transparent"
-                        BorderBrush="Transparent"                        
+                        FontSize="32"                     
                         Click="YesButton_Click">YES</Button>
             </StackPanel>
         </Grid>

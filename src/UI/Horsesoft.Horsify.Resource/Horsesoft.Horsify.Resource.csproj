@@ -186,9 +186,7 @@
   <ItemGroup>
     <Resource Include="Images\Textures\SideWood.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\NoImage\noimage.jpg" />
   </ItemGroup>

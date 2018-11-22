@@ -8,6 +8,7 @@
         <ResourceDictionary Source="Brushes.xaml"/>
         <ResourceDictionary Source="Svg.xaml" />
         <ResourceDictionary Source="Icons.xaml"/>
+        <ResourceDictionary Source="Text.xaml" />
         <ResourceDictionary Source="Rating.xaml" />
         <ResourceDictionary Source="SongItem.xaml" />
         <ResourceDictionary Source="Border.xaml" />
@@ -18,7 +19,6 @@
         <ResourceDictionary Source="Grid.xaml" />
         <ResourceDictionary Source="Expander.xaml" />
         <ResourceDictionary Source="ListView.xaml" />
-        <ResourceDictionary Source="Text.xaml" />
         <ResourceDictionary Source="VolumeControl.xaml" />
         <ResourceDictionary Source="TurntableSliderResources.xaml" />
         <ResourceDictionary Source="ToolBar.xaml" />

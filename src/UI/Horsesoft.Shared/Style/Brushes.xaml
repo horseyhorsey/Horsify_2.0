@@ -165,12 +165,17 @@
     <SolidColorBrush x:Key="Brush_Green" Color="Green"/>
     <SolidColorBrush x:Key="Gray" Color="Gray"/>
     <SolidColorBrush x:Key="Silver" Color="Silver"/>
+
+    <SolidColorBrush x:Key="ColorArtist" Color="Yellow"/>
+    <SolidColorBrush x:Key="ColorGenre" Color="Green"/>
+    <SolidColorBrush x:Key="ColorLabel" Color="Red"/>
+    <SolidColorBrush x:Key="ColorYear" Color="Blue"/>
+
+    <!--#endregion-->
     
     <!--#region Camelot Wheel-->
-    
+
     <SolidColorBrush x:Key="1A" Color="Green"/>
-    
-    <!--#endregion-->
 
     <!--#endregion-->
     

@@ -226,40 +226,68 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
 
-                    <GroupBox FontSize="32" Background="Transparent" >
+                    <GroupBox FontSize="32" Background="{DynamicResource BackgroundGradient}" >
 
                         <!--enumtoboolconverter-->
 
                         <GroupBox.Header>
-                            <StackPanel Orientation="Horizontal" >
-                                <TextBlock Text="{Binding SearchType}"/>
-                                <TextBlock Text="{Binding FileName, StringFormat={} - {0}}" />
+                            <Border CornerRadius="5, 2, 0, 0" BorderBrush="Black" BorderThickness="2">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="Gray"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SearchType}" Value="Artist">
+                                                <Setter Property="Background" Value="{DynamicResource ColorArtist}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SearchType}" Value="Genre">
+                                                <Setter Property="Background" Value="{DynamicResource ColorGenre}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SearchType}" Value="Label">
+                                                <Setter Property="Background" Value="{DynamicResource ColorLabel}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SearchType}" Value="Year">
+                                                <Setter Property="Background" Value="{DynamicResource ColorYear}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
 
-                                <RadioButton 
+                                <StackPanel Orientation="Horizontal">
+
+
+                                    <TextBlock Text="{Binding SearchType}"/>
+                                    
+                                    <TextBlock Text="{Binding FileName, StringFormat={} - {0}}" />
+
+                                    <RadioButton 
                                     Content="None" FontSize="16" VerticalAlignment="Center"
                                     IsChecked="{Binding Path=SearchAndOrOption, 
                                     Converter={StaticResource EnumToBooleanConverter}, 
                                     ConverterParameter={x:Static model:SearchAndOrOption.None}}"/>
 
-                                <RadioButton 
+                                    <RadioButton 
                                     Content="Or" FontSize="16" VerticalAlignment="Center"
                                     IsChecked="{Binding Path=SearchAndOrOption, 
                                     Converter={StaticResource EnumToBooleanConverter}, 
                                     ConverterParameter={x:Static model:SearchAndOrOption.Or}}"/>
 
-                                <RadioButton 
+                                    <RadioButton 
                                     Content="And" FontSize="16" VerticalAlignment="Center"
                                     IsChecked="{Binding Path=SearchAndOrOption, 
                                     Converter={StaticResource EnumToBooleanConverter}, 
                                     ConverterParameter={x:Static model:SearchAndOrOption.And}}"/>
 
-                                <RadioButton 
-                                    Content="Not" FontSize="16" VerticalAlignment="Center"
+                                    <RadioButton 
+                                    Content="Not" FontSize="16" VerticalAlignment="Center" Margin="5,0"
                                     IsChecked="{Binding SearchAndOrOption, 
                                     Converter={StaticResource EnumToBooleanConverter}, 
                                     ConverterParameter={x:Static model:SearchAndOrOption.Not}}"/>
 
-                            </StackPanel>
+                                </StackPanel>
+                                                               
+
+                            </Border>
+
                         </GroupBox.Header>
                         
                         <StackPanel Orientation="Horizontal">
@@ -279,23 +307,26 @@
                                         Command="{Binding ElementName=LayoutRoot, Path=DataContext.EditFilterCommand}"
                                         CommandParameter="{Binding}"
                                         />
-
                             <StackPanel>
                             
 
                             <ListView ItemsSource="{Binding Filters}" TextElement.FontSize="20"
                                         Background="Transparent" BorderBrush="Transparent"
-                                      MaxWidth="200"
+                                      MaxWidth="300" MaxHeight="100"
                                         >
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Vertical"/>
+                                        <WrapPanel Orientation="Horizontal"/>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                             </ListView>
                                 
                             </StackPanel>
                         </StackPanel>
+
+                        <GroupBox.BitmapEffect>
+                            <DropShadowBitmapEffect/>
+                        </GroupBox.BitmapEffect>
                     </GroupBox>
 
                     <ControlTemplate.Triggers>

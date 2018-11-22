@@ -7,17 +7,22 @@ using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
+using Prism.Regions;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
-    public class InstantSearchViewModel : HorsifySongPlayBindableBase
+    public class InstantSearchViewModel : HorsifySongPlayBindableBase, INavigationAware
     {
         private ISongDataProvider _songDataProvider;
         private IHorsifySongApi _horsifySongApi;
@@ -25,7 +30,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         private static DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
         public InstantSearchViewModel(ISongDataProvider songDataProvider, IHorsifySongApi horsifySongApi,
-            IEventAggregator eventAggregator, IQueuedSongDataProvider queuedSongDataProvider, ILoggerFacade loggerFacade) : base(queuedSongDataProvider, loggerFacade)
+            IEventAggregator eventAggregator, IQueuedSongDataProvider queuedSongDataProvider, ILoggerFacade loggerFacade)
+            : base(queuedSongDataProvider, eventAggregator, loggerFacade)
         {
             _songDataProvider = songDataProvider;
             _horsifySongApi = horsifySongApi;
@@ -80,7 +86,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private Task<AllJoinedTable> GetSong(AllJoinedTable allJoinedTable)
         {
-            return _songDataProvider.GetSongById(allJoinedTable.Id);
+            return _songDataProvider.GetSongById(allJoinedTable.Id);            
         }
 
 
@@ -126,37 +132,37 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             //Get songs, stop timer and populate collection            
             _dispatcherTimer.Stop();
-            var results = _horsifySongApi.GetEntries(Music.Data.Model.Horsify.SearchType.Title, SearchModel.SearchText, 15);
-            SearchModel.Results.Clear();
             SearchModel.AllJoinedTables.Clear();
-            SearchModel.Results.AddRange(results);
 
-            //.Select(z => $"{z.Id}|{z.Artist?.Name}|{z.Title}|{z.Album?.Title}|{z.Year}|{z.ImageLocation}|{z.Rating}")
+            RunSearch();
+        }
 
-            foreach (var song in SearchModel.Results)
+        private void RunSearch()
+        {
+            var arr = new string[] { "*" + SearchModel.SearchText + "*" };
+            IEnumerable<AllJoinedTable> results = null;
+            Task.Run(async () =>
             {
-                var fields = song.Split('|');
-                long year = 0;
-                var ajonedSong = new AllJoinedTable()
+                results = await _horsifySongApi.SearchLikeFiltersAsync(new SearchFilter(arr, SearchModel.SelectedSearchType), maxAmount: 100);
+            }).ContinueWith((t) =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Id = Convert.ToInt32(fields[0]),
-                    Artist = fields[1],
-                    Title = fields[2],
-                    Album = fields[3],
-                    Year = long.TryParse(fields[4], out year) ? year : 0,
-                    ImageLocation = fields[5],
-                    Rating = Convert.ToInt32(fields[6])
-                };
-
-                SearchModel.AllJoinedTables.Add(ajonedSong);
-            }
-
-            //foreach (var item in SearchModel.Results)
-            //{
-            //    var fileds = item.Split('|');
-            //}
-
-            //SearchModel.AllJoinedTables
+                    var sType = SearchModel.SelectedSearchType;
+                    if (sType == SearchType.Album)
+                    {
+                        SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist).ThenBy(x => x.Album));
+                    }
+                    else if(sType == SearchType.Artist)
+                    {
+                        SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist));
+                    }
+                    else
+                    {
+                        SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Title));
+                    }
+                });
+            });
         }
 
         #region Commands
@@ -197,8 +203,35 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 }
                 else
                 {
-                    SearchModel.Results.Clear();
+                    SearchModel.AllJoinedTables.Clear();
                 }
+            }
+        }
+        #endregion
+
+        #region Navigation
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {            
+            try
+            {
+                Log("Navigating from InstantSearch. Clearing search results.");
+                this.CursorPosition = 0;
+                this.SearchModel.SearchText = string.Empty;
+                this.SearchModel.AllJoinedTables.Clear();
+            }
+            catch (Exception ex)
+            {
+                Log($"Navigating from InstantSearch. {ex.Message}", Category.Exception);
             }
         }
         #endregion

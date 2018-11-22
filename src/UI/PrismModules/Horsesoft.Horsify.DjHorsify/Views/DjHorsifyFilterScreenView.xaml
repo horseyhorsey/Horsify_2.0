@@ -18,8 +18,20 @@
                 <!--DJ HORSIFY LIGHT-->
                 <Grid Margin="2">
                     <Rectangle Opacity="0.85" Margin="2" 
-                                       Fill="{DynamicResource BackgroundGradient3}" 
                                        RadiusX="4" RadiusY="4">
+
+                        <Rectangle.Style>
+                            <Style TargetType="Rectangle">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="False" >
+                                        <Setter Property="Fill" Value="PaleVioletRed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="True">
+                                        <Setter Property="Fill" Value="LightGreen"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
                     </Rectangle>
 
                     <Path Data="M0,4 C0,1.790861 1.790861,0 4,0 L1070,0 C1072.2091,0 1074,1.790861 1074,4 L1074,23 C1074,25.209139 1072.2091,27 1070,27 L398,26 157,16.5 C154.79086,16.5 0,4 0,4 z" 
@@ -28,17 +40,15 @@
                                        Stretch="Fill" UseLayoutRounding="False"/>
 
                     <StackPanel Orientation="Horizontal"
-                                
                                 >
-
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="False" >
-                                        <Setter Property="TextElement.Foreground" Value="PaleVioletRed"/>
+                                        <Setter Property="TextElement.Foreground" Value="DarkRed"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding DjHorsifyOption.IsEnabled}" Value="True">
-                                        <Setter Property="TextElement.Foreground" Value="LightGreen"/>
+                                        <Setter Property="TextElement.Foreground" Value="DarkGreen"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -46,7 +56,7 @@
 
                         <Ellipse x:Name="OnOffLight" VerticalAlignment="Center"
                                      Height="18" Width="18" 
-                                     Margin="3,2"
+                                     Margin="3,2" HorizontalAlignment="Left"
                                      Stroke="Black">
 
                             <Ellipse.Style>
@@ -65,9 +75,9 @@
                         </Ellipse>
 
 
-                        <TextBlock Text="DJ " FontSize="26" VerticalAlignment="Center"/>
-                        <TextBlock Text=" -  " FontSize="26" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding DjHorsifyOption.Amount}" FontSize="26" VerticalAlignment="Center"/>
+                        <TextBlock Text="DJH" FontSize="26" VerticalAlignment="Center" Margin="3"/>
+                        <TextBlock Text="-" FontSize="26" VerticalAlignment="Center" Margin="3"/>
+                        <TextBlock Text="{Binding DjHorsifyOption.Amount}" Margin="3" FontSize="26" VerticalAlignment="Center"/>
 
                     </StackPanel>
 

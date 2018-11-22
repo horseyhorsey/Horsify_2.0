@@ -76,10 +76,10 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 if (filters != null)
                 {
                     if (_djHorsifyService.SavedFilters == null)
-                        _djHorsifyService.SavedFilters = new ObservableCollection<FiltersSearch>(filters);
+                        _djHorsifyService.SavedFilters = new ObservableCollection<FiltersSearch>(filters.OrderBy(z => z.Name));
                     else
                     {
-                        _djHorsifyService.SavedFilters.AddRange(filters);
+                        _djHorsifyService.SavedFilters.AddRange(filters.OrderBy(z => z.Name));
                     }
 
                     this.SavedFilters = _djHorsifyService.SavedFilters;

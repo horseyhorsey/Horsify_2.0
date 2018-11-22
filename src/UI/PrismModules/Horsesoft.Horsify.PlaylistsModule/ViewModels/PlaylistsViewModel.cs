@@ -25,7 +25,8 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         private IPlaylistService _horsifyPlaylistService;
         #endregion
 
-        #region Commands/Requests
+        #region Commands/Requests        
+        public ICommand CloseAllTabsCommand { get; set; }
         public ICommand CloseTabCommand { get; set; }
         public ICommand CreatePlaylistCommand { get; set; }                
         public ICommand OpenSavedPlaylistCommand { get; set; }
@@ -58,6 +59,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 OnPlaylistsUpdated();
             });
 
+            CloseAllTabsCommand = new DelegateCommand(OnCloseTabs);
             CloseTabCommand = new DelegateCommand<PlaylistTabViewModel>(OnCloseTab);
 
             #region Notification for help
@@ -65,6 +67,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             HelpWindowCommand = new DelegateCommand(RaiseHelpNotification);
             #endregion
         }
+
         #endregion
 
         #region Properties
@@ -195,6 +198,17 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             catch (System.Exception ex)
             {
                 Log($"Closing playlist tab {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Closes all the OpenPlayListViewModels
+        /// </summary>
+        private void OnCloseTabs()
+        {
+            foreach (var openTab in PlayListViewModels.Where(x => x.TabHeader != "Preparation Playlist"))
+            {
+                OnCloseTab(openTab);
             }
         }
 

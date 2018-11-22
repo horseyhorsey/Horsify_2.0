@@ -1,6 +1,7 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Logging;
 using System;
 using System.Linq;
@@ -8,9 +9,16 @@ using System.Windows.Input;
 
 namespace Horsesoft.Music.Horsify.Base.ViewModels
 {
+    /// <summary>
+    /// A view model that can play queue and play songs
+    /// </summary>
+    /// <remarks>
+    /// Queuing is implemented in this base and Commands are already bound to the virtual methods
+    /// </remarks>
     public abstract class HorsifySongPlayBindableBase : HorsifyBindableBase
     {
         protected readonly IQueuedSongDataProvider _queuedSongDataProvider;
+        private readonly IEventAggregator _eventAggregator;
 
         public DelegateCommand PlayCommand { get; set; }
         public ICommand QueueCommand { get; set; }
@@ -18,9 +26,10 @@ namespace Horsesoft.Music.Horsify.Base.ViewModels
         public DelegateCommand<AllJoinedTable> PlaySongCommand { get; set; }
         public DelegateCommand<AllJoinedTable> QueueSongCommand { get; set; }        
 
-        public HorsifySongPlayBindableBase(IQueuedSongDataProvider queuedSongDataProvider, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public HorsifySongPlayBindableBase(IQueuedSongDataProvider queuedSongDataProvider, IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _queuedSongDataProvider = queuedSongDataProvider;
+            _eventAggregator = eventAggregator;
 
             PlayCommand         = new DelegateCommand(OnPlay);
             PlaySongCommand     = new DelegateCommand<AllJoinedTable>(OnPlay);
@@ -51,7 +60,11 @@ namespace Horsesoft.Music.Horsify.Base.ViewModels
         /// <exception cref="NotImplementedException"></exception>
         protected virtual void OnQueueSong(AllJoinedTable song = null)
         {
-            throw new NotImplementedException();
+            if (!_queuedSongDataProvider.QueueSongs.Any(x => x == song))
+            {
+                _queuedSongDataProvider.QueueSongs.Add(song);
+                Log($"Added song to queue.", Category.Debug);
+            }
         }
 
         /// <summary>
@@ -79,7 +92,14 @@ namespace Horsesoft.Music.Horsify.Base.ViewModels
         /// <exception cref="NotImplementedException"></exception>
         protected virtual void OnPlay(AllJoinedTable song = null)
         {
-            throw new NotImplementedException();
+            if (song != null)
+            {
+                Log($"Playing song: {song.FileLocation}");
+                _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>().Publish(song);
+                return;
+            }
+
+            Log($"Song is null, failed to play", Category.Warn);
         }
     }
 }

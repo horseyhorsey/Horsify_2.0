@@ -82,17 +82,18 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            _journal = navigationContext.NavigationService.Journal;
+
             var songItem = navigationContext.Parameters["song"] as AllJoinedTable;
             if (songItem != null)
-            {
-                _journal = navigationContext.NavigationService.Journal;
+            {                
                 SelectedSong = songItem;
             }
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-
+            
         }
         #endregion
 
@@ -103,8 +104,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         /// </summary>
         private void OnGoBack()
         {
-            Log("Navigating Searched Songs View");
-            _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
+            Log($"Navigating back from {_journal?.CurrentEntry.Uri}");
+            _journal?.GoBack();
         }
 
         private void OnPlay()

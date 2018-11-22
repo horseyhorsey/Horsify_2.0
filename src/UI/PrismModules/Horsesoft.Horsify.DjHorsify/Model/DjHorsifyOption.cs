@@ -4,6 +4,7 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Horsesoft.Horsify.DjHorsify.Model
 {
@@ -85,6 +86,21 @@ namespace Horsesoft.Horsify.DjHorsify.Model
             }
 
             return keys;
+        }
+
+        /// <summary>
+        /// Checks whether user has applied any filters to search on and if any options are enabled
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOptionsValid()
+        {
+            if (this.RatingRange.IsEnabled || this.BpmRange.IsEnabled || this.HarmonicEnabled && this.SelectedKeys != OpenKeyNotation.None)
+                return true;
+
+            if (this.SelectedFilters.Any(x => x.SearchAndOrOption == SearchAndOrOption.Or || x.SearchAndOrOption == SearchAndOrOption.And))
+                return true;
+
+            return false;
         }
     }
 }

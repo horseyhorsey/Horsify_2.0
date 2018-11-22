@@ -54,15 +54,14 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             {
                 _djHorsifyService.GetDatabaseFiltersAsync().Wait();
                 GenerateHorsifyFilters();
+                //Generate the the filtering views collection
+                CreateFilterViews();
             }
             catch (Exception ex)
             {
                 Log($"Error Loading DjHorsify : {ex.Message}", Category.Exception);
                 throw;
             }
-
-            //Generate the the filtering views collection
-            CreateFilterViews();
 
             #region Commands
             CreateFilterCommand = new DelegateCommand(OnCreateFilter);
@@ -243,9 +242,17 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager.RequestNavigate(Regions.ContentRegion, "EditFilterView", navParams);
         }
 
+        /// <summary>
+        /// Runs a search with all the DJ Horsify Options
+        /// </summary>
         private void OnRunSearch()
         {
             Log("Running search view DJHorsify", Category.Debug);
+            if (!this.DjHorsifyOption.IsOptionsValid())
+            {
+                Log("The DJ Horsify Options are not enabled or incorrect to run searches", Category.Warn);
+                return;
+            }
 
             try
             {
@@ -268,6 +275,10 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             }
         }
 
+        /// <summary>
+        /// This is for the single searches on each filter box
+        /// </summary>
+        /// <param name="filter"></param>
         private void OnRunSearch(DjHorsifyFilterModel filter)
         {
             if (filter != null)

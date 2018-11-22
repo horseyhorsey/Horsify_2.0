@@ -5,6 +5,12 @@ namespace Horsesoft.Horsify.Resource.Windows.CustomControls
 {
     public class HorsifySearchButton : ButtonBase
     {
+        static HorsifySearchButton()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(HorsifySearchButton), new FrameworkPropertyMetadata(typeof(HorsifySearchButton)));
+        }
+
+        #region Properties
         public static readonly DependencyProperty SearchTypeProperty =
             DependencyProperty.Register("SearchType", typeof(int), typeof(HorsifySearchButton), new PropertyMetadata(0));
 
@@ -15,7 +21,7 @@ namespace Horsesoft.Horsify.Resource.Windows.CustomControls
         {
             get { return (string)GetValue(SearchStringProperty); }
             set { SetValue(SearchStringProperty, value); }
-        }        
+        }
 
         public int SearchType
         {
@@ -23,9 +29,16 @@ namespace Horsesoft.Horsify.Resource.Windows.CustomControls
             set { SetValue(SearchTypeProperty, value); }
         }
 
-        static HorsifySearchButton()
+        public int ButtonContentSize
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(HorsifySearchButton), new FrameworkPropertyMetadata(typeof(HorsifySearchButton)));
+            get { return (int)GetValue(ButtonContentSizeProperty); }
+            set { SetValue(ButtonContentSizeProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for ButtonContentSize.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ButtonContentSizeProperty =
+            DependencyProperty.Register("ButtonContentSize", typeof(int), typeof(HorsifySearchButton), new PropertyMetadata(26)); 
+        #endregion
+
     }
 }

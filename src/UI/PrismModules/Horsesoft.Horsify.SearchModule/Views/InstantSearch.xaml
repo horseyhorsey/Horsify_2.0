@@ -29,11 +29,6 @@
                                   />
             </DockPanel>
         </DataTemplate>
-
-        <Style TargetType="RadioButton">
-            <Setter Property="FontSize" Value="42"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Margin="0">
@@ -63,7 +58,7 @@
                          TextElement.FontSize="34"   
                          />
 
-                <RadioButton GroupName="SearchTypeRadio" Content="Title"
+                <RadioButton GroupName="SearchTypeRadio" Content="Title"                             
                          IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
                                     Converter={StaticResource EnumToBooleanConverter}, 
                                     ConverterParameter={x:Static model:SearchType.Title}}"
@@ -108,8 +103,8 @@
                 </ItemsPanelTemplate>
             </horsify:ListViewTouch.ItemsPanel>
         </horsify:ListViewTouch>
-        
-        
+
+
         <DockPanel Grid.Row="2" Visibility="{Binding SearchKeyboardVisible, Converter={StaticResource bool2vis}}"
                   Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" 
                   >

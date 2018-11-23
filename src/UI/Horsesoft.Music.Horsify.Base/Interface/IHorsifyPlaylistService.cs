@@ -9,10 +9,9 @@ namespace Horsesoft.Music.Horsify.Base.Interface
     {
         List<Playlist> Playlists { get; set; }
 
+        Task<bool> DeletePlaylistAsync(int id);
         Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist);
-
         Task SavePlaylistAsync(Playlist[] playlist);
-
-        Task UpdateFromDatabaseAsync();
+        Task UpdateFromDatabaseAsync();        
     }
 }

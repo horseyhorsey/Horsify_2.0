@@ -28,6 +28,12 @@ namespace Horsesoft.Horsify.ServicesModule
         #endregion
 
         #region Public Methods
+
+        public Task<bool> DeletePlaylistAsync(int id)
+        {
+            return _horsifySongApi.DeletePlaylistAsync(id);
+        }
+
         public Task<IEnumerable<AllJoinedTable>> GetSongs(Playlist playlist)
         {
             _loggerFacade.Log($"Getting Playlist songs from service {playlist.Items}", Category.Debug, Priority.Low);

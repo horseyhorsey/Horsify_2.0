@@ -29,5 +29,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         
         Task UpdateFilterSearchAsync(FiltersSearch filtersSearch);        
         Task<bool> UpdatePlayedSongAsync(int id, int? rating);
+
+        Task DeletePlaylistAsync(int id);
     }
 }

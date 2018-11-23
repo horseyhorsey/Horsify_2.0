@@ -28,7 +28,8 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         #region Commands/Requests        
         public ICommand CloseAllTabsCommand { get; set; }
         public ICommand CloseTabCommand { get; set; }
-        public ICommand CreatePlaylistCommand { get; set; }                
+        public ICommand CreatePlaylistCommand { get; set; }
+        public ICommand DeletePlaylistCommand { get; set; }
         public ICommand OpenSavedPlaylistCommand { get; set; }
         public DelegateCommand HelpWindowCommand { get; set; }
         public InteractionRequest<INotification> HelpNotificationRequest { get; set; }
@@ -59,6 +60,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 OnPlaylistsUpdated();
             });
 
+            DeletePlaylistCommand = new DelegateCommand(async () => await OnDeletePlaylistAsync());
             CloseAllTabsCommand = new DelegateCommand(OnCloseTabs);
             CloseTabCommand = new DelegateCommand<PlaylistTabViewModel>(OnCloseTab);
 
@@ -142,23 +144,15 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 
         private async void OnOpenPlaylist(PlaylistTabViewModel playlistTabViewModel)
         {
-            Log("Opening playlist", Category.Debug);
-            //var views = _regionManager.Regions[Regions.PlaylistTabsRegion].Views;
-
             try
             {
+                Log($"Opening playlist: {playlistTabViewModel.Playlist.Name}", Category.Debug);
+
                 if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
                 {
                     OpenPlayListViewModels.Add(playlistTabViewModel);
                     await OnViewLoaded(playlistTabViewModel);
                 }
-
-                //Reset and select tab
-                //if (_lastOpenedTab != null)
-                //    _lastOpenedTab.IsSelected = false;
-
-                //playlistTabViewModel.IsSelected = true;
-                //_lastOpenedTab = playlistTabViewModel;
 
                 SelectedTab = playlistTabViewModel;
             }
@@ -209,6 +203,36 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             foreach (var openTab in PlayListViewModels.Where(x => x.TabHeader != "Preparation Playlist"))
             {
                 OnCloseTab(openTab);
+            }
+        }
+
+        //TODO: Delete Playlists
+        private async Task OnDeletePlaylistAsync()
+        {
+            try
+            {
+                var tab = SelectedTab;
+                int id = (int)tab.Playlist?.Id;
+                if (id > 0)
+                {
+                    Log($"Deleting playlist: {id} : {tab.Playlist.Name}");
+                    bool result = await _horsifyPlaylistService.DeletePlaylistAsync(id);
+                    if (result)
+                    {
+                        //Remove tab item
+                        Log($"Playlist deleted: {id} : {tab.Playlist.Name}");
+                        OnCloseTab(tab);
+                        this.PlayListViewModels.Remove(tab);
+                    }
+                }
+                else
+                {
+                    Log("Cannot delete playlist with no id. Must be saved first.", Category.Warn);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"{ex.Message}", Category.Exception);
             }
         }
 

@@ -58,7 +58,7 @@
                         MinWidth="75" 
                         Margin="3,4,0,4"/>
 
-                <Button Content="DELETE" Command="{Binding DeletePlaylistCommand}" 
+                <Button Content="DELETE" Command="{Binding ElementName=LayoutRoot, Path=DataContext.DeletePlaylistCommand}" 
                         HorizontalAlignment="Right" Margin="0,4,90,4" MinWidth="75" Grid.Column="1"/>
 
                 <Button Content="Save" Command="{Binding SavePlaylistCommand}" 
@@ -289,7 +289,7 @@
                           DockPanel.Dock="Left"
                       ExpandDirection="Right"   
                       BorderBrush="Transparent"
-                      IsExpanded="True">
+                      IsExpanded="False">
 
                     <Expander.Header >
                         <TextBlock Text="SAVED PLAYLISTS" FontSize="64">

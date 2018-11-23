@@ -58,6 +58,7 @@ namespace Horsesoft.Music.Horsify.Api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _horsifySongService.DeletePlaylistAsync(id);
         }
     }
 }

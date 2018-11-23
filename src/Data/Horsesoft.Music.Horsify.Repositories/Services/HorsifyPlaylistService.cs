@@ -20,6 +20,12 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
     }
     public partial class HorsifySongService  // Playlist Service
     {
+        public async Task DeletePlaylistAsync(int id)
+        {
+            _sqliteRepo.PlaylistRepository.Delete((long)id);
+            await ((IUnitOfWork)_sqliteRepo).SaveAsync();
+        }
+
         public IEnumerable<Playlist> GetAllPlaylists()
         {
             return _sqliteRepo.PlaylistRepository.Get();

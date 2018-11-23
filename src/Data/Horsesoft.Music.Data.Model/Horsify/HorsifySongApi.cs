@@ -51,6 +51,17 @@ namespace Horsesoft.Music.Data.Model.Horsify
             return false;
         }
 
+        public async Task<bool> DeletePlaylistAsync(int id)
+        {
+            var response = await _client.DeleteAsync($"{BaseAddress}api/Playlists/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<IEnumerable<AllJoinedTable>> ExtraSearch(ExtraSearchType extraSearchType)
         {
             HttpResponseMessage response = null;

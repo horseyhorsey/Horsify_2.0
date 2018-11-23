@@ -10,6 +10,8 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         Task<bool> DeleteFilterSearchAsync(int? id);
 
+        Task<bool> DeletePlaylistAsync(int id);
+
         /// <summary>
         /// Call the songs api extra search, like most played etc <see cref="ExtraSearchType"/>
         /// </summary>
@@ -25,7 +27,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         /// <returns></returns>
         IEnumerable<string> GetEntries(SearchType searchType, char firstChar);
 
-        IEnumerable<string> GetEntries(SearchType searchType, string searchTerm, short maxAmount = -1);
+        IEnumerable<string> GetEntries(SearchType searchType, string searchTerm, short maxAmount = -1);        
 
         Task<IEnumerable<Filter>> GetFilters();
 

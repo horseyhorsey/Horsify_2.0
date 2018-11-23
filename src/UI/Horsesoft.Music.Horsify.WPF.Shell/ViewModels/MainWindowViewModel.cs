@@ -38,10 +38,12 @@ namespace Horsesoft.Music.Horsify.WPF.Shell.ViewModels
            });
 
             ///VolCtrl is either - or +
+            ///Converts + to -1 and - to -2
             ChangeVolumeCommand = new DelegateCommand<string>((volCtrl) =>
             {
+                double value = volCtrl == "+" ? -1 : -2;
                 Log("Changing volume", Category.Debug, Priority.None);
-                eventAggregator.GetEvent<OnMediaChangeVolumeEvent<string>>().Publish(volCtrl);
+                eventAggregator.GetEvent<OnMediaChangedVolumeEvent<double>>().Publish(value);
             });
 
         }

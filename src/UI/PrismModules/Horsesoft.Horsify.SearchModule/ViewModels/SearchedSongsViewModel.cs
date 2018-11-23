@@ -59,18 +59,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             SongsListView.CurrentChanged += SongsListView_CurrentChanged;
 
-            _eventAggregator.GetEvent<OnSearchedSongEvent>().Subscribe(async () =>
-            {
-                await OnSearchedSong();
-            });
-
-            //Runs the seach and adds filter to recent searches
-            _eventAggregator.GetEvent<OnSearchedSongEvent<ISearchFilter>>()
-                .Subscribe(async filter =>
-                {
-                    await OnSearchedSong(filter);
-                }, ThreadOption.UIThread);
-
             //Dialog requests
             RequestRandomViewRequest = new InteractionRequest<INotification>();
             RequestRandomViewRequest.Raised += (s, e) => { _randomDialogOpen = true; };
@@ -99,6 +87,12 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         public ObservableCollection<AllJoinedTable> SearchedSongs { get; set; }
         public ICollectionView SongsListView { get; set; }
+
+        private SearchFilter _lastSearchFilter;
+        private AllJoinedTable _lastSelectedSong;
+        private bool _sortDialogOpen;
+        private bool _randomDialogOpen;
+        private int _lastPostion;
         #endregion
 
         #region Navigation
@@ -187,9 +181,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                         this.RecentSearch.ResultCount = 0;
                         this.RecentSearch.SearchTerm += searchType;
 
-                        //TODO: REmove this
-                        //SongsListView.SortDescriptions.Clear();
-
                         //Just let the query order the songs, the add to search history will clear the last
                         _songDataProvider.ExtraSearch(searchType)
                             .ContinueWith((x) =>
@@ -197,8 +188,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                                 AddToSearchHistory(searchType);
                                 PublishSearchFinished();
                             });
-
-                        //this.SortDescription(SongFilterType.TimesPlayed);
                     }
 
                     SongsListView.SortDescriptions.Clear();
@@ -463,35 +452,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             }
         }
 
-        #endregion
-
-        #region Sorting
-
-        private SongFilterType _lastSortDescription;
-        private ListSortDirection _lastSortDirection = ListSortDirection.Descending;
-        private SearchFilter _lastSearchFilter;
-        private AllJoinedTable _lastSelectedSong;
-        private bool _sortDialogOpen;
-        private bool _randomDialogOpen;
-        private int _lastPostion;
-
-        /// <summary>
-        /// Sorts the description and sets the last description from the incoming filter type
-        /// </summary>
-        /// <param name="songFilterType">Type of the song filter.</param>
-        private void SortDescription(SongFilterType songFilterType)
-        {
-            _lastSortDescription = songFilterType;
-            UpdateSortDescription();
-        }
-
-        private void UpdateSortDescription()
-        {
-            //TODO: Check if needed anymore
-            SongsListView.SortDescriptions.Clear();
-            SongsListView.SortDescriptions.Add(new SortDescription()
-            { PropertyName = _lastSortDescription.ToString(), Direction = _lastSortDirection });
-        }
         #endregion
     }
 }

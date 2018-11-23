@@ -3,6 +3,7 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using System;
 using System.Windows.Input;
 
 namespace Horsesoft.Horsify.MediaPlayer.ViewModels
@@ -49,7 +50,14 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         /// <param name="currentVolume">The current volume.</param>
         private void OnVolumeChanged(double currentVolume)
         {
-            //CurrentVolume = currentVolume;
+            double dbl = currentVolume;
+
+            if (dbl == -1)
+                this.CurrentVolume += 1;
+            else if (dbl == -2)
+            {
+                this.CurrentVolume -= 1;
+            }            
         }
         #endregion
     }

@@ -4,44 +4,52 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:horsify="http://schemas/horsesoft.co.uk"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid FocusManager.FocusedElement="{Binding ElementName=OnScreenKeyboard}"> 
+    <Grid FocusManager.FocusedElement="{Binding ElementName=OnScreenKeyboard}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>-->
+        <Border Background="{DynamicResource BackgroundGradient4}"
+                CornerRadius="50,50,0,0"
+                >
+            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
 
-        <StackPanel TextElement.FontSize="72" HorizontalAlignment="Center">
-            <Label Content="SAVE SEARCH FILTER" />
-        </StackPanel>
+
+                <Label Content="SAVE DJ HORSIFY OPTIONS"
+                   FontSize="64" 
+                       Foreground="{DynamicResource Color_Primary3}"
+                   />
+            </StackPanel>
+        </Border>
 
         <!--KEYBOARD-->
 
         <horsify:OnScreenKeyboard x:Name="OnScreenKeyboard" 
                                   Text="{Binding SearchFilterName, UpdateSourceTrigger=PropertyChanged}"
-                                  Grid.Column="0" Margin="50"
+                                  Margin="50"
                                   Grid.Row="2"                  
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Top"
+                                  HorizontalAlignment="Center"                                  
                                   FontSize="32"
                                   />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    >
-            <Button Content="{DynamicResource Icon_ArrowLeft}" Style="{DynamicResource ButtonMetal}" Command="{Binding CloseViewCommand}">
+        <Button Content="{DynamicResource SaveIcon}" Width="100"
+                Grid.Row="3" Margin="50" Background="Green"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                    Command="{Binding SaveFilterCommand}">
 
-            </Button>
+        </Button>
 
-            <Button Content="{DynamicResource SaveIcon}" Style="{DynamicResource ButtonMetal}" Command="{Binding SaveFilterCommand}">
-            
-            </Button>
-        </StackPanel>
+        <Button Content="X" Grid.Row="0" 
+                    Background="Red"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Margin="250,25"
+                    FontSize="46"
+                    Command="{Binding CloseViewCommand}"
+                    />
     </Grid>
 </UserControl>

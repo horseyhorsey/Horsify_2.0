@@ -33,19 +33,25 @@
         <Border Background="{DynamicResource BackgroundGradient4}"
                 CornerRadius="50,50,0,0"
                 >
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 
-                <Button Content="{DynamicResource Icon_ArrowLeft}" 
-                        Command="{Binding ExitViewCommand}"
-                        Height="42" Margin="50,0"
-                        />
-                
+
                 <Label Content="SAVED DJ HORSIFY FILTERS"
                    FontSize="64"
-                       Foreground="{DynamicResource Color_Primary}"
+                       Foreground="{DynamicResource Color_Primary3}"
                    />
             </StackPanel>
         </Border>
+
+        <Button Content="X" Grid.Row="0" 
+                    Background="Red"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="250,25"
+                    FontSize="46"
+                
+                    Command="{Binding ExitViewCommand}"
+                    />
 
         <!--<ListView Grid.Row="1"
                 Margin="20"

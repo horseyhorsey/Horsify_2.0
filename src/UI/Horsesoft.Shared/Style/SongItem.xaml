@@ -196,9 +196,10 @@
                 BorderThickness="2" Margin="3"
                 BorderBrush="{DynamicResource Color_Primary5}"
                 Width="460" CornerRadius="0,10,15,15"
-                MaxHeight="160" Height="155"
+                Height="190"
+                    MaxHeight="190"
                 >
-                <Grid TextElement.FontSize="16"                  
+                <Grid TextElement.FontSize="18"                  
                   >
 
                     <Grid.RowDefinitions>
@@ -215,7 +216,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Image 
-                    Width="100" Height="100"
+                    Width="160" Height="140"
                     Grid.RowSpan="4">
                         <Image.CacheMode>
                             <BitmapCache RenderAtScale="0.8" SnapsToDevicePixels="True"/>
@@ -243,15 +244,16 @@
                     </Border>
 
                     <TextBlock Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
-                    <TextBlock Grid.Row="2" Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="250" MaxHeight="20" HorizontalAlignment="Center" Grid.Column="1"/>
-                    <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
-                    <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="150" MaxHeight="20"  HorizontalAlignment="Center" Grid.Column="1"/>
+                    <TextBlock Grid.Row="2" Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1"/>
+                    <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Left" Grid.Column="1"/>
+                    <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="150" MaxHeight="20"  HorizontalAlignment="Left" Grid.Column="1"/>
 
                     <!--RATING-->
                     <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
                                                       Style="{DynamicResource RatingViewStyle}"
                                                       StarWidth="20"
                                               Grid.RowSpan="5" Grid.ColumnSpan="2"
+                                                  Margin="35,0"
                                               VerticalAlignment="Bottom" HorizontalAlignment="Left"
                                                       />
                 </Grid>

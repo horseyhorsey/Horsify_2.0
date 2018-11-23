@@ -25,7 +25,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         private ISongDataProvider _songDataProvider;
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
-        private IQueuedSongDataProvider _queuedSongDataProvider;
         private IDjHorsifyService _djHorsifyService;
         private ISearchHistoryProvider _searchHistory;
         private IRegionNavigationJournal _journal;        
@@ -49,8 +48,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
 
-            //For queueing random songs
-            _queuedSongDataProvider = queuedSongDataProvider;
             _djHorsifyService = djHorsifyService;
 
             _songDataProvider = songDataProvider;
@@ -80,9 +77,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             RequestSortDialogRequest = new InteractionRequest<INotification>();
             RequestSortDialogRequest.Raised += (s, e) => { _sortDialogOpen = true; };
             RequestViewCommand = new DelegateCommand<string>((viewName) => OnRequestView(viewName));
-
-
-            
         }
 
         #endregion
@@ -126,7 +120,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             if (_lastSearchFilter != null)
                             {
                                 if (filter.Equals(_lastSearchFilter))
-                                {
+                                {                                    
                                     PublishSearchFinished();
                                     return;
                                 }
@@ -138,7 +132,15 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             .ContinueWith((x) =>
                             {
                                 AddToSearchHistory(filter);
-                                _lastSearchFilter = filter;
+                                _lastSearchFilter = new SearchFilter();
+                                _lastSearchFilter.BpmRange.IsEnabled = filter.BpmRange.IsEnabled;
+                                _lastSearchFilter.BpmRange.Low = filter.BpmRange.Low;
+                                _lastSearchFilter.BpmRange.Hi = filter.BpmRange.Hi;
+                                _lastSearchFilter.RatingRange.IsEnabled = filter.RatingRange.IsEnabled;
+                                _lastSearchFilter.RatingRange.Low = filter.RatingRange.Low;
+                                _lastSearchFilter.RatingRange.Hi = filter.RatingRange.Hi;
+                                _lastSearchFilter.Filters = filter.Filters;
+                                _lastSearchFilter.MusicKeys = filter.MusicKeys;
                                 this.RecentSearch.SearchTerm = "DjHorsify ";
                                 UpdateSearchHistory(filter);
                                 PublishSearchFinished();

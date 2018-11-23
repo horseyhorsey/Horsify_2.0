@@ -61,8 +61,12 @@ namespace Horsesoft.Horsify.Resource.Windows.CustomControls
             }
             else
             {
+                if (Text.Length <= CursorPosition)
+                    CursorPosition = 0;
+                else
+                    CursorPosition++;
                 this.Text = this.Text.Insert(CursorPosition, key);
-                CursorPosition++;
+
             }
 
         }

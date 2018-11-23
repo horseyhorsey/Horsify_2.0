@@ -1,6 +1,7 @@
 ﻿using Horsesoft.Horsify.DjHorsify.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.Model;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
@@ -19,6 +20,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
     public class EditFilterViewModel : HorsifyBindableBase, INavigationAware
 	{
         private IRegionManager _regionManager;
+        private IDjHorsifyService _djHorsifyService;
+
         public ICollectionView AvailableSearchTerms { get; set; }
 
         #region Commands
@@ -30,9 +33,10 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         #endregion
 
         #region Constructors
-        public EditFilterViewModel(IRegionManager regionManager, ILoggerFacade loggerFacade):base(loggerFacade)
+        public EditFilterViewModel(IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade):base(loggerFacade)
         {
             _regionManager = regionManager;
+            _djHorsifyService = djHorsifyService;
 
             SearchTerms = new ObservableCollection<string>();
             AvailableSearchTerms = new ListCollectionView(SearchTerms);
@@ -195,31 +199,56 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             var filter = navigationContext.Parameters["create_new_filter"];
             if (filter != null)
             {
-                Log($"Creating new filter", Category.Debug, Priority.Medium);
-                this.IsEditingFilter = false;                
-                SearchTerms.Clear();
-                SelectedSearchType = (SongFilterType)filter;
-                this.CurrentFilter = new DjHorsifyFilterModel();
-                this.lastFilter = this.CurrentFilter;
-                return;
+                
+
+                var djhModel = filter as DjHorsifyFilterModel;
+                if (djhModel != null)
+                {
+                    var existingDjh =_djHorsifyService.HorsifyFilters.FirstOrDefault(x => x.FileName == djhModel.FileName);
+                    if (existingDjh != null)
+                    {
+                        Log("Trying to create a new filter when already exists, loading that instead.");                        
+                        this.CurrentFilter = SetEditPreviousFilter(existingDjh);
+                        this.CurrentFilter.SearchType = djhModel.SearchType;
+                        return;
+                    }
+                        
+
+                    this.IsEditingFilter = false;
+                    
+                    SelectedSearchType = (SongFilterType)djhModel.SearchType;
+                    CurrentFilter = djhModel;
+                    SearchTerms.Clear();
+                    Log($"Created new filter", Category.Warn, Priority.Medium);
+                    return;
+                }
+
+                Log($"Failed creating new filter from DJHModel", Category.Warn, Priority.Medium);
             }
 
             filter = navigationContext.Parameters["edit_filter"];
             if (filter != null)
-            {
-                this.IsEditingFilter = true;
-                Log($"Loading existing filter", Category.Debug, Priority.Medium);                
-
-                this.CurrentFilter = filter as DjHorsifyFilterModel;
+            {                
+                this.CurrentFilter = SetEditPreviousFilter(filter);
                 if (this.CurrentFilter != null)
-                {
-                    this.lastFilter = this.CurrentFilter;                                        
-                    this.SelectedSearchType = (SongFilterType)this.CurrentFilter.SearchType;
-                    this.SearchTerms.Clear();
-                    this.SearchTerms.AddRange(this.CurrentFilter.Filters);
-                }
-                else { Log($"Loading existing filter failed", Category.Warn, Priority.Medium); }
+                    this.lastFilter = this.CurrentFilter;
             }
+        }
+
+        private DjHorsifyFilterModel SetEditPreviousFilter(object filter)
+        {
+            Log($"Loading existing filter", Category.Debug, Priority.Medium);
+            this.IsEditingFilter = true;
+            var model = filter as DjHorsifyFilterModel;            
+            if (model != null)
+            {                
+                this.SelectedSearchType = (SongFilterType)model.SearchType;
+                this.SearchTerms.Clear();
+                this.SearchTerms.AddRange(model.Filters);
+            }
+            else { Log($"Loading existing filter failed", Category.Warn, Priority.Medium); }
+
+            return model;
         }
         #endregion
     }

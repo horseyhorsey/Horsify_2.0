@@ -324,12 +324,26 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             {
                 Log("add_new_filter", Category.Debug);
                 Music.Data.Model.Filter dbFilter = CreateDbFilter(filter);
+
+                var existingFilter = this._djHorsifyService.Filters.FirstOrDefault(x => x.Name == filter.FileName);
+                bool update = existingFilter == null ? false: true;
                 try
                 {
                     bool result = false;
                     Task.Run(async () =>
                     {
-                        result = await _djHorsifyService.AddFilterAsync(dbFilter);
+                        if (update)
+                        {
+                            Log($"Updating filter {dbFilter.Name}");
+                            existingFilter.SearchTerms = dbFilter.SearchTerms;
+                            result = _djHorsifyService.UpdateFilter(dbFilter);
+                        }
+                        else
+                        {
+                            Log($"Adding new filter {dbFilter.Name}");
+                            result = await _djHorsifyService.AddFilterAsync(dbFilter);
+                        }                            
+                            
                     }).Wait();
 
                     if (result)

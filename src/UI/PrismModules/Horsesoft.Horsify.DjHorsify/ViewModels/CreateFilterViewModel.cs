@@ -1,9 +1,11 @@
 ﻿using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Model;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Horsesoft.Horsify.DjHorsify.ViewModels
@@ -14,27 +16,49 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
     public class CreateFilterViewModel : BindableBase, INavigationAware
     {
         private IRegionManager _regionManager;
+
+        public DelegateCommand CreateFilterCommand { get; private set; }
         public ICommand NavigateBackCommand { get; private set; }
 
         public CreateFilterViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
 
+            CreateFilterCommand = new DelegateCommand(
+                () => NavigateEditFilterView(this.SelectedSearchType),
+                () => IsFilterNameValid());
             NavigateBackCommand = new DelegateCommand(OnNavigateBack);
         }
 
+        private bool IsFilterNameValid()
+        {
+            if (this.FilterName?.Count() > 2)
+                return true;
+
+            return false;
+        }
+
         #region Properties
-        private string _searchType;
-        public string SelectedSearchType
+        private SongFilterType _searchType;
+        public SongFilterType SelectedSearchType
         {
             get { return _searchType; }
             set
             {
                 SetProperty(ref _searchType, value);
+            }
+        }
 
-                //Convert the string selection to SongFilterType
-                if (!string.IsNullOrEmpty(SelectedSearchType))
-                    NavigateEditFilterView((SongFilterType)Enum.Parse(typeof(SongFilterType), SelectedSearchType));
+        private string _filterName;
+        public string FilterName
+        {
+            get { return _filterName; }
+            set
+            {
+                if (SetProperty(ref _filterName, value))
+                {
+                    this.CreateFilterCommand.RaiseCanExecuteChanged();
+                }
             }
         }
         #endregion
@@ -46,8 +70,9 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         /// <param name="selectedSearchType">Type of the selected search.</param>
         private void NavigateEditFilterView(SongFilterType selectedSearchType)
         {
+            var djhModel = new DjHorsifyFilterModel() { FileName = this.FilterName, SearchType = (SearchType)SelectedSearchType };
             var navParams = new NavigationParameters();
-            navParams.Add("create_new_filter", selectedSearchType);
+            navParams.Add("create_new_filter", djhModel);
             _regionManager.RequestNavigate(Regions.ContentRegion, "EditFilterView", navParams);
         }
 
@@ -58,7 +83,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            SelectedSearchType = null;
+            SelectedSearchType = SongFilterType.Genre;
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

@@ -238,6 +238,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--#endregion-->
@@ -247,46 +248,47 @@
                 CornerRadius="50,50,0,0"
                 >
             <Grid>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch"                                         
-                    Margin="20">
-                    <TextBlock Text="DJ " FontSize="84"
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    
+                    <TextBlock Text="DJ " FontSize="48"
+                               Margin="25,0"
                                ToolBar.OverflowMode="Never"
-                               VerticalAlignment="Center"
+                               VerticalAlignment="Bottom"
                                Style="{StaticResource TextBlockStyle_BebasLarge}"/>
 
                     <ContentPresenter x:Name="HorsifyLogo" d:IsHidden="True"
-                                      ToolBar.OverflowMode="Never"
+                                      Margin="-20,10" VerticalAlignment="Bottom"
                                       ContentTemplate="{StaticResource HorsifyLogoSvgStd}"
-                                      Height="70"                                      
+                                      Height="45"                                      
                                       />
+
                     <!--ENABLED-->
                     <ToggleButton BorderThickness="0"
-                                  Margin="10,0"                                  
-                                  ToolBar.OverflowMode="Never"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  Height="50" Width="50"                                  
+                                  VerticalAlignment="Bottom"                                    Margin="30,5"
                                   IsTabStop="False"
                                   DataContext="{Binding DjHorsifyOption}"                                                                                                                                        
                                   Content="Enabled"                                   
                                   IsChecked="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}" 
                                   Template="{DynamicResource ToggleButtonBaseControlTemplate1}"/>
 
-
                     <!--AMOUNT-->
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                                 ToolBar.OverflowMode="AsNeeded"
+                                Margin="-30,0,0,0"
                                 >
                         <!--Amount control-->
-                        <TextBlock Text="Amount" HorizontalAlignment="Center" 
-                                   FontSize="30"/>
+                        <!--<TextBlock Text="Amount" HorizontalAlignment="Center" 
+                                   FontSize="30"/>-->
                         <horsify:AmountSelectControl 
-                            TextElement.FontSize="48" BorderBrush="Transparent"
+                            TextElement.FontSize="28" BorderBrush="Transparent"
                             Value="{Binding DataContext.DjHorsifyOption.Amount, ElementName=LayoutRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         />
                     </StackPanel>
 
                     <!--TEST SEARCH-->
-                    <Button Margin="15" 
-                    Height="70" Width="65"
+                    <Button 
+                    Height="50" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"                    
                     Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"
                     Content="{DynamicResource Icon_Search}"
@@ -294,8 +296,8 @@
                             />
 
                     <!--VIEW SAVED SEARCHES-->
-                    <Button Margin="15" 
-                    Height="70" Width="65"
+                    <Button 
+                    Height="50" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"                                                                            
                             Command="{Binding DataContext.ShowSavedFiltersCommand, ElementName=LayoutRoot}"                            
                             Content="{DynamicResource BookmarksIcon}"
@@ -303,9 +305,8 @@
                             />
 
                     <!--SAVE THIS SEARCH-->
-                    <Button Margin="15" 
-                    Height="70" Width="65"
-                    FontSize="58" VerticalAlignment="Bottom"   
+                    <Button                     Height="50" Width="65"
+                    FontSize="58" VerticalAlignment="Bottom"  
                             Command="{Binding DataContext.SaveFilterCommand, ElementName=LayoutRoot}"
                             Content="{DynamicResource SaveIcon}"
                     Style="{DynamicResource TransparentButtonBases}"
@@ -316,9 +317,62 @@
             </Grid>
         </Border>
 
+        <!--RATING-->
+        <Grid Grid.Row="1">
 
-        <!--FILTER OPTIONS-->
-        <Border Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+
+        <StackPanel Orientation="Horizontal">
+
+            <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters.Count, Mode=OneWay, StringFormat={}Total: {0}}"                        
+                       VerticalAlignment="Center" FontSize="24"
+                       Margin="10,0"
+                       />
+
+            <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters[0].FileName, Mode=OneWay, StringFormat={}Names: {0}}"                        
+                       VerticalAlignment="Center" FontSize="24"
+                       Margin="10,0"
+                       />
+
+
+                            <TextBlock Text=" - Options" VerticalAlignment="Center" FontSize="24"/>
+
+            <StackPanel IsEnabled="{Binding DjHorsifyOption.RatingRange.IsEnabled}">
+                <horsify:RatingControl 
+                    RatingValue="{Binding DjHorsifyOption.RatingRange.Low, Mode=OneWay}"
+                    Style="{DynamicResource RatingViewStyle}"
+                    StarWidth="18"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="0,0"/>
+
+                <horsify:RatingControl Grid.Row="1" 
+                    RatingValue="{Binding DjHorsifyOption.RatingRange.Hi, Mode=OneWay}"
+                    Style="{DynamicResource RatingViewStyle}"
+                    StarWidth="18"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="0,0"
+                    />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding DjHorsifyOption.BpmRange.IsEnabled}">
+                <TextBlock Text="    BPM: " VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Low, Mode=OneWay,StringFormat={}{0} - }" VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Hi, Mode=OneWay}" VerticalAlignment="Center" FontSize="18"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="     KEYS: " VerticalAlignment="Center" FontSize="18"/>
+                <TextBlock Text="{Binding DjHorsifyOption.SelectedKeys, Mode=OneWay}" VerticalAlignment="Center" FontSize="18"/>
+            </StackPanel>
+
+            </StackPanel>
+        </Grid>
+
+
+
+                    <!--FILTER OPTIONS-->
+        <Border Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                 Background="{DynamicResource BackgroundGradient3}"
                             
                 Grid.ColumnSpan="4">
@@ -346,7 +400,7 @@
         </Border>
 
         <!--FILTERS TAB CONTROL-->
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
             
             
             <TabControl
@@ -710,7 +764,7 @@
                                                  HorizontalAlignment="Left"
                                                  StretchDirection="Both">
                                         <horsify:OpenKeyNotationControl 
-                                            SelectedOpenKeys="{Binding DjHorsifyOption.SelectedKeys, UpdateSourceTrigger=PropertyChanged}"/>
+                                            SelectedOpenKeys="{Binding DjHorsifyOption.SelectedKeys, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                     </Viewbox>
 
                                 </StackPanel>
@@ -725,7 +779,9 @@
 
             </TabControl>
         </Grid>
-    </Grid>
+
+
+            </Grid>
 
 </UserControl>
 

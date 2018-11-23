@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Horsesoft.Music.Data.Model.Horsify
 {
@@ -23,7 +24,10 @@ namespace Horsesoft.Music.Data.Model.Horsify
         [EnumMember]
         Title           = 1 << 6,
         [EnumMember]
+        [Description]
         Year            = 1 << 7,
+        [Description("Country")]
+        Country = 1 << 8,
     }
 
     public enum ExtraSearchType

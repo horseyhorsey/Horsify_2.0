@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,12 +29,12 @@ namespace Horsesoft.Music.Data.Model.Horsify
         #region Public Methods
 
         public async Task<bool> DeleteFilterAsync(Filter filter)
-        {
-            var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
-            var response = await _client.DeleteAsync($"{BaseAddress}/api/filters/{filter.Name}");
+        {            
+            var response = await _client.DeleteAsync($"{BaseAddress}api/Filters/{filter.Name}");
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return true;
+                var result = await response.Content.ReadAsStringAsync();                
+                return Convert.ToBoolean(result);     
             }
 
             return false;

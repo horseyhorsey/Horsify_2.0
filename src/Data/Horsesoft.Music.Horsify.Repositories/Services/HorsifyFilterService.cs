@@ -40,24 +40,20 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
             
         }
 
-        public Task<bool> InsertFilterSearchAsync(FiltersSearch filtersSearch)
+        public async Task<bool> InsertFilterSearchAsync(FiltersSearch filtersSearch)
         {
             try
             {
-                Task.Run(() =>
-                {
-                    _sqliteRepo.FiltersSearchRepository.Insert(filtersSearch);
-                    ((IUnitOfWork)_sqliteRepo).Save();
+                _sqliteRepo.FiltersSearchRepository.Insert(filtersSearch);
+                await ((IUnitOfWork)_sqliteRepo).SaveAsync();
 
-                    return true;
-                });
+                return true;
             }
             catch (System.Exception)
             {
                 
             }
-
-            return Task.FromResult(false);
+            return false;
         }
 
         public Task UpdateFilterSearchAsync(FiltersSearch filtersSearch)
@@ -67,7 +63,7 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
         }
 
         public void RemoveFilter(Filter filter)
-        {
+        {            
             _sqliteRepo.FilterRepository.Delete(filter);
             ((IUnitOfWork)_sqliteRepo).Save();
         }

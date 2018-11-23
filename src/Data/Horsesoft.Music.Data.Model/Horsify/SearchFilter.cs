@@ -88,11 +88,41 @@ namespace Horsesoft.Music.Data.Model.Horsify
             var sf = (obj as SearchFilter);
             if (sf != null)
             {
-                if (sf.Filters?.First().Filters?.First() == this.Filters?.First().Filters?.First())
-                    return true;
-            }
+                //Rating enabled
+                if (sf.RatingRange.IsEnabled != this.RatingRange.IsEnabled)
+                    return false;
+                if (sf.RatingRange.Low != this.RatingRange.Low)
+                    return false;
+                if (sf.RatingRange.Hi != this.RatingRange.Hi)
+                    return false;
 
-            return false;
+                //Bpm
+                if (sf.BpmRange.IsEnabled != this.BpmRange.IsEnabled)
+                    return false;
+                if (sf.BpmRange.Low != this.BpmRange.Low)
+                    return false;
+                if (sf.BpmRange.Hi != this.BpmRange.Hi)
+                    return false;
+
+                //Keys
+                if (sf.MusicKeys != this.MusicKeys)
+                    return false;               
+
+                //Filters not matching
+                if (sf.Filters != null && this.Filters == null)
+                    return false;
+                else if (sf.Filters == null && this.Filters != null)
+                    return false;
+
+                if (sf.Filters?.First().Filters?.First() != this.Filters?.First().Filters?.First())
+                {
+                    return false;
+                }
+            }
+            else
+                return false;
+
+            return true;
         }
 
         public override int GetHashCode()
@@ -103,7 +133,8 @@ namespace Horsesoft.Music.Data.Model.Horsify
         #region Constructors
         public SearchFilter()
         {
-
+            this.BpmRange = new RangeFilterOption<byte>(0,0);
+            this.RatingRange = new RangeFilterOption<byte>(0, 0);
         }
 
         public SearchFilter(string quickFilter)

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -68,15 +69,6 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             GenerateSearchButtonsForMenuComponent(mCreator._rootMenu);
             //SearchButtonsView = new ListCollectionView(SearchButtons);
 
-            //Updates the buttons when changed.
-            //Messenger.Default.Register<AddSearchMenuButtonsMessage>(this, (x) => UpdateSearchButtons(x));
-            eventAggregator.GetEvent<OnMenuParentSelectedEvent<IMenuComponent>>()
-                .Subscribe(menuComponent =>
-                {
-                    Log("Menu Parent Selected", Category.Debug, Priority.None);
-                    this.UpdateSearchButtons(menuComponent);
-                });
-
             eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Subscribe(() => IsBusy = false);
 
             #region Commands Setup
@@ -99,10 +91,11 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
 
             if (SelectMenuCommand == null)
             {
-                SelectMenuCommand = new DelegateCommand<SearchButtonViewModel>(SelectMenu);
+                SelectMenuCommand = new DelegateCommand<SearchButtonViewModel>(async (sbm)=> await SelectMenuAsync(sbm));
             }
             #endregion
         }
+
         #endregion
 
         #region Support Methods
@@ -143,8 +136,6 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
                     SearchTitle = iterator.Current.Name,
                     ImagePath = File.Exists(imgLocation) ? imgLocation : null
                 });
-
-
             }
         }
 
@@ -171,6 +162,8 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         /// <param name="x"></param>
         private void UpdateSearchButtons(IMenuComponent menuComponent)
         {
+            Log("Updating menu items.", Category.Debug, Priority.None);
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 try
@@ -241,8 +234,6 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
 
         #endregion
 
-        //TODO Fix SelectMenuAsync
-
         /// <summary>
         /// Select a menu button
         /// </summary>
@@ -258,8 +249,8 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
 
                 //Check if has children and return if has children
                 if (menuComponent.GetChild(0) != null)
-                {
-                    _eventAggregator.GetEvent<OnMenuParentSelectedEvent<IMenuComponent>>().Publish(menuComponent);
+                {                    
+                    this.UpdateSearchButtons(menuComponent);
                     return;
                 }
             }
@@ -270,9 +261,9 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             if (menuName == "Back")
             {
                 if (menuComponent.Parent.Name == "Root")
-                    _eventAggregator.GetEvent<OnMenuParentSelectedEvent<IMenuComponent>>().Publish(this.mCreator._rootMenu);
+                    this.UpdateSearchButtons(this.mCreator._rootMenu);
                 else
-                    _eventAggregator.GetEvent<OnMenuParentSelectedEvent<IMenuComponent>>().Publish(menuComponent.Parent);
+                    this.UpdateSearchButtons(menuComponent.Parent);
 
                 return;
             }
@@ -282,21 +273,29 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             if (menuComponent?.ExtraSearchType != ExtraSearchType.None)
             {
                 IsBusy = true;
+                Log($"Navigating SearchedSongs with extra search type");
                 var navParams = new NavigationParameters();
                 navParams.Add("extra_search", menuComponent.ExtraSearchType);
-                _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navParams);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navParams);
+                });
             }
             else if (menuComponent?.SearchString == "SEARCH")
             {
                 switch (menuName)
                 {
                     case "A-Z":
+                        Log($"Navigating to A-Z");
                         _regionManager.RequestNavigate("ContentRegion", "AToZSearchView");
                         break;
                     case "SEARCH":
+                        Log($"Navigating to Search");
                         _regionManager.RequestNavigate("ContentRegion", "SearchView");
                         break;
                     case "SONG SEARCH":
+                        Log($"Navigating to instant Search");
                         _regionManager.RequestNavigate("ContentRegion", "InstantSearch");
                         break;
                     default:
@@ -307,21 +306,37 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             {
                 if (menuName == "DJ Horsify")
                 {
+                    Log($"Navigating DJ Horsify");
                     _regionManager.RequestNavigate("ContentRegion", "DjHorsifyView");
                 }
                 else if (menuName == "Filter")
                 {
+                    Log($"Navigating Filter creator");
                     _regionManager.RequestNavigate("ContentRegion", "FilterCreatorView");
                 }
             }
             else
             {
                 IsBusy = true;
+                Log($"Running a search...");
                 NavigationParameters navParams =
                     NavigationHelper.CreateSearchFilterNavigation(menuComponent.SearchType, menuComponent.SearchString != null ? menuComponent.SearchString : menuComponent.Name);
-                _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView", navParams);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView", navParams);
+                });                
             }
 
+        }
+
+        private async Task SelectMenuAsync(SearchButtonViewModel sbm)
+        {
+            Log($"Selected menu {sbm?.SearchTitle}");
+            await Task.Run(() =>
+            {
+                this.SelectMenu(sbm);
+            });
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Horsesoft.Music.Horsify.Base
     public class OnSearchedSongEvent : PubSubEvent { }
     public class OnSearchedSongEvent<T> : PubSubEvent<T> { }
     public class OnNavigateViewEvent<T> : PubSubEvent<string> { }
-    public class OnMenuParentSelectedEvent<T> : PubSubEvent<IMenuComponent> { }
     public class OnSwitchSkinEvent<TSkin> : PubSubEvent<string> { }
 
     public class StartScanSongsEvent : PubSubEvent { }

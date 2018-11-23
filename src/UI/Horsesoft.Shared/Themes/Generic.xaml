@@ -484,9 +484,7 @@
 
     <!--HorsifySearchButton-->
     <Style TargetType="controls:HorsifySearchButton">
-
-
-        <Setter Property="ButtonContentSize" Value="12"/>
+        <Setter Property="ButtonContentSize" Value="32"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:HorsifySearchButton}">
@@ -494,15 +492,7 @@
                     <!--TEXT WITH BUTTON - Empty string doesn't show button content-->
                     <StackPanel Orientation="Horizontal">
 
-                        <!--SEARCH-->
-                        <Button BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Visibility="{TemplateBinding Visibility}"  
-                                FontSize="{TemplateBinding FontSize}"
-                                Height="{TemplateBinding ButtonContentSize}" 
-                                Width="{TemplateBinding ButtonContentSize}"
-                                Content="{TemplateBinding Property=Button.Content}"/>
-
+                        <ContentPresenter Content="{TemplateBinding Property=Button.Content}"/>
                         <!--SEARCH TEXT-->
                         <TextBlock x:Name="ButtonInfoText" Margin="5,0"
                            VerticalAlignment="Center"                  

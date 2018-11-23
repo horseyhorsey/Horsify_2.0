@@ -16,8 +16,6 @@ namespace Horsesoft.Horsify.SearchModule.UserControls
             InitializeComponent();
         }
 
-        //Todo: Close button
-
         public INotification Notification { get; set; }
         public Action FinishInteraction { get; set; }
 

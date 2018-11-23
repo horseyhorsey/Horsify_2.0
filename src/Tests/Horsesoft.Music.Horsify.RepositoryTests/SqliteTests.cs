@@ -129,6 +129,7 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
 
         /// <summary>
         /// TODO: Needs to be quicker
+        /// 23/11/18 - Don't think used anymore, easier to build SearchFilter and pass in
         /// </summary>
         /// <param name="searchType">Type of the search.</param>
         /// <param name="searchTerms">The search terms.</param>

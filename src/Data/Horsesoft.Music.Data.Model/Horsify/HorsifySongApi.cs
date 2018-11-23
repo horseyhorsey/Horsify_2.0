@@ -210,8 +210,6 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         public async Task<IEnumerable<AllJoinedTable>> SearchLikeFiltersAsync(SearchFilter searchFilter, short randomAmount = 0, short maxAmount = -1)
         {
-            //TODO MusicKeys query
-
             //Apply filters if any available
             string term = $"api/songs/SearchFilters?";
             term += $"randomAmount={randomAmount}";

@@ -268,8 +268,6 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
                 return;
             }
 
-            //Run the busy searching
-            //Todo: Use the command can execute here                
             if (menuComponent?.ExtraSearchType != ExtraSearchType.None)
             {
                 IsBusy = true;

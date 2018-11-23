@@ -48,10 +48,41 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             SearchResults.CurrentChanged += SearchResults_CurrentChanged;
         }
 
+        #region Commands
+        public ICommand ShowSearchKeyboardViewCommand { get; set; }
+        #endregion
+
+        #region Properties
+        private SearchModel _searchModel = new SearchModel();
+        public SearchModel SearchModel
+        {
+            get { return _searchModel; }
+            set { SetProperty(ref _searchModel, value); }
+        }
+
+        private int _caretIndex;
+        public int CursorPosition
+        {
+            get { return _caretIndex; }
+            set { SetProperty(ref _caretIndex, value); }
+        }
+
+        public ICollectionView SearchResults { get; set; }
+
+        private bool _searchKeyboardVisible = true;
+        public bool SearchKeyboardVisible
+        {
+            get { return _searchKeyboardVisible; }
+            set { SetProperty(ref _searchKeyboardVisible, value); }
+        }
+        #endregion
+
+        #region Private Methods
+
         private void SearchResults_CurrentChanged(object sender, EventArgs e)
         {
             //TODO: Open up selected view
-            
+
         }
 
         private void OnShowSearchKeyboard(object showSearch)
@@ -61,22 +92,15 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             SearchKeyboardVisible = show;
         }
 
-        private bool _searchKeyboardVisible = true;
-        public bool SearchKeyboardVisible
-        {
-            get { return _searchKeyboardVisible; }
-            set { SetProperty(ref _searchKeyboardVisible, value); }
-        }
-
         protected override void OnPlay(AllJoinedTable song = null)
         {
             if (song != null)
             {
                 AllJoinedTable fullSong = null;
                 Task.Run(async () =>
-               {
-                   fullSong = await GetSong(song);
-               }).Wait();
+                {
+                    fullSong = await GetSong(song);
+                }).Wait();
 
                 Log($"Playing song: {fullSong.FileLocation}");
                 _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>()
@@ -86,32 +110,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private Task<AllJoinedTable> GetSong(AllJoinedTable allJoinedTable)
         {
-            return _songDataProvider.GetSongById(allJoinedTable.Id);            
+            return _songDataProvider.GetSongById(allJoinedTable.Id);
         }
-
-
-        //TODO: Put this back in
-        /// <summary>
-        /// Gets the song from a searchstring. Searchstring must begin with an ID and be split with pipe char. |
-        /// </summary>
-        /// <param name="searchString">The search string.</param>
-        /// <returns></returns>
-        //private AllJoinedTable GetSong(string searchString)
-        //{
-        //    if (string.IsNullOrWhiteSpace(searchString))
-        //    {
-        //        Log($"Play song in instant search empty.", Category.Warn);
-        //        return null;
-        //    }
-
-        //    int id = 0;
-        //    if (searchString.Contains("|"))
-        //    {
-        //        id = Convert.ToInt32(searchString.Split('|')[0]);
-        //    }
-
-        //    return _songDataProvider.GetSongById(id);
-        //}
 
         protected override void OnQueueSong(AllJoinedTable song = null)
         {
@@ -123,7 +123,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     fullSong = await GetSong(song);
                 }).Wait();
 
-                Log($"Queueing song: {fullSong.FileLocation}");                
+                Log($"Queueing song: {fullSong.FileLocation}");
                 base.QueueSong(fullSong);
             }
         }
@@ -153,7 +153,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                     {
                         SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist).ThenBy(x => x.Album));
                     }
-                    else if(sType == SearchType.Artist)
+                    else if (sType == SearchType.Artist)
                     {
                         SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist));
                     }
@@ -165,29 +165,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             });
         }
 
-        #region Commands
-        public ICommand ShowSearchKeyboardViewCommand { get; set; }
-        #endregion
-
-        #region Properties
-        private SearchModel _searchModel = new SearchModel();
-        public SearchModel SearchModel
-        {
-            get { return _searchModel; }
-            set { SetProperty(ref _searchModel, value); }
-        }
-
-        private int _caretIndex;
-        public int CursorPosition
-        {
-            get { return _caretIndex; }
-            set { SetProperty(ref _caretIndex, value); }
-        }
-
-        public ICollectionView SearchResults { get; set; }
-        #endregion
-
-        #region Private Methods
         private void SearchModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SearchText")

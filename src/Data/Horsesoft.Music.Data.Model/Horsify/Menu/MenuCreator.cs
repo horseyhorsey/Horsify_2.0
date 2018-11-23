@@ -175,48 +175,6 @@ namespace Horsesoft.Music.Data.Model.Menu
             return menuDecades;
         }
 
-        //TODO: Fix CUSTOM Genres Repo or remove.
-        /*
-        /// <summary>
-        /// Gets the custom genres from user text files and adds them to a custom menu.
-        /// <para/> Sets the <see cref="IMenuComponent.SearchString"/>
-        /// </summary>
-        /// <param name="menu">The menu.</param>
-        /// <returns></returns>
-        private List<IMenuComponent> GetCustomGenres(Menu menu)
-        {
-            var genreListPath = Path.Combine(Environment.CurrentDirectory, "Lists\\Genres");
-            if (!Directory.Exists(genreListPath))
-                Directory.CreateDirectory(genreListPath);
-
-            var genreRepo = new GenreRepo();
-            var genreSearches = genreRepo.GetLists(genreListPath);
-
-            var customMenu = new List<IMenuComponent>();
-            var menuItems = new List<MenuItem>();
-            menuItems.Add(new MenuItem() { Name = "Back", Parent = menu });
-            foreach (var genreSearch in genreSearches)
-            {
-                var name = genreSearch.Key;
-                var genres = genreSearch.Value;
-
-                string searchString = string.Empty;
-                foreach (var genre in genres)
-                {
-                    searchString += $"{genre}|";
-                }
-
-                menuItems.Add(new MenuItem { Name = name,
-                    SearchString = searchString, SearchType = SearchType.Genre
-                });
-            }
-
-            customMenu.AddRange(menuItems);
-
-            return customMenu;
-        }
-        */
-
         #endregion
 
     }

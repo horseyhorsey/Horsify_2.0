@@ -30,6 +30,7 @@ namespace Horsesoft.Horsify.SearchModule.UserControls
             {
                 SongItemTemplateSelector.CurrentSongItem = itemToChangeTo;
 
+                //SongsListView
                 //TODO: Remove the use of a ViewModel Reference?
                 var vm = DataContext as SearchedSongsViewModel;
                 vm?.SongsListView.Refresh();

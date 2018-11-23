@@ -28,6 +28,19 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         ICollectionView ExcludedFiltersView { get; set; }
     }
 
+    /*
+//TODO: Musical key: This is will have to be separated
+Set a starting key
+Song Amount (for DJ sets)
+Set whether to get all major/minor from starting key or include both
+Set to choose whether user can pick the same key instead of moving around each song.
+Set to just pick songs in that key.
+Rules:
+Should go round the open key clock picking songs, clockwise.
+    - Can only go to the relative Major/Minor Key , eg not diagonal...can jump two spaces
+    - Speeds must be similar with a 1-2 BPM range
+*/
+
     public class DjHorsifyViewModel : HorsifyBindableBase, INavigationAware, IDjHorsifyViewModel
     {
         private IRegionManager _regionManager;

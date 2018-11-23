@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Horsesoft.Music.Data.Model;
@@ -15,10 +14,6 @@ namespace Horsesoft.Music.Horsify.Repositories.Services
 
         public HorsifySongService()
         {
-            //SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
-            //TODO: Can be removed?
-            //SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
-            //SQLitePCL.Batteries.Init();
             _sqliteRepo = new HorsifyDataSqliteRepo();
         }
 

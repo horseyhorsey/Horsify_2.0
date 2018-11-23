@@ -12,7 +12,17 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        
+
+        <Grid.Style>
+            <Style TargetType="Grid" >
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding MediaControlModel.SelectedSong}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
         <Border Style="{DynamicResource Border_QueuePanelStyle}">
             <Grid>
                 <!--DIGITAL SCREEN LCD - PlayingSongInfo-->

@@ -18,34 +18,45 @@
             <Setter Property="MaxWidth" Value="30"/>
         </Style>
     </UserControl.Resources>
-    
-    <Border Style="{DynamicResource Border_QueuePanelStyle}">
 
-        <Grid>
+    <Grid>
 
-            <!--PAUSE-->
-            <!--<Button Content="&#10073;&#10073;"/>-->
-            <StackPanel Orientation="Horizontal" Margin="3">
-                
-                <!--STOP-->
-                <Button Content="&#9724;" Command="{Binding StopCommand}" Style="{StaticResource SmallmetalButton}"/>
+        <Grid.Style>
+            <Style TargetType="Grid" >
+                <Style.Triggers>
+                    <DataTrigger  Binding="{Binding MediaControlModel.SelectedSong}" Value="{x:Null}">
+                        <Setter  Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        
+        <Border Style="{DynamicResource Border_QueuePanelStyle}">
+            <Grid>
 
-                <!--PLAY / PAUSE-->
-                <Button Content="&#9654;" Command="{Binding PlayPauseCommand}">
-                    <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource SmallmetalButton}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding MediaControlModel.IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                    <Setter Property="Content" Value="&#9654;"/>
-                                    <Setter Property="Foreground" Value="Red"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                <!--PAUSE-->
+                <!--<Button Content="&#10073;&#10073;"/>-->
+                <StackPanel Orientation="Horizontal" Margin="3">
 
-                <!--SLIDER-->
-                <Slider x:Name="Slider_Arm" 
+                    <!--STOP-->
+                    <Button Content="&#9724;" Command="{Binding StopCommand}" Style="{StaticResource SmallmetalButton}"/>
+
+                    <!--PLAY / PAUSE-->
+                    <Button Content="&#9654;" Command="{Binding PlayPauseCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource SmallmetalButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MediaControlModel.IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                        <Setter Property="Content" Value="&#9654;"/>
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!--SLIDER-->
+                    <Slider x:Name="Slider_Arm" 
                         VerticalAlignment="Center" MinWidth="140" 
                         MaxWidth="150"
                         Width="90"
@@ -53,44 +64,45 @@
                         Maximum="{Binding MediaControlModel.CurrentSongTime.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                         Value="{Binding MediaControlModel.CurrentSongPosition.TotalSeconds, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                         >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewMouseDown">
-                            <prism:InvokeCommandAction Command="{Binding SeekingStartedCommand}"/>
-                        </i:EventTrigger>
-                        
-                        <!--Sending current slider value-->
-                        <i:EventTrigger EventName="PreviewMouseUp">
-                            <prism:InvokeCommandAction Command="{Binding SeekingStoppedCommand}" 
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <prism:InvokeCommandAction Command="{Binding SeekingStartedCommand}"/>
+                            </i:EventTrigger>
+
+                            <!--Sending current slider value-->
+                            <i:EventTrigger EventName="PreviewMouseUp">
+                                <prism:InvokeCommandAction Command="{Binding SeekingStoppedCommand}" 
                                                        CommandParameter="{Binding ElementName=Slider_Arm, Path=Value}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
-                </Slider>
-            </StackPanel>
+                    </Slider>
+                </StackPanel>
 
-            <!--#region SCREWS-->
+                <!--#region SCREWS-->
 
-            <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
+                <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top" Margin="1"
                     Width="5" Height="5"/>
 
-            <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
+                <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top" Margin="1"
                     Width="5" Height="5"/>
 
-            <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
+                <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom" Margin="1"
                     Width="5" Height="5"/>
 
-            <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
+                <Ellipse Fill="{StaticResource Brush_ScrewCache}" 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom" Margin="1"
                     Width="5" Height="5"/>
 
-            <!--#endregion-->
-        </Grid>
-    </Border>
+                <!--#endregion-->
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

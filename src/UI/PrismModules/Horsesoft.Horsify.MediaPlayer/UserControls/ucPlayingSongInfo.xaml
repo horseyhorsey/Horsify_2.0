@@ -13,98 +13,146 @@
         <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle_BebasSmall}">
             <Setter Property="Margin" Value="3,0"/>
             <Setter Property="Foreground" Value="AntiqueWhite"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
 
+        <Style TargetType="horsify:HorsifySearchButton" BasedOn="{StaticResource {x:Type horsify:HorsifySearchButton}}">
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
     </UserControl.Resources>
 
-    <StackPanel Orientation="Horizontal" Margin="3">
+    <Grid>
 
         <!--HIDE THE CONTROL IF SONG IS NULL-->
-        <StackPanel.Style>
-            <Style TargetType="StackPanel">
+        <Grid.Style>
+            <Style TargetType="Grid" >
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding MediaControlModel.SelectedSong}" Value="{x:Null}">
-                        <Setter Property="Visibility" Value="Collapsed"/>
+                    <DataTrigger  Binding="{Binding MediaControlModel.SelectedSong}" Value="{x:Null}">
+                        <Setter  Property="Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-        </StackPanel.Style>
+        </Grid.Style>
+        
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
 
-        <!--#region NOW PLAYING INFO AND SEARCHING-->
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel.Resources>
-            <Style TargetType="{x:Type horsify:HorsifySearchButton}"  BasedOn="{StaticResource {x:Type horsify:HorsifySearchButton}}">
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Foreground" Value="AntiqueWhite"/>
-            </Style>
-        </StackPanel.Resources>
+            <!--ARTIST WITH SEARCH-->
+            <horsify:HorsifySearchButton  Grid.Column="0"                                          
+                                          SearchString="{Binding MediaControlModel.SelectedSong.Artist, Mode=OneWay}"
+                                          Foreground="White"
+                                          Command="{Binding RunSearchCommand}"
+                                          CommandParameter="Artist"                                          
+                                          >
+                <Rectangle Width="22" Height="22" Margin="5, 0" 
+                           Fill="Black">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource IcoArtist}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </horsify:HorsifySearchButton>
 
-        <!--SONG TIME-->
-        <TextBlock x:Name="songTime" Text="{Binding MediaControlModel.CurrentSongPosition, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}-}" />
-        <TextBlock x:Name="songDuration" Margin="-4,0"
-                   Text="{Binding MediaControlModel.CurrentSongTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}}" />
+            <TextBlock Grid.Column="1" Foreground="White"
+                VerticalAlignment="Center"                       
+                MaxWidth="250" Text="{Binding MediaControlModel.SelectedSong.Title, Mode=OneWay, StringFormat={} - {0}}"/>
 
-        <!--RATING-->
-        <horsify:RatingControl Margin="14,0" StarWidth="20" VerticalAlignment="Center" RatingValue="{Binding MediaControlModel.SelectedSong.Rating}"/>
+            <horsify:HorsifySearchButton  Grid.Column="2"                                          
+                                          SearchString="{Binding MediaControlModel.SelectedSong.Album, Mode=OneWay}"
+                                          Foreground="White"
+                                          Command="{Binding RunSearchCommand}"
+                                          CommandParameter="Album"  
+                                          FontSize="16"
+                                          >
+                <Rectangle Width="22" Height="22" Margin="5, 0" 
+                           Fill="Black">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource IcoAlbum}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </horsify:HorsifySearchButton>
 
-        <!--MUSIC KEY-->
-        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"                          
-                          Margin="0,0"                           
+            <horsify:HorsifySearchButton  Grid.Column="3"   
+                                          SearchString="{Binding MediaControlModel.SelectedSong.Year, Mode=OneWay}"
+                                          Foreground="White"
+                                          Command="{Binding RunSearchCommand}"
+                                          CommandParameter="Year"
+                                          >
+                <Rectangle Width="22" Height="22" Margin="5, 0" 
+                           Fill="Black">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource IcoYear}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </horsify:HorsifySearchButton>
+
+            <horsify:HorsifySearchButton  Grid.Column="4"                                          
+                                          SearchString="{Binding MediaControlModel.SelectedSong.Label, Mode=OneWay}"
+                                          Foreground="White"
+                                          Command="{Binding RunSearchCommand}"
+                                          CommandParameter="Label"
+                                          FontSize="16"
+                                          >
+                <Rectangle Width="22" Height="22" Margin="5, 0" 
+                           Fill="Black">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource IcoYear}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </horsify:HorsifySearchButton>
+
+            <horsify:HorsifySearchButton  Grid.Column="5"                                          
+                                          SearchString="{Binding MediaControlModel.SelectedSong.Genre, Mode=OneWay}"
+                                          Foreground="White"
+                                          Command="{Binding RunSearchCommand}"
+                                          CommandParameter="Genre"
+                                          >
+                <Rectangle Width="22" Height="22" Margin="5, 0" 
+                           Fill="Black">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource IcoYear}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </horsify:HorsifySearchButton>
+
+        </Grid>
+
+        <StackPanel Visibility="Visible" Orientation="Horizontal" Grid.Column="8" HorizontalAlignment="Right" Margin="15,0" VerticalAlignment="Center">
+
+            <!--MUSIC KEY-->
+            <ContentPresenter Grid.Column="0" VerticalAlignment="Center"        
+                              Margin="10,0"
                           Content="{Binding MediaControlModel.SelectedSong}"                          
                           ContentTemplate="{DynamicResource MusicKeyTemplate}"
                           TextElement.Foreground="Black" TextElement.FontWeight="DemiBold"/>
-        
-        <!--BPM-->
-        <TextBlock Visibility="{Binding MediaControlModel.SelectedSong.Bpm, Converter={StaticResource string2vis}}" 
+
+            <!--BPM-->
+            <TextBlock 
+            Grid.Column="1"
+                VerticalAlignment="Center" 
+            Visibility="{Binding MediaControlModel.SelectedSong.Bpm, Converter={StaticResource string2vis}}" 
                    Text="{Binding MediaControlModel.SelectedSong.Bpm, Mode=OneWay, StringFormat={}BPM: {0}}"/>
 
-        <!--ARTIST WITH SEARCH-->
-        <horsify:HorsifySearchButton HorizontalAlignment="Center"              
-                                     SearchString="{Binding MediaControlModel.SelectedSong.Artist, Mode=OneWay}"
-                                     Command="{Binding RunSearchCommand}"
-                                     CommandParameter="Artist"                                     
-                                     Content="{DynamicResource ArtistIcon}"/>
 
-        <!--TITLE-->
-        <TextBlock MaxWidth="250" Text="{Binding MediaControlModel.SelectedSong.Title, Mode=OneWay, StringFormat={} - {0}}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                    >
 
-        <!--Album-->
-        <horsify:HorsifySearchButton 
-                Command="{Binding RunSearchCommand}" 
-                SearchString="{Binding MediaControlModel.SelectedSong.Album, Mode=OneWay}"
-                Content="{DynamicResource GraphIcon}"   
-                CommandParameter="Album"
-            MaxWidth="250"
-                />
-
-        <!--YEAR-->
-        <horsify:HorsifySearchButton           
-                Command="{Binding RunSearchCommand}" 
-                Content="{DynamicResource Icon_Calender}"
-                SearchString="{Binding MediaControlModel.SelectedSong.Year, Mode=OneWay}"
-                CommandParameter="Year"
-            />
-
-        <!--LABEL-->
-        <horsify:HorsifySearchButton 
-                SearchString="{Binding MediaControlModel.SelectedSong.Label, Mode=OneWay}"                            
-                Content="{DynamicResource RecordLabelIcon}"
-                Command="{Binding RunSearchCommand}" 
-            MaxWidth="450"
-            CommandParameter="Label"
-                />
-
-        <!--GENRE-->
-        <horsify:HorsifySearchButton Margin="10,3"                                     
-                SearchString="{Binding MediaControlModel.SelectedSong.Genre, Mode=OneWay}"                                           
-                Content="{DynamicResource Icon_Genre}"
-                Command="{Binding RunSearchCommand}"
-            CommandParameter="Genre"
-                />
-
-        <!--#endregion-->
-
-    </StackPanel>
-    
+                <!--SONG TIME-->
+                <TextBlock x:Name="songTime" Text="{Binding MediaControlModel.CurrentSongPosition, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}-}" />
+                <TextBlock x:Name="songDuration" Margin="-4,0"
+                   Text="{Binding MediaControlModel.CurrentSongTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 </UserControl>

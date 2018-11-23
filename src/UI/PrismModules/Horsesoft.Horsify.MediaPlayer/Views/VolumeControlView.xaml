@@ -23,12 +23,6 @@
                     <RotateTransform Angle="-90"/>
                 </horsify:VolumeControl.LayoutTransform>
 
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="LostMouseCapture">
-                        <prism:InvokeCommandAction Command="{Binding ChangeVolumeCommand}" CommandParameter="+"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-
             </horsify:VolumeControl>
 
             <TextBlock Text="{Binding CurrentVolume}"                       

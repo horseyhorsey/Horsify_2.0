@@ -9,26 +9,12 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 {
     public class VolumeControlViewModel : BindableBase
     {
-        #region Commands        
-        /// <summary>
-        /// Gets or sets the change volume command.
-        /// </summary>
-        /// <remarks>
-        /// This is fired when the volume control has been touched then loses focus
-        /// </remarks>
-        public ICommand ChangeVolumeCommand { get; set; }
-        #endregion
+        private readonly IHorsifyMediaController _horsifyMediaController;
 
         #region Constructors
         public VolumeControlViewModel(IEventAggregator eventAggregator, IHorsifyMediaController horsifyMediaController)
-        {            
-            //Publish a SetVolumeEvent
-            ChangeVolumeCommand = new DelegateCommand(() =>
-            {
-                horsifyMediaController.SetVolume(CurrentVolume);
-                //eventAggregator.GetEvent<SetVolumeEvent>().Publish(CurrentVolume);
-            });
-
+        {
+            _horsifyMediaController = horsifyMediaController;
             //Listen for changes in the volume elsewhere to reflect change to the control
             eventAggregator.GetEvent<OnMediaChangedVolumeEvent<double>>().Subscribe(OnVolumeChanged);
         }
@@ -48,6 +34,8 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
                 {
                     if (CurrentVolume >= 100) CurrentVolume = 100;
                     else if(CurrentVolume <= 0) CurrentVolume = 0;
+
+                    _horsifyMediaController.SetVolume(CurrentVolume);
                 }
             }
         }

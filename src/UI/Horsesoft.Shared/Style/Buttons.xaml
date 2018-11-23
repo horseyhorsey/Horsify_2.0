@@ -268,15 +268,12 @@
 
     <!--TOGGLE RED ON/OFF-->
     <ControlTemplate x:Key="ToggleButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
-        <Grid Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="{TemplateBinding Content}" FontSize="16" 
-                               VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
-                
+        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+
                 <Ellipse x:Name="OnOffLight" 
                              Stroke="Black" StrokeThickness="2"
-                                     Width="75" Height="75"    
+                         Stretch="Fill"
+                                     Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"    
                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                      >
@@ -295,10 +292,13 @@
 
                     </Ellipse.Style>
                 </Ellipse>
-            </StackPanel>
-        </Grid>
 
-        <ControlTemplate.Triggers>
+                <TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" 
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+            </Grid>
+
+            <ControlTemplate.Triggers>
             <Trigger Property="Button.IsDefaulted" Value="True">
                 <!--<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
             </Trigger>

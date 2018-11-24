@@ -97,5 +97,11 @@ namespace Horsesoft.Horsify.SearchModule.UserControls
                 this.SortingViewSourceHelper(_lastSortName, true);
             }
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Notification.Content = false;
+            FinishInteraction?.Invoke();
+        }
     }
 }

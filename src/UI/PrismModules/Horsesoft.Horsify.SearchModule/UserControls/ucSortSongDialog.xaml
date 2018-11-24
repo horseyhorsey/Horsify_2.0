@@ -20,100 +20,102 @@
 
     <UserControl.Resources>
         <Style TargetType="horsify:ButtonWithLabel">
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="150"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="{StaticResource Brush_Metal}"/>
             <Setter Property="Command" Value="local:Commands.SortCommand"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="{StaticResource BackgroundGradient3}"/>
         </Style>
     </UserControl.Resources>
 
     <Border Style="{StaticResource Border_MainContentRegion}">
         <Grid>
+            
+            <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="SORT SONGS" HorizontalAlignment="Center" FontSize="46" FontWeight="ExtraBold" Margin="0,25"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="SORT SONGS" HorizontalAlignment="Center" FontSize="46" FontWeight="ExtraBold" Margin="0,25"/>
 
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-
-                <!--RATING-->
-                <horsify:ButtonWithLabel
+                    <!--RATING-->
+                    <horsify:ButtonWithLabel
                 Content="{Binding Source={StaticResource StarSvgStroker}}"                                
                 CommandParameter="Rating"
                 Text="Rating"
                 />
 
-                <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
+                    <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"                                                                  
                         CommandParameter="Artist"
                         Text="Artist"
                         />
 
-                <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
+                    <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"                                                                
                         CommandParameter="Album"
                         Text="Album"
                         />
 
-                <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
+                    <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"                                                              
                         CommandParameter="Bpm"
                         Text="Bpm"
                         />
 
-                <horsify:ButtonWithLabel 
+                    <horsify:ButtonWithLabel 
                         Content="{Binding Source={StaticResource Icon_Genre}}"
                         CommandParameter="Genre"
                         Text="Genre"
                         />
 
-                <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
+                    <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"                                                                
                         CommandParameter="Label"
                         Text="Label"
                         />
 
-                <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"
-                        Background="{StaticResource Brush_Metal}"                                                                     
+                    <horsify:ButtonWithLabel 
+                        Content="{DynamicResource ArtistIcon}"                                                                
                         CommandParameter="MusicKey"
                         Text="Key"
                         />
 
-                <horsify:ButtonWithLabel 
+                    <horsify:ButtonWithLabel 
                         Content="{Binding Source={StaticResource YearIcon}}"
                         CommandParameter="Year"
                         Text="Year"
                         />
-            </StackPanel>
+                </StackPanel>
 
-            <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center"
+                <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center"
                     TextElement.FontSize="42"
                     Margin="25"
                     >
-                <RadioButton ToolBar.OverflowMode="Always" 
+                    <RadioButton ToolBar.OverflowMode="Always" 
                             Background="{DynamicResource Color_Primary4}"
                             Click="RadioButton_Click"
                             Content="ASCENDING"/>
 
-                <RadioButton ToolBar.OverflowMode="Always" 
+                    <RadioButton ToolBar.OverflowMode="Always" 
                             Background="{DynamicResource Color_Primary4}"
                             CommandParameter="Descending"
                             Click="RadioButton_Click"
                             IsChecked="True"
                             Content="DESCENDING"/>
-            </StackPanel>
+                </StackPanel>
 
+            </Grid>
+
+            <!--CLOSE VIEW -->
+            <Button Style="{DynamicResource BtnCloseStyle}"
+                    Click="BackButton_Click"   
+                    />
         </Grid>
     </Border>
 

@@ -110,7 +110,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private void OnPlay()
         {
-            Log("Song selected play");
+            Log("Starting");
             OnGoBack();
 
             _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>()
@@ -122,7 +122,18 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         /// </summary>
         private void OnQueueSong()
         {
-            _queuedSongDataProvider.QueueSongs.Add(SelectedSong);
+            try
+            {
+                if (_queuedSongDataProvider.Add(SelectedSong))
+                {
+                    Log($"song queued: {SelectedSong.Id} {SelectedSong.Artist} - {SelectedSong.Title}");
+                    return;
+                }                    
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, Category.Exception);
+            }
         }
 
         private void OnSearchSongs(string str)
@@ -138,7 +149,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                         string searchTerm = SelectedSong.GetType().GetProperty(str).GetValue(SelectedSong).ToString();
 
                         NavigationParameters navParams = NavigationHelper.CreateSearchFilterNavigation(searchType, searchTerm); 
-                        _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView", navParams);
+                        _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, navParams);
                     }
                     catch (Exception ex)
                     {

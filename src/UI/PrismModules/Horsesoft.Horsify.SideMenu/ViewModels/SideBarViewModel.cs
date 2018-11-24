@@ -240,7 +240,7 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         /// <returns></returns>
         private void SelectMenu(SearchButtonViewModel searchButtonViewModel)
         {
-            if (IsBusy) { return; }
+            if (IsBusy) { Log($"Searching busy..."); return; }
 
             var menuComponent = searchButtonViewModel.MenuComponent;
             if (menuComponent.GetType() == typeof(Menu))
@@ -264,37 +264,32 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
                     this.UpdateSearchButtons(this.mCreator._rootMenu);
                 else
                     this.UpdateSearchButtons(menuComponent.Parent);
-
                 return;
             }
 
+
+            NavigationParameters navParams = null;
+            string viewName = string.Empty;
             if (menuComponent?.ExtraSearchType != ExtraSearchType.None)
             {
                 IsBusy = true;
                 Log($"Navigating SearchedSongs with extra search type");
-                var navParams = new NavigationParameters();
+                navParams = new NavigationParameters();
                 navParams.Add("extra_search", menuComponent.ExtraSearchType);
-
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navParams);
-                });
+                viewName = ViewNames.SearchedSongsView;
             }
             else if (menuComponent?.SearchString == "SEARCH")
             {
                 switch (menuName)
                 {
                     case "A-Z":
-                        Log($"Navigating to A-Z");
-                        _regionManager.RequestNavigate("ContentRegion", "AToZSearchView");
+                        viewName = ViewNames.AToZSearchView;
                         break;
                     case "SEARCH":
-                        Log($"Navigating to Search");
-                        _regionManager.RequestNavigate("ContentRegion", "SearchView");
+                        viewName = ViewNames.SearchView;
                         break;
                     case "SONG SEARCH":
-                        Log($"Navigating to instant Search");
-                        _regionManager.RequestNavigate("ContentRegion", "InstantSearch");
+                        viewName = ViewNames.InstantSearch;
                         break;
                     default:
                         break;
@@ -304,27 +299,34 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             {
                 if (menuName == "DJ Horsify")
                 {
-                    Log($"Navigating DJ Horsify");
-                    _regionManager.RequestNavigate("ContentRegion", "DjHorsifyView");
+                    viewName = ViewNames.DjHorsifyView;
                 }
                 else if (menuName == "Filter")
-                {
-                    Log($"Navigating Filter creator");
-                    _regionManager.RequestNavigate("ContentRegion", "FilterCreatorView");
+                {                    
+                    viewName = ViewNames.FilterCreatorView;
                 }
             }
             else
-            {
-                IsBusy = true;
-                Log($"Running a search...");
-                NavigationParameters navParams =
-                    NavigationHelper.CreateSearchFilterNavigation(menuComponent.SearchType, menuComponent.SearchString != null ? menuComponent.SearchString : menuComponent.Name);
+            {                
+                navParams = NavigationHelper
+                    .CreateSearchFilterNavigation(menuComponent.SearchType, 
+                    menuComponent.SearchString != null ? menuComponent.SearchString : menuComponent.Name);
 
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView", navParams);
-                });                
+                viewName = ViewNames.SearchedSongsView;                
             }
+
+            Log($"Navigating{viewName}");
+            if (navParams != null)
+            {
+                Log($"View params available, setting sidebar busy.");
+                IsBusy = true;
+            }
+
+            //Request nav on the main thread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _regionManager.RequestNavigate(Regions.ContentRegion, viewName, navParams);                
+            });
 
         }
 

@@ -126,7 +126,7 @@ namespace Horsesoft.Music.Horsify.Repositories
                 var cmd = conn.CreateCommand();
                 //Create playlist table
                 cmd.CommandText = $"CREATE TABLE IF NOT EXISTS Filter (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT UNIQUE, SearchTerms TEXT);";
-                cmd.CommandText = $"CREATE TABLE FiltersSearch(Id INTEGER PRIMARY KEY NOT NULL, Name STRING NOT NULL UNIQUE, MaxAmount INTEGER, RandomAmount INTEGER, SearchFilterContent STRING NOT NULL); ";
+                cmd.CommandText = $"CREATE TABLE IF NOT EXISTS FiltersSearch(Id INTEGER PRIMARY KEY NOT NULL, Name STRING NOT NULL UNIQUE, MaxAmount INTEGER, RandomAmount INTEGER, SearchFilterContent STRING NOT NULL); ";
 
                 var playlistResult = await cmd.ExecuteNonQueryAsync();
                 return false;

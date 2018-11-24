@@ -53,6 +53,8 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
+        private readonly string _menuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Horsify\\Menus\\";
+
         #region Constructors
         public SideBarViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
@@ -60,14 +62,11 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             _regionManager = regionManager;
             Log("Loading SideBar..", Category.Debug, Priority.None);
 
-            SearchButtons = new ObservableCollection<ISearchButtonViewModel>();
-
             //Composite Menus and MenuItems
             mCreator = new MenuCreator();
 
             //Builds all menu items from the _rootMenu
-            GenerateSearchButtonsForMenuComponent(mCreator._rootMenu);
-            //SearchButtonsView = new ListCollectionView(SearchButtons);
+            SearchButtons = new ObservableCollection<ISearchButtonViewModel>(GenerateSearchButtonsForMenuComponent(mCreator._rootMenu));
 
             eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Subscribe(() => IsBusy = false);
 
@@ -76,7 +75,7 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             {
                 //Build items from the _rootMenu
                 SearchButtons.Clear();
-                GenerateSearchButtonsForMenuComponent(mCreator._rootMenu);
+                SearchButtons.AddRange(GenerateSearchButtonsForMenuComponent(mCreator._rootMenu));
             });
 
             NavigateDjHorsifyCommand = new DelegateCommand(() => _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView"));
@@ -109,45 +108,53 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             return new SearchButtonViewModel(menuiterator.Current, _loggerFacade)
             {
                 SearchTitle = menuiterator.Current.Name,
-                ImagePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Horsify\\Menus\\" + menuiterator.Current.Image
+                ImagePath   =  _menuPath + menuiterator.Current.Image
             };
         }
 
         /// <summary>
         /// Generates Search Buttons For Menu Component
         /// </summary>
-        private void GenerateSearchButtonsForMenuComponent(IMenuComponent menuComponent)
+        private IList<SearchButtonViewModel> GenerateSearchButtonsForMenuComponent(IMenuComponent menuComponent)
         {
             //Get all items if this is a menu
             if (menuComponent.GetType() == typeof(Menu))
             {
                 var menuiterator = menuComponent.GetIterator();
-                CreateMenuButtons(menuiterator);
+                return CreateMenuButtons(menuiterator);
             }
+
+            Log("Not type of Menu", Category.Warn);
+            return null;
         }
 
-        private void CreateMenuButtons(IEnumerator<IMenuComponent> iterator)
+        private IList<SearchButtonViewModel> CreateMenuButtons(IEnumerator<IMenuComponent> iterator)
         {
+            IList<SearchButtonViewModel> buttons = new List<SearchButtonViewModel>();
             while (iterator.MoveNext())
             {
-                var imgLocation = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Horsify\\Menus\\" + iterator.Current.Image;
-                SearchButtons.Add(new SearchButtonViewModel(iterator.Current, _loggerFacade)
+                string imgLocation =  _menuPath + iterator.Current.Image;
+                //imgLocation = File.Exists(imgLocation) ? imgLocation : null;
+                buttons.Add(new SearchButtonViewModel(iterator.Current, _loggerFacade)
                 {
                     SearchTitle = iterator.Current.Name,
-                    ImagePath = File.Exists(imgLocation) ? imgLocation : null
+                    ImagePath = imgLocation
                 });
             }
+
+            return buttons;
         }
 
         /// <summary>
         /// Gets all the buttons that are in the root menu
         /// </summary>
-        private void GenerateSearchButtonsFromRoot()
+        private IList<SearchButtonViewModel> GenerateSearchButtonsFromRoot()
         {
             Log($"Generating Root menu", Category.Info, Priority.None);
 
             var menuiterator = mCreator._rootMenu.GetIterator();
-            CreateMenuButtons(menuiterator);
+            var buttons = CreateMenuButtons(menuiterator);
+            return buttons;
         }
 
         private void OnNavigateView(string viewName)
@@ -164,21 +171,18 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         {
             Log("Updating menu items.", Category.Debug, Priority.None);
 
-            Application.Current.Dispatcher.Invoke(() =>
+            var searchButtonVms = AddSearchButtons(menuComponent);
+
+            Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 try
                 {
-                    AddSearchButtons(menuComponent);
-                    var view = CollectionViewSource.GetDefaultView(SearchButtons);
-                    if (view != null)
+                    SearchButtons.Clear();
+                    foreach (var item in searchButtonVms)
                     {
-                        view.MoveCurrentToPosition(-1);
-                        view.Refresh();
-
-                        //view.MoveCurrentToFirst();                        
+                        SearchButtons.Add(item);
                     }
-                    //SearchButtonsView.MoveCurrentToPosition(0);
-                    //SearchButtonsView.Refresh();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -192,44 +196,40 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         /// Get previous menu, create a back button and child items
         /// </summary>
         /// <param name="x"></param>
-        private void AddSearchButtons(IMenuComponent menuComponent)
+        private IList<SearchButtonViewModel> AddSearchButtons(IMenuComponent menuComponent)
         {
             //If in menu generate the child items
             if (menuComponent.Name != "Back")
             {
-                //Clear the current list
-                SearchButtons.Clear();
-
                 var menuiterator = menuComponent.GetIterator();
-
                 var buttons = new List<SearchButtonViewModel>();
                 //Add back and search buttons
                 while (menuiterator.MoveNext())
                 {
                     buttons.Add(AssignSearchButtons(menuiterator));
                 }
-
-                SearchButtons.AddRange(buttons);
-
+                                
                 //Assing this menu to the last menu?
                 _previousMenu = menuComponent;
+
+                return buttons;
             }
             else
             {
                 if (menuComponent.Name == "Back")
                 {
-                    _loggerFacade.Log("Go Back", Category.Info, Priority.None);
+                    Log("Go Back", Category.Info, Priority.None);
 
                     //If parent null generate from the root menu
-                    if (menuComponent.Parent == null) { this.GenerateSearchButtonsFromRoot(); return; }
-
-                    //Clear the current list
-                    SearchButtons.Clear();
+                    if (menuComponent.Parent == null) { return GenerateSearchButtonsFromRoot(); }
 
                     //Get menu items for previous parent menu
-                    this.GenerateSearchButtonsForMenuComponent(menuComponent.Parent);
+                    return this.GenerateSearchButtonsForMenuComponent(menuComponent.Parent);
+
                 }
             }
+
+            return null;
         }
 
         #endregion
@@ -333,6 +333,7 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         private async Task SelectMenuAsync(SearchButtonViewModel sbm)
         {
             Log($"Selected menu {sbm?.SearchTitle}");
+            
             await Task.Run(() =>
             {
                 this.SelectMenu(sbm);

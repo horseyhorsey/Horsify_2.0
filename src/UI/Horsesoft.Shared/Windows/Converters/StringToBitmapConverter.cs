@@ -25,17 +25,18 @@ namespace Horsesoft.Horsify.Resource.Windows.Converters
 
             try
             {
-                var uri = new Uri((string)value);
-                var bmp = new BitmapImage(uri);
-                //bmp.DecodePixelHeight = 250;
-                //bmp.DecodePixelWidth = 250;
-                bmp.Freeze();
-                return bmp;
+                if (File.Exists((string)value))
+                {
+                    var uri = new Uri((string)value);
+                    var bmp = new BitmapImage(uri);
+                    //bmp.DecodePixelHeight = 250;
+                    //bmp.DecodePixelWidth = 250;
+                    bmp.Freeze();
+                    return bmp;
+                }
             }
-            catch
-            {
-                return null;
-            }
+            catch { }
+            return EmptyBitmap;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

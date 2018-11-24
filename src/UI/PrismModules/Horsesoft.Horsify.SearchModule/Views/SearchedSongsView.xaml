@@ -12,6 +12,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                                                  
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.SearchModule.UserControls"
+             xmlns:views="clr-namespace:Horsesoft.Horsify.SearchModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1630"
              d:DataContext="{d:DesignData ../SampleData/SearchedSongsViewModelSampleData.xaml}">
@@ -130,7 +131,7 @@
                 </prism:PopupWindowAction.WindowStyle>
 
                 <prism:PopupWindowAction.WindowContent>
-                    <usercontrols:ucRandomSelector/>
+                    <views:RandomSelectorView/>
                 </prism:PopupWindowAction.WindowContent>
 
             </prism:PopupWindowAction>

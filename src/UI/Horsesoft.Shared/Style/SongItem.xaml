@@ -531,13 +531,19 @@
                     <Button Content="{DynamicResource IconQueueTwo}" 
                             Height="36"
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.AddToQueueCommand}" 
-                        CommandParameter="{Binding}"
-                            
+                        CommandParameter="{Binding}"                            
                             />
                     <Button Height="36"
                             Content="{DynamicResource Icon_play_Two}" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.PlayItemCommand, FallbackValue={x:Null}}" 
                         CommandParameter="{Binding}"/>
+
+                    <!--TODO: Info icon-->
+                    <Button Height="36"
+                            Content="i" 
+                        Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.SelectSongCommand, FallbackValue={x:Null}}" 
+                        CommandParameter="{Binding}"/>
+
                     <Button Height="36"
                             Content="{DynamicResource DeleteIcon}" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.RemoveItemCommand, FallbackValue={x:Null}}" 

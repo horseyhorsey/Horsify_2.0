@@ -511,15 +511,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ButtonWithLabel">
-                    <Border
+                    <Border CornerRadius="5" Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
 
                         <StackPanel x:Name="IconLabelContainer" Margin="3">
                             <Label FontSize="{TemplateBinding FontSize}" Content="{TemplateBinding Text}"/>
-                            <ContentPresenter Width="{Binding ElementName=IconLabelContainer,Path=ActualWidth}"
-                                              Height="{Binding ElementName=IconLabelContainer,Path=ActualHeight}"
+                            <ContentPresenter Width="{TemplateBinding Width}"
+                                              Height="{TemplateBinding Height}"
                                               />
                         </StackPanel>
 
@@ -583,7 +584,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:OnScreenKeyboard}">
-                    <Border CornerRadius="20" Background="Gray">
+                    <Border CornerRadius="0, 0, 20,20" 
+                            BorderBrush="Black"
+                            BorderThickness="4"
+                            Background="{DynamicResource BackgroundGradient5}">
                         <Grid Margin="5">
                             <!--#region ROW/COL DEFS-->
                             <Grid.RowDefinitions>
@@ -598,10 +602,12 @@
 
                             <Grid.Resources>
                                 <!--KEYBOARD BUTTON WITH COMMAND - COMMAND PARAM IS THE BUTTONS CONTENT-->
-                                <Style TargetType="Button" BasedOn="{StaticResource KeyboardButton}">
+                                <Style TargetType="Button" BasedOn="{StaticResource TransparentButtonBases}">
                                     <Setter Property="Command" Value="{x:Static controls:OnScreenKeyboard.SendKeyCommand}"/>
                                     <Setter Property="CommandParameter" Value="{Binding Content, RelativeSource={RelativeSource Self}}"/>
                                     <Setter Property="Margin" Value="3"/>
+                                    <Setter Property="Width" Value="42"/>
+                                    <Setter Property="Height" Value="42"/>
                                 </Style>
                             </Grid.Resources>
 

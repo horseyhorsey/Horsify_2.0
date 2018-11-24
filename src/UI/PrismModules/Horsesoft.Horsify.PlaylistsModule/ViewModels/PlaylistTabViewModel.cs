@@ -1,10 +1,12 @@
 ﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Helpers;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,24 +22,28 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
     {
         #region Services
         private IEventAggregator _eventAggregator;
+        private IRegionManager _regionManager;
         private IPlaylistService _horsifyPlaylistService;
         private IQueuedSongDataProvider _queuedSongDataProvider;
         #endregion
 
         #region Commands                
         public ICommand AddToQueueCommand { get; set; }
-        public ICommand ClearItemsCommand { get; set; }        
-        public ICommand RemoveItemCommand { get; set; }        
-        public ICommand SavePlaylistCommand { get; set; }               
+        public ICommand ClearItemsCommand { get; set; }                
         public ICommand PlayItemCommand { get; set; }
+        public ICommand RemoveItemCommand { get; set; }
+        public ICommand SavePlaylistCommand { get; set; }                       
+        public ICommand SelectSongCommand { get; set; }
+        
         #endregion
 
         #region Constructors
-        public PlaylistTabViewModel(IPlaylistService horsifyPlaylistService, IQueuedSongDataProvider queuedSongDataProvider, IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public PlaylistTabViewModel(IPlaylistService horsifyPlaylistService, IQueuedSongDataProvider queuedSongDataProvider, IRegionManager regionManager, IEventAggregator eventAggregator, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _horsifyPlaylistService = horsifyPlaylistService;
             _queuedSongDataProvider = queuedSongDataProvider;
             _eventAggregator = eventAggregator;
+            _regionManager = regionManager;
 
             //Create playlist item collection and assign the ICollectionView
             PlayListItemViewModels = new ObservableCollection<PlaylistItemViewModel>();
@@ -53,7 +59,9 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             SavePlaylistCommand = new DelegateCommand(OnSavePlaylistCommand);
             AddToQueueCommand = new DelegateCommand<PlaylistItemViewModel>(OnAddToQueue);
             RemoveItemCommand = new DelegateCommand<PlaylistItemViewModel>(OnRemoveItem);
-            PlayItemCommand = new DelegateCommand<PlaylistItemViewModel>(OnPlayItem);            
+            PlayItemCommand = new DelegateCommand<PlaylistItemViewModel>(OnPlayItem);
+
+            SelectSongCommand = new DelegateCommand<PlaylistItemViewModel>(OnShowSongInfo);
         }
 
         #endregion
@@ -175,6 +183,24 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 this.Playlist.Items = jointStr;
 
                 await _horsifyPlaylistService.SavePlaylistAsync(new Playlist[] { this.Playlist });
+            }
+        }
+
+        /// <summary>
+        /// Displays the <see cref="ViewNames.SongSelectedView"/>
+        /// </summary>
+        /// <param name="playlistItemViewModel"></param>
+        private void OnShowSongInfo(PlaylistItemViewModel playlistItemViewModel)
+        {
+            var song = playlistItemViewModel.Song;
+            try
+            {
+                Log($"Navigating to song from Playlists : {song.Id} - {song.Artist} - {song.Title}", Category.Debug);
+                _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SongSelectedView, NavigationHelper.CreateSongNavigation(song));
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, Category.Exception);
             }
         }
 

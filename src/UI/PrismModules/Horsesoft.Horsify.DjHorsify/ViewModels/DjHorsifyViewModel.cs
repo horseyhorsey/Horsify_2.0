@@ -279,7 +279,7 @@ Should go round the open key clock picking songs, clockwise.
 
                 var navParams = new NavigationParameters();
                 navParams.Add("djhorsify_search", searchFilter);
-                _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navParams);
+                _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, navParams);
             }
             catch (Exception ex)
             {

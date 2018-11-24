@@ -33,7 +33,7 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         private void OnRunSearchCommand(string searchType)
         {
             NavigationParameters navParams = NavigationHelper.CreateSearchFilterNavigation(MediaControlModel.SelectedSong, searchType);
-            _regionManager.RequestNavigate("ContentRegion", "SearchedSongsView", navParams);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, navParams);
         }
 
         #region Properties

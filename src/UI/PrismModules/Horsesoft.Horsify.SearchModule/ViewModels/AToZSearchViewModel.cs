@@ -58,7 +58,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             var navParams = NavigationHelper.CreateSearchFilterNavigation(_searchFilter);
             Log($"Navigating search view: ", Category.Debug);
-            _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navParams);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, navParams);
 
             SearchResults.Clear();
             this.SelectedCharachter = null;

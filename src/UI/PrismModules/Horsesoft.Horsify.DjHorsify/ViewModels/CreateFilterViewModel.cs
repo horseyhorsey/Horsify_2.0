@@ -18,7 +18,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         private IRegionManager _regionManager;
 
         public DelegateCommand CreateFilterCommand { get; private set; }
-        public ICommand NavigateBackCommand { get; private set; }
+        public ICommand CloseViewCommand { get; private set; }
 
         public CreateFilterViewModel(IRegionManager regionManager)
         {
@@ -27,7 +27,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             CreateFilterCommand = new DelegateCommand(
                 () => NavigateEditFilterView(this.SelectedSearchType),
                 () => IsFilterNameValid());
-            NavigateBackCommand = new DelegateCommand(OnNavigateBack);
+            CloseViewCommand = new DelegateCommand(OnNavigateBack);
         }
 
         private bool IsFilterNameValid()

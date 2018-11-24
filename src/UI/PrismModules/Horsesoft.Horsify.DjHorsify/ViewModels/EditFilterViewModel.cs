@@ -26,7 +26,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
         #region Commands
         public ICommand AddSearchTermCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
+        public ICommand CloseViewCommand { get; set; }
         public ICommand DeleteFilterCommand { get; set; }        
         public ICommand RemoveSearchTermCommand { get; set; }
         public ICommand SaveFilterCommand { get; set; }
@@ -42,7 +42,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             AvailableSearchTerms = new ListCollectionView(SearchTerms);
 
             AddSearchTermCommand = new DelegateCommand(OnAddSearchTerm);
-            CancelCommand = new DelegateCommand(OnCancel);
+            CloseViewCommand = new DelegateCommand(OnCancel);
             DeleteFilterCommand = new DelegateCommand(OnDeleteFilter);
             RemoveSearchTermCommand = new DelegateCommand(OnRemoveSearchTerm);
             SaveFilterCommand = new DelegateCommand(OnSaveFilter);

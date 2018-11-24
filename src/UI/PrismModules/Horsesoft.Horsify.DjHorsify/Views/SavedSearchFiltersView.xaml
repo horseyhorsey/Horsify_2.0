@@ -43,22 +43,8 @@
             </StackPanel>
         </Border>
 
-        <Button Content="X" Grid.Row="0" 
-                    Background="Red"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="250,25"
-                    FontSize="46"
-                
-                    Command="{Binding ExitViewCommand}"
-                    />
-
-        <!--<ListView Grid.Row="1"
-                Margin="20"
-                SelectedItem="{Binding SelectedFilter}"
-                ItemsSource="{Binding SavedFilters}" ItemContainerStyle="{StaticResource SavedFilterStyle}">
-
-        </ListView>-->
+        <!--CLOSE VIEW - Style has command applied-->
+        <Button Grid.Row="0" Style="{DynamicResource BtnCloseStyle}"/>
 
         <horsify:ListViewTouch x:Name="ExcludedListView" Grid.Row="1"
                             BorderThickness="0"

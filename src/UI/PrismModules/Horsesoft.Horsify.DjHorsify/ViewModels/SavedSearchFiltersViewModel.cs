@@ -24,7 +24,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         #region Commands
 
         public ICommand DeleteFilterCommand { get; private set; }
-        public ICommand ExitViewCommand { get; private set; }
+        public ICommand CloseViewCommand { get; private set; }
         public ICommand LoadSavedFilterCommand { get; private set; }
         public ICommand SearchFilterCommand { get; private set; } 
         #endregion
@@ -35,7 +35,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager = regionManager;
 
             DeleteFilterCommand = new DelegateCommand(async ()=> await OnDeleteFilterCommand());
-            ExitViewCommand = new DelegateCommand(() => _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView"));
+            CloseViewCommand = new DelegateCommand(() => _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView"));
             LoadSavedFilterCommand = new DelegateCommand(OnLoadSavedFilter);
             SearchFilterCommand = new DelegateCommand(OnRunSearchFilter);
 
@@ -129,7 +129,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 
             var navParams = new NavigationParameters();
             navParams.Add("djhorsify_search", SelectedFilter.ConvertToSearchFilter());
-            _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navParams);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, navParams);
         }
         #endregion
     }

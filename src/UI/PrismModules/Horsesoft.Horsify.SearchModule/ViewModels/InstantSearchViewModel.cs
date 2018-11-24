@@ -2,6 +2,7 @@
 using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Data.Model.Horsify;
 using Horsesoft.Music.Horsify.Base;
+using Horsesoft.Music.Horsify.Base.Helpers;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
@@ -27,15 +28,17 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         private ISongDataProvider _songDataProvider;
         private IHorsifySongApi _horsifySongApi;
         private IEventAggregator _eventAggregator;
+        private IRegionManager _regionManager;
         private static DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
-        public InstantSearchViewModel(ISongDataProvider songDataProvider, IHorsifySongApi horsifySongApi,
+        public InstantSearchViewModel(ISongDataProvider songDataProvider, IHorsifySongApi horsifySongApi, IRegionManager regionManager,
             IEventAggregator eventAggregator, IQueuedSongDataProvider queuedSongDataProvider, ILoggerFacade loggerFacade)
             : base(queuedSongDataProvider, eventAggregator, loggerFacade)
         {
             _songDataProvider = songDataProvider;
             _horsifySongApi = horsifySongApi;
             _eventAggregator = eventAggregator;
+            _regionManager = regionManager;
 
             _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500);
             _dispatcherTimer.Tick += _dispatcherTimer_Tick;
@@ -79,10 +82,28 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         #region Private Methods
 
+        /// <summary>
+        /// Navigates to the song selected view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchResults_CurrentChanged(object sender, EventArgs e)
         {
-            //TODO: Open up selected view
-
+            Log("Selected song...");
+            try
+            {
+                if (SearchResults.CurrentItem != null)
+                {
+                    var song = SearchResults.CurrentItem as AllJoinedTable;
+                    Log($"Navigating to song from InstantSearch : {song.Id} - {song.Artist} - {song.Title}", Category.Debug);
+                    _regionManager.RequestNavigate(Regions.ContentRegion,
+                        ViewNames.SongSelectedView, NavigationHelper.CreateSongNavigation(song));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, Category.Exception);
+            }
         }
 
         private void OnShowSearchKeyboard(object showSearch)
@@ -201,10 +222,10 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {            
             try
             {
-                Log("Navigating from InstantSearch. Clearing search results.");
-                this.CursorPosition = 0;
-                this.SearchModel.SearchText = string.Empty;
-                this.SearchModel.AllJoinedTables.Clear();
+                Log("Navigating from InstantSearch.");
+                //this.CursorPosition = 0;
+                //this.SearchModel.SearchText = string.Empty;
+                //this.SearchModel.AllJoinedTables.Clear();
             }
             catch (Exception ex)
             {

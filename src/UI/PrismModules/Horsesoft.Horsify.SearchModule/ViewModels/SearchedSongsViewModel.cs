@@ -16,18 +16,19 @@ using Horsesoft.Music.Horsify.Base.ViewModels;
 using System.Collections.ObjectModel;
 using Prism.Interactivity.InteractionRequest;
 using System.Windows.Data;
+using System.Windows;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
-    public class SearchedSongsViewModel : HorsifySongPlayBindableBase, INavigationAware
+    public class SearchedSongsViewModel : HorsifySongPlayBindableBase, INavigationAware, IConfirmNavigationRequest
     {
         #region Fields
-        private ISongDataProvider _songDataProvider;
-        private IEventAggregator _eventAggregator;
-        private IRegionManager _regionManager;
         private IDjHorsifyService _djHorsifyService;
+        private IEventAggregator _eventAggregator;
+        private IRegionNavigationJournal _journal;
+        private IRegionManager _regionManager;
         private ISearchHistoryProvider _searchHistory;
-        private IRegionNavigationJournal _journal;        
+        private ISongDataProvider _songDataProvider;
         #endregion
 
         #region Commands
@@ -60,10 +61,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             SongsListView.CurrentChanged += SongsListView_CurrentChanged;
 
             //Dialog requests
-            RequestRandomViewRequest = new InteractionRequest<INotification>();
-            RequestRandomViewRequest.Raised += (s, e) => { _randomDialogOpen = true; };
+            RequestRandomViewRequest = new InteractionRequest<INotification>();            
             RequestSortDialogRequest = new InteractionRequest<INotification>();
-            RequestSortDialogRequest.Raised += (s, e) => { _sortDialogOpen = true; };
             RequestViewCommand = new DelegateCommand<string>((viewName) => OnRequestView(viewName));
         }
 
@@ -71,31 +70,57 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         #region Properties
 
+        private int _lastPostion;
+        private SearchFilter _lastSearchFilter;
+        private AllJoinedTable _lastSelectedSong;
+        private bool _randomDialogOpen;
         private RecentSearch _recentSearch;
+        private string _SongResultInfo;
+
+        private bool _sortDialogOpen;
+
         public RecentSearch RecentSearch
         {
             get { return _recentSearch; }
             set { SetProperty(ref _recentSearch, value); }
         }
+        public ObservableCollection<AllJoinedTable> SearchedSongs { get; set; }
 
-        private string _SongResultInfo;
         public string SongResultInfo
         {
             get { return _SongResultInfo; }
             set { SetProperty(ref _SongResultInfo, value); }
         }
-
-        public ObservableCollection<AllJoinedTable> SearchedSongs { get; set; }
         public ICollectionView SongsListView { get; set; }
-
-        private SearchFilter _lastSearchFilter;
-        private AllJoinedTable _lastSelectedSong;
-        private bool _sortDialogOpen;
-        private bool _randomDialogOpen;
-        private int _lastPostion;
         #endregion
 
         #region Navigation
+
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            //var views = _regionManager.Regions[Regions.ContentRegion].ActiveViews;
+            //var viewName = (views?.FirstOrDefault())?.ToString();
+            //var result = viewName.Contains(ViewNames.SearchedSongsView) ? false : true;
+            //Log($"Can navigate? {result}");            
+
+            continuationCallback(CanNavigateFrom());
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            //_journal?.GoForward();
+            //TODO: Close dialogs when leaving view or make the dialogs as views
+            //if (_sortDialogOpen || _randomDialogOpen)
+            //{
+            //    Log("Cannot Navigate away with dialogs open");
+            //    return;
+            //}            
+        }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
@@ -203,25 +228,14 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             }
         }
 
+        private bool CanNavigateFrom()
+        {
+            return (!_randomDialogOpen && !_sortDialogOpen);
+        }
+
         private void PublishSearchFinished()
         {
             _eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Publish();
-        }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-            //_journal?.GoForward();
-            //TODO: Close dialogs when leaving view or make the dialogs as views
-            //if (_sortDialogOpen || _randomDialogOpen)
-            //{
-            //    Log("Cannot Navigate away with dialogs open");
-            //    return;
-            //}            
         }
         #endregion
 
@@ -252,6 +266,75 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
             RecentSearch.ResultCount = (int)resultCnt;
             RecentSearch.SearchTerm = extraSearchType.ToString();
+        }
+
+        private void OnRequestRandomSelect(string viewName)
+        {
+            _randomDialogOpen = true;
+            Log($"Opening {viewName}");
+
+            this.RequestRandomViewRequest.Raise(
+                new Notification { Content = "Notification Message", Title = "Horsify - Random Select" }
+            , r =>
+            {
+                Log("Queuing songs from selection RandomSelectView");
+                _randomDialogOpen = false;
+                //TODO: A better way to re-enable the side bar on completion
+                _eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Publish();
+                RandomSelectOption randomSelectOption = r.Content as RandomSelectOption;
+                if (randomSelectOption?.Amount > 0)
+                {
+                    QueueRandomSongs(randomSelectOption);
+                    Log("Queued songs from selection RandomSelectView");
+                }
+            });
+        }
+
+        private void OnRequestSortView(string viewName)
+        {
+            _sortDialogOpen = true;
+            Log($"Opening {viewName}");
+            //TODO: A better way to re-enable the side bar on completion
+            _eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Publish();
+            SongsListView.CurrentChanged -= SongsListView_CurrentChanged;
+            this.RequestSortDialogRequest.Raise(new Notification { Content = SongsListView, Title = "Sort " },
+                r =>
+                {
+                    SongsListView.CurrentChanged += SongsListView_CurrentChanged;
+                    this.UpdateSortingInfo();
+                    Log("Opening sort dialog");
+                    Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
+
+                    _sortDialogOpen = false;
+                });
+        }
+
+        /// <summary>
+        /// Requests for a view control. Eg: RandomSelectView
+        /// </summary>
+        /// <remarks>
+        /// RandomSelectView
+        /// </remarks>
+        /// <param name="viewName"></param>
+        private void OnRequestView(string viewName)
+        {
+            if (SearchedSongs?.Count > 0)
+            {
+                if (!CanNavigateFrom())
+                    return;
+
+                switch (viewName)
+                {
+                    case ViewNames.RandomSelectView:
+                        OnRequestRandomSelect(viewName);
+                        break;
+                    case ViewNames.SortDialogView:
+                        OnRequestSortView(viewName);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         private async Task OnSearchedSong()
@@ -293,7 +376,46 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             UpdateSearchHistory(filter);
 
             //_regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
-            _eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish("SearchedSongsView");
+            _eventAggregator.GetEvent<OnNavigateViewEvent<string>>().Publish(ViewNames.SearchedSongsView);
+        }
+
+        private void OnSongItemSelected(AllJoinedTable songItem)
+        {
+            Log($"Selected song : {songItem.FileLocation}", Category.Debug);
+            var navParams = new NavigationParameters();
+            navParams.Add("song", songItem);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SongSelectedView, navParams);
+            _lastSelectedSong = songItem;
+        }
+
+        private void QueueRandomSongs(RandomSelectOption options)
+        {
+            if (_songDataProvider.SearchedSongs?.Count > 0)
+            {
+                Log($"random songs from songs count: {_songDataProvider.SearchedSongs?.Count}", Category.Debug);
+
+                IEnumerable<AllJoinedTable> filtered = null;
+                if (options.RatingRange.IsEnabled)
+                {
+                    Log("Rating random selected");
+                    filtered = _songDataProvider.SearchedSongs
+                   .Where(x => x.Rating >= options.RatingRange.Low &&
+                               x.Rating <= options.RatingRange.Hi
+                   );
+                }
+                else
+                {
+                    Log("Rating random not selected");
+                    filtered = _songDataProvider.SearchedSongs;
+                }
+
+                Log($"Queuing {options.Amount} random");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    _queuedSongDataProvider.QueueSongRange(filtered, options.Amount);
+                });
+                
+            }
         }
 
         /// <summary>
@@ -318,105 +440,6 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 OnSongItemSelected(song);                
             }            
         }
-
-        /// <summary>
-        /// Requests for a view control. Eg: RandomSelectView
-        /// </summary>
-        /// <remarks>
-        /// RandomSelectView
-        /// </remarks>
-        /// <param name="viewName"></param>
-        private void OnRequestView(string viewName)
-        {
-            if (viewName == "RandomSelectView")
-            {
-                if (SearchedSongs?.Count != null)
-                {
-                    this.RequestRandomViewRequest.Raise(
-                        new Notification { Content = "Notification Message", Title = "Horsify - Random Select" }
-                    , r =>
-                    {
-                        Log("Queuing songs from selection RandomSelectView");
-
-                        RandomSelectOption randomSelectOption = r.Content as RandomSelectOption;
-                        if (randomSelectOption?.Amount > 0)
-                        {
-                            QueueRandomSongs(randomSelectOption);
-                            Log("Queued songs from selection RandomSelectView");
-                        }
-
-                        _randomDialogOpen = false;
-                    });
-                }
-            }
-            //Unsubscribe from CurrentChanging when going into this dialog as to not fire it when coming back
-            else if (viewName == "SortDialogView")
-            {
-                SongsListView.CurrentChanged -= SongsListView_CurrentChanged;
-                this.RequestSortDialogRequest.Raise(new Notification { Content = SongsListView, Title = "Sort " },
-                    r =>
-                    {
-                        SongsListView.CurrentChanged += SongsListView_CurrentChanged;
-                        this.UpdateSortingInfo();
-                        Log("Opening sort dialog");
-                        Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
-
-                        _sortDialogOpen = false;
-                    });                
-            }
-        }
-
-        private void OnSongItemSelected(AllJoinedTable songItem)
-        {
-            Log($"Selected song : {songItem.FileLocation}", Category.Debug);
-            var navParams = new NavigationParameters();
-            navParams.Add("song", songItem);
-            _regionManager.RequestNavigate("ContentRegion", "SongSelectedView", navParams);
-            _lastSelectedSong = songItem;
-        }
-
-        private Random _random = new Random();
-        private void QueueRandomSongs(RandomSelectOption options)
-        {
-            if (_songDataProvider.SearchedSongs?.Count > 0)
-            {
-                Log($"Queuing random songs count: {_songDataProvider.SearchedSongs?.Count}", Category.Debug);
-                
-                IEnumerable<AllJoinedTable> filtered = null;
-                if (options.RatingRange.IsEnabled)
-                {
-                    Log("Rating random selected");
-                    filtered = _songDataProvider.SearchedSongs
-                   .Where(x => x.Rating >= options.RatingRange.Low &&
-                               x.Rating <= options.RatingRange.Hi
-                   );
-                }
-                else
-                {
-                    Log("Rating random not selected");
-                    filtered = _songDataProvider.SearchedSongs;
-                }
-
-                //Pick random songs from filtered
-                var filterCount = filtered.Count() - 1;
-                if (filterCount > 1)
-                {
-                    for (int i = 0; i < options.Amount; i++)
-                    {
-                        //Select random id from the fitlered count.
-                        //Only add song if not already exisiting.
-                        var id = _random.Next(filterCount);
-                        var song = filtered.ElementAt(id);
-                        if (!_queuedSongDataProvider.QueueSongs.Contains(song))
-                        {
-                            _queuedSongDataProvider.QueueSongs.Add(song);
-                            Log($"Song added to queue: {song.Artist}  - {song.Title}");
-                        }                            
-                    }
-                }
-            }
-        }
-
         private void UpdateSearchHistory(ISearchFilter filter)
         {
             var resultCnt = _songDataProvider.SearchedSongs?.Count;

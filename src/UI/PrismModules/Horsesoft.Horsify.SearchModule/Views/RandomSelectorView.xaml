@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.SearchModule.Views.RandomSelectorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Opacity="0.97" IsTabStop="False"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"             
+             >
+    <Grid x:Name="LayoutRoot">
+        <Grid.Resources>
+            <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+                <Setter Property="MaxWidth" Value="400"/>
+                <Setter Property="TextElement.FontSize" Value="42"/>
+            </Style>
+        </Grid.Resources>
+
+        <Border Style="{StaticResource Border_MainContentRegion}">
+            <Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               FontSize="44" 
+                           Text="SELECT RANDOM SONGS"/>
+                    </Grid>
+
+                    <GroupBox Header="Amount" Grid.Row="1">
+                        <horsify:AmountSelectControl x:Name="AmountControl" Value="{Binding ElementName=RatingEnabled, Path=DataContext.Amount, Mode=TwoWay}"
+                                             HorizontalAlignment="Center" 
+                                             Background="Transparent"                                             
+                                             ShowLargerIncrementButtons="False"/>
+                    </GroupBox>
+
+                    <GroupBox Header="Rating" Grid.Row="2" MaxWidth="400" >
+
+                        <StackPanel>
+
+                            <CheckBox x:Name="RatingEnabled" 
+                                      IsChecked="{Binding ElementName=LayoutRoot, Path=DataContext.RatingRange.IsEnabled}"
+                                      Content="Enabled"/>
+
+                            <horsify:RatingRangeControl x:Name="RangeControl" StarWidth="50"
+                                                        IsEnabled="{Binding ElementName=RatingEnabled, Path=IsChecked}"
+                                                        RangeLower="{Binding ElementName=LayoutRoot, Path=DataContext.RatingRange.Low}" 
+                                                        RangeUpper="{Binding ElementName=LayoutRoot, Path=DataContext.RatingRange.Hi}"
+                                        />
+                        </StackPanel>
+                    </GroupBox>
+
+
+                    <GroupBox Header="Select" Grid.Row="3">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                            <Button Grid.Row="3" FontSize="48" Margin="15"
+                            Width="85"
+                            Height="65"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="true"
+                            IsEnabled="True"                        
+                        />
+                        </StackPanel>
+                    </GroupBox>
+
+                </Grid>
+
+                <!--CLOSE VIEW -->
+                <Button Style="{DynamicResource BtnCloseStyle}"
+                    Command="{Binding NavigateCommand}"
+                        CommandParameter="false"
+                    />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

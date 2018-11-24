@@ -95,5 +95,12 @@ namespace Horsesoft.Music.Horsify.Base.Helpers
             navParams.Add("search_filter", filter);
             return navParams;
         }
+
+        public static NavigationParameters CreateSongNavigation(AllJoinedTable song)
+        {
+            var navParams = new NavigationParameters();
+            navParams.Add("song", song);
+            return navParams;
+        }
     }
 }

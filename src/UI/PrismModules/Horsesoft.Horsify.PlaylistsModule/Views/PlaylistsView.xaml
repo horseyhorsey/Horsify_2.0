@@ -311,15 +311,15 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border Background="{DynamicResource Color_Primary2}" CornerRadius="0,60,0,0"
-                        
+                <!--CLEAR PLAYLISTS-->
+                <Border Background="{DynamicResource Color_Primary2}" CornerRadius="0,60,0,0"                        
                         >
                     <StackPanel Orientation="Horizontal" >
                         <TextBlock Text="Open Lists"
                                FontSize="32"
                                    Margin="3"
                                />
-                        <Button Content="{DynamicResource DeleteIcon}" Command="{Binding }"/>
+                        <Button Content="{DynamicResource DeleteIcon}" Command="{Binding CloseAllTabsCommand}"/>
                     </StackPanel>
                 </Border>
 

@@ -200,9 +200,17 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         /// </summary>
         private void OnCloseTabs()
         {
-            foreach (var openTab in PlayListViewModels.Where(x => x.TabHeader != "Preparation Playlist"))
+            try
             {
-                OnCloseTab(openTab);
+                foreach (var openTab in PlayListViewModels.Where(x => x.TabHeader != "Preparation Playlist"))
+                {
+                    OnCloseTab(openTab);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Log(ex.Message);
             }
         }
 

@@ -20,7 +20,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
     {
         private IRegionManager _regionManager;
         #region Commands
-        public ICommand CloseSearchViewCommand { get; set; }
+        public ICommand CloseViewCommand { get; set; }
         public ICommand RunSearchCommand { get; set; }
         #endregion
 
@@ -30,11 +30,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
 
             _regionManager = regionManager;
-            CloseSearchViewCommand = new DelegateCommand(() =>
+            CloseViewCommand = new DelegateCommand(() =>
             {
-                //eventAggregator.GetEvent<OnNavigateViewEvent<string>>()
-                //    .Publish("SearchedSongsView");
-
                 regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView);
             });
 

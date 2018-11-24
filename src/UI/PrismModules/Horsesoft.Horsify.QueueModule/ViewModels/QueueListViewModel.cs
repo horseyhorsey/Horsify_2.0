@@ -54,7 +54,7 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
 
             #region Queue Control Events
 
-            _eventAggregator.GetEvent<ClearQueueEvent>().Subscribe(OnClearQueue, ThreadOption.UIThread);
+            _eventAggregator.GetEvent<ClearQueueEvent>().Subscribe(OnClearQueue, ThreadOption.PublisherThread);
             _eventAggregator.GetEvent<ShuffleQueueEvent>().Subscribe(OnShuffleQueue, ThreadOption.UIThread);
             _eventAggregator.GetEvent<SkipQueueEvent>().Subscribe(async () => await OnSkipQueueAsync(), ThreadOption.UIThread);
 
@@ -107,13 +107,26 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
             }
         }
 
+        /// <summary>
+        /// Clears the QueueItems and the underlying collection
+        /// </summary>
         private void OnClearQueue()
-        {            
-            if (QueueItems?.Count > 0)
+        {
+            try
             {
-                Log("Clearing Queue", Category.Debug);
-                QueueItems.Clear();
-            }                
+                Log("Clearing queued items");
+                if (QueueItems?.Count > 0)
+                {
+                    Log("Clearing Queue", Category.Debug);
+                    QueueItems.Clear();
+                    _queuedSongDataProvider.QueueSongs.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message + " " + ex.StackTrace, Category.Exception);
+                throw;
+            }
         }
 
         /// <summary>

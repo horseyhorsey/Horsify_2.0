@@ -59,11 +59,15 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 
         private void OnSongChangedLoaded(AllJoinedTable song)
         {
-            Log($"MediaElement: Loading file async: {song?.FileLocation}", Category.Info, Priority.Medium);
+            Log($"MediaElement: Loading file: {song?.FileLocation}", Category.Info, Priority.Medium);
 
             try
             {
                 var mediaFile = new Uri(song.FileLocation, UriKind.Absolute);
+
+                if (!System.IO.Directory.Exists(Path.GetDirectoryName(mediaFile.LocalPath)))
+                    throw new DirectoryNotFoundException($"Song Directory not found: {mediaFile.LocalPath}");
+                
                 if (!System.IO.File.Exists(mediaFile.LocalPath))
                     throw new FileNotFoundException($"Media file not found: {mediaFile.LocalPath}");
 
@@ -83,12 +87,11 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             catch (Exception ex)
             {
                 Log($"Error loading file: {ex.Message}", Category.Exception);
-                MediaControlModel.SelectedSong = null;
-                //_eventAggregator.GetEvent<SkipQueueEvent>().Publish();
+                //MediaControlModel.SelectedSong = null;
+                _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
             }
 
         }
-
 
         private void OnTimeChanged(MediaControl mediaControlModel, TimeSpan currentTime)
         {
@@ -106,9 +109,15 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         /// </summary>
         private void ResetSelectedSong()
         {
-            if (!MediaControlModel.IsPlaying)
-                MediaControlModel.SelectedSong = null;
-                MediaControlModel.CurrentSongTimeString = null;
+            try
+            {
+                Log("Clearing song");
+                MediaControlModel.Clear();
+            }
+            catch (Exception ex)
+            {
+                Log(ex.Message, Category.Exception);
+            }
         }
 
         private void UpdateFileTags()

@@ -68,5 +68,13 @@ namespace Horsesoft.Horsify.MediaPlayer.Model
             set { SetProperty(ref _currentSongTimeString, value); }
         }
         #endregion
+
+        public void Clear()
+        {
+            IsPlaying = false;
+            this.SelectedSong = null;
+            CurrentSongTimeString = null;
+            CurrentSongTimeString = null;
+        }
     }
 }

@@ -6,7 +6,14 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"   
              mc:Ignorable="d" 
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
+             horsify:InputBindingBehavior.PropagateInputBindingsToWindow="True"
              >
+
+    <UserControl.InputBindings>
+        <!--<KeyBinding Key="Esc" Command="Close"/>-->
+        <KeyBinding Key="Q"  Modifiers="Ctrl" Command="{Binding SkipCommand}"/>
+    </UserControl.InputBindings>
 
     <Border x:Name="LayoutRoot" Style="{DynamicResource Border_QueuePanelStyle}">
         <Grid>

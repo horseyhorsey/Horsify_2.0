@@ -107,6 +107,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\AnimatedVisibilityFadeBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\InputBindingBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\MouseBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Behaviors\WindowCloseBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Converters\BoolToVisConverter.cs" />

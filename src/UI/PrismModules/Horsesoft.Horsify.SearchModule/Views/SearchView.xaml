@@ -14,59 +14,73 @@
           >
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="1" Margin="63,10"     
-                Background="Transparent"
-                BorderThickness="0"
-                Command="{Binding CloseSearchViewCommand}" 
-                Content="{Binding Source={StaticResource Icon_Close}}"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Width="50" Height="50"/>
-
-
-        <StackPanel>
-            <TextBlock Text="Search all - Artists, Titles, Genres etc" HorizontalAlignment="Center"
-                    FontSize="64"
-                    FontStyle="Italic"
-                    Margin="0,20"
+        <Border Background="{DynamicResource BackgroundGradient3}" CornerRadius="50,50,0,0"
+                Grid.ColumnSpan="3"
+                >
+            <StackPanel TextElement.Foreground="White">
+                <TextBlock Text="SEARCH ALL" HorizontalAlignment="Center"
+                    FontSize="64"                    
                     />
-            <TextBlock Text="%'s a Wildcard. Eg, %Jackson%" HorizontalAlignment="Center"
-                    FontSize="32"
-                    FontStyle="Italic"
-                    Margin="0,5"
-                    />
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
 
         <horsify:OnScreenKeyboard x:Name="OnScreenKeyboard" 
                                   Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                                  Grid.Column="0" Grid.Row="1"
+                                  Grid.Row="3"
+                                  Grid.ColumnSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   FontSize="32"
+                                  Margin="5"
                                   />
 
-        <Button Command="{Binding RunSearchCommand}"                     
-                Style="{DynamicResource ButtonMetal}"
+
+        <Border Background="{DynamicResource BackgroundGradient2}"
+                Grid.Row="2" Grid.Column="1"
+                >
+            <Button Command="{Binding RunSearchCommand}"                                     
                 IsDefault="True"
                 FontSize="65"
                 Content="&#128270;" 
                 Width="90"
                 Height="80"
-                Grid.Row="1"
-                Margin="0,180"
-                VerticalAlignment="Bottom"/>
+                Margin="5"                 
+                VerticalAlignment="Top"  
+                HorizontalAlignment="Center"
+                />
+        </Border>
 
+        <Border Background="{DynamicResource BackgroundGradient3}" 
+                Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel>
+                <TextBlock Text="% and * are wildcards. (Example): %Jackson%" HorizontalAlignment="Center"
+                    FontSize="28"
+                       Foreground="White"
+                    Margin="0,5"                   
+                    />
+                <TextBlock Text="Searches can be piped (Example): %Jackson%|%turner%|%disco%" HorizontalAlignment="Center"
+                    FontSize="28"
+                           Foreground="White"
+                    Margin="0,5"                   
+                    />
+            </StackPanel>
+        </Border>
+
+        <Button Grid.Row="0" Grid.ColumnSpan="2" 
+                HorizontalAlignment="Right" Margin="150,10"
+                Command="{Binding CloseSearchViewCommand}" Style="{DynamicResource BtnCloseStyle}"/>
 
     </Grid>
 </UserControl>

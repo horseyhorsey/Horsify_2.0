@@ -35,7 +35,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                 //eventAggregator.GetEvent<OnNavigateViewEvent<string>>()
                 //    .Publish("SearchedSongsView");
 
-                regionManager.RequestNavigate("ContentRegion", "SearchedSongsView");
+                regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView);
             });
 
             RunSearchCommand = new DelegateCommand(OnRunSearch);
@@ -45,7 +45,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             var filter = new SearchFilter(SearchText);
             var navparams = NavigationHelper.CreateSearchFilterNavigation(filter);
-            _regionManager.RequestNavigate(Regions.ContentRegion, "SearchedSongsView", navparams);
+            _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, navparams);
         }
         #endregion
 

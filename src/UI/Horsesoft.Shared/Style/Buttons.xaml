@@ -348,5 +348,16 @@
     </Style>
 
 
+    <!--CLOSE BUTTON-->
+    <Style x:Key="BtnCloseStyle" TargetType="Button" BasedOn="{StaticResource TransparentButtonBases}">
+        <Setter Property="Content" Value="X"/>
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="250, 25"/>
+        <Setter Property="FontSize" Value="46"/>
+        <Setter Property="Command" Value="{Binding CloseViewCommand}"/>
+    </Style>
+
 
 </ResourceDictionary>

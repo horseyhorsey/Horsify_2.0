@@ -89,19 +89,19 @@ namespace Horsesoft.Music.Data.Model.Horsify
             if (sf != null)
             {
                 //Rating enabled
-                if (sf.RatingRange.IsEnabled != this.RatingRange.IsEnabled)
+                if (sf.RatingRange?.IsEnabled != this.RatingRange?.IsEnabled)
                     return false;
-                if (sf.RatingRange.Low != this.RatingRange.Low)
+                if (sf.RatingRange?.Low != this.RatingRange?.Low)
                     return false;
-                if (sf.RatingRange.Hi != this.RatingRange.Hi)
+                if (sf.RatingRange?.Hi != this.RatingRange?.Hi)
                     return false;
 
                 //Bpm
-                if (sf.BpmRange.IsEnabled != this.BpmRange.IsEnabled)
+                if (sf.BpmRange?.IsEnabled != this.BpmRange?.IsEnabled)
                     return false;
-                if (sf.BpmRange.Low != this.BpmRange.Low)
+                if (sf.BpmRange?.Low != this.BpmRange?.Low)
                     return false;
-                if (sf.BpmRange.Hi != this.BpmRange.Hi)
+                if (sf.BpmRange?.Hi != this.BpmRange?.Hi)
                     return false;
 
                 //Keys

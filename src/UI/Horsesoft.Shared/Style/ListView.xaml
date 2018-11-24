@@ -16,8 +16,10 @@
     <!--#region STYLES-->
 
     <!--SONG LIST CONTAINER STYLE-->
-    <Style x:Key="SongListContainerStyle" TargetType="{x:Type ListViewItem}">
+    <Style TargetType="{x:Type ListViewItem}">
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <!--SONG LIST STYLE-->

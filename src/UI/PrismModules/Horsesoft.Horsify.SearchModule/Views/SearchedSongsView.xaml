@@ -147,8 +147,15 @@
         <!--BACKGROUND LOGO-->
         <Border d:IsHidden="False"  CornerRadius="55" Opacity="0.12" Grid.RowSpan="5" Grid.ColumnSpan="3"
                 Background="{Binding Source={StaticResource Brush_Bubbles}}">
-            <ContentPresenter Width="750" Opacity="0.3" d:IsHidden="False" 
+            <Grid>
+                <ContentPresenter Width="750" Opacity="0.3" d:IsHidden="False" 
                               ContentTemplate="{StaticResource HorsifyLogoSvg}"/>
+
+                <TextBlock FontSize="82" Text="Searching..." 
+                           Visibility="{Binding IsBusy, Converter={StaticResource bool2vis}}"
+                           Foreground="Red"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
         </Border>
 
         <!--#region SONGS & PAGING-->
@@ -176,7 +183,6 @@
                                    BorderThickness="0" Margin="-8,0,-15,0"                                       
                                    ItemsSource="{Binding SongsListView, UpdateSourceTrigger=PropertyChanged}"
                                    Template="{DynamicResource ListViewTemplate}"
-                                   ItemContainerStyle="{DynamicResource SongListContainerStyle}"    
                                    ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
                                    ScrollViewer.CanContentScroll="True"   
                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"

@@ -91,7 +91,17 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             get { return _SongResultInfo; }
             set { SetProperty(ref _SongResultInfo, value); }
         }
-        public ICollectionView SongsListView { get; set; }
+        public ICollectionView SongsListView { get; set; }        
+
+        private bool _isBusy;
+        /// <summary>
+        /// Gets or Sets the IsBusy flag
+        /// </summary>
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
+        }
         #endregion
 
         #region Navigation
@@ -146,6 +156,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             }
                         }
 
+                        IsBusy = true;
                         this.RecentSearch.ResultCount = 0;
                         _songDataProvider.SearchLikeFiltersAsync(filter, 0)
                             .ContinueWith((x) =>
@@ -184,6 +195,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                             }
                         }
 
+                        IsBusy = true;
                         this.RecentSearch.ResultCount = 0;
                         _songDataProvider.SearchLikeFiltersAsync(filter, 0)
                             .ContinueWith((x) =>
@@ -206,6 +218,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                         this.RecentSearch.ResultCount = 0;
                         this.RecentSearch.SearchTerm += searchType;
 
+                        IsBusy = true;
                         //Just let the query order the songs, the add to search history will clear the last
                         _songDataProvider.ExtraSearch(searchType)
                             .ContinueWith((x) =>
@@ -235,6 +248,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         private void PublishSearchFinished()
         {
+            IsBusy = false;
             _eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Publish();
         }
         #endregion

@@ -45,13 +45,13 @@
 
                         <!--OPEN SEARCH COMMAND - SWITCH VIEWS-->
                         <Button Width="40"
-                            Content="{Binding Source={StaticResource IconShuffle}}" 
+                            Content="{Binding Source={StaticResource IcoShuffle}}" 
                             Background="{DynamicResource Brush_Metal}"
                             Style="{DynamicResource ButtonTopMenuStyle}"
                             Command="{Binding ElementName=LayoutRoot,Path=DataContext.ShuffleCommand }" />
 
                         <Button Width="40" MaxHeight="50"                            
-                            Content="{Binding Source={StaticResource DeleteIcon}}"
+                            Content="{Binding Source={StaticResource IcoDelete}}"
                         Background="{DynamicResource Brush_Metal}"
                                 Style="{DynamicResource ButtonTopMenuStyle}"
                          Command="{Binding ClearCommand}"/>

@@ -45,49 +45,49 @@
 
                     <!--RATING-->
                     <horsify:ButtonWithLabel
-                Content="{Binding Source={StaticResource StarSvgStroker}}"                                
+                Content="{Binding Source={StaticResource IcoStarStroked}}"                                
                 CommandParameter="Rating"
                 Text="Rating"
                 />
 
                     <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"                                                                  
+                        Content="{DynamicResource IcoArtist}"                                                                  
                         CommandParameter="Artist"
                         Text="Artist"
                         />
 
                     <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"                                                                
+                        Content="{DynamicResource IcoArtist}"                                                                
                         CommandParameter="Album"
                         Text="Album"
                         />
 
                     <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"                                                              
+                        Content="{DynamicResource IcoArtist}"                                                              
                         CommandParameter="Bpm"
                         Text="Bpm"
                         />
 
                     <horsify:ButtonWithLabel 
-                        Content="{Binding Source={StaticResource Icon_Genre}}"
+                        Content="{Binding Source={StaticResource IcoGenre}}"
                         CommandParameter="Genre"
                         Text="Genre"
                         />
 
                     <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"                                                                
+                        Content="{DynamicResource IcoArtist}"                                                                
                         CommandParameter="Label"
                         Text="Label"
                         />
 
                     <horsify:ButtonWithLabel 
-                        Content="{DynamicResource ArtistIcon}"                                                                
+                        Content="{DynamicResource IcoArtist}"                                                                
                         CommandParameter="MusicKey"
                         Text="Key"
                         />
 
                     <horsify:ButtonWithLabel 
-                        Content="{Binding Source={StaticResource YearIcon}}"
+                        Content="{Binding Source={StaticResource IcoYear}}"
                         CommandParameter="Year"
                         Text="Year"
                         />

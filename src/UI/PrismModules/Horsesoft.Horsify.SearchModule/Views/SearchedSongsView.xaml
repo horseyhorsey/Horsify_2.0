@@ -208,7 +208,7 @@
                     Style="{DynamicResource TransparentButtonBases}" 
                     Margin="5"
                     Command="{Binding RequestViewCommand}"
-                    Content="{DynamicResource SortIconSvg}"
+                    Content="{DynamicResource IcoSort}"
                     CommandParameter="SortDialogView"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top"                

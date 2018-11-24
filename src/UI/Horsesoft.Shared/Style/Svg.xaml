@@ -143,47 +143,6 @@
         </Viewbox>
     </DataTemplate>
 
-    <!--STAR-->
-    <Viewbox x:Key="Svg_Star_Viewbox" Stretch="None"  x:Shared="false" >
-        <Canvas x:Name="svg14" Width="24" Height="24">
-            <!--Unknown tag: metadata-->
-            <!--Unknown tag: sodipodi:namedview-->
-            <Canvas x:Name="g6">
-                <Canvas.RenderTransform>
-                    <TranslateTransform X="0" Y="-1028.4"/>
-                </Canvas.RenderTransform>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path4" Fill="#FFE67E22">
-                    <Path.Data>
-                        <PathGeometry Figures="m 22 1038.2 c 0 0.2 -0.104 0.4 -0.312 0.6 l -4.363 4.2 1.033 6.1 c 0.008 0 0.012 0.1 0.012 0.2 0 0.2 -0.044 0.3 -0.132 0.4 -0.08 0.1 -0.2 0.2 -0.361 0.2 -0.152 0 -0.312 0 -0.48 -0.1 l -5.397 -2.9 -5.3966 2.9 c -0.1763 0.1 -0.3366 0.1 -0.4808 0.1 -0.1683 0 -0.2965 -0.1 -0.3846 -0.2 -0.0802 -0.1 -0.1202 -0.2 -0.1202 -0.4 0 0 0.008 -0.1 0.024 -0.2 l 1.0337 -6.1 -4.375 -4.2 C 2.1002 1038.6 2 1038.4 2 1038.2 c 0 -0.3 0.2244 -0.5 0.6731 -0.5 l 6.0336 -0.9 2.7043 -5.5 c 0.152 -0.3 0.349 -0.5 0.589 -0.5 0.24 0 0.437 0.2 0.589 0.5 l 2.704 5.5 6.034 0.9 c 0.449 0 0.673 0.2 0.673 0.5" FillRule="NonZero"/>
-                    </Path.Data>
-                </Path>
-            </Canvas>
-            <Canvas x:Name="g10">
-                <Canvas.RenderTransform>
-                    <MatrixTransform Matrix="0.89576271 0 0 0.89576271 1.1745763 -919.8844"/>
-                </Canvas.RenderTransform>
-                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="path8">
-                    <Path.Style>
-                        <Style TargetType="Path">
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Fill" Value="Black"/>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="true">
-                                    <Setter Property="Fill" Value="#FFF1C40F"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Path.Style>
-
-                    <Path.Data>
-                        <PathGeometry Figures="m 22 1038.2 c 0 0.2 -0.104 0.4 -0.312 0.6 l -4.363 4.2 1.033 6.1 c 0.008 0 0.012 0.1 0.012 0.2 0 0.2 -0.044 0.3 -0.132 0.4 -0.08 0.1 -0.2 0.2 -0.361 0.2 -0.152 0 -0.312 0 -0.48 -0.1 l -5.397 -2.9 -5.3966 2.9 c -0.1763 0.1 -0.3366 0.1 -0.4808 0.1 -0.1683 0 -0.2965 -0.1 -0.3846 -0.2 -0.0802 -0.1 -0.1202 -0.2 -0.1202 -0.4 0 0 0.008 -0.1 0.024 -0.2 l 1.0337 -6.1 -4.375 -4.2 C 2.1002 1038.6 2 1038.4 2 1038.2 c 0 -0.3 0.2244 -0.5 0.6731 -0.5 l 6.0336 -0.9 2.7043 -5.5 c 0.152 -0.3 0.349 -0.5 0.589 -0.5 0.24 0 0.437 0.2 0.589 0.5 l 2.704 5.5 6.034 0.9 c 0.449 0 0.673 0.2 0.673 0.5" FillRule="NonZero"/>
-                    </Path.Data>
-                </Path>
-            </Canvas>
-        </Canvas>
-    </Viewbox>
-
     <!--HORSIFY SEARCH-->
     <Viewbox x:Key="HorsifySearchSvg" Stretch="Uniform"  x:Shared="false" >
         <Canvas Name="svg8" Width="90.43662" Height="89">
@@ -261,52 +220,5 @@
         </Canvas>
 
     </Viewbox>
-
-    <!--VINYL ICON-->
-    <Viewbox x:Key="VinylIconSvg" Stretch="Uniform"  x:Shared="false" >
-        <Canvas Name="svgvinylicon" Width="24" Height="24">
-            <Canvas.RenderTransform>
-                <TranslateTransform X="0" Y="0"/>
-            </Canvas.RenderTransform>
-            <Canvas.Resources/>
-            <Path Name="path2" Fill="#000000">
-                <Path.Data>
-                    <PathGeometry Figures="M14 12c0 1.103-.897 2-2 2-1.104 0-2-.897-2-2s.896-2 2-2c1.103 0 2 .897 2 2zm9.778-2.271c.142.736.222 1.494.222 2.271 0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12c4.545 0 9.564 2.835 9.996 7.056.373 3.646-2.594 6.949-3.192 7.574l1.445 1.383c.549-.574 2.784-3.073 3.529-6.284zm-19.258-.52c.814-2.157 2.529-3.869 4.691-4.677l-.129-1.019c-2.613.896-4.68 2.958-5.582 5.569l1.02.127zm4.945-2.64l-.131-1.041c-1.721.71-3.096 2.085-3.807 3.807l1.041.13c.598-1.272 1.625-2.299 2.897-2.896zm6.535 5.431c0-2.209-1.791-4-4-4s-4 1.791-4 4 1.791 4 4 4 4-1.791 4-4zm3.784 4.94l-1.878-1.832-2.64 2.679 1.882 1.834 2.636-2.681z" FillRule="NonZero"/>
-                </Path.Data>
-            </Path>
-        </Canvas>
-    </Viewbox>
-
-    <!--PLAYLIST ICON-->
-    <Viewbox x:Key="PlaylistSvg" Stretch="Uniform"  x:Shared="false" >
-        <Canvas Name="svg4" Width="24" Height="24">
-            <Canvas.Resources/>
-            <!--Unknown tag: metadata-->
-            <!--Unknown tag: sodipodi:namedview-->
-            <Path Fill="#FF000000">
-                <Path.Data>
-                    <PathGeometry Figures="M12 21h-12v-2h12v2zm4-9l8-1v6.681c-.002 1.555-1.18 2.319-2.257 2.319-.907 0-1.743-.542-1.743-1.61 0-.96.903-1.852 2-2.073v-2.317l-4 .5v4.181c-.002 1.555-1.18 2.319-2.257 2.319-.907 0-1.743-.542-1.743-1.61 0-.96.903-1.852 2-2.073v-5.317zm-4 4.976h-12v-2h12v2zm0-3.976h-12v-2h12v2zm12-4h-24v-2h24v2zm0-4h-24v-2h24v2z" FillRule="EvenOdd"/>
-                </Path.Data>
-            </Path>
-        </Canvas>
-    </Viewbox>
-    
-    <!--SORT ICON-->
-    <Viewbox  x:Key="SortIconSvg" Stretch="Uniform"  x:Shared="false" >
-        <Canvas Width="24" Height="24">
-            <Canvas.RenderTransform>
-                <TranslateTransform X="0" Y="0"/>
-            </Canvas.RenderTransform>
-            <Canvas.Resources/>
-            <!--Unknown tag: metadata-->
-            <!--Unknown tag: sodipodi:namedview-->
-            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="White">
-                <Path.Data>
-                    <PathGeometry Figures="M8 10v4h4l-6 7-6-7h4v-4h-4l6-7 6 7h-4zm16 5h-10v2h10v-2zm0 6h-10v-2h10v2zm0-8h-10v-2h10v2zm0-4h-10v-2h10v2zm0-4h-10v-2h10v2z" FillRule="NonZero"/>
-                </Path.Data>
-            </Path>
-        </Canvas>
-    </Viewbox>
-
 
 </ResourceDictionary>

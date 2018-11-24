@@ -15,10 +15,10 @@
         <DataTemplate x:Key="SearchItemTemplate">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                    <Button Content="{DynamicResource Icon_play_Two}" 
+                    <Button Content="{DynamicResource IcoPlay}" 
                             Command="{Binding ElementName=LayoutRoot, Path=DataContext.PlaySongCommand}" 
                             CommandParameter="{Binding}"/>
-                    <Button Content="{DynamicResource IconQueueTwo}" 
+                    <Button Content="{DynamicResource IcoQueue}" 
                             Command="{Binding ElementName=LayoutRoot, Path=DataContext.QueueSongCommand}" 
                             CommandParameter="{Binding}"/>
                 </StackPanel>
@@ -45,7 +45,7 @@
                 >
             <StackPanel Orientation="Horizontal" Margin="10">
                 <Label Content="SONG SEARCH" FontSize="45" HorizontalAlignment="Center"/>
-                <Button Content="{Binding Source={StaticResource Icon_Search}}" 
+                <Button Content="{Binding Source={StaticResource IcoSearch}}" 
                     MaxHeight="50"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top" 

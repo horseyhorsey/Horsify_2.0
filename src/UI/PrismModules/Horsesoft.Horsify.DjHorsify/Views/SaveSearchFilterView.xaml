@@ -36,7 +36,7 @@
                                   FontSize="32"
                                   />
 
-        <Button Content="{DynamicResource SaveIcon}" Width="100"
+        <Button Content="{DynamicResource IcoSave}" Width="100"
                 Grid.Row="3" Margin="50" Background="Green"
                 VerticalAlignment="Bottom" HorizontalAlignment="Center"
                     Command="{Binding SaveFilterCommand}">

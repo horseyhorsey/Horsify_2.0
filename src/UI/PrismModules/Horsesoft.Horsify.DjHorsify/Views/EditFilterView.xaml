@@ -71,7 +71,7 @@
             <StackPanel Orientation="Horizontal"
                         >
 
-                <Button Content="{Binding Source={StaticResource  SaveIcon}}"                         
+                <Button Content="{Binding Source={StaticResource  IcoSave}}"                         
                         Grid.Row="3" Background="ForestGreen"
                         FontSize="24"
                         Command="{Binding SaveFilterCommand}"
@@ -79,7 +79,7 @@
 
                 <!--DELETE-->
                 <Button
-                            Content="{Binding Source={StaticResource DeleteIcon}}"
+                            Content="{Binding Source={StaticResource IcoDelete}}"
                             FontSize="24" HorizontalAlignment="Left"
                             Command="{Binding DeleteFilterCommand}"
                             Background="DarkRed"

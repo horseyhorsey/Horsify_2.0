@@ -291,7 +291,7 @@
                     Height="50" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"                    
                     Command="{Binding DataContext.RunSearchCommand, ElementName=LayoutRoot}"
-                    Content="{DynamicResource Icon_Search}"
+                    Content="{DynamicResource IcoSearch}"
                     Style="{DynamicResource TransparentButtonBases}"
                             />
 
@@ -300,7 +300,7 @@
                     Height="50" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"                                                                            
                             Command="{Binding DataContext.ShowSavedFiltersCommand, ElementName=LayoutRoot}"                            
-                            Content="{DynamicResource BookmarksIcon}"
+                            Content="{DynamicResource IcoBookmark}"
                     Style="{DynamicResource TransparentButtonBases}"
                             />
 
@@ -308,7 +308,7 @@
                     <Button                     Height="50" Width="65"
                     FontSize="58" VerticalAlignment="Bottom"  
                             Command="{Binding DataContext.SaveFilterCommand, ElementName=LayoutRoot}"
-                            Content="{DynamicResource SaveIcon}"
+                            Content="{DynamicResource IcoSave}"
                     Style="{DynamicResource TransparentButtonBases}"
                             />
                     <!---->
@@ -385,7 +385,7 @@
         >
 
                 <Button Command="{Binding ClearSelectionsCommand}"
-        Content="{DynamicResource DeleteIcon}"
+        Content="{DynamicResource IcoDelete}"
         Width="100"
         Style="{DynamicResource TransparentButtonBases}"
         />

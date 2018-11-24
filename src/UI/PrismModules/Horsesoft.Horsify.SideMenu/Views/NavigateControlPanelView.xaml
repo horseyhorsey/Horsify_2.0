@@ -101,7 +101,7 @@
 
                 <!--TURNTABLEVIEW-->
                 <horsify:SmartButton x:Name="buttonsearch" ToolBar.OverflowMode="AsNeeded"
-                                    Content="{Binding Source={StaticResource VinylIconSvg}}"
+                                    Content="{Binding Source={StaticResource IcoRecord}}"
                                     Grid.Row="0" HorizontalAlignment="Center"
                                     Margin="5" Height="50" Width="50"                                       
                                     Background="{DynamicResource Brush_Metal}"                    
@@ -146,7 +146,7 @@
                                 BorderThickness="0.7"                        
                                 Command="{Binding NavigateViewCommand}" CommandParameter="PlaylistsView"
                                 Style="{DynamicResource ButtonTopMenuStyle}"
-                                Content="{Binding Source={StaticResource PlaylistSvg}}"
+                                Content="{Binding Source={StaticResource IcoPlaylist}}"
                                 
                         FontWeight="DemiBold" FontSize="32"
                         >
@@ -162,8 +162,8 @@
                         DockPanel.Dock="Top" IsTabStop="False"                     
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         Content="⚙" Margin="5" 
-                        FontWeight="DemiBold"  
-                        Height="50" Width="50" FontSize="38"
+                        FontWeight="ExtraBold"  
+                        Height="50" Width="50" FontSize="44"
                         Background="{DynamicResource Brush_Metal}"
                         Style="{DynamicResource ButtonTopMenuStyle}"
                         Command="{Binding NavigateViewCommand}"     

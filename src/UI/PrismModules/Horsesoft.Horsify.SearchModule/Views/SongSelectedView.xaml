@@ -86,7 +86,7 @@
             <Label Content="BACK" FontSize="22"/>
             <Button                
                 Command="{Binding GoBackCommand}" 
-                Content="{Binding Source={StaticResource Icon_ArrowLeft}}"                
+                Content="{Binding Source={StaticResource IcoArrowLeft}}"                
                         />
         </StackPanel>
 
@@ -130,7 +130,7 @@
                     <Label Content="PLAY" FontSize="22"/>
                     <Button Command="{Binding PlayCommand}" 
                             Style="{DynamicResource TransparentButtonBases}"
-                Content="{Binding Source={StaticResource Icon_play_Two}}"                
+                Content="{Binding Source={StaticResource IcoPlay}}"                
                         />
                 </StackPanel>
 
@@ -138,7 +138,7 @@
                     <Label Content="QUEUE" FontSize="22"/>
                     <Button
                 Command="{Binding QueueSongsCommand}" 
-                Content="{Binding Source={StaticResource IconQueueTwo}}"    
+                Content="{Binding Source={StaticResource IcoQueue}}"    
                         Style="{DynamicResource TransparentButtonBases}"
                         />
                 </StackPanel>
@@ -147,7 +147,7 @@
                     <Label Content="PLAYLIST" FontSize="22"/>
                     <Button
                 Command="{Binding DataContext.AddToPlayListCommand, ElementName=LayoutRoot}" 
-                Content="{Binding Source={StaticResource PlaylistSvg}}"  
+                Content="{Binding Source={StaticResource IcoPlaylist}}"  
                 CommandParameter="{Binding Path=SelectedSong}"
                         Style="{DynamicResource TransparentButtonBases}"
                         />
@@ -181,7 +181,7 @@
                     Visibility="{Binding SelectedSong.Artist, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Artist"
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource ArtistIcon}}" />
+                    Content="{Binding Source={StaticResource IcoArtist}}" />
 
             <!--TITLE SEARCH-->
             <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="2" 
@@ -189,7 +189,7 @@
                     Visibility="{Binding SelectedSong.Title, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Title"                        
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource Icon_Genre}}"
+                    Content="{Binding Source={StaticResource IcoGenre}}"
                     />
 
             <!--ALBUM SEARCH-->
@@ -198,7 +198,7 @@
                     Visibility="{Binding SelectedSong.Album, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Album"                        
                     Command="{Binding SearchSongsCommand}"
-                    Content="{Binding Source={StaticResource RecordLabelIcon}}"
+                    Content="{Binding Source={StaticResource IcoAlbum}}"
                     />
 
             <!--GENRE SEARCH-->
@@ -207,7 +207,7 @@
                     Visibility="{Binding SelectedSong.Genre, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Genre"                        
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource Icon_Genre}}"
+                    Content="{Binding Source={StaticResource IcoGenre}}"
                     />
 
             <!--LABEL SEARCH-->
@@ -216,7 +216,7 @@
                     SearchString="{Binding SelectedSong.Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Label"                        
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource Icon_Genre}}"                    
+                    Content="{Binding Source={StaticResource IcoLabel}}"                    
                     />
 
             <!--YEAR SEARCH-->
@@ -224,7 +224,7 @@
                     SearchString="{Binding SelectedSong.Year, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Year"                        
                     Command="{Binding SearchSongsCommand}"                     
-                    Content="{Binding Source={StaticResource Icon_Genre}}"
+                    Content="{Binding Source={StaticResource IcoYear}}"
                     Visibility="{Binding SelectedSong.Year, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     />
 

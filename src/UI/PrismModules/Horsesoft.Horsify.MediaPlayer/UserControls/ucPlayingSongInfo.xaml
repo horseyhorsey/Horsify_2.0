@@ -40,13 +40,13 @@
 
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200" MinWidth="200" MaxWidth="200"/>
+                <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
 
             <!--ARTIST WITH SEARCH-->
@@ -149,7 +149,7 @@
                     >
 
                 <!--SONG TIME-->
-                <TextBlock x:Name="songTime" Text="{Binding MediaControlModel.CurrentSongPosition, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}-}" />
+                <TextBlock x:Name="songTime" MaxWidth="100" Text="{Binding MediaControlModel.CurrentSongPosition, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}-}" />
                 <TextBlock x:Name="songDuration" Margin="-4,0"
                    Text="{Binding MediaControlModel.CurrentSongTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:hh':'mm':'ss}}" />
             </StackPanel>

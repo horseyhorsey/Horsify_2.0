@@ -34,14 +34,14 @@
     <!--PLAY / QUEUE / PLAYLIST PANEL-->
     <DataTemplate x:Key="SongCtrlPanel">
         <StackPanel Orientation="Horizontal">
-            <Button Content="{DynamicResource IconQueueTwo}" 
+            <Button Content="{DynamicResource IcoQueue}" 
                             Height="32"
                         Command="{Binding ElementName=LayoutRoot, Path=DataContext.QueueSongCommand}" 
                         CommandParameter="{Binding}"
                             />
             <!--CommandParameter="{Binding}"-->
             <Button Height="32"
-                            Content="{DynamicResource Icon_play_Two}" 
+                            Content="{DynamicResource IcoPlay}" 
                         Command="{Binding ElementName=LayoutRoot, Path=DataContext.PlaySongCommand}" 
                         CommandParameter="{Binding}"
                         />
@@ -528,13 +528,13 @@
                 <!--PLAYLIST QUEUE-->
                 <!--TODO: MOVE PLAYLIST COMMANDS TO USE THE OTHER BASE VIEW MODEL-->
                 <StackPanel HorizontalAlignment="Center" Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="3">
-                    <Button Content="{DynamicResource IconQueueTwo}" 
+                    <Button Content="{DynamicResource IcoQueue}" 
                             Height="36"
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.AddToQueueCommand}" 
                         CommandParameter="{Binding}"                            
                             />
                     <Button Height="36"
-                            Content="{DynamicResource Icon_play_Two}" 
+                            Content="{DynamicResource IcoPlay}" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.PlayItemCommand, FallbackValue={x:Null}}" 
                         CommandParameter="{Binding}"/>
 
@@ -545,7 +545,7 @@
                         CommandParameter="{Binding}"/>
 
                     <Button Height="36"
-                            Content="{DynamicResource DeleteIcon}" 
+                            Content="{DynamicResource IcoDelete}" 
                         Command="{Binding ElementName=PlaylistItemsRoot, Path=DataContext.RemoveItemCommand, FallbackValue={x:Null}}" 
                         CommandParameter="{Binding}"/>
                 </StackPanel>
@@ -724,7 +724,7 @@
             </StackPanel>
 
             <!--REMOVE FROM QUEUE BUTTON-->
-            <Button Content="{DynamicResource DeleteIcon}"
+            <Button Content="{DynamicResource IcoDelete}"
                         Width="25" Opacity="1"      
                         Margin="0,0,0,20"
                         Style="{DynamicResource Style_ButtonNoEffects}"

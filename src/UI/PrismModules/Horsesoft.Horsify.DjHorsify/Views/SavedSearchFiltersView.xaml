@@ -13,8 +13,8 @@
                         <GroupBox Header="{Binding Name}" TextElement.FontSize="24" Margin="5">
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="DJ" Command="{Binding ElementName=LayoutRoot, Path=DataContext.LoadSavedFilterCommand}" Margin="3"/>
-                                <Button Content="{DynamicResource Icon_Search}" Command="{Binding ElementName=LayoutRoot, Path=DataContext.SearchFilterCommand}" Margin="3"/>
-                                <Button Content="{DynamicResource DeleteIcon}" Command="{Binding ElementName=LayoutRoot, Path=DataContext.DeleteFilterCommand}" Margin="3"/>
+                                <Button Content="{DynamicResource IcoSearch}" Command="{Binding ElementName=LayoutRoot, Path=DataContext.SearchFilterCommand}" Margin="3"/>
+                                <Button Content="{DynamicResource IcoDelete}" Command="{Binding ElementName=LayoutRoot, Path=DataContext.DeleteFilterCommand}" Margin="3"/>
                             </StackPanel>
                         </GroupBox>
                     </DataTemplate>

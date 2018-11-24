@@ -319,7 +319,7 @@
                                FontSize="32"
                                    Margin="3"
                                />
-                        <Button Content="{DynamicResource DeleteIcon}" Command="{Binding CloseAllTabsCommand}"/>
+                        <Button Content="{DynamicResource IcoDelete}" Command="{Binding CloseAllTabsCommand}"/>
                     </StackPanel>
                 </Border>
 

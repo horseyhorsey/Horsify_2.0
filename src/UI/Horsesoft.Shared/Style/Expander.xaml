@@ -8,7 +8,7 @@
         <Setter Property="Header">
             <Setter.Value>
                 <StackPanel>
-                    <ContentPresenter Content="{DynamicResource Icon_Rating}" Width="48" Margin="5"/>
+                    <ContentPresenter Content="{DynamicResource IcoRating}" Width="48" Margin="5"/>
                     <TextBlock Text="RATING " 
                                FontSize="64" Foreground="Black">
                         <TextBlock.LayoutTransform>
@@ -26,7 +26,7 @@
         <Setter Property="Header">
             <Setter.Value>
                 <StackPanel>
-                    <ContentPresenter Content="{DynamicResource Icon_Speed}" Width="48"/>
+                    <ContentPresenter Content="{DynamicResource IcoSpeed}" Width="48"/>
                     <TextBlock Text="SPEED " 
                                FontSize="64" Foreground="Black">
                         <TextBlock.LayoutTransform>
@@ -45,7 +45,7 @@
         <Setter Property="Header">
             <Setter.Value>
                 <StackPanel>
-                    <ContentPresenter Content="{DynamicResource Icon_MusicNote}" Width="48"/>
+                    <ContentPresenter Content="{DynamicResource IcoMusicNote}" Width="48"/>
                     <TextBlock Text="HARMONIC " 
                                FontSize="64" Foreground="Black">
                         <TextBlock.LayoutTransform>

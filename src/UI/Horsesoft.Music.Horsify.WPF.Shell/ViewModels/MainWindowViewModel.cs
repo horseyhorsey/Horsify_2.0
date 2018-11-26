@@ -42,7 +42,6 @@ namespace Horsesoft.Music.Horsify.WPF.Shell.ViewModels
             ChangeVolumeCommand = new DelegateCommand<string>((volCtrl) =>
             {
                 double value = volCtrl == "+" ? -1 : -2;
-                Log("Changing volume", Category.Debug, Priority.None);
                 eventAggregator.GetEvent<OnMediaChangedVolumeEvent<double>>().Publish(value);
             });
 

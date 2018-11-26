@@ -612,13 +612,23 @@
                             </Grid.Resources>
 
                             <!--CursorPosition="{Binding CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
-                            <controls:TextboxWithCaretIndex x:Name="SearchText" 
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <controls:TextboxWithCaretIndex x:Name="SearchText" 
                                                             IsEnabled="True"
-                                                            Margin="5"
+                                                            Margin="5"                                                             
                                                             FontSize="{TemplateBinding FontSize}"
                                                             CursorPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                             />
+
+                                <Button Content="Del" Grid.Column="1" Width="90" HorizontalAlignment="Right"/>
+                            </Grid>
 
                             <!--TOP ROW-->
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -632,7 +642,8 @@
                                 <Button Content="8"/>
                                 <Button Content="9"/>
                                 <Button Content="0"/>
-                                <Button Content="Del" Width="90"/>
+                                <Button Content="&amp;" />
+                                <Button Content="*" />
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" 

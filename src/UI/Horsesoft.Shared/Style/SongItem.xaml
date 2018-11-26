@@ -172,7 +172,6 @@
                     </StackPanel>
                 </Border>
 
-
                 <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
                                                       Style="{DynamicResource RatingViewStyle}"
                                                       StarWidth="22"
@@ -180,6 +179,19 @@
                                                       HorizontalAlignment="Left"
                                                       Margin="0,0"
                                                       />
+
+                <!--ITEM NUMBERS-->
+                <Grid x:Name="IdGrid" Grid.ColumnSpan="2">
+                    <Rectangle Fill="{DynamicResource Color_Primary}" 
+                                     Stroke="Black" 
+                                     Width="100"
+                                     Height="18"
+                                     VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="txtId" Margin="5,0" TextAlignment="Left" 
+                                       Text="{Binding Id}"
+                                       FontSize="16"
+                                       />
+                </Grid>
 
             </Grid>
 
@@ -239,12 +251,20 @@
                     <Border  BorderBrush="Black" BorderThickness="2" Grid.Column="1" CornerRadius="0,5,0,0">
                         <Grid>
                             <Rectangle Fill="#FFB1680A" Width="270" Height="20"/>
-                            <TextBlock Text="{Binding Artist}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Artist}" MaxWidth="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
 
-                    <TextBlock Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Center" Grid.Column="1"/>
-                    <TextBlock Grid.Row="2" Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1"/>
+                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.Column="1" CornerRadius="0,5,0,0">
+                        <Grid>
+                            <Rectangle Fill="#FFB1680A" Width="270" Height="20"/>
+                            <TextBlock  MaxWidth="100"  Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Grid.Row="2"  Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1"/>
                     <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Left" Grid.Column="1"/>
                     <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="150" MaxHeight="20"  HorizontalAlignment="Left" Grid.Column="1"/>
 
@@ -684,10 +704,6 @@
                                        />
                     </Grid>
 
-                    <!--MUSIC KEY-->
-                    <ContentPresenter VerticalAlignment="Top" HorizontalAlignment="Right"
-                                      ContentTemplate="{StaticResource MusicKeyQueueTemplate}"/>
-
                 </Grid>
             </Button>
 
@@ -725,15 +741,19 @@
 
             <!--REMOVE FROM QUEUE BUTTON-->
             <Button Content="{DynamicResource IcoDelete}"
-                        Width="25" Opacity="1"      
-                        Margin="0,0,0,20"
+                        Opacity="1"                              
                         Style="{DynamicResource Style_ButtonNoEffects}"
                         Background="PaleVioletRed"                        
-                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Width="25" Height="25"
+                        HorizontalAlignment="Right" VerticalAlignment="Top"
                         Command="{Binding ElementName=LayoutRoot, 
                                     Path=DataContext.RemoveSongFromQueueCommand}"
                         CommandParameter="{Binding}"
                         />
+
+            <!--MUSIC KEY-->
+            <ContentPresenter VerticalAlignment="Top" HorizontalAlignment="Center"
+                                      ContentTemplate="{StaticResource MusicKeyQueueTemplate}"/>
 
         </Grid>
 

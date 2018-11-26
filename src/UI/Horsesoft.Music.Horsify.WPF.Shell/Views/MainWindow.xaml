@@ -169,8 +169,8 @@
               Background="{DynamicResource Brush_PlasticBlack}">
 
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="45"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition MaxHeight="43"/>
+                <RowDefinition MinHeight="110" Height="165"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -193,7 +193,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="70"/>
                 </Grid.ColumnDefinitions>
                 
                 <!--QUEUED SONGS-->

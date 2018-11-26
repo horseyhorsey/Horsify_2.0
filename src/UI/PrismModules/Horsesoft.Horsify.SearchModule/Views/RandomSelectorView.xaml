@@ -59,9 +59,9 @@
                     <GroupBox Header="Select" Grid.Row="3">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-                            <Button Grid.Row="3" FontSize="48" Margin="15"
+                            <Button Grid.Row="3" FontSize="52"
                             Width="85"
-                            Height="65"
+                            Height="65" Content="&#9861;" 
                             Command="{Binding NavigateCommand}"
                             CommandParameter="true"
                             IsEnabled="True"                        

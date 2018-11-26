@@ -192,6 +192,7 @@
                                    Tag="JukeboxLabel"
                                    IsSynchronizedWithCurrentItem="True"
                                    IsTabStop="False"
+                                   AlternationCount="235"
                           >
 
                 <horsify:ListViewTouch.ItemsPanel>
@@ -257,6 +258,16 @@
 
         <!--#endregion-->
 
+        <Border CornerRadius="25" Width="300" Height="200" Background="{DynamicResource BackgroundGradient3}"
+                Visibility="{Binding HorsifyVoiceActive, Converter={StaticResource bool2vis},UpdateSourceTrigger=PropertyChanged}"
+                Opacity="0.8"
+                >
+
+            <TextBlock Text="{Binding VoiceHelper, UpdateSourceTrigger=PropertyChanged}" 
+                       FontSize="32"                        
+                       HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        </Border>
     </Grid>
 
 </UserControl>

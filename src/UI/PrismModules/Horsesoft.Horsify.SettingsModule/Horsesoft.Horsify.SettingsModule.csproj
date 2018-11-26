@@ -94,6 +94,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj">
+      <Project>{2239C208-DFE2-4BB4-8BFE-18E32A983190}</Project>
+      <Name>Horsesoft.Music.Data.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Horsesoft.Horsify.Resource\Horsesoft.Horsify.Resource.csproj">
       <Project>{f4d8055d-b9bb-4968-b3aa-f0c9e59a1c26}</Project>
       <Name>Horsesoft.Horsify.Resource</Name>

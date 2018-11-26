@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using Prism.Interactivity.InteractionRequest;
 using System.Windows.Data;
 using System.Windows;
+using Horsesoft.Music.Horsify.Base.Helpers;
 
 namespace Horsesoft.Horsify.SearchModule.ViewModels
 {
@@ -24,6 +25,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
     {
         #region Fields
         private IDjHorsifyService _djHorsifyService;
+        private IVoiceControl _voiceControl;
         private IEventAggregator _eventAggregator;
         private IRegionNavigationJournal _journal;
         private IRegionManager _regionManager;
@@ -43,13 +45,15 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
         #region Constructors
         public SearchedSongsViewModel(ISongDataProvider songDataProvider,
-            IQueuedSongDataProvider queuedSongDataProvider, ISearchHistoryProvider searchHistory,
+            IQueuedSongDataProvider queuedSongDataProvider, ISearchHistoryProvider searchHistory, IVoiceControl voiceControl,
             IEventAggregator eventAggregator, IRegionManager regionManager, IDjHorsifyService djHorsifyService, ILoggerFacade loggerFacade) : base(queuedSongDataProvider, eventAggregator, loggerFacade)
         {
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
 
             _djHorsifyService = djHorsifyService;
+            _voiceControl = voiceControl;
+            _voiceControl.VoiceCommandSent += _voiceControl_VoiceCommandSent;
 
             _songDataProvider = songDataProvider;
             _searchHistory = searchHistory;
@@ -65,6 +69,89 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             RequestSortDialogRequest = new InteractionRequest<INotification>();
             RequestViewCommand = new DelegateCommand<string>((viewName) => OnRequestView(viewName));
         }
+
+        private void _voiceControl_VoiceCommandSent(string voicetext)
+        {
+            Log(voicetext);
+
+            if (voicetext == "horsify search")
+            {
+                HorsifyVoiceActive = true;
+                Log($"{voicetext} - activated");
+                VoiceHelper = "Horsify Search";
+            }          
+            else if(voicetext == "horsify play")
+            {
+                HorsifyVoiceActive = true;
+                Log($"{voicetext} - activated");
+                VoiceHelper = "What's the Song Id?";
+            }
+            else if (voicetext == "horsify queue")
+            {
+                HorsifyVoiceActive = true;
+                Log($"{voicetext} - activated");
+                VoiceHelper = "Queue Song Id...";
+            }
+            else
+            {
+                if (_voiceControl.Command == VoiceCommand.Search)
+                {
+                    _regionManager.RequestNavigate(Regions.ContentRegion, ViewNames.SearchedSongsView, NavigationHelper.CreateSearchFilterNavigation(
+                        new SearchFilter($"%{voicetext}%")));
+
+                    HorsifyVoiceActive = false;
+                }        
+                else if (_voiceControl.Command == VoiceCommand.Play)
+                {
+                    var songId = 0;
+                    int.TryParse(voicetext, out songId);
+
+                    if (songId > 0)
+                    {
+                        var songToPlay = this.SearchedSongs
+                        .FirstOrDefault((x) => x.Id == songId);
+
+                        if (songToPlay != null)
+                        {
+                            Log($"Playing song {voicetext}");
+                            _eventAggregator
+                                .GetEvent<OnMediaPlay<AllJoinedTable>>().Publish(songToPlay);
+                        }
+                        else
+                        {
+                            Log($"Couldn't find song to play: {voicetext}");
+                        }
+                    }
+
+                    HorsifyVoiceActive = false;
+                }
+                else if (_voiceControl.Command == VoiceCommand.Queue)
+                {
+                    var songId = 0;
+                    int.TryParse(voicetext, out songId);
+
+                    if (songId > 0)
+                    {
+                        var songToPlay = this.SearchedSongs
+                        .FirstOrDefault((x) => x.Id == songId);
+
+                        if (songToPlay != null)
+                        {
+                            Log($"Queueing song {voicetext}");
+                            _queuedSongDataProvider.Add(songToPlay);
+                        }
+                        else
+                        {
+                            Log($"Couldn't find song to queue: {voicetext}");
+                        }
+                    }
+
+                    HorsifyVoiceActive = false;
+                }
+            }
+        }
+
+
 
         #endregion
 
@@ -101,6 +188,26 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             get { return _isBusy; }
             set { SetProperty(ref _isBusy, value); }
+        }
+
+        private bool _voiceActive;
+        /// <summary>
+        /// Gets or Sets the IsBusy flag
+        /// </summary>
+        public bool HorsifyVoiceActive
+        {
+            get { return _voiceActive; }
+            set { SetProperty(ref _voiceActive, value); }
+        }
+
+        private string _voiceHelper;
+        /// <summary>
+        /// Gets or Sets the IsBusy flag
+        /// </summary>
+        public string VoiceHelper
+        {
+            get { return _voiceHelper; }
+            set { SetProperty(ref _voiceHelper, value); }
         }
         #endregion
 
@@ -194,17 +301,8 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
                                 }
                             }
                         }
-
-                        IsBusy = true;
-                        this.RecentSearch.ResultCount = 0;
-                        _songDataProvider.SearchLikeFiltersAsync(filter, 0)
-                            .ContinueWith((x) =>
-                            {
-                                AddToSearchHistory(filter);
-                                _lastSearchFilter = filter;
-                                UpdateSearchHistory(filter);
-                                PublishSearchFinished();
-                            });
+                        
+                        RunSearchFilter(filter);
                         return;
                     }
 
@@ -239,6 +337,21 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
 
                 }
             }
+        }
+
+        private void RunSearchFilter(SearchFilter filter)
+        {
+            IsBusy = true;
+
+            this.RecentSearch.ResultCount = 0;
+            _songDataProvider.SearchLikeFiltersAsync(filter, 0)
+                .ContinueWith((x) =>
+                {
+                    AddToSearchHistory(filter);
+                    _lastSearchFilter = filter;
+                    UpdateSearchHistory(filter);
+                    PublishSearchFinished();
+                });
         }
 
         private bool CanNavigateFrom()

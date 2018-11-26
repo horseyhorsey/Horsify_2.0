@@ -12,6 +12,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -43,6 +44,15 @@
                 <Button Background="Orange" Click="ChangeSkinColorButton_Click"
                             CommandParameter="Style\\MelonSkin.xaml"
                             />
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" 
+                  Header="Voice" FontSize="32">
+            <StackPanel Orientation="Horizontal">
+
+                <CheckBox Content="Enabled" IsChecked="{Binding VoiceEnabled, UpdateSourceTrigger=PropertyChanged}"/>
 
             </StackPanel>
         </GroupBox>

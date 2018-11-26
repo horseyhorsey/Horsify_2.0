@@ -1,17 +1,11 @@
 ﻿using Horsesoft.Music.Data.Model;
-using Horsesoft.Music.Horsify.Base.ViewModels;
-using Prism.Logging;
 using Prism.Mvvm;
 using System;
 
-namespace Horsesoft.Horsify.MediaPlayer.Model
+namespace Horsesoft.Music.Horsify.Base.Model
 {
     public class MediaControl : BindableBase
     {
-        public MediaControl()
-        {
-        }
-
         #region Properties
 
         private AllJoinedTable _currentSong;

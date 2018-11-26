@@ -175,6 +175,7 @@
     <Compile Include="Interface\ISongPlayingInfo.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Model\DjHorsifyFilterModel.cs" />
+    <Compile Include="Model\MediaControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\HorsifyBindableBase.cs" />
     <Compile Include="ViewModels\HorsifySongPlayBindableBase.cs" />

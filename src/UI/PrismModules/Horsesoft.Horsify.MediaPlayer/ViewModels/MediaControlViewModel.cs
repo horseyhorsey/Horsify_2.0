@@ -1,7 +1,7 @@
-﻿using Horsesoft.Horsify.MediaPlayer.Model;
-using Horsesoft.Music.Data.Model;
+﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Base.Model;
 using Prism.Events;
 using Prism.Logging;
 using System;
@@ -9,7 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 namespace Horsesoft.Horsify.MediaPlayer.ViewModels
-{    
+{
     /// <summary>
     /// The mini media control in now playing panel.
     /// </summary>
@@ -22,19 +22,14 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             IHorsifyMediaController horsifyMediaController, ISongDataProvider songDataProvider, MediaControl mediaControl) 
             : base(loggerFacade, horsifyMediaController, eventAggregator, mediaControl)
         {
-            _songDataProvider = songDataProvider;
-
+            _songDataProvider = songDataProvider;            
             #region Events
             //Update SelectedSong
             _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>()
             .Subscribe(song => { OnSongChangedLoaded(song); }, ThreadOption.UIThread);
 
             //Queue completed
-            _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Subscribe(() =>
-            {
-                _loggerFacade.Log($"Queued Jobs Completed", Category.Debug, Priority.Medium);
-                ResetSelectedSong();
-            }, ThreadOption.UIThread);
+            _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Subscribe(() => { OnQueueCompletedMessage();}, ThreadOption.UIThread);
 
 
             #region Events
@@ -53,8 +48,22 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         /// </summary>
         private void OnMediaFinsished()
         {
+            MediaControlModel.IsPlaying = false;
             //Application.Current.Dispatcher.Invoke(() => );            
             _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
+        }
+
+        private void OnQueueCompletedMessage()
+        {
+            if (!this.MediaControlModel.IsPlaying)
+            {
+                Log("None playing. Resetting song");
+                ResetSelectedSong();
+            }
+            else
+            {
+                Log("Still playing. Not resetting song");
+            }
         }
 
         private void OnSongChangedLoaded(AllJoinedTable song)
@@ -111,7 +120,7 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         {
             try
             {
-                Log("Clearing song");
+                Log("Clear song");
                 MediaControlModel.Clear();
             }
             catch (Exception ex)

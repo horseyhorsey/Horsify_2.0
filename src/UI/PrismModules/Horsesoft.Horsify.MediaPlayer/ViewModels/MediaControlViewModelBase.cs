@@ -1,13 +1,11 @@
-﻿using Horsesoft.Horsify.MediaPlayer.Model;
-using Horsesoft.Music.Data.Model;
-using Horsesoft.Music.Horsify.Base;
+﻿using Horsesoft.Music.Data.Model;
 using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Base.Model;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
 using System;
-using System.Windows;
 
 namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 {

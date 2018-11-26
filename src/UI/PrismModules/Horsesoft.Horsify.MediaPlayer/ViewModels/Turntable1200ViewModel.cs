@@ -1,5 +1,5 @@
-﻿using Horsesoft.Horsify.MediaPlayer.Model;
-using Horsesoft.Music.Horsify.Base.Interface;
+﻿using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Horsify.Base.Model;
 using Prism.Events;
 using Prism.Logging;
 

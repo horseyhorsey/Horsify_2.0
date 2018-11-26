@@ -3,8 +3,7 @@ using Prism.Regions;
 using Microsoft.Practices.Unity;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Horsify.MediaPlayer.Views;
-using Horsesoft.Music.Horsify.Base.Interface;
-using Prism.Logging;
+using Horsesoft.Music.Horsify.Base.Model;
 
 namespace Horsesoft.Horsify.MediaPlayer
 {
@@ -23,7 +22,7 @@ namespace Horsesoft.Horsify.MediaPlayer
         {
 
             //Create singleton MediaControl model so it can be shared
-            _container.RegisterInstance(new Model.MediaControl(), new ContainerControlledLifetimeManager());
+            _container.RegisterInstance(new MediaControl(), new ContainerControlledLifetimeManager());
 
             _regionManager.RegisterViewWithRegion(Regions.ContentRegion, typeof(SongPlaying3dView));                        
             _regionManager.RegisterViewWithRegion(Regions.SongPlayingViewRightRegion, typeof(Turntable1200View));            

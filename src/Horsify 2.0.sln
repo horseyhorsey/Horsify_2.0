@@ -69,6 +69,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HorsifyBlazor", "UI\Horsify
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Horsesoft.Horsify.Speech", "BLL\Horsesoft.Horsify.Speech\Horsesoft.Horsify.Speech.csproj", "{083F7F14-1903-4AC4-AE44-628E7735E1F0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "!Shared", "!Shared", "{BE1E73C1-2CF4-43DA-9B73-7AB36E53B1CB}"
+	ProjectSection(SolutionItems) = preProject
+		Shared\SharedAssemblyInfo.cs = Shared\SharedAssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UI\Horsesoft.Shared\Horsesoft.Shared.projitems*{8c66c47f-cfea-4d41-8abb-a58b10681a67}*SharedItemsImports = 13

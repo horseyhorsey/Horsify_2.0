@@ -1,9 +1,9 @@
 ﻿using Prism.Modularity;
 using Prism.Regions;
 using Microsoft.Practices.Unity;
-using Horsesoft.Music.Engine;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Data.Model.Horsify;
+using Horsesoft.Horsify.Speech;
 
 namespace Horsesoft.Horsify.ServicesModule
 {

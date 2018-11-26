@@ -19,7 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="genres.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>

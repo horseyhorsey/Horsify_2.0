@@ -3,7 +3,7 @@ using SpeechLib;
 using System;
 using System.Speech.Recognition;
 
-namespace Horsesoft.Music.Engine
+namespace Horsesoft.Horsify.Speech
 {
 
     public class VoiceControl : IVoiceControl

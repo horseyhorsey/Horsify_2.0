@@ -342,7 +342,9 @@
       <Component Win64="$(var.Win64)" Id="Vlc.DotNet.Core.Interops.dll"  Guid="{E0A6C35C-94E3-4293-A53F-56E9058AB706}">
         <File Id="Vlc.DotNet.Core.Interops.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Vlc.DotNet.Core.Interops.dll" />
       </Component>
-
+      <Component Win64="$(var.Win64)" Id="Horsesoft.Horsify.Speech.dll"  Guid="{9FB07247-D9D0-43CD-9B71-B03E7BF01A0C}">
+        <File Id="Horsesoft.Horsify.Speech.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Horsesoft.Horsify.Speech.dll" />
+      </Component>
     </ComponentGroup>
   </Fragment>
 
@@ -1653,7 +1655,7 @@
     <ComponentGroup Id="ProductData" Directory="DATAFOLDER">
       <!--JSON Menus-->
       <Component Id="genres.json" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
-        <File Id="genres.json" Source="..\..\Build\$(var.Platform)\genres.json" />
+        <File Id="genres.json" Source="..\..\Data\Horsesoft.Music.Data.Model\genres.json" />
       </Component>
     </ComponentGroup>
   </Fragment>

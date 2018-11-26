@@ -112,9 +112,9 @@
     <PackageReference Include="Prism.Unity" Version="6.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BLL\Horsesoft.Music.Engine\Horsesoft.Music.Engine.csproj">
-      <Project>{afe60c4d-8b71-4b87-9361-bdb07c369c15}</Project>
-      <Name>Horsesoft.Music.Engine</Name>
+    <ProjectReference Include="..\..\..\BLL\Horsesoft.Horsify.Speech\Horsesoft.Horsify.Speech.csproj">
+      <Project>{083f7f14-1903-4ac4-ae44-628e7735e1f0}</Project>
+      <Name>Horsesoft.Horsify.Speech</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\BLL\Horsesoft.Vlc\Horsesoft.Vlc.csproj">
       <Project>{5a6e059a-271f-4332-8514-85eb94a8d1c7}</Project>

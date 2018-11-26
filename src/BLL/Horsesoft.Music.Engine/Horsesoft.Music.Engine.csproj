@@ -51,10 +51,6 @@
       <HintPath>..\..\packages\ID3.0.3.0\lib\net40\Id3.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Interop.SpeechLib">
-      <HintPath>..\HorsifyEngineTest.Console\obj\Debug\Interop.SpeechLib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="netstandard" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -62,9 +58,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Speech">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,7 +78,6 @@
     <Compile Include="Tagging\ISongTagger.cs" />
     <Compile Include="Tagging\SongTaggerId3.cs" />
     <Compile Include="Tagging\SongTaggerTagLib.cs" />
-    <Compile Include="Voice.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

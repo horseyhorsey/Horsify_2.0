@@ -22,7 +22,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
     {
         #region Commands
         public ICommand CloseViewCommand { get; private set; }
-        public ICommand SaveFilterCommand { get; private set; }
+        public DelegateCommand SaveFilterCommand { get; private set; }
         #endregion
 
         private IDjHorsifyService _djHorsifyService;
@@ -35,7 +35,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             _regionManager = regionManager;
 
             CloseViewCommand = new DelegateCommand(OnCloseView);
-            SaveFilterCommand = new DelegateCommand(async () => await OnSaveFilterAsync());
+            SaveFilterCommand = new DelegateCommand(async () => await OnSaveFilterAsync(), CanExecuteSave);
         }
 
         #endregion
@@ -48,11 +48,22 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         public string SearchFilterName
         {
             get { return _searchFilterName; }
-            set { SetProperty(ref _searchFilterName, value); }
+            set
+            {
+                if (SetProperty(ref _searchFilterName, value))
+                    SaveFilterCommand.RaiseCanExecuteChanged();
+
+            }
         }
         #endregion
 
         #region Private Methods
+
+        private bool CanExecuteSave()
+        {
+            var name = this.SearchFilterName;
+            return name?.Length > 3;
+        }
 
         private void OnCloseView()
         {
@@ -68,7 +79,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             var filter = _djHorsifyService.SavedFilters.FirstOrDefault(x => x.Name == SearchFilterName);
             if (filter != null)
             {
-                var id  = filter.Id;
+                var id = filter.Id;
                 Log($"Attempting to update FiltersSearch for : {filter.Name}");
                 var tempFilter = CreateFilterSearch();
 
@@ -94,7 +105,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
                 FiltersSearch newFilter = CreateFilterSearch();
                 Log("Generated searchfilter");
 
-                Log("Adding filter Async");                
+                Log("Adding filter Async");
                 var result = await _djHorsifyService.AddSavedSearchFilterAsync(newFilter);
                 if (result)
                 {

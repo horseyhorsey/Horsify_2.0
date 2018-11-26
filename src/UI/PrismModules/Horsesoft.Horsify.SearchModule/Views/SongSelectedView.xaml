@@ -15,52 +15,20 @@
         <!--BUTTON STYLE-->
         <Style TargetType="horsify:HorsifySearchButton">
             <Setter Property="Command" Value="{Binding SearchSongsCommand}"/>
-            <Setter Property="FontSize" Value="62"/>
+            <Setter Property="FontSize" Value="48"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="ButtonContentSize" Value="48"/>
         </Style>
     </UserControl.Resources>
 
     <Grid Margin="20" x:Name="LayoutRoot" Visibility="Visible">
 
-        <!--#region GRID DEFINITIONS-->
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!--#endregion-->
-
-        
-        <!--ALBUM ART BACKGROUND-->
-        <!--<Border x:Name="ImgBgBorder" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                BorderBrush="{DynamicResource Color_Primary}"
-                BorderThickness="2"
-                CornerRadius="30">
-
-            <Image Stretch="Fill" Opacity="0.3" StretchDirection="UpOnly"
-                   Height="2000" Width="5000"
-                   >
-                <Image.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=ImgBgBorder}"/>
-                </Image.OpacityMask>
-
-            </Image>
-        </Border>-->
-
-        <Border Grid.RowSpan="2" Grid.ColumnSpan="2"
-                
+        <!--BACKGROUND-->
+        <Border                 
                 BorderBrush="{DynamicResource Color_Primary}" BorderThickness="3"
                 CornerRadius="40" >
             <Grid>
-                <Border Name="myBorder" Opacity="0.1" CornerRadius="40" Background="Black"/>
+                <Border Name="myBorder" Opacity="0.05" CornerRadius="40" Background="Black"/>
                 <Image Stretch="Fill" StretchDirection="UpOnly">
                     <Image.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=myBorder}"/>
@@ -79,66 +47,49 @@
                 </Image>
             </Grid>
         </Border>
+        
+        <Grid>
+            <!--#region GRID DEFINITIONS-->
 
-        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Left"
-                    Margin="50,0"
-                    >
-            <Label Content="BACK" FontSize="22"/>
-            <Button                
-                Command="{Binding GoBackCommand}" 
-                Content="{Binding Source={StaticResource IcoArrowLeft}}"                
-                        />
-        </StackPanel>
-
-        <!--ART< PLAY AND QUEUE-->
-        <Grid Grid.Column="0" Margin="50" Grid.Row="1"
-                  VerticalAlignment="Top"
-                  HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!--ALBUM ART-->
-            <Image Stretch="Uniform" Grid.Row="0"                        
-                        MaxWidth="480">
-                <Image.Effect>
-                    <DropShadowEffect ShadowDepth="10"
-                                          BlurRadius="30"
-                                          Direction="155">
-                    </DropShadowEffect>
-                </Image.Effect>
-
-                <Image.Style>
-                    <Style TargetType="{x:Type Image}">
-                        <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
-
-                        <Style.Triggers>
-                            <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
-                                <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
+            <!--#endregion-->
 
             <!--PLAY - QUEUE-->
-            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center">
+
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource TransparentButtonBases}">
+                        <Setter Property="Height" Value="175"/>
+                        <Setter Property="Width" Value="175"/>
+                    </Style>
+                </StackPanel.Resources>
 
                 <StackPanel Orientation="Vertical">
                     <Label Content="PLAY" FontSize="22"/>
                     <Button Command="{Binding PlayCommand}" 
                             Style="{DynamicResource TransparentButtonBases}"
-                Content="{Binding Source={StaticResource IcoPlay}}"                
+                            Content="{Binding Source={StaticResource IcoPlay}}"                
                         />
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">
                     <Label Content="QUEUE" FontSize="22"/>
                     <Button
-                Command="{Binding QueueSongsCommand}" 
-                Content="{Binding Source={StaticResource IcoQueue}}"    
+                        Command="{Binding QueueSongsCommand}" 
+                        Content="{Binding Source={StaticResource IcoQueue}}"    
                         Style="{DynamicResource TransparentButtonBases}"
                         />
                 </StackPanel>
@@ -146,45 +97,82 @@
                 <StackPanel Orientation="Vertical">
                     <Label Content="PLAYLIST" FontSize="22"/>
                     <Button
-                Command="{Binding DataContext.AddToPlayListCommand, ElementName=LayoutRoot}" 
-                Content="{Binding Source={StaticResource IcoPlaylist}}"  
-                CommandParameter="{Binding Path=SelectedSong}"
+                        Command="{Binding DataContext.AddToPlayListCommand, ElementName=LayoutRoot}" 
+                        Content="{Binding Source={StaticResource IcoPlaylist}}"  
+                        CommandParameter="{Binding Path=SelectedSong}"
                         Style="{DynamicResource TransparentButtonBases}"
                         />
                 </StackPanel>
+
+                <!--CLOSE-->
+                <Button Grid.Row="0" 
+                    Style="{DynamicResource BtnCloseStyle}"
+                        Margin="0,0"
+                        VerticalAlignment="Bottom"
+                        />
+
             </StackPanel>
 
-        </Grid>
+            <!--ART -->
+            <Grid Grid.Column="0" Grid.Row="1"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+              Margin="50">
 
-        <!--SEARCH BUTTONS GRID-->
-        <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+                <!--ALBUM ART-->
+                <Image Stretch="Uniform" Grid.Row="0"                        
+                        MaxWidth="480">
+                    <Image.Effect>
+                        <DropShadowEffect ShadowDepth="10"
+                                          BlurRadius="30"
+                                          Direction="155">
+                        </DropShadowEffect>
+                    </Image.Effect>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="0"/>
-            </Grid.RowDefinitions>
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="{Binding SelectedSong.ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
 
-            <!--#region BUTTONS-->
+                            <Style.Triggers>
+                                <DataTrigger  Binding="{Binding SelectedSong.ImageLocation}" Value="{x:Null}">
+                                    <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
 
-            <Label Content="SEARCH" FontSize="16"/>
+            </Grid>
 
-            <!--ARTIST WITH SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1" Grid.Row="1"
+            <!--SEARCH BUTTONS GRID-->
+            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="0"/>
+                </Grid.RowDefinitions>
+
+                <!--#region BUTTONS-->
+
+                <Label Content="SEARCH" FontSize="16"/>
+
+                <!--ARTIST WITH SEARCH-->
+                <horsify:HorsifySearchButton Grid.Column="1" Grid.Row="1"
                     SearchString="{Binding SelectedSong.Artist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  
                     Visibility="{Binding SelectedSong.Artist, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Artist"
                     Command="{Binding SearchSongsCommand}"                     
                     Content="{Binding Source={StaticResource IcoArtist}}" />
 
-            <!--TITLE SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="2" 
+                <!--TITLE SEARCH-->
+                <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="2" 
                     SearchString="{Binding SelectedSong.Title, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"                                    
                     Visibility="{Binding SelectedSong.Title, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Title"                        
@@ -192,8 +180,8 @@
                     Content="{Binding Source={StaticResource IcoGenre}}"
                     />
 
-            <!--ALBUM SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="3" 
+                <!--ALBUM SEARCH-->
+                <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="3" 
                     SearchString="{Binding SelectedSong.Album, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding SelectedSong.Album, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Album"                        
@@ -201,8 +189,8 @@
                     Content="{Binding Source={StaticResource IcoAlbum}}"
                     />
 
-            <!--GENRE SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="4" 
+                <!--GENRE SEARCH-->
+                <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="4" 
                     SearchString="{Binding SelectedSong.Genre, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"         
                     Visibility="{Binding SelectedSong.Genre, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Genre"                        
@@ -210,8 +198,8 @@
                     Content="{Binding Source={StaticResource IcoGenre}}"
                     />
 
-            <!--LABEL SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="5" 
+                <!--LABEL SEARCH-->
+                <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="5" 
                                              Visibility="{Binding SelectedSong.Label, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     SearchString="{Binding SelectedSong.Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Label"                        
@@ -219,8 +207,8 @@
                     Content="{Binding Source={StaticResource IcoLabel}}"                    
                     />
 
-            <!--YEAR SEARCH-->
-            <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="6" 
+                <!--YEAR SEARCH-->
+                <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="6" 
                     SearchString="{Binding SelectedSong.Year, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     CommandParameter="Year"                        
                     Command="{Binding SearchSongsCommand}"                     
@@ -228,8 +216,9 @@
                     Visibility="{Binding SelectedSong.Year, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     />
 
-            <!--#endregion-->
+                <!--#endregion-->
 
+            </Grid>
         </Grid>
 
     </Grid>

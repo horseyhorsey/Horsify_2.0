@@ -33,7 +33,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         #endregion
 
         #region Commands
-        public ICommand GoBackCommand { get; set; }
+        public ICommand CloseViewCommand { get; set; }
         public ICommand PlayCommand { get; set; }
         public ICommand QueueSongsCommand { get; set; }
         public ICommand SearchSongsCommand { get; set; }
@@ -47,7 +47,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             _regionManager = regionManager;
             _queuedSongDataProvider = queuedSongDataProvider;
 
-            GoBackCommand = new DelegateCommand(OnGoBack);
+            CloseViewCommand = new DelegateCommand(OnGoBack);
             PlayCommand = new DelegateCommand(OnPlay);
             QueueSongsCommand = new DelegateCommand(OnQueueSong);
             SearchSongsCommand = new DelegateCommand<string>(OnSearchSongs);            

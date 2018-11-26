@@ -14,14 +14,7 @@
     <UserControl.Resources>
         <DataTemplate x:Key="SearchItemTemplate">
             <DockPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                    <Button Content="{DynamicResource IcoPlay}" 
-                            Command="{Binding ElementName=LayoutRoot, Path=DataContext.PlaySongCommand}" 
-                            CommandParameter="{Binding}"/>
-                    <Button Content="{DynamicResource IcoQueue}" 
-                            Command="{Binding ElementName=LayoutRoot, Path=DataContext.QueueSongCommand}" 
-                            CommandParameter="{Binding}"/>
-                </StackPanel>
+
 
                 <ContentPresenter ContentTemplate="{DynamicResource SongItemMinimalArtistTitle}"
                                   DataContext="{Binding}" MaxHeight="160"

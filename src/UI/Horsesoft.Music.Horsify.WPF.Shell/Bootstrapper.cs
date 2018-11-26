@@ -70,34 +70,17 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             Container.RegisterInstance<IDjHorsifyOption>(new DjHorsifyOption(), new ContainerControlledLifetimeManager());
             Container.RegisterInstance<IHorsifySongApi>(new HorsifySongApi("http://localhost:8089/"), new ContainerControlledLifetimeManager());
 
-            var _apiService = Container.Resolve<IHorsifySongApi>();
+            var _apiService = Container.Resolve<IHorsifySongApi>();     
 
-            //Song data provider using the IHorsifySongService
-            Container.RegisterInstance<ISongDataProvider>(new SongDataProvider(_logger, _apiService), 
-                new ContainerControlledLifetimeManager());
-
-            //DJ horsify Service using the IHorsifySongService
-            Container.RegisterInstance<IDjHorsifyService>(new DjHorsifyService(Container.Resolve<IDjHorsifyOption>(), _apiService, _logger),new ContainerControlledLifetimeManager());
-
-            // Horsify Playlist services
-            Container.RegisterInstance<IPlaylistService>(new HorsifyPlaylistService(_apiService, _logger), new ContainerControlledLifetimeManager());            
-
-            //Queued Songs
-            Container.RegisterInstance<IQueuedSongDataProvider>(new QueuedSongDataProvider(),new ContainerControlledLifetimeManager());
-
-            //Song playing info
-            Container.RegisterInstance<ISongPlayingInfo> (new SongPlayingInfo(),    
-                new ContainerControlledLifetimeManager());
-            
             //TODO: Search History Provider - Add history to DB
             Container.RegisterInstance<ISearchHistoryProvider>(new SearchHistoryProvider(),
-                new ContainerControlledLifetimeManager());
+                new ContainerControlledLifetimeManager());            
 
             try
             {
                 //Media controller
                 Container.RegisterInstance<IHorsifyMediaController>(new HorsifyVlcMediaController(Properties.Settings.Default.VlcPath),
-                    new ContainerControlledLifetimeManager());
+                    new ContainerControlledLifetimeManager());  
             }
             catch (System.Exception ex)
             {

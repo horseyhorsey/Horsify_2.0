@@ -1,8 +1,9 @@
 ﻿using Prism.Modularity;
 using Prism.Regions;
-using System;
 using Microsoft.Practices.Unity;
-using Prism.Unity;
+using Horsesoft.Music.Engine;
+using Horsesoft.Music.Horsify.Base.Interface;
+using Horsesoft.Music.Data.Model.Horsify;
 
 namespace Horsesoft.Horsify.ServicesModule
 {
@@ -16,14 +17,17 @@ namespace Horsesoft.Horsify.ServicesModule
             _container = container;
             _regionManager = regionManager;
 
-            //RegisterServices(_container);
+            RegisterServices(_container);
         }
 
         private void RegisterServices(IUnityContainer container)
-        {
-            //container.RegisterInstance<HorsifyService.IHorsifySongService>(
-            //    new HorsifyService.HorsifySongServiceClient("BasicHttpBinding_IHorsifySongService"),
-            //    new ContainerControlledLifetimeManager());
+        {            
+            _container.RegisterType<ISongDataProvider, SongDataProvider>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IQueuedSongDataProvider, QueuedSongDataProvider>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IPlaylistService, HorsifyPlaylistService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IDjHorsifyService, DjHorsifyService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<ISongPlayingInfo, SongPlayingInfo>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IVoiceControl, VoiceControl>(new ContainerControlledLifetimeManager());
         }
 
         public void Initialize()

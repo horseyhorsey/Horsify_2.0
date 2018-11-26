@@ -57,6 +57,12 @@
                         />
 
                     <horsify:ButtonWithLabel 
+                        Content="{DynamicResource IcoArtist}"                                                                  
+                        CommandParameter="Title"
+                        Text="Title"
+                        />
+
+                    <horsify:ButtonWithLabel 
                         Content="{DynamicResource IcoArtist}"                                                                
                         CommandParameter="Album"
                         Text="Album"

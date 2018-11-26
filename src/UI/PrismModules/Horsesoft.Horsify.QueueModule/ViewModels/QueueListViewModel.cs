@@ -35,7 +35,7 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
         #endregion
 
         #region Constructors
-        public QueueListViewModel(IQueuedSongDataProvider queuedSongDataProvider,
+        public QueueListViewModel(IQueuedSongDataProvider queuedSongDataProvider, 
             IUnityContainer unityContainer, IEventAggregator eventAggregator, IRegionManager regionManager, IDjHorsifyService djHorsifyService, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _queuedSongDataProvider = queuedSongDataProvider;
@@ -138,9 +138,7 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
         }
 
         private async Task OnSkipQueueAsync()
-        {
-            Log("Skipping queue");
-
+        {           
             if (!this._skipQueueEventRunning)
             {
                 try
@@ -204,7 +202,11 @@ namespace Horsesoft.Horsify.QueueModule.ViewModels
                     }
 
                     //Publish queued songs
-                    if (queueIsEmpty) _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Publish();
+
+                    if (queueIsEmpty)
+                    {                        
+                        _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Publish();
+                    }
                     else
                     {
                         Log("Queue not empty. Attempting to play next song");

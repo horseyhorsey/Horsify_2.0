@@ -38,30 +38,36 @@
                                    Margin="10,0"
                                    />
 
-                        <Button Content="Skip" Width="40" Height="40"
+                        <Button Content="Skip" Foreground="Black" FontSize="16"
+                                MaxHeight="32"
                         Background="{DynamicResource Brush_Metal}"
-                        Style="{DynamicResource ButtonTopMenuStyle}"
                         Command="{Binding SkipCommand}"/>
 
                         <!--OPEN SEARCH COMMAND - SWITCH VIEWS-->
-                        <Button Width="40"
-                            Content="{Binding Source={StaticResource IcoShuffle}}" 
-                            Background="{DynamicResource Brush_Metal}"
-                            Style="{DynamicResource ButtonTopMenuStyle}"
-                            Command="{Binding ElementName=LayoutRoot,Path=DataContext.ShuffleCommand }" />
+                        <Button MaxHeight="32"
+                                Content="{Binding Source={StaticResource IcoShuffle}}" 
+                                Background="{DynamicResource Brush_Metal}"                                
+                                Command="{Binding ElementName=LayoutRoot,Path=DataContext.ShuffleCommand }" />
 
-                        <Button Width="40" MaxHeight="50"                            
-                            Content="{Binding Source={StaticResource IcoDelete}}"
-                        Background="{DynamicResource Brush_Metal}"
-                                Style="{DynamicResource ButtonTopMenuStyle}"
-                         Command="{Binding ClearCommand}"/>
+                        <Button x:Name="DeleteBtn" MaxHeight="45"
+                                Background="{DynamicResource Brush_Metal}"                                
+                                Command="{Binding ClearCommand}"
+                                >
+                            <Rectangle Fill="Black" 
+                                       Width="24" Height="32"                                       
+                                       >
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource IcoDelete}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
 
-                        <ToggleButton x:Name="toggleShuffle" Margin="1" FontSize="14"             
-                          IsChecked="{Binding Path=ShuffleEnabled, UpdateSourceTrigger=PropertyChanged}"                                       
-                          Style="{StaticResource ToggleButtonDefaultStyle}"
-                          Content="SHUFFLE" IsTabStop="False"
-                          Background="{DynamicResource Brush_Metal}" 
-                          Template="{DynamicResource ToggleButtonBaseControlTemplate}"
+                        <ToggleButton x:Name="toggleShuffle" Margin="5" FontSize="12"                                                   
+                                IsChecked="{Binding Path=ShuffleEnabled, UpdateSourceTrigger=PropertyChanged}"                                       
+                                Style="{StaticResource ToggleButtonDefaultStyle}"
+                                Content="SHUFFLE" IsTabStop="False"
+                                Background="{DynamicResource Brush_Metal}" 
+                                Template="{DynamicResource ToggleButtonBaseControlTemplate}"
                                       >
                         </ToggleButton>
                     </StackPanel>

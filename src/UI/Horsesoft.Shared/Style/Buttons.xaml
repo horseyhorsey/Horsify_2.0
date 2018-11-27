@@ -197,12 +197,12 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
+                            <!--<Setter Property="Background" Value="Transparent"/>-->
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Width" TargetName="border" Value="40"/>
-                            <Setter Property="Height" TargetName="border" Value="40"/>
+                            <Setter Property="Width" TargetName="border" Value="50"/>
+                            <Setter Property="Height" TargetName="border" Value="35"/>
                         </Trigger>
                         
                     </ControlTemplate.Triggers>

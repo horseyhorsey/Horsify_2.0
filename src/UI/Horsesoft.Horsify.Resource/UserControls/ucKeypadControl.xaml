@@ -30,7 +30,7 @@
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" MaxWidth="1200"/>
+                    <WrapPanel Orientation="Horizontal" MaxWidth="1350"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
 

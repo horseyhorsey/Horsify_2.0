@@ -76,18 +76,6 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             Container.RegisterInstance<ISearchHistoryProvider>(new SearchHistoryProvider(),
                 new ContainerControlledLifetimeManager());            
 
-            try
-            {
-                //Media controller
-                Container.RegisterInstance<IHorsifyMediaController>(new HorsifyVlcMediaController(Properties.Settings.Default.VlcPath),
-                    new ContainerControlledLifetimeManager());  
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.MessageBox.Show("Couldn't initialize VLC.");
-                throw ex;
-            }
-
         }
     }
 }

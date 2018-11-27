@@ -113,7 +113,7 @@
                 </prism:PopupWindowAction.WindowStyle>
 
                 <prism:PopupWindowAction.WindowContent>
-                    <usercontrols:ucSortSongDialog/>
+                    <views:SortSelectorView/>
                 </prism:PopupWindowAction.WindowContent>
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>
@@ -139,10 +139,6 @@
     </i:Interaction.Triggers>
 
     <Grid x:Name="LayoutRoot">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
         <!--BACKGROUND LOGO-->
         <Border d:IsHidden="False"  CornerRadius="55" Opacity="0.12" Grid.RowSpan="5" Grid.ColumnSpan="3"
@@ -197,7 +193,7 @@
 
                 <horsify:ListViewTouch.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
+                        <horsify:VirtualizingWrapPanel
                                                             Orientation="Vertical"
                                                             VirtualizingPanel.IsVirtualizing="True" 
                                                             VirtualizingPanel.ScrollUnit="Item"

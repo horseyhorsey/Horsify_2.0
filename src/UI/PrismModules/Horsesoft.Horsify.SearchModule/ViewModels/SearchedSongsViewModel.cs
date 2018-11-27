@@ -421,19 +421,61 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             _sortDialogOpen = true;
             Log($"Opening {viewName}");
-            //TODO: A better way to re-enable the side bar on completion
+
+            OpenSortingView();
+        }
+
+        /// <summary>
+        /// Opens the Sorting View / Vm
+        /// //TODO: A better way to re-enable the side bar on completion
+        /// </summary>
+        private void OpenSortingView()
+        {            
             _eventAggregator.GetEvent<HorsifySearchCompletedEvent>().Publish();
             SongsListView.CurrentChanged -= SongsListView_CurrentChanged;
-            this.RequestSortDialogRequest.Raise(new Notification { Content = SongsListView, Title = "Sort " },
-                r =>
-                {
-                    SongsListView.CurrentChanged += SongsListView_CurrentChanged;
-                    this.UpdateSortingInfo();
-                    Log("Opening sort dialog");
-                    Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
+            this.RequestSortDialogRequest.Raise(new Notification { Content = null, Title = "Sort " }, r => { OnSortViewClosed(r);});
+        }
 
-                    _sortDialogOpen = false;
-                });
+        /// <summary>
+        /// Retrives the Sortdescription from the SortViewDialog. Appies to <see cref="SongListView"/>
+        /// </summary>
+        /// <param name="r"></param>
+        private void OnSortViewClosed(INotification r)
+        {
+            if (r.Content != null)
+            {
+                //Get the sortdescription from dialog
+                var sortDescription = (SortDescription)r.Content;
+                if (sortDescription.PropertyName != null)
+                {
+                    var sortDescriptions = SongsListView.SortDescriptions;
+                    if (sortDescriptions != null)
+                    {
+                        if (sortDescriptions.Count > 0)
+                        {
+                            //Clear the previous sort decs if not null
+                            var sortDesc = sortDescriptions.FirstOrDefault(x => x.PropertyName == sortDescription.PropertyName);
+                            if (sortDesc != null)
+                                sortDescriptions.Clear();
+                        }
+
+                        //Add the desc and assign changed event
+                        SongsListView.SortDescriptions.Add(sortDescription);
+                        SongsListView.CurrentChanged += SongsListView_CurrentChanged;
+                    }
+
+                    this.UpdateSortingInfo();
+
+                    Log($"Sort descriptions Count after open dialog: {SongsListView.SortDescriptions.Count}");
+                }
+                else
+                {
+                    Log("Sort property name is null", Category.Exception);
+                }
+            }
+
+            //Disable opened
+            _sortDialogOpen = false;
         }
 
         /// <summary>

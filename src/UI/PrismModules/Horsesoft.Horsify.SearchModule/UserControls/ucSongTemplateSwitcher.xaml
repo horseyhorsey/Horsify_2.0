@@ -53,6 +53,11 @@
                 Click="SwitchTemplateButton_Click"
                 Content="3"
                 />
+            <Button Style="{DynamicResource MyStyle}"
+                CommandParameter="3"
+                Click="SwitchTemplateButton_Click"
+                Content="4"
+                />
         </StackPanel>
         
         <!--SONG SELECTING TOOLBAR-->                      

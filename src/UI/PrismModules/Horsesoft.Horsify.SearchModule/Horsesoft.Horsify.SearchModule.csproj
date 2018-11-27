@@ -87,15 +87,13 @@
     <Compile Include="UserControls\ucSongTemplateSwitcher.xaml.cs">
       <DependentUpon>ucSongTemplateSwitcher.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ucSortSongDialog.xaml.cs">
-      <DependentUpon>ucSortSongDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\AToZSearchViewModel.cs" />
     <Compile Include="ViewModels\InstantSearchViewModel.cs" />
     <Compile Include="ViewModels\RandomSelectorViewModel.cs" />
     <Compile Include="ViewModels\SearchedSongsViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\SongSelectedViewModel.cs" />
+    <Compile Include="ViewModels\SortSelectorViewModel.cs" />
     <Compile Include="Views\AToZSearchView.xaml.cs">
       <DependentUpon>AToZSearchView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +111,9 @@
     </Compile>
     <Compile Include="Views\SongSelectedView.xaml.cs">
       <DependentUpon>SongSelectedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SortSelectorView.xaml.cs">
+      <DependentUpon>SortSelectorView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,10 +160,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ucSortSongDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AToZSearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +183,10 @@
     <Page Include="Views\SongSelectedView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SortSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

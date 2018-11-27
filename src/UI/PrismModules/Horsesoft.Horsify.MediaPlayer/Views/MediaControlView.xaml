@@ -54,7 +54,7 @@
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource SmallmetalButton}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding MediaControlModel.IsPaused, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                    <DataTrigger Binding="{Binding MediaControlModel.IsPlaying, UpdateSourceTrigger=PropertyChanged}" Value="False">
                                         <Setter Property="Content" Value="&#9654;"/>
                                         <Setter Property="Foreground" Value="Red"/>
                                     </DataTrigger>

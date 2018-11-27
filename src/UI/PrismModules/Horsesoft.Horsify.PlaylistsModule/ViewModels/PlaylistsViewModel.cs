@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 {
-    public class PlaylistsViewModel : HorsifyBindableBase
+    public class PlaylistsViewModel : HorsifyBindableBase, INavigationAware
     {
         #region Services
         private IEventAggregator _eventAggregator;
@@ -113,10 +113,12 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 vm = ResolveNewTabModelFromContainer();
                 vm.TabHeader = playListName;
                 PlayListViewModels.Add(vm);
+                Log($"Created playlist - {playListName}");
             }
 
             if (addToTabsRegion)
             {
+                Log("Adding to tab region");
                 OpenPlayListViewModels.Add(vm);
                 _lastOpenedTab = vm;
             }
@@ -126,15 +128,18 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         {
             if (string.IsNullOrWhiteSpace(playlistName)) return;
 
-            if (playlistName != "Preparation Playlist")
+            if (playlistName == "Preparation Playlist")
             {
                 Log("Cannot save preparation lists", Category.Warn);
                 return;
             }
 
-
-            if (playlistName.Length > 5)
+            if (playlistName.Length > 3)
                 CreatePlayList(playlistName);
+            else
+            {
+                Log("Playlist names must be greater than 3 chars long", Category.Warn);
+            }
         }
 
         private void OnOpenSavedPlaylist(PlaylistTabViewModel obj)
@@ -146,12 +151,29 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         {
             try
             {
-                Log($"Opening playlist: {playlistTabViewModel.Playlist.Name}", Category.Debug);
+                //var existingTab = OpenPlayListViewModels.FirstOrDefault(x => x.Playlist?.Name == playlistTabViewModel?.Playlist?.Name);
+                //if (existingTab != null)
+                //{
+                //    Log($"Opening existing tab", Category.Debug);
+                //    OpenPlayListViewModels.Add(playlistTabViewModel);
+                //    await OnViewLoaded(playlistTabViewModel);
+                //}
+                //else
+                //{
+                //    Log($"Adding to Tab", Category.Debug);
+                //    OpenPlayListViewModels.Add(playlistTabViewModel);
+                //}                
 
                 if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
                 {
+                    Log($"Opening existing: {playlistTabViewModel.Playlist?.Name}", Category.Debug);
                     OpenPlayListViewModels.Add(playlistTabViewModel);
                     await OnViewLoaded(playlistTabViewModel);
+                }
+                else if(playlistTabViewModel?.Playlist?.Id == 0)
+                {
+                    Log("Adding a not saved playlist");
+                    OpenPlayListViewModels.Add(playlistTabViewModel);
                 }
 
                 SelectedTab = playlistTabViewModel;
@@ -182,16 +204,21 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                     if (SelectedTab != vm)
                         SelectedTab = vm;
 
-                    //Clear the songs
-                    SelectedTab.ClearItems();
+                    if (SelectedTab.Playlist != null)
+                    {
+                        Log("Clearing tab items.");
+                        //Clear the songs
+                        SelectedTab.ClearItems();
+                    }
 
                     //Remove the tab
                     OpenPlayListViewModels.Remove(SelectedTab);
+                    Log($"Closed - {SelectedTab?.Playlist?.Name}");
                 }
             }
             catch (System.Exception ex)
             {
-                Log($"Closing playlist tab {ex.Message}");
+                Log($"Close tab error: {ex.Message}");
             }
         }
 
@@ -206,6 +233,8 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 {
                     OnCloseTab(openTab);
                 }
+
+                Log("Closed all tabs.");
             }
             catch (Exception ex)
             {
@@ -220,7 +249,13 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             try
             {
                 var tab = SelectedTab;
-                int id = (int)tab.Playlist?.Id;
+                int id = 0;
+                if (tab.Playlist != null)
+                {
+                    Log("Getting local id");
+                    id = (int)tab.Playlist?.Id;
+                }
+
                 if (id > 0)
                 {
                     Log($"Deleting playlist: {id} : {tab.Playlist.Name}");
@@ -236,6 +271,8 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 else
                 {
                     Log("Cannot delete playlist with no id. Must be saved first.", Category.Warn);
+                    OnCloseTab(tab);
+                    this.PlayListViewModels.Remove(tab);
                 }
             }
             catch (Exception ex)
@@ -254,7 +291,6 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
 
             if (x.Playlist != null)
             {
-
                 if (x.Playlist.Count > 0)
                 {
                     var playlistSongs = await _horsifyPlaylistService.GetSongs(x.Playlist);
@@ -277,10 +313,37 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         /// </summary>
         private void OnPlaylistsUpdated()
         {
-            foreach (var playlist in _horsifyPlaylistService.Playlists)
+            try
             {
-                PlayListViewModels.Add(CreateTabViewModel(playlist));
+                foreach (var playlist in _horsifyPlaylistService.Playlists)
+                {
+                    PlayListViewModels.Add(CreateTabViewModel(playlist));
+                }
+
+                Log("Playlists updated");
             }
+            catch (Exception ex)
+            {
+                Log(ex.Message, Category.Exception);
+            }
+
+            
+
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            return;
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            return;
         }
 
         #endregion

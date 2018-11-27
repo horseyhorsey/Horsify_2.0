@@ -58,11 +58,26 @@
                         MinWidth="75" 
                         Margin="3,4,0,4"/>
 
-                <Button Content="DELETE" Command="{Binding ElementName=LayoutRoot, Path=DataContext.DeletePlaylistCommand}" 
+                <Grid Grid.Column="1">
+
+                    <Grid.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="UIElement.Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TabHeader}" Value="Preparation Playlist">
+                                    <Setter Property="UIElement.Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+                    
+                    <Button Content="DELETE" 
+                            Command="{Binding ElementName=LayoutRoot, Path=DataContext.DeletePlaylistCommand}" 
                         HorizontalAlignment="Right" Margin="0,4,90,4" MinWidth="75" Grid.Column="1"/>
 
-                <Button Content="Save" Command="{Binding SavePlaylistCommand}" 
-                        HorizontalAlignment="Right" MinWidth="75" Margin="0,4,3,4" Grid.Column="1"/>
+                    <Button Content="Save" Command="{Binding SavePlaylistCommand}" 
+                        HorizontalAlignment="Right" MinWidth="75" Margin="0,4,3,4" />
+                </Grid>
 
                 <ScrollViewer  Grid.Row="1" 
                        CanContentScroll="True"                        
@@ -280,10 +295,12 @@
         <!--#endregion-->
 
 
-        <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="0">
 
             <Border Background="{DynamicResource BackgroundGradient}"
-                    CornerRadius="50,0,5,50"
+                    CornerRadius="45,0,0,45" BorderBrush="Black" 
+                    BorderThickness="2"
+                    
                     >
                 <Expander IsTabStop="False"
                           DockPanel.Dock="Left"
@@ -312,7 +329,9 @@
                 </Grid.RowDefinitions>
 
                 <!--CLEAR PLAYLISTS-->
-                <Border Background="{DynamicResource Color_Primary2}" CornerRadius="0,60,0,0"                        
+                <Border Background="{DynamicResource Color_Primary2}" 
+                        CornerRadius="0,50,0,0"
+                        BorderThickness="2" BorderBrush="Black"
                         >
                     <StackPanel Orientation="Horizontal" >
                         <TextBlock Text="Opened Lists"
@@ -320,7 +339,7 @@
                                    Margin="3"
                                />
                         <Button Command="{Binding CloseAllTabsCommand}">
-                            <Rectangle Width="22" Height="22">
+                            <Rectangle Width="22" Height="22" Fill="Black">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Visual="{StaticResource IcoDelete}"/>
                                 </Rectangle.OpacityMask>
@@ -329,8 +348,11 @@
                     </StackPanel>
                 </Border>
 
-                <TabControl x:Name="PlaylistTabControl"                           
-                            Grid.Row="1"
+                <Border Grid.Row="1"
+                        CornerRadius="0,0,50,0"
+                        BorderThickness="2" BorderBrush="Black"
+                        >
+                    <TabControl x:Name="PlaylistTabControl"                                                       
                             Style="{DynamicResource TabControlNoReorderStyle}"
                             Background="Transparent" BorderBrush="Transparent"
                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -338,7 +360,8 @@
                             ItemsSource="{Binding OpenPlayListViewModels}"
                             ItemTemplate="{DynamicResource PlaylistTabHeaderRemplate}" 
                             SelectedItem="{Binding SelectedTab, UpdateSourceTrigger=PropertyChanged}">
-                </TabControl>
+                    </TabControl>
+                </Border>
             </Grid>
         </DockPanel>
 

@@ -98,7 +98,7 @@
                     <TextBlock Text="{Binding Path=.}"                                    
                                    HorizontalAlignment="Left"
                                    Style="{StaticResource TextBlockStyle_BebasSmall}"                                   
-                                   FontSize="32"
+                                   FontSize="24"
                                    Foreground="White"
                                    Margin="1"
                                    />

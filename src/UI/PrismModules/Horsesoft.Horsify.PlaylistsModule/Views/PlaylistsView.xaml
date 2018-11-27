@@ -16,7 +16,7 @@
         <!--d:DesignSource="{d:DesignData Source=../SampleData/DjHorsifyFilterModelSampleData.xaml}"-->
         <CollectionViewSource x:Key="OpenPlaylistViewModelViewSource"
                               Source="{Binding OpenPlayListViewModels}"              
-                              d:DesignSource="{d:DesignData Source=../SampleData/DjHorsifyFilterModelSampleData.xaml}"
+                              d:DesignSource="{d:DesignData Source=../SampleData/PlaylistTabViewModelSampleData.xaml}"
                                                        
                               />
 
@@ -315,11 +315,17 @@
                 <Border Background="{DynamicResource Color_Primary2}" CornerRadius="0,60,0,0"                        
                         >
                     <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text="Open Lists"
+                        <TextBlock Text="Opened Lists"
                                FontSize="32"
                                    Margin="3"
                                />
-                        <Button Content="{DynamicResource IcoDelete}" Command="{Binding CloseAllTabsCommand}"/>
+                        <Button Command="{Binding CloseAllTabsCommand}">
+                            <Rectangle Width="22" Height="22">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource IcoDelete}"/>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
                     </StackPanel>
                 </Border>
 

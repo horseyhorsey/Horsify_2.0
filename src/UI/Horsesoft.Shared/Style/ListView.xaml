@@ -81,8 +81,8 @@
 
     <!--LISTVIEW SONGS SEARCH PANEL-->
     <ControlTemplate x:Key="ListViewTemplate" TargetType="{x:Type ListView}">
-        <DockPanel Background="Transparent">
 
+        <DockPanel Background="Transparent" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
             <DockPanel.Resources>
                 <Style TargetType="{x:Type RepeatButton}">
                     <Setter Property="Effect">
@@ -129,14 +129,13 @@
                 </RepeatButton>
             </StackPanel>
 
-            <Border                   
+            <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"            
                     BorderThickness="2" DockPanel.Dock="Left" CornerRadius="15">
 
                 <Grid>
-                    <Border Background="Transparent" Opacity="0.06"/>
-
-                    <ScrollViewer x:Name="scrollviewer" >
-                        <ItemsPresenter Margin="0,5"/>
+                    <ScrollViewer x:Name="scrollviewer" 
+                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                        <ItemsPresenter Margin="50" HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
                     </ScrollViewer>
                 </Grid>
             </Border>
@@ -390,7 +389,7 @@
                             <Grid x:Name="grid">
 
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
@@ -400,12 +399,12 @@
                                             BorderBrush="{DynamicResource BackgroundGradient4}"
                                             Background="{DynamicResource Brush_MetalFlip}"/>
 
-                                <Rectangle Height="110" Fill="{DynamicResource Silver}" Opacity="0.33"/>
+                                <Rectangle Height="104" Fill="{DynamicResource Silver}" Opacity="0.33"/>
 
                                 <!--BUTTON IMAGE-->
                                 <Image Source="{Binding ImagePath, Converter={StaticResource stringToBitmapConverter}}"                                                                                  
-                                           Margin="3" Width="150"
-                                           Stretch="UniformToFill">
+                                           Margin="3" Width="150" MaxWidth="148"                                      
+                                           Stretch="Fill">
                                     <Image.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Border_Label}"/>
                                     </Image.OpacityMask>

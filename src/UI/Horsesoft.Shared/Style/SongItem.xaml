@@ -6,6 +6,19 @@
         <ResourceDictionary Source="ConverterResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
+    <DataTemplate x:Key="IdTemplate">
+        <Grid x:Name="IdGrid" Grid.ColumnSpan="2" VerticalAlignment="Bottom" >
+            <Rectangle Fill="{DynamicResource Color_Primary5}" 
+                                     Stroke="Black" 
+                                     Width="100"
+                                     Height="18"
+                                     HorizontalAlignment="Left"/>
+            <TextBlock x:Name="txtId" Margin="5,0" TextAlignment="Left" 
+                                       Text="{Binding Id}"
+                                       FontSize="16"
+                                       />
+        </Grid>
+    </DataTemplate>
 
     <DataTemplate x:Key="MusicKeyQueueTemplate">
         <Grid Width="22" Height="22" Margin="2">
@@ -68,8 +81,9 @@
         <!--200 == 20 items-->
         <!--270 == 15 items-->
         <!--No height set == 10 items-->
-        <Grid x:Name="songItemGrid" MaxHeight="200"
+        <Grid x:Name="songItemGrid"              
               Background="Transparent"
+              Height="230"
               Style="{DynamicResource FadingLabel}">
 
             <!--ALBUM ART & RATING-->
@@ -172,26 +186,18 @@
                     </StackPanel>
                 </Border>
 
+                 <!--RATING-->
                 <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
                                                       Style="{DynamicResource RatingViewStyle}"
                                                       StarWidth="22"
-                                                      VerticalAlignment="Top"
-                                                      HorizontalAlignment="Left"
+                                                      VerticalAlignment="Bottom"
+                                                      HorizontalAlignment="Right"
                                                       Margin="0,0"
                                                       />
-
-                <!--ITEM NUMBERS-->
-                <Grid x:Name="IdGrid" Grid.ColumnSpan="2">
-                    <Rectangle Fill="{DynamicResource Color_Primary}" 
-                                     Stroke="Black" 
-                                     Width="100"
-                                     Height="18"
-                                     VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <TextBlock x:Name="txtId" Margin="5,0" TextAlignment="Left" 
-                                       Text="{Binding Id}"
-                                       FontSize="16"
-                                       />
-                </Grid>
+                <!--ID-->
+                <ContentPresenter ContentTemplate="{StaticResource IdTemplate}" 
+                                  DataContext="{Binding}"
+                                  Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
 
             </Grid>
 
@@ -207,9 +213,8 @@
             <Border Background="{DynamicResource BackgroundGradient4}" 
                 BorderThickness="2" Margin="3"
                 BorderBrush="{DynamicResource Color_Primary5}"
-                Width="460" CornerRadius="0,10,15,15"
-                Height="190"
-                    MaxHeight="190"
+                CornerRadius="0,10,15,15"                
+                    MaxHeight="340"
                 >
                 <Grid TextElement.FontSize="18"                  
                   >
@@ -258,7 +263,7 @@
                     <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" Grid.Column="1" CornerRadius="0,5,0,0">
                         <Grid>
                             <Rectangle Fill="#FFB1680A" Width="270" Height="20"/>
-                            <TextBlock  MaxWidth="100"  Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" 
+                            <TextBlock  MaxWidth="250" MaxHeight="20"  Grid.Row="1" Text="{Binding Title}" TextWrapping="Wrap" 
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" Grid.Column="1"/>
                         </Grid>
@@ -311,7 +316,11 @@
         <!--200 == 20 items-->
         <!--270 == 15 items-->
         <!--No height set == 10 items-->
-        <Grid x:Name="songItemGrid" MaxHeight="200"
+        <Grid x:Name="songItemGrid" 
+              MinHeight="350" 
+              Height="350"
+              MinWidth="320"
+              Width="354"
               Style="{DynamicResource FadingLabel}">
 
             <!--ALBUM ART & RATING-->
@@ -337,9 +346,7 @@
 
                     <Grid>
                         <!--ALBUM ART-->
-                        <Image Grid.Row="1" Stretch="Fill" 
-                                   MinHeight="240" MinWidth="260"
-                                   MaxHeight="240" MaxWidth="260"                                    >
+                        <Image Grid.Row="1" Stretch="Fill">
                             <Image.CacheMode>
                                 <BitmapCache RenderAtScale="0.9"/>
                             </Image.CacheMode>
@@ -386,8 +393,7 @@
                         <!--DETAILS LABEL - Width on the parent border is needed to keep items same width-->
                         <Border VerticalAlignment="Bottom" Grid.Row="1"            
                                 CornerRadius="2,2,5,5"
-                                TextElement.Foreground="White"  
-                                Width="280"
+                                TextElement.Foreground="White"                                  
                                 >
                             <Grid>
 
@@ -395,7 +401,6 @@
                                 CornerRadius="2,1,5,5"
                                     BorderThickness="2"
                                     BorderBrush="Black" Opacity="0.8"
-                                Width="280"
                                         Background="{DynamicResource BackgroundGradient}"   
                                 />
 
@@ -414,7 +419,14 @@
                                     </Grid>
 
                                     <!--TITLE-->
-                                    <TextBlock Text="{Binding Title, Mode=OneWay}" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding Title, Mode=OneWay}" MaxWidth="180" HorizontalAlignment="Left"/>
+                                    
+                                    <!--GENRE-->
+                                    <TextBlock Text="{Binding Genre, Mode=OneWay}" HorizontalAlignment="Left"/>
+
+                                    <!--ID-->
+                                    <ContentPresenter ContentTemplate="{StaticResource IdTemplate}"                                                       
+                                                      Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
 
                                 </StackPanel>
                             </Grid>
@@ -427,7 +439,8 @@
 
             <ContentPresenter ContentTemplate="{StaticResource SongCtrlPanel}"                               
                      HorizontalAlignment="Right"
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Top"                               
+                              Margin="1"
                               />
         </Grid>
     </DataTemplate>
@@ -764,6 +777,81 @@
                                      Storyboard="{StaticResource OnQueueItemLoaded}"/>
             </EventTrigger>
         </DataTemplate.Triggers>
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="SmallSongItemNoImage">
+
+        <!--DETAILS LABEL - Width on the parent border is needed to keep items same width-->
+        <Border VerticalAlignment="Bottom" Grid.Row="1"            
+                                CornerRadius="2,2,5,5"
+                                TextElement.Foreground="White"    
+                                Width="350" 
+                                >
+            <Grid>
+
+                <Border
+                                CornerRadius="2,1,5,5"
+                                    BorderThickness="2"
+                                    BorderBrush="Black" Opacity="0.8"
+                                        Background="{DynamicResource BackgroundGradient}"   
+                                />
+
+                <StackPanel VerticalAlignment="Bottom"                                            
+                                    Margin="5,0" 
+                                    TextElement.FontSize="18.5"
+                                    TextElement.FontWeight="Medium"
+                                    TextElement.FontFamily="Impact"
+                                    >
+                    <Grid Background="{DynamicResource BackgroundGradient5}" TextElement.FontSize="26">
+                        <!--ARTIST-YEAR-->
+                        <TextBlock Text="{Binding Artist, Mode=OneWay}" MaxWidth="220" HorizontalAlignment="Left"/>
+
+                        <!--YEAR-->
+                        <TextBlock Text="{Binding Year, Mode=OneWay}" HorizontalAlignment="Right"                                   
+                                   />
+                    </Grid>
+
+                    <!--TITLE-->
+                    <Grid Background="{DynamicResource BackgroundGradient2}" TextElement.FontSize="26">
+                        <TextBlock Text="{Binding Title, Mode=OneWay}"                               
+                               HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <!--GENRE-->
+                    <Grid Background="DarkGreen">
+                        <TextBlock Text="{Binding Genre, Mode=OneWay}" HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <Grid>
+
+                        <Border VerticalAlignment="Top" Background="{DynamicResource BackgroundGradient5}"
+                                HorizontalAlignment="Left" CornerRadius="2,10,10,2" Margin="2"
+                                Opacity="0.88"
+                                >
+                            <customcontrols:RatingControl RatingValue="{Binding Rating, Mode=OneWay}"
+                                                      Style="{DynamicResource RatingViewStyle}"
+                                                      StarWidth="20"                                                      
+                                                      />
+                        </Border>
+                    </Grid>
+
+                    <Grid>
+
+                        <!--ID-->
+                        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource IdTemplate}"                                      
+                                                      Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+                                                
+                        <ContentPresenter ContentTemplate="{StaticResource SongCtrlPanel}"                               
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"                               
+                              Margin="1"
+                              />
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+        </Border>
 
     </DataTemplate>
 

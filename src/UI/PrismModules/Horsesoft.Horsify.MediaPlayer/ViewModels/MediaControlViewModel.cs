@@ -84,8 +84,8 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
                 //_horsifyMediaController.SetMedia(song.FileLocation);
                 _horsifyMediaController.SetMedia(mediaFile);
 
-                //Update file tags
-                if (_previousSong != null && _previousSong != MediaControlModel.SelectedSong)
+                //Update last played / rating
+                if (_previousSong?.Id != MediaControlModel.SelectedSong?.Id)
                     UpdateFileTags(); 
 
                 _previousSong = MediaControlModel.SelectedSong;
@@ -121,6 +121,8 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             try
             {
                 Log("Clear song");
+                UpdateFileTags();
+                _previousSong = null;
                 MediaControlModel.Clear();
             }
             catch (Exception ex)
@@ -131,21 +133,24 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
 
         private void UpdateFileTags()
         {
+            Log("");
             if (_previousSong != null)
             {
-                if (_previousSong.Rating != null)
+                if (_previousSong?.Rating != null)
                 {
+                    //Update with rating
                     if (_previousSong.Rating != _previousSongRating)
                     {
                         UpdatePlayedSong(_previousSong, _previousSong.Rating);
                     }
+                    //Update without
                     else { UpdatePlayedSong(_previousSong); }
                 }
                 else { UpdatePlayedSong(_previousSong); }
 
                 _previousSong = MediaControlModel.SelectedSong;
                 _previousSongRating = _previousSong.Rating;
-            }
+            }            
         }
 
         private Task<bool> UpdatePlayedSong(AllJoinedTable selectedSong, int? rating = null)

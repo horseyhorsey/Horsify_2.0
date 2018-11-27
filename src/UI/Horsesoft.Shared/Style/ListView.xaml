@@ -355,9 +355,9 @@
                     <horsify:SmartButton x:Name="rectangle"                                                      
                                     Background="Transparent" 
                                     HorizontalAlignment="Center"
-                                    BorderThickness="0"
-                                    MaxWidth="185" Height="160"
-                                    EnableClickHold="True"                                    
+                                    BorderThickness="0"                                    
+                                    EnableClickHold="True"   
+                                         Margin="1"
                                     Command="{Binding ElementName=LayoutRoot,Path=DataContext.SelectMenuCommand}"
                                     CommandParameter="{Binding}"
                                     RenderTransformOrigin="0.5,0.5"
@@ -400,14 +400,12 @@
                                             BorderBrush="{DynamicResource BackgroundGradient4}"
                                             Background="{DynamicResource Brush_MetalFlip}"/>
 
-                                <Rectangle Fill="{DynamicResource Silver}" Opacity="0.33"/>
+                                <Rectangle Height="110" Fill="{DynamicResource Silver}" Opacity="0.33"/>
 
                                 <!--BUTTON IMAGE-->
-                                <Image Source="{Binding ImagePath, Converter={StaticResource stringToBitmapConverter}}"
-                                           Width="215" Height="124"                                            
-                                           HorizontalAlignment="Right" 
-                                           Margin="3"
-                                           Stretch="Uniform">
+                                <Image Source="{Binding ImagePath, Converter={StaticResource stringToBitmapConverter}}"                                                                                  
+                                           Margin="3" Width="150"
+                                           Stretch="UniformToFill">
                                     <Image.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Border_Label}"/>
                                     </Image.OpacityMask>
@@ -468,8 +466,8 @@
 
             <!--<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">-->
             <RepeatButton x:Name="LineTopButton" Grid.Row="0"
-                          IsTabStop="False" HorizontalAlignment="Right"
-                        Width="190" Height="50"  Foreground="{DynamicResource Color_Primary4}"                        
+                          IsTabStop="False" 
+                        Width="150" Height="50"  Foreground="{DynamicResource Color_Primary4}"                        
                         Background="{DynamicResource Brush_Metal}"                         
                         FontSize="42"
                         Command="{x:Static ScrollBar.LineUpCommand}"      
@@ -484,7 +482,7 @@
             </RepeatButton>
 
             <RepeatButton x:Name="LineLeftButton" Grid.Row="2"
-                                  Width="190" Height="50" HorizontalAlignment="Right"
+                                  Width="150" Height="50"
                                   VerticalAlignment="Bottom"
                                   FontSize="42"   
                                   Foreground="{DynamicResource Color_Primary4}"  

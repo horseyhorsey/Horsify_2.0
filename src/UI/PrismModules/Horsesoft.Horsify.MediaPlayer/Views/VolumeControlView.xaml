@@ -13,25 +13,25 @@
 
             <!--VOLUME CONTROL-->
             <!--Value="{Binding CurrentVolume}"-->
-            <horsify:VolumeControl Margin="15" Maximum="100" Minimum="0" 
+            <horsify:VolumeControl Maximum="100" Minimum="0" 
+                                   Margin="5,5,5,5"
                                    Value="{Binding CurrentVolume, UpdateSourceTrigger=PropertyChanged}"
                                    Style="{DynamicResource VolumeControlStyle}" 
-                                   Width="250"
-                                   Height="50"                                   
+                                   Width="250"                                                                  
                                    >
                 <horsify:VolumeControl.LayoutTransform>
-                    <RotateTransform Angle="-90"/>
+                    <RotateTransform Angle="0"/>
                 </horsify:VolumeControl.LayoutTransform>
 
             </horsify:VolumeControl>
 
             <TextBlock Text="{Binding CurrentVolume}"                       
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom"                                              
-                       Foreground="Gold"
-                       Opacity="0.4"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"                                              
+                       Foreground="White"
+                       Opacity="0.7"
                        FontSize="18"
-                       Margin="-4"
+                       Margin="10"
                        />
 
             <!--#region SCREWS-->

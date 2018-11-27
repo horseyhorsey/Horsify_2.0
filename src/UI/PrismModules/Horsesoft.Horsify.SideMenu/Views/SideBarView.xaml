@@ -7,11 +7,34 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True"  
              xmlns:horsify="http://schemas/horsesoft.co.uk"
+             xmlns:dialog="clr-namespace:Horsesoft.Music.Horsify.Base.Dialog;assembly=Horsesoft.Music.Horsify.Base"
              mc:Ignorable="d" 
              d:DesignHeight="1280" d:DesignWidth="225"
              d:DataContext="{d:DesignData /SampleData/SideBarViewModelSampleData.xaml}"
              IsTabStop="False"
              >
+
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ShutdownNotificationRequest}">
+            <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="False" 
+                                     WindowStartupLocation="CenterScreen"                               
+                                     >
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="WindowStyle" Value="None"/>
+                        <Setter Property="AllowsTransparency" Value="True"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+
+                <prism:PopupWindowAction.WindowContent>
+                    <!--Shutdown dialog-->
+                    <dialog:HorsifyDialogView/>
+                </prism:PopupWindowAction.WindowContent>
+
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
 
     <UserControl.Resources>
 
@@ -84,8 +107,8 @@
                    Fill="{DynamicResource Brush_PanelMetalRight}" />
 
         <!--LOGO-->
-        <ContentPresenter Height="50" Grid.Row="0"
-                          Margin="0" 
+        <ContentPresenter Height="55" Grid.Row="0"
+                          Margin="0, 10" 
                           HorizontalAlignment="Center"
                           ContentTemplate="{DynamicResource HorsifyLogoSvgStd}">
             <i:Interaction.Triggers>
@@ -176,16 +199,15 @@
 
         <!--MENU BUTTONS-->
         <Border Grid.Row="3" CornerRadius="0" BorderThickness="0" 
-                BorderBrush="Black">
+                BorderBrush="Black" Margin="0,0,0,20">
             <Grid>
 
                 <!--SEARCH BUTTONS LIST-->
-                <horsify:ListViewTouch x:Name="SearchButtonListView1" 
-                          VerticalAlignment="Top" HorizontalAlignment="Center"
+                <horsify:ListViewTouch x:Name="SearchButtonListView1"                           
                           Template="{StaticResource ListBoxTemplate}"      
                           ItemsSource="{Binding Source={StaticResource SearchButtonsViewSource}, UpdateSourceTrigger=PropertyChanged}"                                                                                         
                           ItemContainerStyle="{DynamicResource SearchButtonListViewItemContainerStyle}"
-                          Margin="0" MaxHeight="950"    
+                          Margin="0" 
                           IsTabStop="False"
                           BorderBrush="Transparent" Background="Transparent"                                                                              
                           VirtualizingStackPanel.IsVirtualizing="False"
@@ -207,6 +229,35 @@
 
             </Grid>
         </Border>
+
+
+        <!--MINIMIZE SHUTDOWN-->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            >
+
+            <StackPanel.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Height" Value="22"/>
+                    <Setter Property="Width" Value="22"/>
+                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button 
+                            Background="#00ff00"
+                            Content="_"
+                        Command="{Binding MinimizeCommand}"/>
+
+            <Button 
+                            Background="#ff0000"
+                            Content="X"
+                            Command="{Binding ShutdownCommand}"
+                        />
+        </StackPanel>
 
         <!--#region SIDEBAR SCREWS-->
         <!--TOP -->

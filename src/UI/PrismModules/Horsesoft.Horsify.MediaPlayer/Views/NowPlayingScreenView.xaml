@@ -84,15 +84,6 @@
 
             </Grid>
         </Border>
-
-        <Border Grid.Column="1" Style="{DynamicResource Border_QueuePanelStyle}">
-            <Grid>
-                <horsify:RatingControl
-            StarWidth="25"
-            VerticalAlignment="Center" 
-            RatingValue="{Binding MediaControlModel.SelectedSong.Rating}"/>
-            </Grid>
-        </Border>
     </Grid>
 
 </UserControl>

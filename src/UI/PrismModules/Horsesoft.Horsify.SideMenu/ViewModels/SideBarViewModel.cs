@@ -5,6 +5,7 @@ using Horsesoft.Music.Horsify.Base.Helpers;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Logging;
 using Prism.Regions;
 using System;
@@ -35,7 +36,12 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         public ICommand OpenSearchCommand { get; set; }
         public ICommand NavigateCommand { get; set; }
         public ICommand SelectMenuCommand { get; set; }
+        public ICommand MinimizeCommand { get; set; }
+        public ICommand ShutdownCommand { get; set; }
+
         #endregion
+
+        public InteractionRequest<INotification> ShutdownNotificationRequest { get; private set; }
 
         #region Menu Items
         private MenuCreator mCreator;
@@ -92,7 +98,12 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             {
                 SelectMenuCommand = new DelegateCommand<SearchButtonViewModel>(async (sbm)=> await SelectMenuAsync(sbm));
             }
+
+            MinimizeCommand = new DelegateCommand(OnMinimize);
+            ShutdownCommand = new DelegateCommand(OnShutdown);
             #endregion
+
+            ShutdownNotificationRequest = new InteractionRequest<INotification>();
         }
 
         #endregion
@@ -338,6 +349,31 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             {
                 this.SelectMenu(sbm);
             });
+        }
+
+        /// <summary>
+        /// Opens a cusotm close dialog window
+        /// </summary>
+        private void OnShutdown()
+        {
+            var canShutdown = false;
+            this.ShutdownNotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" }
+                , r =>
+                {
+                    canShutdown = (bool)r.Content;
+                    if (canShutdown)
+                    {
+                        Log($"Sending shutdown", Category.Info, Priority.None);
+                        _eventAggregator.GetEvent<ShutdownEvent>().Publish();
+                    }
+                });
+
+        }
+
+        private void OnMinimize()
+        {
+            Log($"Sending minimize", Category.Info, Priority.None);
+            _eventAggregator.GetEvent<MinimizeEvent>().Publish();
         }
     }
 }

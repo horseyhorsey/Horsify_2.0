@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
              prism:ViewModelLocator.AutoWireViewModel="True" 
              >
 
@@ -37,6 +38,13 @@
                 <!--PAUSE-->
                 <!--<Button Content="&#10073;&#10073;"/>-->
                 <StackPanel Orientation="Horizontal" Margin="3">
+
+                    <Grid>
+                        <horsify:RatingControl
+            StarWidth="25"
+            VerticalAlignment="Center" 
+            RatingValue="{Binding MediaControlModel.SelectedSong.Rating}"/>
+                    </Grid>
 
                     <!--STOP-->
                     <Button Content="&#9724;" Command="{Binding StopCommand}" Style="{StaticResource SmallmetalButton}"/>

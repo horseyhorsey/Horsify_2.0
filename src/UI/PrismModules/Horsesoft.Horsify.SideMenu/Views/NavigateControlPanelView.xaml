@@ -13,27 +13,18 @@
 
     <!--d:DesignHeight="300"-->
 
-    <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding ShutdownNotificationRequest}">
-            <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="False" 
-                                     WindowStartupLocation="CenterScreen"                               
-                                     >
-                <prism:PopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type Window}">
-                        <Setter Property="WindowStyle" Value="None"/>
-                        <Setter Property="AllowsTransparency" Value="True"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                    </Style>
-                </prism:PopupWindowAction.WindowStyle>
-
-                <prism:PopupWindowAction.WindowContent>
-                    <!--Shutdown dialog-->
-                    <dialog:HorsifyDialogView/>
-                </prism:PopupWindowAction.WindowContent>
-
-            </prism:PopupWindowAction>
-        </prism:InteractionRequestTrigger>
-    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonTopMenuStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Background" Value="{DynamicResource Brush_Metal}"/>
+            <Setter Property="FontSize" Value="26"/>
+        </Style>
+    </UserControl.Resources>
 
 
     <Border Style="{DynamicResource Border_QueuePanelStyle}"            
@@ -41,138 +32,45 @@
         <Grid>
 
             <!--BLURRED EDGE-->
-            <Border Background="{DynamicResource Brush_PanelMetal}" 
-                    CornerRadius="4"
-                    Margin="5"/>
+            <Border CornerRadius="4"/>
 
-            <StackPanel Grid.Row="1" Orientation="Vertical"
-                                    Margin="2,30"
-                                    HorizontalAlignment="Center" 
+            <StackPanel Grid.Row="1" Orientation="Horizontal"                                    
+                                    HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
                                     Background="Transparent">
-
-                <!--MINIMIZE SHUTDOWN-->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top"
-                            HorizontalAlignment="Center"
-                            >
-
-                    <StackPanel.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                            <Setter Property="FontSize" Value="12"/>
-                            <Setter Property="Margin" Value="3"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="Height" Value="20"/>
-                            <Setter Property="Width" Value="22"/>
-                            <Setter Property="FontWeight" Value="ExtraBold"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    
-                    <Button 
-                            Background="#00ff00"
-                            Content="_"
-                        Command="{Binding MinimizeCommand}"/>
-
-                    <Button 
-                            Background="#ff0000"
-                            Content="X"
-                            Command="{Binding ShutdownCommand}"
-                        />
-                </StackPanel>
 
                 <!--SEARCH RESULTS-->
                 <Button x:Name="button" Grid.Row="0" 
                                 Content="{Binding Source={StaticResource HorsifySearchSvg}}"
-                                HorizontalAlignment="Center" 
-                                ToolBar.OverflowMode="AsNeeded"
-                                Style="{DynamicResource ButtonTopMenuStyle}"                                 
-                                Margin="5" Height="50" Width="50" IsTabStop="False" 
-                                Background="{DynamicResource Brush_Metal}"
-                                BorderThickness="0.7" 
-                                FontSize="32"            
                                 Command="{Binding NavigateViewCommand}" 
                                 CommandParameter="SearchedSongsView"          
                                 >
-
-                    <Button.Effect>
-                        <DropShadowEffect ShadowDepth="1"/>
-                    </Button.Effect>
-
                 </Button>
 
                 <!--TURNTABLEVIEW-->
-                <horsify:SmartButton x:Name="buttonsearch" ToolBar.OverflowMode="AsNeeded"
+                <Button x:Name="buttonsearch"
                                     Content="{Binding Source={StaticResource IcoRecord}}"
-                                    Grid.Row="0" HorizontalAlignment="Center"
-                                    Margin="5" Height="50" Width="50"                                       
-                                    Background="{DynamicResource Brush_Metal}"                    
+                                    Grid.Row="0"                                    
                                     Command="{Binding NavigateViewCommand, Mode=OneWay}" 
-                                    CommandParameter="SongPlaying3dView"
-                                    EnableClickHold="False" MillisecondsToWait="1000"                    
-                                    Style="{DynamicResource ButtonTopMenuStyle}"                     
+                                    CommandParameter="SongPlaying3dView"                                             
                                     >
-
-                    <horsify:SmartButton.Effect>
-                        <DropShadowEffect ShadowDepth="1"/>
-                    </horsify:SmartButton.Effect>
-                </horsify:SmartButton>
-
-
-                <!--DJ HORSIFY-->
-                <Button x:Name="ButtonDJ" ToolBar.OverflowMode="AsNeeded"
-                        DockPanel.Dock="Top" IsTabStop="False"                     
-                        Margin="5" Height="50" Width="50"
-                        VerticalAlignment="Center" HorizontalAlignment="Center" 
-                        Content="DJ"     
-                                
-                        FontWeight="ExtraBold" FontSize="32"
-                        Background="{DynamicResource Brush_Metal}"
-                        Style="{DynamicResource ButtonTopMenuStyle}"
-                        Command="{Binding NavigateViewCommand}" CommandParameter="DjHorsifyView"
-                        
-                        >
-
-                    <Button.Effect>
-                        <DropShadowEffect ShadowDepth="1.5"/>
-                    </Button.Effect>
                 </Button>
 
-
                 <!--PLAYLIST-->
-                <Button x:Name="openPlaylistButton" Grid.Row="0"  
-                                ToolBar.OverflowMode="AsNeeded"
-                                HorizontalAlignment="Center"
-                                Margin="5" Height="50" Width="50"
-                                Background="{DynamicResource Brush_Metal}"
-                                BorderThickness="0.7"                        
+                <Button x:Name="openPlaylistButton" Grid.Row="0"                       
                                 Command="{Binding NavigateViewCommand}" CommandParameter="PlaylistsView"
-                                Style="{DynamicResource ButtonTopMenuStyle}"
-                                Content="{Binding Source={StaticResource IcoPlaylist}}"
-                                
-                        FontWeight="DemiBold" FontSize="32"
+                                Content="{Binding Source={StaticResource IcoPlaylist}}"                                FontWeight="DemiBold" FontSize="32"
                         >
-
-                    <Button.Effect>
-                        <DropShadowEffect ShadowDepth="1"/>
-                    </Button.Effect>
                 </Button>
 
 
                 <!--SETTINGS-->
-                <Button x:Name="ButtonSettings" ToolBar.OverflowMode="AsNeeded"
-                        DockPanel.Dock="Top" IsTabStop="False"                     
-                        VerticalAlignment="Center" HorizontalAlignment="Center"
-                        Content="⚙" Margin="5" 
-                        FontWeight="ExtraBold"  
-                        Height="50" Width="50" FontSize="44"
-                        Background="{DynamicResource Brush_Metal}"
-                        Style="{DynamicResource ButtonTopMenuStyle}"
+                <Button x:Name="ButtonSettings"                        
+                        Content="⚙"
+                        FontWeight="ExtraBold"                       
                         Command="{Binding NavigateViewCommand}"     
                         CommandParameter="SettingsView"
                         >
-
-                    <Button.Effect>
-                        <DropShadowEffect ShadowDepth="1"/>
-                    </Button.Effect>
                 </Button>
 
             </StackPanel>

@@ -3,11 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonTopMenuStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Background" Value="{DynamicResource Brush_Metal}"/>
+            <Setter Property="FontSize" Value="26"/>
+        </Style>
+    </UserControl.Resources>
+    
     <!--DJ Horsify-->
     <Border Style="{DynamicResource Border_QueuePanelStyle}">
         <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             
-            <Border Margin="5"
+            <Border Margin="5" Grid.Column="1"
                                         MaxHeight="30"                                        
                                         VerticalAlignment="Top"
                                         Background="Black" 
@@ -87,6 +106,15 @@
                             </Grid.Effect>-->
                 </Grid>
             </Border>
+
+            <!--DJ HORSIFY-->
+            <Button x:Name="ButtonDJ"                                                                       
+                        Content="DJ"                                     
+                        FontWeight="ExtraBold"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateViewCommand}" CommandParameter="DjHorsifyView"                        
+                        >
+            </Button>
 
             <!--#region SCREWS-->
 

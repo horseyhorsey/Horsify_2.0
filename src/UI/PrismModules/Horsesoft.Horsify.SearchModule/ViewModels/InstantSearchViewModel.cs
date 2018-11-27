@@ -40,7 +40,7 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
 
-            _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500);
+            _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000);
             _dispatcherTimer.Tick += _dispatcherTimer_Tick;
 
             SearchModel.PropertyChanged += SearchModel_PropertyChanged;
@@ -77,6 +77,13 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             get { return _searchKeyboardVisible; }
             set { SetProperty(ref _searchKeyboardVisible, value); }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
         }
         #endregion
 
@@ -162,26 +169,35 @@ namespace Horsesoft.Horsify.SearchModule.ViewModels
         {
             var arr = new string[] { "*" + SearchModel.SearchText + "*" };
             IEnumerable<AllJoinedTable> results = null;
+            IsBusy = true;
             Task.Run(async () =>
             {
                 results = await _horsifySongApi.SearchLikeFiltersAsync(new SearchFilter(arr, SearchModel.SelectedSearchType), maxAmount: 100);
             }).ContinueWith((t) =>
-            {
+            {                
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    var sType = SearchModel.SelectedSearchType;
-                    if (sType == SearchType.Album)
+                    if (results == null)
                     {
-                        SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist).ThenBy(x => x.Album));
-                    }
-                    else if (sType == SearchType.Artist)
-                    {
-                        SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist));
+                        SearchModel.AllJoinedTables.Clear();
                     }
                     else
                     {
-                        SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Title));
-                    }
+                        IsBusy = false;
+                        var sType = SearchModel.SelectedSearchType;
+                        if (sType == SearchType.Album)
+                        {
+                            SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist).ThenBy(x => x.Album));
+                        }
+                        else if (sType == SearchType.Artist)
+                        {
+                            SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Artist));
+                        }
+                        else
+                        {
+                            SearchModel.AllJoinedTables.AddRange(results.OrderBy(x => x.Title));
+                        }
+                    }                    
                 });
             });
         }

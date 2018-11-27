@@ -36,48 +36,58 @@
         <Border Background="{DynamicResource BackgroundGradient2}"
                 CornerRadius="50,50,0,0"
                 >
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <Label Content="SONG SEARCH" FontSize="45" HorizontalAlignment="Center"/>
-                <Button Content="{Binding Source={StaticResource IcoSearch}}" 
+
+            <StackPanel>
+
+                <DockPanel Margin="10,0" HorizontalAlignment="Center">
+
+                    <Label Content="SONG SEARCH" FontSize="45" HorizontalAlignment="Center"
+                           Foreground="Black"
+                           />
+                    
+                    <RadioButton GroupName="SearchTypeRadio" Content="Title"                             
+                         IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
+                                    Converter={StaticResource EnumToBooleanConverter}, 
+                                    ConverterParameter={x:Static model:SearchType.Title}}"
+                         />
+
+                    <RadioButton GroupName="SearchTypeRadio" Content="Artist"
+                         IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
+                                    Converter={StaticResource EnumToBooleanConverter}, 
+                                    ConverterParameter={x:Static model:SearchType.Artist}}"
+                         />
+                    <RadioButton GroupName="SearchTypeRadio" Content="Album"
+                         IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
+                                    Converter={StaticResource EnumToBooleanConverter}, 
+                                    ConverterParameter={x:Static model:SearchType.Album}}"
+                         />
+                </DockPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="1" HorizontalAlignment="Center" 
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource negateBoolConv}}">
+                    <Button Content="{Binding Source={StaticResource IcoSearch}}" 
                     MaxHeight="50"
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Top" 
                     Margin="5"                    
                     Command="{Binding ShowSearchKeyboardViewCommand}" CommandParameter="True"
                     />
-                <TextBox x:Name="SearchTextBox"
-                         Text="{Binding SearchModel.SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Delay=750}"                         
+                    <TextBox x:Name="SearchTextBox"                             
+                         Text="{Binding SearchModel.SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                         
                          MinWidth="250" Margin="5"
                          TextElement.FontSize="34"   
                          />
-
-                <RadioButton GroupName="SearchTypeRadio" Content="Title"                             
-                         IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
-                                    Converter={StaticResource EnumToBooleanConverter}, 
-                                    ConverterParameter={x:Static model:SearchType.Title}}"
-                         />
-
-                <RadioButton GroupName="SearchTypeRadio" Content="Artist"
-                         IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
-                                    Converter={StaticResource EnumToBooleanConverter}, 
-                                    ConverterParameter={x:Static model:SearchType.Artist}}"
-                         />
-                <RadioButton GroupName="SearchTypeRadio" Content="Album"
-                         IsChecked="{Binding Path=SearchModel.SelectedSearchType, 
-                                    Converter={StaticResource EnumToBooleanConverter}, 
-                                    ConverterParameter={x:Static model:SearchType.Album}}"
-                         />
-
+                </StackPanel>
             </StackPanel>
         </Border>
 
-        <Label Content="{Binding SearchResults.Count, StringFormat={}{Results: {0}}}"
-               FontSize="45" Foreground="White" HorizontalAlignment="Center" Grid.Row="1"/>
+        <!--<Label Content="{Binding SearchResults.Count, StringFormat={}{Results: {0}}}"
+               FontSize="45" Foreground="White" HorizontalAlignment="Center" Grid.Row="1"/>-->
 
         <horsify:ListViewTouch Grid.Row="2" ItemsSource="{Binding SearchResults}" Margin="1"
                           TextElement.FontSize="18" 
                                    Template="{DynamicResource ListViewTemplate}"
-                          ItemTemplate="{DynamicResource SearchItemTemplate}" 
+                          ItemTemplate="{DynamicResource SmallSongItemNoImage}" 
                           IsSynchronizedWithCurrentItem="True"
                                    ScrollViewer.CanContentScroll="True"   
                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -110,11 +120,11 @@
                         DockPanel.Dock="Right"
                         />
 
-            <horsify:OnScreenKeyboard
+            <horsify:OnScreenKeyboard IsEnabled="{Binding IsBusy, Converter={StaticResource negateBoolConv}}"
                                           VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                      TextElement.FontSize="34"                                          
+                                      TextElement.FontSize="18"                                          
                                       CursorPosition="{Binding CursorPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Text="{Binding SearchModel.SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Delay=750}" 
+                                      Text="{Binding SearchModel.SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                       />
         </DockPanel>
 

@@ -323,45 +323,46 @@
 
         <StackPanel Orientation="Horizontal">
 
-            <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters.Count, Mode=OneWay, StringFormat={}Total: {0}}"                        
+                            <TextBlock Text="   Enabled Options: " VerticalAlignment="Center" FontSize="24"/>
+
+                            <StackPanel Visibility="{Binding DjHorsifyOption.RatingRange.IsEnabled, Converter={StaticResource bool2vis}}">
+                                <horsify:RatingControl 
+                                    RatingValue="{Binding DjHorsifyOption.RatingRange.Low, Mode=OneWay}"
+                                    Style="{DynamicResource RatingViewStyle}"
+                                    StarWidth="22"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0"/>
+
+                                <horsify:RatingControl Grid.Row="1" 
+                                    RatingValue="{Binding DjHorsifyOption.RatingRange.Hi, Mode=OneWay}"
+                                    Style="{DynamicResource RatingViewStyle}"
+                                    StarWidth="22"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0"
+                                    />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        TextElement.FontSize="24"
+                                        Visibility="{Binding DjHorsifyOption.BpmRange.IsEnabled, Converter={StaticResource bool2vis}}">
+                                <TextBlock Text="    BPM: " VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Low, Mode=OneWay,StringFormat={}{0} - }" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Hi, Mode=OneWay}" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBlock  Text="{Binding DjHorsifyOption.SelectedFilters.Count, Mode=OneWay, StringFormat={}Total: {0}}"                        
                        VerticalAlignment="Center" FontSize="24"
                        Margin="10,0"
                        />
 
-            <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters[0].FileName, Mode=OneWay, StringFormat={}Names: {0}}"                        
+                            <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters[0].FileName, Mode=OneWay, StringFormat={}Names: {0}}"                        
                        VerticalAlignment="Center" FontSize="24"
                        Margin="10,0"
                        />
 
-
-                            <TextBlock Text=" - Options" VerticalAlignment="Center" FontSize="24"/>
-
-            <StackPanel IsEnabled="{Binding DjHorsifyOption.RatingRange.IsEnabled}">
-                <horsify:RatingControl 
-                    RatingValue="{Binding DjHorsifyOption.RatingRange.Low, Mode=OneWay}"
-                    Style="{DynamicResource RatingViewStyle}"
-                    StarWidth="18"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Margin="0,0"/>
-
-                <horsify:RatingControl Grid.Row="1" 
-                    RatingValue="{Binding DjHorsifyOption.RatingRange.Hi, Mode=OneWay}"
-                    Style="{DynamicResource RatingViewStyle}"
-                    StarWidth="18"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Margin="0,0"
-                    />
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" IsEnabled="{Binding DjHorsifyOption.BpmRange.IsEnabled}">
-                <TextBlock Text="    BPM: " VerticalAlignment="Center" FontSize="18"/>
-                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Low, Mode=OneWay,StringFormat={}{0} - }" VerticalAlignment="Center" FontSize="18"/>
-                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Hi, Mode=OneWay}" VerticalAlignment="Center" FontSize="18"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
                 <TextBlock Text="     KEYS: " VerticalAlignment="Center" FontSize="18"/>
                 <TextBlock Text="{Binding DjHorsifyOption.SelectedKeys, Mode=OneWay}" VerticalAlignment="Center" FontSize="18"/>
             </StackPanel>
@@ -384,18 +385,22 @@
         Margin="50,0"
         >
 
-                <Button Command="{Binding ClearSelectionsCommand}"
-        Content="{DynamicResource IcoDelete}"
-        Width="100"
-        Style="{DynamicResource TransparentButtonBases}"
-        />
+            <Button Command="{Binding ClearSelectionsCommand}"  Width="70"                                      
+                Style="{DynamicResource TransparentButtonBases}">
+                <Rectangle Fill="Black" Width="30" Height="40">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource IcoDelete}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>          
+            </Button>
 
-                <Button Content="NEW FILTER" Margin="5" VerticalAlignment="Bottom"
-        MinWidth="175"
-        FontFamily="{StaticResource BebasNeue}"
-        FontSize="16"                            
-        Style="{DynamicResource TransparentButtonBases}"
-        Command="{Binding CreateFilterCommand}"/>
+            <Button Content="NEW FILTER" Margin="5" VerticalAlignment="Bottom"
+                MinWidth="175"
+                FontFamily="{StaticResource BebasNeue}"
+                FontSize="16"                            
+                Style="{DynamicResource TransparentButtonBases}"
+                Command="{Binding CreateFilterCommand}"/>
+                
             </StackPanel>
         </Border>
 

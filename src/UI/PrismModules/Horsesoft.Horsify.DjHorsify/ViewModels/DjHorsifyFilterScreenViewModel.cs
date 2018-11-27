@@ -1,16 +1,17 @@
 ﻿using Horsesoft.Horsify.DjHorsify.Model;
 using Horsesoft.Music.Horsify.Base.Interface;
-using Prism.Mvvm;
+using Horsesoft.Music.Horsify.Base.ViewModels;
+using Prism.Logging;
+using Prism.Regions;
 
 namespace Horsesoft.Horsify.DjHorsify.ViewModels
 {
-    public class DjHorsifyFilterScreenViewModel : BindableBase
+    public class DjHorsifyFilterScreenViewModel : HorsifyViewModelBase
     {
-        private IDjHorsifyService _djHorsifyService;
+        private IDjHorsifyService _djHorsifyService;        
 
-        public DjHorsifyFilterScreenViewModel(IDjHorsifyService djHorsifyService)
+        public DjHorsifyFilterScreenViewModel(IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(regionManager, loggerFacade)
         {
-            _djHorsifyService = djHorsifyService;
             _djHorsifyService = djHorsifyService;
             DjHorsifyOption = _djHorsifyService.DjHorsifyOption as DjHorsifyOption;
         }

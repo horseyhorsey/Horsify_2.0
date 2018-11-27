@@ -27,47 +27,44 @@
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="3">
-            <TextBlock Text="A-Z SEARCH"                        
-                       Margin="15"
+        <Border Grid.ColumnSpan="3" CornerRadius="50,50,0,0" Background="{DynamicResource BackgroundGradient2}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <TextBlock Text="A-Z SEARCH"                        
+                       Margin="5"
                        FontSize="64"
                        Style="{StaticResource TextBlockStyle_BebasXxLarge}"
                        VerticalAlignment="Top"
                        />
-            <ComboBox MinWidth="350" VerticalAlignment="Center" FontSize="44" FontFamily="{StaticResource BebasNeue}"
+                <ComboBox MinWidth="350" VerticalAlignment="Center" FontSize="44" FontFamily="{StaticResource BebasNeue}"
                           SelectedValuePath="Content"
                           SelectedValue="{Binding SelectedSearchType, UpdateSourceTrigger=PropertyChanged}"
                           >
-                <ComboBoxItem Content="Artist" IsSelected="True"/>
-                <ComboBoxItem Content="Album"/>
-                <ComboBoxItem Content="Genre"/>
-                <ComboBoxItem Content="Label"/>
-            </ComboBox>
+                    <ComboBoxItem Content="Artist" IsSelected="True"/>
+                    <ComboBoxItem Content="Album"/>
+                    <ComboBoxItem Content="Genre"/>
+                    <ComboBoxItem Content="Label"/>
+                </ComboBox>
 
-        </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <usercontrols:ucKeypadControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+        <Border CornerRadius="5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                Background="{DynamicResource BackgroundGradient2}"
+                >
+            <usercontrols:ucKeypadControl  
                                           Visibility="Visible"
                                           IsTabStop="False"
                                           BorderThickness="0" 
+                                          Margin="5"
                                           Foreground="{DynamicResource Color_Primary3}"
-                                          KeyWidth="36"
+                                          KeyWidth="24"
                                           SelectedChar="{Binding ElementName=LayoutRoot, 
                                                     Path=DataContext.SelectedCharachter,
                                                     UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                           />
+        </Border>
 
-        <TextBlock Grid.Row="2" Grid.Column="0"
-                       Grid.ColumnSpan="2" Margin="0,10"
-                       Text="MAKE SELECTIONS" 
-                       HorizontalAlignment="Center"                       
-                       FontSize="24"                       
-                       Style="{StaticResource TextBlockStyle_BebasMed}"
-                       VerticalAlignment="Top"
-                       />
-
-
-        <horsify:ListViewTouch Grid.Column="1" Grid.Row="3" Margin="5" Grid.RowSpan="2"                                    
+        <horsify:ListViewTouch Grid.Column="1" Grid.Row="3" Grid.RowSpan="3"
                       ItemsSource="{Binding SearchResults}"                                    
                       ItemContainerStyle="{DynamicResource SongListContainerStyle}"
                       Template="{DynamicResource ListViewTemplate}"        
@@ -75,13 +72,13 @@
                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           ScrollViewer.IsDeferredScrollingEnabled="False"
-                          ScrollViewer.PanningDeceleration="5"                     
+                                             
                                    IsTabStop="False"
                       >
             <horsify:ListViewTouch.ItemsPanel>
                 <ItemsPanelTemplate>
                     <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
-                                                       Background="{DynamicResource BackgroundGradient5}"
+                                                       Background="Transparent"
                                                         Orientation="Vertical"
                                                         VirtualizingPanel.IsVirtualizing="True" 
                                                         VirtualizingPanel.ScrollUnit="Pixel"
@@ -102,8 +99,8 @@
                                    HorizontalAlignment="Left"
                                    Style="{StaticResource TextBlockStyle_BebasSmall}"                                   
                                    FontSize="32"
-                                   Foreground="{DynamicResource Color_Primary3}"
-                                   Margin="5"
+                                   Foreground="White"
+                                   Margin="1"
                                    />
                 </DataTemplate>
             </horsify:ListViewTouch.ItemTemplate>
@@ -111,7 +108,7 @@
         </horsify:ListViewTouch>
 
         <!--SELECTED LIST-->
-        <ListView Grid.Column="2" Grid.Row="3" Margin="15" 
+        <ListView Grid.Column="2" Grid.Row="3"
                       ItemsSource="{Binding SelectedFilters}"
                       FontSize="22"
                       Background="Transparent"

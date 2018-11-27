@@ -42,7 +42,7 @@
                                   Grid.ColumnSpan="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
-                                  FontSize="32"
+                                  FontSize="18"
                                   Margin="5"
                                   />
 
@@ -52,10 +52,10 @@
                 >
             <Button Command="{Binding RunSearchCommand}"                                     
                 IsDefault="True"
-                FontSize="65"
+                FontSize="35"
                 Content="&#128270;" 
                 Width="90"
-                Height="80"
+                Height="50"
                 Margin="5"                 
                 VerticalAlignment="Top"  
                 HorizontalAlignment="Center"

@@ -32,7 +32,7 @@ namespace Horsesoft.Music.Horsify.Api
 
             //.UseConfiguration(config)
             var host = new WebHostBuilder()            
-            .UseUrls("http://*:8089/")
+            //.UseUrls("http://*:8089/")
             .UseKestrel()
             .UseContentRoot(pathToContentRoot) /// Route of this directory
             .UseIISIntegration()

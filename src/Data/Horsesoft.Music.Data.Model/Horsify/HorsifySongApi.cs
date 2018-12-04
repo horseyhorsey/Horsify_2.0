@@ -42,7 +42,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
 
         public async Task<bool> DeleteFilterSearchAsync(int? id)
         {
-            var response = await _client.DeleteAsync($"{BaseAddress}/api/filterssearch/{id}");
+            var response = await _client.DeleteAsync($"{BaseAddress}api/FiltersSearch/{id.Value}");
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return true;
@@ -172,7 +172,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         public async Task<bool> InsertFilterAsync(Filter filter)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}/api/filters/", content);
+            var response = await _client.PostAsync($"{BaseAddress}api/filters/", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return true;
@@ -185,7 +185,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         {
             var id = playlists?[0].Id;
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(playlists[0]), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"{BaseAddress}/api/playlists/{id}", content);
+            var response = await _client.PutAsync($"{BaseAddress}api/playlists/{id}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
             }
@@ -195,7 +195,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         public async Task<bool> InsertSavedSearchFiltersAsync(FiltersSearch searchFilter)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(searchFilter), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"{BaseAddress}/api/filterssearch/", content);
+            var response = await _client.PostAsync($"{BaseAddress}api/filterssearch/", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return true;
@@ -242,7 +242,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         public async Task UpdateFilterAsync(long id, Filter filterToUpdate)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filterToUpdate), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"{BaseAddress}/api/filters/{id}", content);
+            var response = await _client.PutAsync($"{BaseAddress}api/filters/{id}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                     
@@ -269,7 +269,7 @@ namespace Horsesoft.Music.Data.Model.Horsify
         public async Task<bool> UpdateSavedSearchFiltersAsync(FiltersSearch filter)
         {
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(filter), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"{BaseAddress}/api/filterssearch/{filter.Id}", content);
+            var response = await _client.PutAsync($"{BaseAddress}api/filterssearch/{filter.Id}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return true;

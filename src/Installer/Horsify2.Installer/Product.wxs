@@ -24,6 +24,8 @@
       <ComponentRef Id="ApplicationShortcutDesktop" />
     </Feature>
     <UI />
+    <Icon Id="HorsifyEye.ico" SourceFile="HorsifyEye.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="HorsifyEye.ico"/>
   </Product>
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -36,7 +38,9 @@
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="Horsify 2" />
       </Directory>
+      
       <Directory Id="DesktopFolder" Name="Desktop" />
+      
       <Directory Id="CommonAppDataFolder">
         <Directory Id="DATAFOLDER" Name="Horsify">
         </Directory>

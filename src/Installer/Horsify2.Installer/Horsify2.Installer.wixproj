@@ -43,6 +43,7 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HorsifyEye.ico" />
     <Content Include="Jukebox Readme.txt" />
     <Content Include="license.rtf" />
     <Content Include="ReadMe.md" />

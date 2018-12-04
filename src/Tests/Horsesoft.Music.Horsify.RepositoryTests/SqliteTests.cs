@@ -185,6 +185,15 @@ namespace Horsesoft.Music.Horsify.RepositoryTests
             ((IUnitOfWork)_fixture._HorsifyDataSqliteRepo).Save();
         }
 
+        [Fact(Skip = "Integration")]
+        public void GetAllGenresOrdered()
+        {
+            var genres = _fixture._HorsifyDataSqliteRepo.GenreRepository
+                .Get(orderBy:(x) => x.OrderBy(z => z.Name));
+            Assert.NotNull(genres);
+            Console.WriteLine(genres.Count());
+        }
+
         #region Private Methods
         private void CreateTestFilters(string[] filters, ISearchFilter searchFilter)
         {

@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifiers>win7-x86;win7-x64</RuntimeIdentifiers>
-    <PreserveCompilationContext>false</PreserveCompilationContext>
-    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    <!--<PreserveCompilationContext>false</PreserveCompilationContext>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>-->
   </PropertyGroup>
   <!--<PropertyGroup Condition="'$(PlatformTarget)'=='x86'">
     <TargetFramework>netcoreapp2.1</TargetFramework>

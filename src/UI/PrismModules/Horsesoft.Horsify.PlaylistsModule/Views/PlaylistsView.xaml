@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Horsesoft.Horsify.PlaylistsModule.Views"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" x:Class="Horsesoft.Horsify.PlaylistsModule.Views.PlaylistsView"
+    xmlns:dialog="clr-namespace:Horsesoft.Music.Horsify.Base.Dialog;assembly=Horsesoft.Music.Horsify.Base"
+    mc:Ignorable="d" x:Class="Horsesoft.Horsify.PlaylistsModule.Views.PlaylistsView"
              prism:ViewModelLocator.AutoWireViewModel="True" 
              d:DesignWidth="1920" d:DesignHeight="1080"
              d:DataContext="{d:DesignData /SampleData/PlaylistsViewModelSampleData.xaml}">
@@ -244,6 +245,8 @@
     </UserControl.Resources>
 
     <i:Interaction.Triggers>
+        
+        <!--HELP VIEW-->
         <prism:InteractionRequestTrigger SourceObject="{Binding HelpNotificationRequest}">
             <prism:PopupWindowAction IsModal="False" CenterOverAssociatedObject="True"                                     
                                      >
@@ -262,7 +265,25 @@
 
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>
+
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="WindowStyle" Value="None"/>
+                        <Setter Property="AllowsTransparency" Value="True"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+
+                <prism:PopupWindowAction.WindowContent>
+                    <dialog:HorsifyConfirmationView/>
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
+
 
     <Grid x:Name="LayoutRoot">
 

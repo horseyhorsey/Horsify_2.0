@@ -23,6 +23,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         private IRegionManager _regionManager;
         private IUnityContainer _unityContainer;
         private IPlaylistService _horsifyPlaylistService;
+        private IHorsifyDialogService _horsifyDialogService;
         #endregion
 
         #region Commands/Requests        
@@ -33,16 +34,18 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         public ICommand OpenSavedPlaylistCommand { get; set; }
         public DelegateCommand HelpWindowCommand { get; set; }
         public InteractionRequest<INotification> HelpNotificationRequest { get; set; }
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
         #endregion
 
         #region Constructors
-        public PlaylistsViewModel(IPlaylistService horsifyPlaylistService, IEventAggregator eventAggregator,
+        public PlaylistsViewModel(IHorsifyDialogService horsifyDialogService, IPlaylistService horsifyPlaylistService, IEventAggregator eventAggregator,
             IRegionManager regionManager, IUnityContainer unityContainer, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
             _unityContainer = unityContainer;
             _horsifyPlaylistService = horsifyPlaylistService;
+            _horsifyDialogService = horsifyDialogService;
 
             PlayListViewModels = new ObservableCollection<PlaylistTabViewModel>();
             OpenPlayListViewModels = new ObservableCollection<PlaylistTabViewModel>();
@@ -60,13 +63,15 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 OnPlaylistsUpdated();
             });
 
-            DeletePlaylistCommand = new DelegateCommand(async () => await OnDeletePlaylistAsync());
+            DeletePlaylistCommand = new DelegateCommand(OnDeletePlaylist);
             CloseAllTabsCommand = new DelegateCommand(OnCloseTabs);
             CloseTabCommand = new DelegateCommand<PlaylistTabViewModel>(OnCloseTab);
 
             #region Notification for help
             HelpNotificationRequest = new InteractionRequest<INotification>();
             HelpWindowCommand = new DelegateCommand(RaiseHelpNotification);
+
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
             #endregion
         }
 
@@ -150,20 +155,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         private async void OnOpenPlaylist(PlaylistTabViewModel playlistTabViewModel)
         {
             try
-            {
-                //var existingTab = OpenPlayListViewModels.FirstOrDefault(x => x.Playlist?.Name == playlistTabViewModel?.Playlist?.Name);
-                //if (existingTab != null)
-                //{
-                //    Log($"Opening existing tab", Category.Debug);
-                //    OpenPlayListViewModels.Add(playlistTabViewModel);
-                //    await OnViewLoaded(playlistTabViewModel);
-                //}
-                //else
-                //{
-                //    Log($"Adding to Tab", Category.Debug);
-                //    OpenPlayListViewModels.Add(playlistTabViewModel);
-                //}                
-
+            {       
                 if (!OpenPlayListViewModels.Any(x => x == playlistTabViewModel))
                 {
                     Log($"Opening existing: {playlistTabViewModel.Playlist?.Name}", Category.Debug);
@@ -227,14 +219,29 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
         /// </summary>
         private void OnCloseTabs()
         {
+            if (PlayListViewModels.Count <= 0)
+                return;
+
+            _horsifyDialogService.Show("Close tabs", "Are You Sure?", ConfirmationRequest, OnCloseTabsDialogClosed);
+        }
+
+        private void OnCloseTabsDialogClosed(IConfirmation confirm)
+        {
             try
             {
-                foreach (var openTab in PlayListViewModels.Where(x => x.TabHeader != "Preparation Playlist"))
+                if (confirm.Confirmed)
                 {
-                    OnCloseTab(openTab);
-                }
+                    foreach (var openTab in PlayListViewModels.Where(x => x.TabHeader != "Preparation Playlist"))
+                    {
+                        OnCloseTab(openTab);
+                    }
 
-                Log("Closed all tabs.");
+                    Log("Closed all tabs.");
+                }
+                else
+                {
+                    Log("user cancelled..");
+                }
             }
             catch (Exception ex)
             {
@@ -243,10 +250,10 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
             }
         }
 
-        //TODO: Delete Playlists
-        private async Task OnDeletePlaylistAsync()
+
+        private void OnDeleteConfirmedAsync(IConfirmation obj)
         {
-            try
+            if (obj.Confirmed)
             {
                 var tab = SelectedTab;
                 int id = 0;
@@ -259,7 +266,7 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                 if (id > 0)
                 {
                     Log($"Deleting playlist: {id} : {tab.Playlist.Name}");
-                    bool result = await _horsifyPlaylistService.DeletePlaylistAsync(id);
+                    bool result = _horsifyPlaylistService.DeletePlaylistAsync(id).Result;
                     if (result)
                     {
                         //Remove tab item
@@ -274,6 +281,14 @@ namespace Horsesoft.Horsify.PlaylistsModule.ViewModels
                     OnCloseTab(tab);
                     this.PlayListViewModels.Remove(tab);
                 }
+            }
+        }
+
+        private void OnDeletePlaylist()
+        {           
+            try
+            {
+                _horsifyDialogService.Show($"Delete {SelectedTab.TabHeader}", "Do you want to delete this playlist?", ConfirmationRequest, OnDeleteConfirmedAsync);
             }
             catch (Exception ex)
             {

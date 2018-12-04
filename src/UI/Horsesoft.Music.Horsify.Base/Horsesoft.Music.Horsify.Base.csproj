@@ -156,8 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Regions.cs" />
-    <Compile Include="Dialog\HorsifyDialogView.xaml.cs">
-      <DependentUpon>HorsifyDialogView.xaml</DependentUpon>
+    <Compile Include="Dialog\HorsifyConfirmationView.xaml.cs">
+      <DependentUpon>HorsifyConfirmationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events.cs" />
     <Compile Include="Helpers\HorsifyImage.cs" />
@@ -165,6 +165,7 @@
     <Compile Include="Helpers\WinAudioVolApi.cs" />
     <Compile Include="Interface\IDjHorsifyOption.cs" />
     <Compile Include="Interface\IDjHorsifyService.cs" />
+    <Compile Include="Interface\IHorsifyDialogService.cs" />
     <Compile Include="Interface\IHorsifyMediaController.cs" />
     <Compile Include="Interface\IHorsifyPlaylistService.cs" />
     <Compile Include="Interface\IImportLogger.cs" />
@@ -200,7 +201,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Dialog\HorsifyDialogView.xaml">
+    <Page Include="Dialog\HorsifyConfirmationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

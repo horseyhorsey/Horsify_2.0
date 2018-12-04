@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace Horsesoft.Music.Horsify.Base.Dialog
 {
     /// <summary>
-    /// Interaction logic for HorsifyDialogView.xaml
+    /// Interaction logic for HorsifyConfirmationView.xaml
     /// </summary>
-    public partial class HorsifyDialogView : UserControl, IInteractionRequestAware
+    public partial class HorsifyConfirmationView : UserControl, IInteractionRequestAware
     {
-        public HorsifyDialogView()
+        public HorsifyConfirmationView()
         {
             InitializeComponent();
         }
@@ -31,13 +31,15 @@ namespace Horsesoft.Music.Horsify.Base.Dialog
 
         private void YesButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Notification.Content = true;
+            ((IConfirmation)Notification).Confirmed = true;
+            Notification.Content = true;                        
             FinishInteraction?.Invoke();
         }
 
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
             Notification.Content = false;
+            ((IConfirmation)Notification).Confirmed = false;
             FinishInteraction?.Invoke();
         }
     }

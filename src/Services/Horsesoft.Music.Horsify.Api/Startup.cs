@@ -40,15 +40,17 @@ namespace Horsesoft.Music.Horsify.Api
             }
             else
             {
-                //app.UseHsts();
+                app.UseHsts();
             }
+
+            app.UseHsts();
             app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Horsify API V1");
             });
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

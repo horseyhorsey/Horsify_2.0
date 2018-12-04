@@ -362,7 +362,8 @@
         <File Id="filE4880F7EB8CDD67195FC6108555BD33E" KeyPath="yes" Source="..\..\Build\$(var.Platform)\Service\Horsesoft.Music.Horsify.Api.exe" />
         <ServiceInstall Id="HorsifyService" Type="ownProcess" Name="HorsifyService" DisplayName="Horsify Song API" Description="This service accesses the Horsify song data" Start="auto" Account="LocalSystem" ErrorControl="normal"/>
         <ServiceControl Id="HorsifyService" Start="install" Stop="both" Remove="both" Name="HorsifyService" Wait="no" />
-        <FirewallException Id="FirewallHorsifyTcp" xmlns="http://schemas.microsoft.com/wix/FirewallExtension" Name="Horsify API" Protocol="tcp" Port="8089" Scope="any" IgnoreFailure="no" Profile="all" />
+        <FirewallException Id="FirewallHorsifyHttp" xmlns="http://schemas.microsoft.com/wix/FirewallExtension" Name="Horsify 2 API (Http)" Protocol="tcp" Port="40572" Scope="any" IgnoreFailure="no" Profile="all" />
+        <FirewallException Id="FirewallHorsifyHttps" xmlns="http://schemas.microsoft.com/wix/FirewallExtension" Name="Horsify 2 API (Https)" Protocol="tcp" Port="40573" Scope="any" IgnoreFailure="no" Profile="all" />
       </Component>
 
       <!--PLATFORM SPECIFIC COMPONENTS-->

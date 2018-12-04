@@ -5,11 +5,6 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c3qikqqvo0br69e2/branch/master?svg=true)](https://ci.appveyor.com/project/horseyhorsey/horsify-2-0/branch/master)
 
-----------
-
-![](MainViewScreenGrab.jpg)
-
----
 
 ### Requirements
 
@@ -21,3 +16,12 @@
 - Download & Run Horsify installer ([Latest Artifacts](https://ci.appveyor.com/project/horseyhorsey/horsify-2-0/build/artifacts))
 - Run the importer to import a folder of song files
 - Run Horsify Jukebox as soon as you have at least one entry
+
+----------
+
+![](MainViewScreenGrab.jpg)
+
+
+![](MainViewScreenGrab2.jpg)
+
+---

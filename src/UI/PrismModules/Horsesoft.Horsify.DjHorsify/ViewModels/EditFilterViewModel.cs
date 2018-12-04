@@ -5,6 +5,7 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.Model;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Logging;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -21,6 +22,7 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
 	{
         private IRegionManager _regionManager;
         private IDjHorsifyService _djHorsifyService;
+        private IHorsifyDialogService _horsifyDialogService;
 
         public ICollectionView AvailableSearchTerms { get; set; }
 
@@ -32,11 +34,14 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         public ICommand SaveFilterCommand { get; set; }
         #endregion
 
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
+
         #region Constructors
-        public EditFilterViewModel(IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade):base(loggerFacade)
+        public EditFilterViewModel(IHorsifyDialogService horsifyDialogService,IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade):base(loggerFacade)
         {
             _regionManager = regionManager;
             _djHorsifyService = djHorsifyService;
+            _horsifyDialogService = horsifyDialogService;
 
             SearchTerms = new ObservableCollection<string>();
             AvailableSearchTerms = new ListCollectionView(SearchTerms);
@@ -46,6 +51,8 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             DeleteFilterCommand = new DelegateCommand(OnDeleteFilter);
             RemoveSearchTermCommand = new DelegateCommand(OnRemoveSearchTerm);
             SaveFilterCommand = new DelegateCommand(OnSaveFilter);
+
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
         }
 
         #endregion
@@ -110,12 +117,18 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
         /// </summary>
         private void OnDeleteFilter()
         {
-            //Create params based on whether we were editing or not
-            var navParams = new NavigationParameters();
-            Log("Adding NEW Filter");
-            //searchFilter.Id = -1;
-            navParams.Add("delete_filter", this.CurrentFilter);
-            _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView", navParams);
+            _horsifyDialogService.Show($"Delete filter - {CurrentFilter.FileName}", "Are you sure?", ConfirmationRequest, r =>
+            {
+                if (r.Confirmed)
+                {
+                    //Create params based on whether we were editing or not
+                    var navParams = new NavigationParameters();
+                    //searchFilter.Id = -1;
+                    navParams.Add("delete_filter", this.CurrentFilter);
+                    _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView", navParams);
+                }
+            });
+
         }
 
         private void OnRemoveSearchTerm()

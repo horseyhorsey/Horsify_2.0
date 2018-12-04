@@ -8,6 +8,8 @@
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"             
              x:Class="Horsesoft.Horsify.DjHorsify.Views.DjHorsifyView"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:dialog="clr-namespace:Horsesoft.Music.Horsify.Base.Dialog;assembly=Horsesoft.Music.Horsify.Base"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True" 
              d:DataContext="{d:DesignData ../SampleData/DjHorsifyViewModelSampleData.xaml}"
@@ -226,6 +228,25 @@
 
     </UserControl.Resources>
 
+    <!--DIALOG-->
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="WindowStyle" Value="None"/>
+                        <Setter Property="AllowsTransparency" Value="True"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+
+                <prism:PopupWindowAction.WindowContent>
+                    <dialog:HorsifyConfirmationView/>
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
     <Grid x:Name="LayoutRoot">
 
         <!--#region DEFS-->
@@ -319,63 +340,60 @@
 
         <!--RATING-->
         <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
 
+                <TextBlock Text="   Enabled Options: " VerticalAlignment="Center" FontSize="24"/>
 
-        <StackPanel Orientation="Horizontal">
+                <StackPanel Visibility="{Binding DjHorsifyOption.RatingRange.IsEnabled, Converter={StaticResource bool2vis}}">
+                    <horsify:RatingControl 
+                        RatingValue="{Binding DjHorsifyOption.RatingRange.Low, Mode=OneWay}"
+                        Style="{DynamicResource RatingViewStyle}"
+                        StarWidth="22"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="0,0"/>
 
-                            <TextBlock Text="   Enabled Options: " VerticalAlignment="Center" FontSize="24"/>
+                    <horsify:RatingControl Grid.Row="1" 
+                        RatingValue="{Binding DjHorsifyOption.RatingRange.Hi, Mode=OneWay}"
+                        Style="{DynamicResource RatingViewStyle}"
+                        StarWidth="22"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="0,0"
+                        />
+                </StackPanel>
 
-                            <StackPanel Visibility="{Binding DjHorsifyOption.RatingRange.IsEnabled, Converter={StaticResource bool2vis}}">
-                                <horsify:RatingControl 
-                                    RatingValue="{Binding DjHorsifyOption.RatingRange.Low, Mode=OneWay}"
-                                    Style="{DynamicResource RatingViewStyle}"
-                                    StarWidth="22"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0"/>
+                <StackPanel Orientation="Horizontal"
+                            TextElement.FontSize="24"
+                            Visibility="{Binding DjHorsifyOption.BpmRange.IsEnabled, Converter={StaticResource bool2vis}}">
+                    <TextBlock Text="    BPM: " VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Low, Mode=OneWay,StringFormat={}{0} - }" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Hi, Mode=OneWay}" VerticalAlignment="Center"/>
+                </StackPanel>
 
-                                <horsify:RatingControl Grid.Row="1" 
-                                    RatingValue="{Binding DjHorsifyOption.RatingRange.Hi, Mode=OneWay}"
-                                    Style="{DynamicResource RatingViewStyle}"
-                                    StarWidth="22"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0"
-                                    />
-                            </StackPanel>
+                <TextBlock  Text="{Binding DjHorsifyOption.SelectedFilters.Count, Mode=OneWay, StringFormat={}Total: {0}}"                        
+            VerticalAlignment="Center" FontSize="24"
+            Margin="10,0"
+            />
 
-                            <StackPanel Orientation="Horizontal"
-                                        TextElement.FontSize="24"
-                                        Visibility="{Binding DjHorsifyOption.BpmRange.IsEnabled, Converter={StaticResource bool2vis}}">
-                                <TextBlock Text="    BPM: " VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Low, Mode=OneWay,StringFormat={}{0} - }" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding DjHorsifyOption.BpmRange.Hi, Mode=OneWay}" VerticalAlignment="Center"/>
-                            </StackPanel>
+                <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters[0].FileName, Mode=OneWay, StringFormat={}Names: {0}}"                        
+            VerticalAlignment="Center" FontSize="24"
+            Margin="10,0"
+            />
 
-                            <TextBlock  Text="{Binding DjHorsifyOption.SelectedFilters.Count, Mode=OneWay, StringFormat={}Total: {0}}"                        
-                       VerticalAlignment="Center" FontSize="24"
-                       Margin="10,0"
-                       />
+                <StackPanel Orientation="Horizontal">
+    <TextBlock Text="     KEYS: " VerticalAlignment="Center" FontSize="18"/>
+    <TextBlock Text="{Binding DjHorsifyOption.SelectedKeys, Mode=OneWay}" VerticalAlignment="Center" FontSize="18"/>
+</StackPanel>
 
-                            <TextBlock Text="{Binding DjHorsifyOption.SelectedFilters[0].FileName, Mode=OneWay, StringFormat={}Names: {0}}"                        
-                       VerticalAlignment="Center" FontSize="24"
-                       Margin="10,0"
-                       />
-
-                            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="     KEYS: " VerticalAlignment="Center" FontSize="18"/>
-                <TextBlock Text="{Binding DjHorsifyOption.SelectedKeys, Mode=OneWay}" VerticalAlignment="Center" FontSize="18"/>
-            </StackPanel>
-
-            </StackPanel>
+</StackPanel>
         </Grid>
 
-
-
-                    <!--FILTER OPTIONS-->
+        <!--FILTER OPTIONS-->
         <Border Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                 Background="{DynamicResource BackgroundGradient3}"
-                            
+                BorderThickness="2" 
+                BorderBrush="{DynamicResource Color_Primary5}"
                 Grid.ColumnSpan="4">
                         
             <StackPanel 

@@ -24,7 +24,8 @@ namespace Horsesoft.Horsify.ServicesModule
         }
 
         private void RegisterServices(IUnityContainer container)
-        {            
+        {
+            _container.RegisterType<IHorsifyDialogService, HorsifyDialogService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<ISongDataProvider, SongDataProvider>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IQueuedSongDataProvider, QueuedSongDataProvider>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IPlaylistService, HorsifyPlaylistService>(new ContainerControlledLifetimeManager());

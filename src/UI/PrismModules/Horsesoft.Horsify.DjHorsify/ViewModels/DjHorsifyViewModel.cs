@@ -7,6 +7,7 @@ using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.Model;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Logging;
 using Prism.Regions;
 using System;
@@ -44,6 +45,7 @@ Should go round the open key clock picking songs, clockwise.
     public class DjHorsifyViewModel : HorsifyBindableBase, INavigationAware, IDjHorsifyViewModel
     {
         private IRegionManager _regionManager;
+        private IHorsifyDialogService _horsifyDialogService;
         private IDjHorsifyService _djHorsifyService;
 
         #region Commands        
@@ -56,10 +58,12 @@ Should go round the open key clock picking songs, clockwise.
         public ICommand ShowSavedFiltersCommand { get; set; }
         #endregion
 
-        public DjHorsifyViewModel(IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
+
+        public DjHorsifyViewModel(IHorsifyDialogService horsifyDialogService, IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _regionManager = regionManager;
-
+            _horsifyDialogService = horsifyDialogService;
             _djHorsifyService = djHorsifyService;
             DjHorsifyOption = _djHorsifyService.DjHorsifyOption as DjHorsifyOption;
 
@@ -85,6 +89,8 @@ Should go round the open key clock picking songs, clockwise.
             SaveFilterCommand = new DelegateCommand(OnSaveFilter);
             ShowSavedFiltersCommand = new DelegateCommand(OnShowSavedFilters);
             #endregion
+
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
         }
 
         #region Properties              
@@ -408,6 +414,7 @@ Should go round the open key clock picking songs, clockwise.
             if (filter != null)
             {
                 Music.Data.Model.Filter dbFilter = CreateDbFilter(filter);
+
                 bool result = false;
                 Task.Run(async () =>
                 {
@@ -418,7 +425,7 @@ Should go round the open key clock picking songs, clockwise.
                 {
                     var inListFilter = _djHorsifyService.Filters.FirstOrDefault(x => x.Name == dbFilter.Name);
                     if (inListFilter != null)
-                    {                        
+                    {
                         var deleted = _djHorsifyService.Filters.Remove(inListFilter);
                         filter.SearchAndOrOption = SearchAndOrOption.None;
                         _djHorsifyService.HorsifyFilters.Remove(filter);
@@ -429,15 +436,13 @@ Should go round the open key clock picking songs, clockwise.
                         Log($"Couldn't find filter to remove");
                     }
 
-                }
+                }                
                 else
                     Log("Couldn't delete filter from database", Category.Warn);
 
                 return;
             }
-
             
-
             var savedfilter = navigationContext.Parameters["load_filter"] as FiltersSearch;
             if (savedfilter != null)
             {

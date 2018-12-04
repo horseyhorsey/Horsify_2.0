@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="DjHorsifyService.cs" />
     <Compile Include="Extensions\ShuffleExtensions.cs" />
+    <Compile Include="HorsifyDialogService.cs" />
     <Compile Include="HorsifyMediaController.cs" />
     <Compile Include="HorsifyPlaylistService.cs" />
     <Compile Include="QueuedSongDataProvider.cs" />

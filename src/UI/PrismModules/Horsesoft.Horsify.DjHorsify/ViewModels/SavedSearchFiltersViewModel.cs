@@ -4,6 +4,7 @@ using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Logging;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Horsesoft.Horsify.DjHorsify.ViewModels
@@ -20,24 +22,29 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
     {
         private IDjHorsifyService _djHorsifyService;
         private IRegionManager _regionManager;
+        private IHorsifyDialogService _horsifyDialogService;
 
         #region Commands
 
         public ICommand DeleteFilterCommand { get; private set; }
         public ICommand CloseViewCommand { get; private set; }
         public ICommand LoadSavedFilterCommand { get; private set; }
-        public ICommand SearchFilterCommand { get; private set; } 
+        public ICommand SearchFilterCommand { get; private set; }
+
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
         #endregion
 
-        public SavedSearchFiltersViewModel(IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public SavedSearchFiltersViewModel(IHorsifyDialogService horsifyDialogService, IDjHorsifyService djHorsifyService, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _djHorsifyService = djHorsifyService;
             _regionManager = regionManager;
+            _horsifyDialogService = horsifyDialogService;
 
-            DeleteFilterCommand = new DelegateCommand(async ()=> await OnDeleteFilterCommand());
+            DeleteFilterCommand = new DelegateCommand(OnDeleteFilterConfirm);
             CloseViewCommand = new DelegateCommand(() => _regionManager.RequestNavigate(Regions.ContentRegion, "DjHorsifyView"));
             LoadSavedFilterCommand = new DelegateCommand(OnLoadSavedFilter);
             SearchFilterCommand = new DelegateCommand(OnRunSearchFilter);
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
 
             InitSavedFilters();
         }
@@ -88,19 +95,42 @@ namespace Horsesoft.Horsify.DjHorsify.ViewModels
             });
         }
 
-        private async Task OnDeleteFilterCommand()
+        private void OnDeleteFilterConfirm()
         {
-            Log($"Deleting saved filters: {SelectedFilter ?.Name}");
-            bool result = false;
-            if (this.SelectedFilter?.Id > 0)
-                result = await _djHorsifyService.DeleteSearchFilterAsync(this.SelectedFilter?.Id);
-
-            if (result)
+            _horsifyDialogService.Show("Delete Save DJH options", "Are you sure?", ConfirmationRequest, r =>
             {
-                Log("Removing search filter from UI list");
-                _djHorsifyService.SavedFilters.Remove(SelectedFilter);
-            }
-                
+                if (r.Confirmed)
+                {
+                    DeleteFilters();
+                }
+            });
+        }
+
+        private void DeleteFilters()
+        {
+            bool result = false;
+            Task.Run(async () =>
+            {
+                result = await OnDeleteFilterAsync();
+                if (result)
+                {
+                    Log("Removing search filter from UI list");
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        _djHorsifyService.SavedFilters.Remove(SelectedFilter);
+                    });
+                }
+            });
+        }
+
+        private Task<bool> OnDeleteFilterAsync()
+        {           
+            Log($"Deleting saved filters: {SelectedFilter ?.Name}");            
+            if (this.SelectedFilter?.Id > 0)
+                return _djHorsifyService.DeleteSearchFilterAsync(this.SelectedFilter?.Id);
+
+            return Task.FromResult(false);                
         }
 
         private void OnLoadSavedFilter()

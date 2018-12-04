@@ -6,5 +6,5 @@ using System.Windows;
 using System.Windows.Markup;
 using System;
 
-[assembly: AssemblyVersion("2.0.0.100")]
-[assembly: AssemblyFileVersion("2.0.0.100")]
+[assembly: AssemblyVersion("2.0.0.102")]
+[assembly: AssemblyFileVersion("2.0.0.102")]

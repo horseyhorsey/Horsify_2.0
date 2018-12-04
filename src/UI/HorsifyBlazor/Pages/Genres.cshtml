@@ -1,0 +1,46 @@
+﻿@page "/genres"
+@using Horsesoft.Music.Data.Model
+@using Horsesoft.Music.Data.Model.Horsify
+@*@inject HorsifySongApi _songapi;*@
+@inject HttpClient http
+
+<h1>Genres</h1>
+
+@if (genres == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var genre in genres)
+            {
+                <tr>
+                    <td>@genre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+    IEnumerable<string> genres;
+
+    protected override async Task OnInitAsync()
+    {
+
+        genres = await http.GetJsonAsync<IEnumerable<string>>($"http://localhost:8089/api/Songs/GetStringEntries?searchType={SearchType.Genre}&search={"jungle"}&maxAmount=-1");
+
+    //http://localhost:8089/api/Songs/GetStringEntries?searchType=16&search=jungle&maxAmount=-1
+        //genres = _songapi.GetEntries(SearchType.Genre, "Drum");
+
+        //Console.WriteLine(stats);
+        //songs = await _api.ExtraSearch(ExtraSearchType.MostPlayed);
+    }
+}

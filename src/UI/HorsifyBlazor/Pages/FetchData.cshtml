@@ -38,7 +38,7 @@ else
     protected override async Task OnInitAsync()
     {
         http.BaseAddress = new Uri("http://localhost:8089/");
-        stats = await http.GetJsonAsync<Stat>("api/Stats");
+        stats = await http.GetJsonAsync<Stat>("api/Stats");        
         Console.WriteLine(stats);
         //songs = await _api.ExtraSearch(ExtraSearchType.MostPlayed);
     }

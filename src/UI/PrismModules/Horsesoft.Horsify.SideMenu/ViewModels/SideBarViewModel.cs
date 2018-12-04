@@ -2,6 +2,7 @@
 using Horsesoft.Music.Data.Model.Menu;
 using Horsesoft.Music.Horsify.Base;
 using Horsesoft.Music.Horsify.Base.Helpers;
+using Horsesoft.Music.Horsify.Base.Interface;
 using Horsesoft.Music.Horsify.Base.ViewModels;
 using Prism.Commands;
 using Prism.Events;
@@ -12,10 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Horsesoft.Horsify.SideMenu.ViewModels
@@ -41,7 +40,7 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
 
         #endregion
 
-        public InteractionRequest<INotification> ShutdownNotificationRequest { get; private set; }
+        public InteractionRequest<IConfirmation> ShutdownNotificationRequest { get; private set; }
 
         #region Menu Items
         private MenuCreator mCreator;
@@ -51,7 +50,7 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
 
         private IEventAggregator _eventAggregator;
         private IRegionManager _regionManager;
-
+        private IHorsifyDialogService _horsifyDialogService;
         private bool _isBusy;
         public bool IsBusy
         {
@@ -62,10 +61,12 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         private readonly string _menuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Horsify\\Menus\\";
 
         #region Constructors
-        public SideBarViewModel(IEventAggregator eventAggregator, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
+        public SideBarViewModel(IHorsifyDialogService horsifyDialogService, IEventAggregator eventAggregator, IRegionManager regionManager, ILoggerFacade loggerFacade) : base(loggerFacade)
         {
             _eventAggregator = eventAggregator;
             _regionManager = regionManager;
+            _horsifyDialogService = horsifyDialogService;
+
             Log("Loading SideBar..", Category.Debug, Priority.None);
 
             //Composite Menus and MenuItems
@@ -103,7 +104,7 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
             ShutdownCommand = new DelegateCommand(OnShutdown);
             #endregion
 
-            ShutdownNotificationRequest = new InteractionRequest<INotification>();
+            ShutdownNotificationRequest = new InteractionRequest<IConfirmation>();
         }
 
         #endregion
@@ -356,18 +357,16 @@ namespace Horsesoft.Horsify.SideMenu.ViewModels
         /// </summary>
         private void OnShutdown()
         {
-            var canShutdown = false;
-            this.ShutdownNotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" }
-                , r =>
-                {
-                    canShutdown = (bool)r.Content;
-                    if (canShutdown)
-                    {
-                        Log($"Sending shutdown", Category.Info, Priority.None);
-                        _eventAggregator.GetEvent<ShutdownEvent>().Publish();
-                    }
-                });
+            _horsifyDialogService.Show("Shutting down", "Are you sure?",  ShutdownNotificationRequest, OnShutDownDialogEnded);
+        }
 
+        private void OnShutDownDialogEnded(IConfirmation shutdownConfirmation)
+        {
+            if (shutdownConfirmation.Confirmed)
+            {
+                Log($"Sending shutdown", Category.Info, Priority.None);                
+                _eventAggregator.GetEvent<ShutdownEvent>().Publish();
+            }
         }
 
         private void OnMinimize()

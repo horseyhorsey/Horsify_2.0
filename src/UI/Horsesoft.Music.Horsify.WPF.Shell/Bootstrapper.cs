@@ -68,7 +68,7 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
             var _logger = Container.Resolve<ILoggerFacade>();            
 
             Container.RegisterInstance<IDjHorsifyOption>(new DjHorsifyOption(), new ContainerControlledLifetimeManager());
-            Container.RegisterInstance<IHorsifySongApi>(new HorsifySongApi("https://localhost:40753/"), new ContainerControlledLifetimeManager());
+            Container.RegisterInstance<IHorsifySongApi>(new HorsifySongApi("http://localhost:40752/"), new ContainerControlledLifetimeManager());
 
             var _apiService = Container.Resolve<IHorsifySongApi>();     
 

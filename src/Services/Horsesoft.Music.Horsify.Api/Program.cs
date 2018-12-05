@@ -2,9 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-
 using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using System.IO;
 
 namespace Horsesoft.Music.Horsify.Api
@@ -30,12 +28,19 @@ namespace Horsesoft.Music.Horsify.Api
                 pathToContentRoot = Path.GetDirectoryName(pathToExe);
             }
 
+            //X509Certificate2 cert = null;
+            //if (cert == null)
+            //{
+            //    cert = new X509Certificate2(Path.Combine(Directory.GetCurrentDirectory(), "example.pfx"), "password");
+            //    Console.WriteLine($"Cert Thumb Print: {cert.Thumbprint}");
+            //}
+
             //.UseConfiguration(config)
-            var host = new WebHostBuilder()            
+            var host = new WebHostBuilder()
             .UseUrls("http://*:40752", "https://*:40753")
             .UseKestrel()
             .UseContentRoot(pathToContentRoot) /// Route of this directory
-            .UseIISIntegration()
+            .UseIISIntegration()            
             .UseStartup<Startup>()
             .Build();
 

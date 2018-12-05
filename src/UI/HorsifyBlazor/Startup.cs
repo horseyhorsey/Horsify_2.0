@@ -8,7 +8,7 @@ namespace HorsifyBlazor
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IHorsifySongApi>(new HorsifySongApi("https://localhost:40753/"));
+            services.AddSingleton<IHorsifySongApi>(new HorsifySongApi("http://localhost:40752/"));
         }
 
         public void Configure(IBlazorApplicationBuilder app)

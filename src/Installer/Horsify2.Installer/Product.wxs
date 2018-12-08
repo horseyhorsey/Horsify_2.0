@@ -1633,9 +1633,12 @@
       <Component Win64="$(var.Win64)" Id="WindowsBase.dll"  Guid="{9711BDB5-7510-4388-BEA9-84AD8D108A4C}">
         <File Id="WindowsBase.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\WindowsBase.dll" />
       </Component>
-      <Component Win64="$(var.Win64)" Id="example.pfx"  Guid="{44133F64-8299-4C89-B967-487276E1C137}">
+      
+      <!--SELF SIGNING CERT-->
+      <!--<Component Win64="$(var.Win64)" Id="example.pfx"  Guid="{44133F64-8299-4C89-B967-487276E1C137}">
         <File Id="example.pfx" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\example.pfx" />
-      </Component>
+      </Component>-->
+      
       <!--<Component Win64="$(var.Win64)" Id="e_sqlite3.dll_2" Directory="x64_1" Guid="{FDFFA38E-8F49-4078-8D1D-DE6D946EF31C}">
                 <File Id="e_sqlite3.dll_2" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\x64\e_sqlite3.dll" />
             </Component>

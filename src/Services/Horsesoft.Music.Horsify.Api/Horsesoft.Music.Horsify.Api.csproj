@@ -8,11 +8,6 @@
   <ItemGroup>
     <None Remove="example.pfx" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="example.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <!--<PropertyGroup Condition="'$(PlatformTarget)'=='x86'">
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifiers>win7-x86;win-x64</RuntimeIdentifiers>    

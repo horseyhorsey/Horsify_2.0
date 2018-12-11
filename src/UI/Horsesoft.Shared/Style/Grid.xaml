@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     >
 
-    <!--STYLE FADING LABEL-->
+    <!--STYLE FADING LABEL - USED BY SONG ITEMS ANIMATION - TODO: Use behavior for animations-->
     <Style TargetType="{x:Type Grid}" x:Key="FadingLabel">
         <Style.Resources>
             <Storyboard x:Key="OnMouseDown1" AutoReverse="True">
@@ -36,9 +36,14 @@
         </Setter>
 
         <Style.Triggers>
-            <EventTrigger RoutedEvent="UIElement.MouseDown">
-                <BeginStoryboard Storyboard="{StaticResource OnMouseDown1}"/>
+            <EventTrigger RoutedEvent="UIElement.PreviewMouseDown">
+                <BeginStoryboard x:Name="ShrinkAnimation" Storyboard="{StaticResource OnMouseDown1}"/>
             </EventTrigger>
+
+            <EventTrigger RoutedEvent="UIElement.MouseUp">
+                <StopStoryboard BeginStoryboardName="ShrinkAnimation"/>
+            </EventTrigger>
+
         </Style.Triggers>
     </Style>
 

@@ -269,7 +269,7 @@
                         </Grid>
                     </Border>
 
-                    <TextBlock Grid.Row="2"  Text="{Binding Album}" TextWrapping="Wrap" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1"/>
+                    <TextBlock Grid.Row="2"  Text="{Binding Album}" TextWrapping="Wrap" MaxHeight="20"  MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1"/>
                     <TextBlock Grid.Row="3" Text="{Binding Year}" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Left" Grid.Column="1"/>
                     <TextBlock Grid.Row="4" Text="{Binding Label}" TextWrapping="Wrap" MaxWidth="150" MaxHeight="20"  HorizontalAlignment="Left" Grid.Column="1"/>
 

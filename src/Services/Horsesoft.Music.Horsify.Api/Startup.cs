@@ -1,13 +1,12 @@
-﻿using Horsesoft.Music.Horsify.Repositories;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using System.Diagnostics;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using AspNet.Security.OAuth.Spotify;
+using System;
+using System.Threading.Tasks;
 
 namespace Horsesoft.Music.Horsify.Api
 {
@@ -32,6 +31,23 @@ namespace Horsesoft.Music.Horsify.Api
             });
 
             services.Add(new ServiceDescriptor(typeof(Repositories.Services.IHorsifySongService), typeof(Repositories.Services.HorsifySongService), ServiceLifetime.Singleton));
+
+            services.AddAuthentication().AddSpotify(options => 
+            {
+                options.ClientId = Configuration["Spotify:ClientId"];
+                options.ClientSecret = Configuration["Spotify:ClientSecret"];
+                options.CallbackPath = "/";
+                options.Scope.Add("user-read-private user-read-email");
+            });
+            //Add spotify api
+            var spotEnabled = Convert.ToBoolean(Configuration["Spotify:Enabled"]);
+            if (spotEnabled)
+            {
+                //ClientId = Configuration["Spotify:ClientId"],
+                //    ClientSecret = Configuration["Spotify:ClientSecret"],
+                //    RedirectUri = "http://localhost:40573/api/spotify",
+          
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +65,8 @@ namespace Horsesoft.Music.Horsify.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Horsify API V1");
             });
+
+            app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseMvc();
         }

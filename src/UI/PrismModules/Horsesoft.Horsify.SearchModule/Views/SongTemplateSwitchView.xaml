@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Horsesoft.Horsify.SearchModule.Views.SongTemplateSwitchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="ToolBarButton">
+            <Setter Property="Width" Value="45"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="MyStyle" TargetType="ButtonBase" BasedOn="{StaticResource TransparentButtonBases}">
+            <Setter Property="Template" Value="{StaticResource ButtonBaseNoSelectionsControlTemplate}"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Background" Value="{DynamicResource Color_Primary2}"/>
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="VIEW" FontSize="22"
+                   Margin="8"
+                   Foreground="White"
+                   />
+
+        <StackPanel Grid.Row="1" Visibility="{Binding IsHorizontal, Converter={StaticResource bool2vis}}">
+
+            <Button x:Name="Button1" Style="{DynamicResource MyStyle}"
+                Content="1"
+                CommandParameter="0"
+                Click="SwitchTemplateButton_Click"
+                />
+            <Button Style="{DynamicResource MyStyle}"
+                Content="2"
+                CommandParameter="1"
+                Click="SwitchTemplateButton_Click"
+                />
+            <Button Style="{DynamicResource MyStyle}"
+                CommandParameter="2"
+                Click="SwitchTemplateButton_Click"
+                Content="3"
+                />
+            <Button Style="{DynamicResource MyStyle}"
+                CommandParameter="3"
+                Click="SwitchTemplateButton_Click"
+                Content="4"
+                />
+        </StackPanel>
+
+        <Button Grid.Row="2" 
+                Style="{DynamicResource MyStyle}"
+                CommandParameter="Toggle"
+                Click="SwitchTemplateButton_Click"   
+                >
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Content" Value="▼"/>
+                <!--<Style.Triggers>
+                    <DataTrigger Binding="{Binding IsHorizontal}" Value="true">
+                        <Setter Property="Content" Value="◀"/>
+                    </DataTrigger>
+                </Style.Triggers>-->
+            </Style>
+        </Button>
+
+    </Grid>
+</UserControl>

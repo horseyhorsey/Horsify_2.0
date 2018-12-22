@@ -1,8 +1,9 @@
-<ResourceDictionary
+﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Horsesoft.Horsify.Resource.Windows.CustomControls">
-
+    xmlns:controls="clr-namespace:Horsesoft.Horsify.Resource.Windows.CustomControls"
+    xmlns:panels="clr-namespace:Horsesoft.Horsify.Resource.Windows.Panels"
+    >
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/Style/ConverterResources.xaml" />
         <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/Style/Buttons.xaml" />
@@ -618,7 +619,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <controls:TextboxWithCaretIndex x:Name="SearchText" 
                                                             IsEnabled="True"
                                                             Margin="5"                                                             
@@ -712,6 +713,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!--#endregion-->   
+    <!--#endregion-->
 
 </ResourceDictionary>

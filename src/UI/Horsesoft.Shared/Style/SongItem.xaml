@@ -855,5 +855,36 @@
 
     </DataTemplate>
 
+    <DataTemplate x:Key="VerticalSlimTemplate">
+
+        <Border HorizontalAlignment="Stretch" CornerRadius="5" Background="{DynamicResource BackgroundGradient3}">
+
+         
+            <Grid TextElement.FontSize="28" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ContentPresenter ContentTemplate="{StaticResource SongCtrlPanel}" 
+                              Grid.RowSpan="5" Grid.Column="0" Margin="10"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Bottom" 
+                              />
+
+
+                                
+                <TextBlock Grid.Column="2" Text="{Binding Artist}"/>
+                <TextBlock Grid.Column="3" Text="{Binding Title}"/>
+                <TextBlock Grid.Column="4" Text="{Binding Year}"/>
+
+            </Grid>
+        </Border>
+
+    </DataTemplate>
 
 </ResourceDictionary>

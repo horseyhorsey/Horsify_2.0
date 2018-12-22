@@ -1,6 +1,7 @@
 ﻿<Application x:Class="Horsesoft.Music.Horsify.WPF.Shell.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                      
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:horsify="http://schemas/horsesoft.co.uk"
              DispatcherUnhandledException="Application_DispatcherUnhandledException"             
              >
     <Application.Resources>
@@ -16,7 +17,141 @@
                 <ResourceDictionary Source="/Horsesoft.Horsify.Resource;component/Style/BlueSkin.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
-      
+
+            <!--horsizontal wrapped scroll-->
+            <Style x:Key="ListViewTouchDefaultStyle" TargetType="{x:Type ListView}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template" Value="{DynamicResource ListViewTemplate}"/>
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="IsSynchronizedWithCurrentItem" Value="True"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+                <Setter Property="ScrollViewer.PanningDeceleration" Value="5"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <horsify:VirtualizingWrapPanel
+                        Orientation="Vertical"
+                        VirtualizingPanel.IsVirtualizing="True" 
+                        VirtualizingPanel.ScrollUnit="Item"
+                        VirtualizingPanel.VirtualizationMode="Recycling"
+                        />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--Vertical wrapped SCROLL-->
+            <Style x:Key="ListViewTouchDefaultVerticalStyle" BasedOn="{StaticResource ListViewTouchDefaultStyle}" 
+               TargetType="horsify:ListViewTouch">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template" Value="{DynamicResource ListViewTemplateVertical}"/>
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel
+                        Orientation="Vertical"
+                            HorizontalAlignment="Stretch"
+                        VirtualizingPanel.IsVirtualizing="True" 
+                        VirtualizingPanel.ScrollUnit="Item"
+                        VirtualizingPanel.VirtualizationMode="Recycling"
+                        />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="View">
+                    <Setter.Value>
+                        <GridView>
+                            <GridViewColumn Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ContentPresenter Margin="0" ContentTemplate="{DynamicResource SongCtrlPanel}" 
+                                                      MaxWidth="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--IMAGE-->
+                            <GridViewColumn Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Grid.Column="1" MaxHeight="40">
+                                            <Image Margin="0" >
+                                                <Image.Style>
+                                                    <Style TargetType="{x:Type Image}">
+                                                        <Setter Property="Source" Value="{Binding ImageLocation, Converter={StaticResource stringToBitmapConverter}}"/>
+
+                                                        <Style.Triggers>
+                                                            <DataTrigger  Binding="{Binding ImageLocation}" Value="{x:Null}">
+                                                                <Setter Property="Source" Value="{DynamicResource Bitmap_AlbumArtNoImage}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="175">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Artist}" FontSize="24"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}" FontSize="24"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="175">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Album}" FontSize="22"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="175">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Genre}" FontSize="18"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="175">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Year}" FontSize="18"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <!--RATING-->
+                            <GridViewColumn Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <horsify:RatingControl Grid.Column="5" RatingValue="{Binding Rating, Mode=OneWay}"
+                                                      Style="{DynamicResource RatingViewStyle}"
+                                                      StarWidth="20"  
+                                                      HorizontalAlignment="Right"
+                                                      />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ListViewInstantSearchVerticalStyle" TargetType="horsify:ListViewTouch" BasedOn="{StaticResource ListViewTouchDefaultVerticalStyle}">
+                
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

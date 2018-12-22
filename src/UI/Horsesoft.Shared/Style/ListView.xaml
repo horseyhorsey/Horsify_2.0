@@ -7,11 +7,7 @@
         <ResourceDictionary Source="ConverterResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <!--SONG LIST STYLE-->
-    <SolidColorBrush x:Key="ListBox.Static.Background" Color="Transparent"/>
-    <SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3"/>
-    <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="Transparent"/>
-    <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#FFD9D9D9"/>
+
 
     <!--#region STYLES-->
 
@@ -20,45 +16,6 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-    </Style>
-
-    <!--SONG LIST STYLE-->
-    <Style x:Key="SongsListStyle" TargetType="{x:Type ListView}">
-        <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListView}">
-                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                                    Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
-                        <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                        </ScrollViewer>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <!--<Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Background}"/>
-                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Border}"/>-->
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsGrouping" Value="true"/>
-                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <!--FILTER LIST VIEW-->
@@ -78,72 +35,6 @@
     <!--#endregion-->
 
     <!--#region TEMPLATES-->
-
-    <!--LISTVIEW SONGS SEARCH PANEL-->
-    <ControlTemplate x:Key="ListViewTemplate" TargetType="{x:Type ListView}">
-
-        <DockPanel Background="Transparent" HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-            <DockPanel.Resources>
-                <Style TargetType="{x:Type RepeatButton}">
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect Direction="75" BlurRadius="1" ShadowDepth="1"/>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DockPanel.Resources>
-
-            <!--PAGING LEFT-->
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20">
-                <RepeatButton x:Name="LineLeftButton"
-                              Margin="5"
-                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
-                              Style="{DynamicResource TransparentButtonBases}" 
-                              Content="◀" Command="{x:Static ScrollBar.LineLeftCommand}"   
-                              FontSize="36"
-                              CommandTarget="{Binding ElementName=scrollviewer}"/>
-
-                <RepeatButton x:Name="LineLeftButton2" DockPanel.Dock="Left" 
-                                   FontSize="36" Margin="5"
-                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
-                              Style="{DynamicResource TransparentButtonBases}"                               
-                                      Content="⇤" Command="{x:Static ScrollBar.ScrollToLeftEndCommand}"      
-                                      CommandTarget="{Binding ElementName=scrollviewer}"/>
-            </StackPanel>
-
-            <!--PAGING RIGHT-->
-            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="20">
-                <RepeatButton x:Name="LineRightButton" Margin="5"
-                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
-                              Style="{DynamicResource TransparentButtonBases}" 
-                              Content="▶" FontSize="36"
-                              Command="{x:Static ScrollBar.LineRightCommand}"      
-                              CommandTarget="{Binding ElementName=scrollviewer}"/>
-
-                <RepeatButton x:Name="LineRightButton2" Margin="5"           
-                              Content="⇥" FontSize="36"
-                              Template="{DynamicResource ButtonBaseNoSelectionsControlTemplate}"
-                              Style="{DynamicResource TransparentButtonBases}"                              
-                              Command="{x:Static ScrollBar.ScrollToRightEndCommand}"
-                              CommandTarget="{Binding ElementName=scrollviewer}">
-                </RepeatButton>
-            </StackPanel>
-
-            <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}"            
-                    BorderThickness="2" DockPanel.Dock="Left" CornerRadius="15">
-
-                <Grid>
-                    <ScrollViewer x:Name="scrollviewer" 
-                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-                        <ItemsPresenter Margin="50" HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
-                    </ScrollViewer>
-                </Grid>
-            </Border>
-
-            <!--</StackPanel>-->
-        </DockPanel>
-
-    </ControlTemplate>
 
     <!--HORSIFY Filter ITEM TEMPLATE - Displays Deleteicon, search type and filename-->
     <DataTemplate x:Key="HorsifyListViewItemTemplate">

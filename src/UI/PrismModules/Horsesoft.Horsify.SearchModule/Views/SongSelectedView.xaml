@@ -216,6 +216,12 @@
                     Visibility="{Binding SelectedSong.Year, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
                     />
 
+                <!--LAST PLAYED - NO COMMAND-->
+                <horsify:HorsifySearchButton Grid.Column="1"  Grid.Row="7" 
+                    SearchString="{Binding SelectedSong.LastPlayed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource UnixstampToDateConverter}, StringFormat={}Last Played: {0}}"
+                    Content="{Binding Source={StaticResource IcoYear}}"
+                    Visibility="{Binding SelectedSong.LastPlayed, Converter={StaticResource string2vis}, UpdateSourceTrigger=PropertyChanged}"
+                    />
                 <!--#endregion-->
 
             </Grid>

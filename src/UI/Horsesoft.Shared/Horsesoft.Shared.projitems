@@ -135,6 +135,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Windows\CustomControls\VolumeControlSlider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Panels\VirtializingWrapPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Windows\Selectors\SongItemTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Windows\Selectors\SongListStyleSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Style\BlueSkin.xaml">

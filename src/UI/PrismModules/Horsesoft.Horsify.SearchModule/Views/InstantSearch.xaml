@@ -86,25 +86,8 @@
 
         <horsify:ListViewTouch Grid.Row="2" ItemsSource="{Binding SearchResults}" Margin="1"
                           TextElement.FontSize="18" 
-                                   Template="{DynamicResource ListViewTemplate}"
-                          ItemTemplate="{DynamicResource SmallSongItemNoImage}" 
-                          IsSynchronizedWithCurrentItem="True"
-                                   ScrollViewer.CanContentScroll="True"   
-                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                   ScrollViewer.IsDeferredScrollingEnabled="False"
-                                   ScrollViewer.PanningDeceleration="5"                                     
+                                   Style="{StaticResource ListViewInstantSearchVerticalStyle}"
                   >
-
-            <horsify:ListViewTouch.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <horsify:VirtualizingWrapPanel HorizontalAlignment="Center"
-                                                            Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True" 
-                                                            VirtualizingPanel.ScrollUnit="Pixel"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </horsify:ListViewTouch.ItemsPanel>
         </horsify:ListViewTouch>
 
 

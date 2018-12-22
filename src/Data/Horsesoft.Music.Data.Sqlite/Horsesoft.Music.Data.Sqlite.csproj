@@ -1,18 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1;net471</TargetFrameworks>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>C:\Users\funktub\Documents\Visual Studio 2017\Projects\Horsify\Horsify_2.0\src\Backup1\Data\Horsesoft.Music.Data.Sqlite\</UpgradeBackupLocation>
+    <OldToolsVersion>15.0</OldToolsVersion>
   </PropertyGroup>
-
   <!--;net471-->
-
   <ItemGroup>
     <None Remove="sqlite3.dll" />
     <None Remove="Sql\CreateHorsifySqliteDb.sql" />
     <None Remove="Sql\HorsifyTestDb.7z" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -22,22 +21,17 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />
-    
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />    
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Sql\CreateHorsifySqliteDb.sql" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
-
 </Project>

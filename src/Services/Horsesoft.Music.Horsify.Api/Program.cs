@@ -4,6 +4,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace Horsesoft.Music.Horsify.Api
 {
@@ -37,6 +38,7 @@ namespace Horsesoft.Music.Horsify.Api
 
             //.UseConfiguration(config)
             var host = new WebHostBuilder()
+             .UseConfiguration(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build())
             .UseUrls("http://*:40752")
             .UseKestrel()
             .UseContentRoot(pathToContentRoot) /// Route of this directory

@@ -8,10 +8,10 @@
              xmlns:Sys="clr-namespace:System;assembly=mscorlib"
              xmlns:model="clr-namespace:Horsesoft.Music.Data.Model.Horsify;assembly=Horsesoft.Music.Data.Model"             
              prism:ViewModelLocator.AutoWireViewModel="True"        
+             xmlns:base="clr-namespace:Horsesoft.Music.Horsify.Base;assembly=Horsesoft.Music.Horsify.Base"
              xmlns:local="clr-namespace:Horsesoft.Horsify.SearchModule"            
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                                                  
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:usercontrols="clr-namespace:Horsesoft.Horsify.SearchModule.UserControls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"            
              xmlns:views="clr-namespace:Horsesoft.Horsify.SearchModule.Views"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1630"
@@ -67,20 +67,10 @@
             </Setter>
         </Style>
 
-        <Style x:Key="ControlStyle1" TargetType="{x:Type Control}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" SnapsToDevicePixels="True" 
-                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <!--#endregion-->
 
         <horsify:SongItemTemplateSelector x:Key="SongItemSelector" />
+        <horsify:SongListStyleSelector x:Key="SongListStyleSelector" />
 
         <!--#region DATA PROVIDERS-->
         <ObjectDataProvider x:Key="SearchTypes" ObjectType="{x:Type Sys:Enum}" MethodName="GetValues" >
@@ -173,33 +163,21 @@
             <!--IF CANCONTENTSCROLL NOT SET TO TRUE< WILL CRASH-->
             <!--ItemsSource="{Binding Source={StaticResource SearchedSongsViewSource}}"-->
             <!--ItemsSource="{Binding SongsListView}"-->
+            <!--Style="{DynamicResource ListViewTouchDefaultStyle}"-->
+            <!--ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"-->
             <!---->            
-            <horsify:ListViewTouch x:Name="ListviewTouch" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+            
+            <horsify:ListViewTouch x:Name="ListviewTouch" 
+                                   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"                                   
                                    d:IsHidden="False"
-                                   BorderThickness="0" Margin="-8,0,-15,0"                                       
-                                   ItemsSource="{Binding SongsListView, UpdateSourceTrigger=PropertyChanged}"
-                                   Template="{DynamicResource ListViewTemplate}"
-                                   ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"
-                                   ScrollViewer.CanContentScroll="True"   
-                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                   ScrollViewer.IsDeferredScrollingEnabled="False"
-                                   ScrollViewer.PanningDeceleration="5"                    
+                                   Margin="-8,0,-15,0"   
+                                   Background="Transparent"                                         
+                                   Style="{DynamicResource ListViewTouchDefaultStyle}"
+                                   ItemsSource="{Binding SongsListView, UpdateSourceTrigger=PropertyChanged}"                                   
+                                   ItemTemplateSelector="{Binding Source={StaticResource SongItemSelector}}"                               
                                    Tag="JukeboxLabel"
-                                   IsSynchronizedWithCurrentItem="True"
-                                   IsTabStop="False"
-                                   AlternationCount="235"
-                          >
-
-                <horsify:ListViewTouch.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <horsify:VirtualizingWrapPanel
-                                                            Orientation="Vertical"
-                                                            VirtualizingPanel.IsVirtualizing="True" 
-                                                            VirtualizingPanel.ScrollUnit="Item"
-                                                            VirtualizingPanel.VirtualizationMode="Recycling"/>
-                    </ItemsPanelTemplate>
-                </horsify:ListViewTouch.ItemsPanel>
+                                   AlternationCount="235"                       
+                                   >
             </horsify:ListViewTouch>
 
             <!--LIST SORT / RANDOM-->
@@ -230,11 +208,16 @@
                 />
             </StackPanel>
 
+            <!--<usercontrols:ucSongTemplateSwitcher DataContext="{Binding}"
+                                                 HorizontalAlignment="Left" 
+                                                 VerticalAlignment="Top"
+                                                 Margin="20"/>-->
 
-            <usercontrols:ucSongTemplateSwitcher DataContext="{Binding}"
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top"
-            Margin="20"/>
+            <!--PLAYING INFO - DIGITAL SCREEN-->
+            <ContentControl HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="20"                           
+                            prism:RegionManager.RegionName="{x:Static base:Regions.SongTemplateSwitchRegion}" />
 
             <StackPanel VerticalAlignment="Bottom" 
                     Orientation="Horizontal" HorizontalAlignment="Center"

@@ -1,25 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1;net471</TargetFrameworks>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>C:\Users\funktub\Documents\Visual Studio 2017\Projects\Horsify\Horsify_2.0\src\Backup1\Data\Horsesoft.Music.Horsify.Repositories\</UpgradeBackupLocation>
+    <OldToolsVersion>15.0</OldToolsVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="sqlite3.dll" />
     <None Remove="SQL\CreateHorsifySqliteDb.sql" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="SQL\CreateHorsifySqliteDb.sql" />
   </ItemGroup>
-
   <!--<PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <FileUpgradeFlags>
@@ -28,32 +26,23 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>-->
-  
   <ItemGroup>
     <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.3" />-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
     <!--<PackageReference Include="SQLitePCLRaw.core" Version="1.1.11" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.108" />-->
   </ItemGroup>
-
-
   <ItemGroup>
     <!--<ProjectReference Include="..\..\BLL\Horsesoft.Music.Engine\Horsesoft.Music.Engine.csproj" />-->
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Sqlite\Horsesoft.Music.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj" />
   </ItemGroup>
-
-
   <ItemGroup>
-
   </ItemGroup>
-
-
   <ItemGroup>
     <None Update="app.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>

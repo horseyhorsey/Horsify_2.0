@@ -22,7 +22,9 @@ namespace Horsesoft.Horsify.Resource.Windows.Selectors
                     return element.FindResource("SongItemMinimalArtistTitle") as DataTemplate;
                 case SongItem.SmallSongItemNoImage:
                     return element.FindResource("SmallSongItemNoImage") as DataTemplate;
-                    
+                case SongItem.VerticalSlimTemplate:
+                    return element.FindResource("VerticalSlimTemplate") as DataTemplate;
+
             }
         }        
     }
@@ -33,5 +35,6 @@ namespace Horsesoft.Horsify.Resource.Windows.Selectors
         JukeboxLabel = 1,
         SongItemMinimal = 2,
         SmallSongItemNoImage = 3,
+        VerticalSlimTemplate = 4,
     }
 }

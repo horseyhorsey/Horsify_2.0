@@ -13,6 +13,9 @@ init:
 install:
   # Install repo specific stuff here
   
+environment:
+  VisualStudioVersion: 15.0  
+  
 build:
   # enable MSBuild parallel builds
   parallel: false

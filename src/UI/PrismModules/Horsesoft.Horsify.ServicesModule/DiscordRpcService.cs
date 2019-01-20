@@ -94,6 +94,12 @@ namespace Horsesoft.Horsify.ServicesModule
             }
         }
 
+        public void Clear()
+        {
+            _discClient.ClearPresence();
+            this.Enable(false);
+        }
+
         #endregion
     }
 }

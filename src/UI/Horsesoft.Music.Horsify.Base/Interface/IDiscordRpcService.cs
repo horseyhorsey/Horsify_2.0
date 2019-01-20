@@ -13,5 +13,10 @@
         /// Invokes all the events, such as OnPresenceUpdate
         /// </summary>
         void Update();
+
+        /// <summary>
+        /// Clear the presence
+        /// </summary>
+        void Clear();
     }
 }

@@ -57,6 +57,9 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             _eventAggregator.GetEvent<SkipQueueEvent>().Publish();
         }
 
+        /// <summary>
+        /// Queue has ended and not set to play anymore songs
+        /// </summary>
         private void OnQueueCompletedMessage()
         {
             if (!this.MediaControlModel.IsPlaying)
@@ -154,6 +157,8 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
                 UpdateFileTags();
                 _previousSong = null;
                 MediaControlModel.Clear();
+
+                _discordRpcService.Clear();
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net471</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net471</TargetFrameworks>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <FileUpgradeFlags>40</FileUpgradeFlags>
     <UpgradeBackupLocation>C:\Users\funktub\Documents\Visual Studio 2017\Projects\Horsify\Horsify_2.0\src\Backup1\Data\Horsesoft.Music.Data.Sqlite\</UpgradeBackupLocation>

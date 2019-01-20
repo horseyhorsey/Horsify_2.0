@@ -48,15 +48,21 @@
             </StackPanel>
         </GroupBox>
 
+         <!--VOICE OPTIONS-->
         <GroupBox Grid.Row="1" 
-                  Header="Voice" FontSize="32">
+                  Header="Voice Control" FontSize="32">
             <StackPanel Orientation="Horizontal">
-
                 <CheckBox Content="Enabled" IsChecked="{Binding VoiceEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-
             </StackPanel>
         </GroupBox>
 
+        <!--DISCORD OPTIONS-->
+        <GroupBox Grid.Row="2" 
+                  Header="Discord" FontSize="32">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Content="Enabled" IsChecked="{Binding DiscordEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 
 </UserControl>

@@ -31,14 +31,16 @@ namespace Horsesoft.Horsify.ServicesModule
             _container.RegisterType<IPlaylistService, HorsifyPlaylistService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDjHorsifyService, DjHorsifyService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<ISongPlayingInfo, SongPlayingInfo>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IVoiceControl, VoiceControl>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IVoiceControl, VoiceControl>(new ContainerControlledLifetimeManager());            
             try
             {
                 //TODO: Get vlc path and options
                 //true runs two Vlc instances
                 InjectionConstructor ic = new InjectionConstructor("", false);
-
                 _container.RegisterType<IHorsifyMediaController, HorsifyVlcMediaController>("", new ContainerControlledLifetimeManager(), ic);
+
+                InjectionConstructor discordClientCtor = new InjectionConstructor("523161926025609233");
+                _container.RegisterType<IDiscordRpcService, DiscordRpcService>(new ContainerControlledLifetimeManager(), discordClientCtor);
             }
             catch (System.Exception ex)
             {

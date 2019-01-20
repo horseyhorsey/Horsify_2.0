@@ -163,6 +163,7 @@
     <Compile Include="Helpers\HorsifyImage.cs" />
     <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Helpers\WinAudioVolApi.cs" />
+    <Compile Include="Interface\IDiscordRpcService.cs" />
     <Compile Include="Interface\IDjHorsifyOption.cs" />
     <Compile Include="Interface\IDjHorsifyService.cs" />
     <Compile Include="Interface\IHorsifyDialogService.cs" />

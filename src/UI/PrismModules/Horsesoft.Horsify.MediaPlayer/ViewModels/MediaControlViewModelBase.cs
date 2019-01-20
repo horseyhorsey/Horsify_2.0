@@ -65,13 +65,13 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             MediaControlModel.IsSeeking = true;
         }
 
-        private void OnSeekStopped(object sliderValue)
+        protected virtual void OnSeekStopped(object sliderValue)
         {
             var val = (double)sliderValue;
             var length = MediaControlModel.CurrentSongTime.TotalSeconds;
             var pos = (1 / length) * val;
             _horsifyMediaController.SetMediaPosition(pos);
-            MediaControlModel.IsSeeking = false;
+            MediaControlModel.IsSeeking = false;            
         }
 
         private void OnStopped()

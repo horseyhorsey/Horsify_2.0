@@ -17,12 +17,16 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
     public class MediaControlViewModel : MediaControlViewModelBase
     {
         private ISongDataProvider _songDataProvider;
+        private IDiscordRpcService _discordRpcService;
+        private bool _justSeeked;
 
         public MediaControlViewModel(IEventAggregator eventAggregator, ILoggerFacade loggerFacade, 
-            IHorsifyMediaController horsifyMediaController, ISongDataProvider songDataProvider, MediaControl mediaControl) 
+            IHorsifyMediaController horsifyMediaController, ISongDataProvider songDataProvider, MediaControl mediaControl, IDiscordRpcService discordRpcService) 
             : base(loggerFacade, horsifyMediaController, eventAggregator, mediaControl)
         {
-            _songDataProvider = songDataProvider;            
+            _songDataProvider = songDataProvider;
+            _discordRpcService = discordRpcService;
+
             #region Events
             //Update SelectedSong
             _eventAggregator.GetEvent<OnMediaPlay<AllJoinedTable>>()
@@ -31,14 +35,14 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             //Queue completed
             _eventAggregator.GetEvent<QueuedJobsCompletedEvent>().Subscribe(() => { OnQueueCompletedMessage();}, ThreadOption.UIThread);
 
-
-            #region Events
             _horsifyMediaController.OnTimeChanged += (currentTime) => { OnTimeChanged(MediaControlModel, currentTime); };
             _horsifyMediaController.OnMediaFinished += OnMediaFinsished;
             _horsifyMediaController.OnMediaLoaded += (duration) => { MediaControlModel.CurrentSongTime = duration; };
-            #endregion
 
             #endregion
+
+            //Enable discord. TODO: Make optional
+            _discordRpcService.Enable(true);
         }
 
         #region Private Methods
@@ -74,11 +78,13 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
             {
                 var mediaFile = new Uri(song.FileLocation, UriKind.Absolute);
 
-                if (!System.IO.Directory.Exists(Path.GetDirectoryName(mediaFile.LocalPath)))
+                if (!Directory.Exists(Path.GetDirectoryName(mediaFile.LocalPath)))
                     throw new DirectoryNotFoundException($"Song Directory not found: {mediaFile.LocalPath}");
                 
                 if (!System.IO.File.Exists(mediaFile.LocalPath))
+                {
                     throw new FileNotFoundException($"Media file not found: {mediaFile.LocalPath}");
+                }
 
                 MediaControlModel.SelectedSong = song;
                 //_horsifyMediaController.SetMedia(song.FileLocation);
@@ -92,6 +98,14 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
                 _previousSongRating = _previousSong.Rating;
 
                 MediaControlModel.IsPlaying = true;
+                
+                //Update Discord : TODO settings
+                _discordRpcService.SetPrecense(
+                    $"Year: {_previousSong.Year} | Rated: {_previousSong.Rating} | Genre: {_previousSong.Genre} | Bpm:{_previousSong.Bpm} | Key: {_previousSong.MusicKey}",
+                    $"{_previousSong.Artist} - {_previousSong.Title}"
+                    , (int)MediaControlModel.CurrentSongTime.TotalSeconds);
+
+                _discordRpcService.Update();
             }
             catch (Exception ex)
             {
@@ -103,14 +117,30 @@ namespace Horsesoft.Horsify.MediaPlayer.ViewModels
         }
 
         private void OnTimeChanged(MediaControl mediaControlModel, TimeSpan currentTime)
-        {
+        {            
             if (!mediaControlModel.IsSeeking)
             {
                 if (MediaControlModel.IsPlaying)
-                {
+                {                    
                     MediaControlModel.CurrentSongPosition = currentTime;
+
+                    if (_justSeeked)
+                    {
+                        _justSeeked = false;
+                        _discordRpcService.SetPrecense(
+                            $"Year: {_previousSong.Year} | Rated: {_previousSong.Rating} | Genre: {_previousSong.Genre} | Bpm:{_previousSong.Bpm} | Key: {_previousSong.MusicKey}",
+                            $"{_previousSong.Artist} - {_previousSong.Title}", 
+                            (int)MediaControlModel.CurrentSongTime.TotalSeconds, (int)MediaControlModel.CurrentSongPosition.TotalSeconds);
+                    }
                 }
             }
+        }
+
+        protected override void OnSeekStopped(object sliderValue)
+        {
+            base.OnSeekStopped(sliderValue);
+
+            _justSeeked = true;
         }
 
         /// <summary>

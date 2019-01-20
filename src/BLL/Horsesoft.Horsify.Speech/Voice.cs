@@ -42,6 +42,9 @@ namespace Horsesoft.Horsify.Speech
             lex.AddPronunciation(words, langid);
         }
 
+        /// <summary>
+        /// TODO: can fail if no input device. Should be quiet in debug?
+        /// </summary>
         private void StartListening()
         {
             Disabled = false;

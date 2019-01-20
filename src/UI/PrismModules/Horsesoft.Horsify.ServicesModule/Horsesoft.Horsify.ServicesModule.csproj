@@ -49,6 +49,9 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DiscordRPC">
+      <HintPath>.\DiscordRPC.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -68,6 +71,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiscordRpcService.cs" />
     <Compile Include="DjHorsifyService.cs" />
     <Compile Include="Extensions\ShuffleExtensions.cs" />
     <Compile Include="HorsifyDialogService.cs" />

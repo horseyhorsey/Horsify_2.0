@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28407.52
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{C5DAF414-9D26-498A-B3CC-E2017A850E3A}"
 EndProject
@@ -413,8 +413,8 @@ Global
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Debug|x86.Build.0 = Debug|x86
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|Any CPU.ActiveCfg = Release|x86
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|ia64.ActiveCfg = Release|x86
-		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x64.ActiveCfg = Release|x86
-		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x64.Build.0 = Release|x86
+		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x64.ActiveCfg = Release|x64
+		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x64.Build.0 = Release|x64
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x86.ActiveCfg = Release|x86
 		{42E3478F-94AC-466B-A40E-526F87216FFB}.Release|x86.Build.0 = Release|x86
 		{402F66E5-01FB-4D70-9CA0-B3EC2C564255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -485,10 +485,3 @@ Global
 		SolutionGuid = {5D063F5F-3122-4E5F-9CD3-04EE73DFBE06}
 	EndGlobalSection
 EndGlobal
-
-<Target Name="clean_folders">
-  <RemoveDir Directories=".\ProjectName\bin" />
-  <RemoveDir Directories=".\ProjectName\obj" />
-  <RemoveDir Directories="$(ProjectVarName)\bin" />
-  <RemoveDir Directories="$(ProjectVarName)\obj" />
-</Target>

@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Id3, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\..\..\.nuget\packages\ID3.0.3.0\lib\net40\Id3.dll</HintPath>
+      <HintPath>..\..\packages\ID3.0.3.0\lib\net40\Id3.dll</HintPath>
     </Reference>
     <Reference Include="netstandard" />
     <Reference Include="PresentationCore" />

@@ -106,19 +106,21 @@
       <?if $(var.Platform) = x64 ?>
           <Component Id="Microsoft.DiaSymReader.Native.amd64.dll" Directory="SERVICE" Guid="{30E148AA-8A35-4C0A-8AA5-73A5768BA256}">
             <File Id="Microsoft.DiaSymReader.Native.amd64.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\Microsoft.DiaSymReader.Native.amd64.dll" />
-          </Component>
-          <Component Id="mscordaccore_amd64_amd64_4.6.27207.03.dll" Directory="SERVICE" Guid="{2EC6406F-4B12-4C5B-91B5-06B9982C060D}">
-            <File Id="mscordaccore_amd64_amd64_4.6.27207.03.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\mscordaccore_amd64_amd64_4.6.27207.03.dll" />
-          </Component>
-          <Component Id="sos_amd64_amd64_4.6.27207.03.dll" Directory="SERVICE" Guid="{C7542716-EC64-47F7-B955-17CD252E4E12}">
-            <File Id="sos_amd64_amd64_4.6.27207.03.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\sos_amd64_amd64_4.6.27207.03.dll" />
-          </Component>
+          </Component>          
           <Component Id="e_sqlite3.dll_2" Directory="x64_1" Guid="{8B700504-A561-4BAE-B4F1-9BC77134577D}">
             <File Id="e_sqlite3.dll_2" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\x64\e_sqlite3.dll" />
           </Component>
           <Component Id="e_sqlite3.dll_4" Directory="x64_2" Guid="{2EDB8F23-36B4-4AC9-9915-B5822250BD49}">
             <File Id="e_sqlite3.dll_4" KeyPath="yes" Source="..\..\Build\$(var.Platform)\x64\e_sqlite3.dll" />
           </Component>
+
+      <!--DEBUG FILES ?? NOT NEEDED-->
+      <!--<Component Id="mscordaccore_amd64_amd64_4.6.27207.03.dll" Directory="SERVICE" Guid="{2EC6406F-4B12-4C5B-91B5-06B9982C060D}">
+            <File Id="mscordaccore_amd64_amd64_4.6.27207.03.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\mscordaccore_amd64_amd64_4.6.27207.03.dll" />
+          </Component>
+          <Component Id="sos_amd64_amd64_4.6.27207.03.dll" Directory="SERVICE" Guid="{C7542716-EC64-47F7-B955-17CD252E4E12}">
+            <File Id="sos_amd64_amd64_4.6.27207.03.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\sos_amd64_amd64_4.6.27207.03.dll" />
+          </Component>-->
       <?endif ?>
       <!--X86-->
       <?if $(var.Platform) = x86 ?>
@@ -135,12 +137,12 @@
           <Component Id="API_MS_Win_core_xstate_l2_1_0.dll" Directory="SERVICE" Guid="{ABCCA53E-FA27-4230-BCA3-7CFD16B60367}">
             <File Id="API_MS_Win_core_xstate_l2_1_0.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\API-MS-Win-core-xstate-l2-1-0.dll" />
           </Component>
-          <Component Id="mscordaccore_x86_x86_4.6.27207.03.dll" Directory="SERVICE" Guid="{5436CA6E-64BD-4EC3-95B5-8C4C49802A83}">
+          <!--<Component Id="mscordaccore_x86_x86_4.6.27207.03.dll" Directory="SERVICE" Guid="{5436CA6E-64BD-4EC3-95B5-8C4C49802A83}">
             <File Id="mscordaccore_x86_x86_4.6.27207.03.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\mscordaccore_x86_x86_4.6.27207.03.dll" />
           </Component>
           <Component Id="sos_x86_x86_4.6.27207.03.dll" Directory="SERVICE" Guid="{F7604447-80E6-461C-A37A-5A4C7120DF75}">
             <File Id="sos_x86_x86_4.6.27207.03.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\sos_x86_x86_4.6.27207.03.dll" />
-          </Component>
+          </Component>-->
       <?endif?>           
       
       <Component Id="app.config" Directory="INSTALLFOLDER" Guid="{4A438C67-6EEE-48C9-8A97-7C8469EE19B9}">

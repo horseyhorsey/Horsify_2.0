@@ -6,8 +6,8 @@ msbuild "src/ui/horsesoft.music.horsify.wpf.shell/horsesoft.music.horsify.wpf.sh
 msbuild "src/UI/Horsesoft.Music.Horsify.Importer.UI.WPF/Horsesoft.Music.Horsify.Importer.UI.WPF.csproj" /property:Configuration=Release /property:Platform=x64 /property:SolutionDir="../../../../../"
 
 # # # BUILD X86 Jukebox, Importer
-# msbuild "src/UI/Horsesoft.Music.Horsify.WPF.Shell/Horsesoft.Music.Horsify.WPF.Shell.csproj" /property:Configuration=Release /property:Platform=x86 /property:SolutionDir="../../../../../"
-# msbuild "src/UI/Horsesoft.Music.Horsify.Importer.UI.WPF/Horsesoft.Music.Horsify.Importer.UI.WPF.csproj" /property:Configuration=Release /property:Platform=x86 /property:SolutionDir="../../../../../"
+msbuild "src/UI/Horsesoft.Music.Horsify.WPF.Shell/Horsesoft.Music.Horsify.WPF.Shell.csproj" /property:Configuration=Release /property:Platform=x86 /property:SolutionDir="../../../../../"
+msbuild "src/UI/Horsesoft.Music.Horsify.Importer.UI.WPF/Horsesoft.Music.Horsify.Importer.UI.WPF.csproj" /property:Configuration=Release /property:Platform=x86 /property:SolutionDir="../../../../../"
 
 # Run the API build script (builds x86 and x64) (Copies to Build folder under Service)
 cd src/services/horsesoft.music.horsify.api
@@ -19,4 +19,4 @@ cd ../../..
 msbuild "src\Installer\Horsify2.Installer/Horsify2.Installer.wixproj" /property:Configuration=Release /property:Platform=x64 /property:SolutionDir="../../../../../"
 
 # # BUILD X86 Installer
-# msbuild "src\Installer\Horsify2.Installer/Horsify2.Installer.wixproj" /property:Configuration=Release /property:Platform=x86 /property:SolutionDir="../../../../../"
+msbuild "src\installer\horsify2.installer/horsify2.installer.wixproj" /property:configuration=release /property:platform=x86 /property:solutiondir="../../../../../"

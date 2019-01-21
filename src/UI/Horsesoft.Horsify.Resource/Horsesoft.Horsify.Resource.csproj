@@ -108,6 +108,7 @@
     </Compile>
     <Resource Include="Fonts\BEBASNEUE.TTF" />
     <Resource Include="Fonts\digital-7.ttf" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

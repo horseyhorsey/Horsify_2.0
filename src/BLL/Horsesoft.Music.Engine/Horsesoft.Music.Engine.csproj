@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Horsesoft.Music.Data.Model.File.datasource" />
     <None Include="Properties\DataSources\Horsesoft.Music.Data.Model.Song.datasource" />
   </ItemGroup>

@@ -142,9 +142,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Prism.Unity" Version="6.3.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Data\Horsesoft.Music.Data.Model\Horsesoft.Music.Data.Model.csproj">
       <Project>{EFF16601-3A8A-46EE-87C6-698CD98E2DD8}</Project>
       <Name>Horsesoft.Music.Data.Model</Name>
@@ -157,6 +154,11 @@
       <Project>{b4dabe47-1e17-486d-85fb-2a232612bcce}</Project>
       <Name>Horsesoft.Music.Horsify.Base</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.Unity">
+      <Version>6.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

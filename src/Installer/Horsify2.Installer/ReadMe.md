@@ -1,4 +1,4 @@
-﻿# Daves Wix install notes
+# Daves Wix install notes
 
 ### Running HEAT
 
@@ -10,6 +10,8 @@ Replace the Source attribute:  Source="SourceDir\e_sqlite3.dll" to the build out
 
 eg. Source="..\..\Build\$(var.Platform)\e_sqlite3.dll"
 
+
+If adding more libs/files to Horsify run these commands from the Build directory:
 
 Heat Command
 

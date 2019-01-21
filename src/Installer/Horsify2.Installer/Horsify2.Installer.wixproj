@@ -39,7 +39,7 @@
     <Pedantic>False</Pedantic>
   </PropertyGroup>
   <ItemGroup>
-    <!-- <Compile Include="JukeAndImporterFiles.wxs" /> -->
+    <!-- <Compile Include="Apix64Service.wxs" /> -->
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>

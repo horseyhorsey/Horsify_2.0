@@ -485,3 +485,10 @@ Global
 		SolutionGuid = {5D063F5F-3122-4E5F-9CD3-04EE73DFBE06}
 	EndGlobalSection
 EndGlobal
+
+<Target Name="clean_folders">
+  <RemoveDir Directories=".\ProjectName\bin" />
+  <RemoveDir Directories=".\ProjectName\obj" />
+  <RemoveDir Directories="$(ProjectVarName)\bin" />
+  <RemoveDir Directories="$(ProjectVarName)\obj" />
+</Target>

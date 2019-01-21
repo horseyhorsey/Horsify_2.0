@@ -114,7 +114,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Prism.Unity" Version="6.3.0" />
+    <PackageReference Include="Prism.Unity">
+      <Version>6.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

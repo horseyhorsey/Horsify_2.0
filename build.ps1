@@ -15,8 +15,8 @@ cd src/services/horsesoft.music.horsify.api
 cd ../../..
 
 
-# BUILD X64 Installer
+# # BUILD X64 Installer
 msbuild "src\Installer\Horsify2.Installer/Horsify2.Installer.wixproj" /property:Configuration=Release /property:Platform=x64 /property:SolutionDir="../../../../../"
 
-# # BUILD X86 Installer
+# # # BUILD X86 Installer
 msbuild "src\installer\horsify2.installer/horsify2.installer.wixproj" /property:configuration=release /property:platform=x86 /property:solutiondir="../../../../../"

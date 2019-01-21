@@ -22,3 +22,6 @@ API FILES:
 	Service uses different runtime files for each platform
 	heat dir ".\x86\service" -cg Binaries -sreg -suid -gg -out "Apix86Service.wxs"
 	heat dir ".\x64\service" -cg Binaries -sreg -suid -gg -out "Apix64Service.wxs"
+
+MENU IMAGES
+heat dir "." -cg Images -sreg -suid -gg -out "Images.wxs"

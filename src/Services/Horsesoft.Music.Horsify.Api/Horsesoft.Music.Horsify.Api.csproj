@@ -2,23 +2,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RuntimeIdentifiers>win7-x86;win7-x64</RuntimeIdentifiers>
-    <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>C:\Users\funktub\Documents\Visual Studio 2017\Projects\Horsify\Horsify_2.0\src\Backup1\Services\Horsesoft.Music.Horsify.Api\</UpgradeBackupLocation>
-    <OldToolsVersion>15.0</OldToolsVersion>
+    <Platforms>x64;x86</Platforms>
     <!--<PreserveCompilationContext>false</PreserveCompilationContext>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>-->
   </PropertyGroup>
   <ItemGroup>
     <None Remove="example.pfx" />
   </ItemGroup>
-  <!--<PropertyGroup Condition="'$(PlatformTarget)'=='x86'">
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RuntimeIdentifiers>win7-x86;win-x64</RuntimeIdentifiers>    
-  </PropertyGroup>-->
-  <!--<PropertyGroup Condition="'$(PlatformTarget)'=='x64'">
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-  </PropertyGroup>-->
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>

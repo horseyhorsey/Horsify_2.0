@@ -12,7 +12,10 @@
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
 
-  <Product Id="*" Name="Horsify $(var.bitness)" Language="1033" Version="2.0.0.116" Manufacturer="Horsesoft" UpgradeCode="d5c43f06-5cd5-42b2-ab3d-4c700f15ab57">
+  <?define AppName    = "Horsify 2 $(var.bitness)" ?>
+  <?define AppVersion = "2.0.0.128" ?>
+
+  <Product Id="*" Name="$(var.AppName)" Language="1033" Version="$(var.AppVersion)" Manufacturer="Horsesoft" UpgradeCode="d5c43f06-5cd5-42b2-ab3d-4c700f15ab57">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes"/>
@@ -52,13 +55,14 @@
       </Directory>
 
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="Horsify 2" />
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.AppName)"  />
       </Directory>
       
       <Directory Id="DesktopFolder" Name="Desktop" />
       
       <Directory Id="CommonAppDataFolder">
-        <Directory Id="DATAFOLDER" Name="Horsify">
+        <Directory Id="DATAFOLDER" Name="Horsify">          
+            <Directory Id="Menus" Name="Menus" />
         </Directory>
       </Directory>
 
@@ -1148,9 +1152,7 @@
             </Component>
             <Component Id="mscordaccore.dll" Directory="SERVICE" Guid="{402AEB7B-9477-4848-854E-91356944733C}">
                 <File Id="mscordaccore.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\mscordaccore.dll" />
-            </Component>
-
-      
+            </Component>      
             <Component Id="mscordbi.dll" Directory="SERVICE" Guid="{DB76E136-F387-46C1-90C5-EBCE5EFDBF60}">
                 <File Id="mscordbi.dll" KeyPath="yes" Source="..\..\Build\$(var.Platform)\service\mscordbi.dll" />
             </Component>
@@ -1750,10 +1752,286 @@
 
   <!--PROGRAM DATA FILES-->
   <Fragment>
-    <ComponentGroup Id="ProductData" Directory="DATAFOLDER">
+  
+    <ComponentGroup Id="ProductData">
       <!--JSON Menus-->
-      <Component Id="genres.json" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
+      <Component Id="genres.json" Directory="DATAFOLDER" Guid="B8BA29EC-5092-4162-83BB-3FB8E8D1F352">
         <File Id="genres.json" Source="..\..\Data\Horsesoft.Music.Data.Model\genres.json" />
+      </Component>    
+      
+      <!--IMAGES-->
+      <Component Id="_00s.png" Directory="Menus" Guid="{66393487-3D6A-42D9-B278-F31998DBCA53}">
+        <File Id="_00s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\00s.png" />
+      </Component>
+      <Component Id="_10s.png" Directory="Menus" Guid="{49747E72-EF0C-4AFC-B2C7-511671D5D777}">
+        <File Id="_10s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\10s.png" />
+      </Component>
+      <Component Id="_50s.png" Directory="Menus" Guid="{D3DD5D73-E8EB-46C2-9648-AFF5F0AE15C7}">
+        <File Id="_50s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\50s.png" />
+      </Component>
+      <Component Id="_60s.png" Directory="Menus" Guid="{BFDD84A5-62E3-4330-8705-D14445D26577}">
+        <File Id="_60s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\60s.png" />
+      </Component>
+      <Component Id="_70s.png" Directory="Menus" Guid="{CA8A2EA9-DAD8-46E4-AF08-EFD7647FF0D0}">
+        <File Id="_70s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\70s.png" />
+      </Component>
+      <Component Id="_80s.png" Directory="Menus" Guid="{874469A4-4ECF-4D3B-B102-5B32DE896122}">
+        <File Id="_80s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\80s.png" />
+      </Component>
+      <Component Id="_90s.png" Directory="Menus" Guid="{8082F218-6754-4BC1-934B-5C0975AC44E6}">
+        <File Id="_90s.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\90s.png" />
+      </Component>
+      <Component Id="abstract.png" Directory="Menus" Guid="{F574F966-167A-45E4-A20F-888B36968EAE}">
+        <File Id="abstract.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\abstract.png" />
+      </Component>
+      <Component Id="ambient.png" Directory="Menus" Guid="{3FD7B10F-A5BF-42AE-B666-6A5C04BAC2B5}">
+        <File Id="ambient.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\ambient.png" />
+      </Component>
+      <Component Id="ballad.png" Directory="Menus" Guid="{82EED5F6-CA4E-45E2-A62C-71B26BAB296A}">
+        <File Id="ballad.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\ballad.png" />
+      </Component>
+      <Component Id="breakbeat.png" Directory="Menus" Guid="{52CC2F37-6AF0-46FF-8222-EA6B8552D081}">
+        <File Id="breakbeat.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breakbeat.png" />
+      </Component>
+      <Component Id="breakbeathardcore.png" Directory="Menus" Guid="{1B0B1421-0424-4C7E-A3A3-32C60D6DCAAF}">
+        <File Id="breakbeathardcore.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breakbeathardcore.png" />
+      </Component>
+      <Component Id="breakbeathouse.png" Directory="Menus" Guid="{DA61659B-18DC-4498-9F14-F24E0155F2FD}">
+        <File Id="breakbeathouse.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breakbeathouse.png" />
+      </Component>
+      <Component Id="breakbeatjungle.png" Directory="Menus" Guid="{B37A8127-9004-4447-A2DB-CB9EF46E5137}">
+        <File Id="breakbeatjungle.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breakbeatjungle.png" />
+      </Component>
+      <Component Id="breakbeattechno.png" Directory="Menus" Guid="{E649E499-47D2-4466-AF47-FA77068E44A8}">
+        <File Id="breakbeattechno.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breakbeattechno.png" />
+      </Component>
+      <Component Id="breakcore.png" Directory="Menus" Guid="{C533FD46-DE95-4148-9D2C-605D0ADA6147}">
+        <File Id="breakcore.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breakcore.png" />
+      </Component>
+      <Component Id="breaks.png" Directory="Menus" Guid="{E624DE57-38A6-426D-9B1B-627DADA481F4}">
+        <File Id="breaks.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\breaks.png" />
+      </Component>
+      <Component Id="bygenre.png" Directory="Menus" Guid="{44D0E8A9-434C-4AD6-ABD0-7F9829751E0D}">
+        <File Id="bygenre.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\bygenre.png" />
+      </Component>
+      <Component Id="classic_rock.png" Directory="Menus" Guid="{2E0FF587-F648-4849-A18A-C65A9650A81D}">
+        <File Id="classic_rock.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\classic_rock.png" />
+      </Component>
+      <Component Id="country.png" Directory="Menus" Guid="{9B36ACE0-44A4-41F7-A2FB-E34D821C28ED}">
+        <File Id="country.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\country.png" />
+      </Component>
+      <Component Id="dance.png" Directory="Menus" Guid="{E1EDDA29-4AFE-4D4D-A1E9-B2E41522F1A1}">
+        <File Id="dance.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\dance.png" />
+      </Component>
+      <Component Id="decades.png" Directory="Menus" Guid="{CF94BC75-CFCD-4399-BA17-3CBB4A7EE462}">
+        <File Id="decades.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\decades.png" />
+      </Component>
+      <Component Id="deephouse.png" Directory="Menus" Guid="{098C6CB7-5FFF-4B69-95F5-7B5706D3B030}">
+        <File Id="deephouse.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\deephouse.png" />
+      </Component>
+      <Component Id="disco_dance_pop.png" Directory="Menus" Guid="{B4F29B81-5AFE-473F-BFA0-E2B8C67F19ED}">
+        <File Id="disco_dance_pop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\disco-dance-pop.png" />
+      </Component>
+      <Component Id="disco_electro.png" Directory="Menus" Guid="{0351A762-1092-4476-970C-0DA01FC393BF}">
+        <File Id="disco_electro.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\disco-electro.png" />
+      </Component>
+      <Component Id="disco_funk.png" Directory="Menus" Guid="{0252A754-175E-4DC3-92AE-D2005B306DA7}">
+        <File Id="disco_funk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\disco-funk.png" />
+      </Component>
+      <Component Id="disco_soul.png" Directory="Menus" Guid="{97FEAE23-6A7D-4EDC-8532-4026C7A12D1C}">
+        <File Id="disco_soul.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\disco-soul.png" />
+      </Component>
+      <Component Id="disco.png" Directory="Menus" Guid="{8D610A00-E8C0-4B50-8E12-FAEB772BDBFD}">
+        <File Id="disco.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\disco.png" />
+      </Component>
+      <Component Id="discoboogie.png" Directory="Menus" Guid="{9358A957-FEC6-411F-BF6D-3938F5169D1C}">
+        <File Id="discoboogie.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\discoboogie.png" />
+      </Component>
+      <Component Id="dnbbreaks.png" Directory="Menus" Guid="{06D91A90-A4FE-4FFE-B10B-A23ED055DA05}">
+        <File Id="dnbbreaks.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\dnbbreaks.png" />
+      </Component>
+      <Component Id="dnbdrumfunk.png" Directory="Menus" Guid="{FEC0B4A2-7F70-4EC4-A5B3-5F87A0AD67E9}">
+        <File Id="dnbdrumfunk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\dnbdrumfunk.png" />
+      </Component>
+      <Component Id="dnbtrance.png" Directory="Menus" Guid="{72A4CF63-B97E-42B1-BEAB-03E7C2162A1C}">
+        <File Id="dnbtrance.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\dnbtrance.png" />
+      </Component>
+      <Component Id="downtempo.png" Directory="Menus" Guid="{188371C5-9795-472A-B13F-F2560A6C2922}">
+        <File Id="downtempo.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\downtempo.png" />
+      </Component>
+      <Component Id="dubstep.png" Directory="Menus" Guid="{B85B05DF-C112-40C4-A479-A45E248FA59E}">
+        <File Id="dubstep.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\dubstep.png" />
+      </Component>
+      <Component Id="electro.png" Directory="Menus" Guid="{E1F2BD60-E128-4DCA-AB5E-2D05F73905ED}">
+        <File Id="electro.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\electro.png" />
+      </Component>
+      <Component Id="electronic.png" Directory="Menus" Guid="{15C01354-A40B-4B21-985E-0515583A1F51}">
+        <File Id="electronic.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\electronic.png" />
+      </Component>
+      <Component Id="funk.png" Directory="Menus" Guid="{0C0AE49E-78B6-46FB-98F6-0AAF2558BC32}">
+        <File Id="funk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\funk.png" />
+      </Component>
+      <Component Id="funk_soul.png" Directory="Menus" Guid="{BAF76507-5970-4485-B6E1-1D37BC15DCE3}">
+        <File Id="funk_soul.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\funk_soul.png" />
+      </Component>
+      <Component Id="gangsta.png" Directory="Menus" Guid="{957D70EF-A7C9-4588-9178-6FB8B33DD260}">
+        <File Id="gangsta.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\gangsta.png" />
+      </Component>
+      <Component Id="garage.png" Directory="Menus" Guid="{D561420F-5745-400A-86F3-80C1881444FC}">
+        <File Id="garage.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\garage.png" />
+      </Component>
+      <Component Id="grime.png" Directory="Menus" Guid="{3A70372D-5F94-4BF7-A3E8-60502D0289D7}">
+        <File Id="grime.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\grime.png" />
+      </Component>
+      <Component Id="halfstep.png" Directory="Menus" Guid="{031A3E80-8007-42F1-BA87-9020E2A5560C}">
+        <File Id="halfstep.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\halfstep.png" />
+      </Component>
+      <Component Id="happyhardcore.png" Directory="Menus" Guid="{615B85EF-BF08-4857-9FB9-1B046D462B32}">
+        <File Id="happyhardcore.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\happyhardcore.png" />
+      </Component>
+      <Component Id="hardcore.png" Directory="Menus" Guid="{C5721B3D-BF4C-4A9E-AFF6-45E56A0B43D3}">
+        <File Id="hardcore.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\hardcore.png" />
+      </Component>
+      <Component Id="Hip_House.png" Directory="Menus" Guid="{02A3FDF2-49C7-4B09-9A2D-5DC39EAF4644}">
+        <File Id="Hip_House.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\Hip-House.png" />
+      </Component>
+      <Component Id="hiphop_concious.png" Directory="Menus" Guid="{0821798D-6C58-4829-BD35-113972895FAA}">
+        <File Id="hiphop_concious.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\hiphop_concious.png" />
+      </Component>
+      <Component Id="hiphop_pop.png" Directory="Menus" Guid="{0AE30284-6276-4711-9019-3CD0518D2B8A}">
+        <File Id="hiphop_pop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\hiphop_pop.png" />
+      </Component>
+      <Component Id="hiphop_uk.png" Directory="Menus" Guid="{8E6973D3-0123-4891-8835-580DD5A98434}">
+        <File Id="hiphop_uk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\hiphop_uk.png" />
+      </Component>
+      <Component Id="hip_hop.png" Directory="Menus" Guid="{144FFE03-8EF2-4E0A-A137-2EBF7FAD5853}">
+        <File Id="hip_hop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\hip_hop.png" />
+      </Component>
+      <Component Id="ho.jpg" Directory="Menus" Guid="{12F12624-0876-4BE7-9B7B-8C0B579E48B7}">
+        <File Id="ho.jpg" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\ho.jpg" />
+      </Component>
+      <Component Id="HorseWithHeadphones.png" Directory="Menus" Guid="{BEBB0CD4-A594-4787-B312-C734B256B621}">
+        <File Id="HorseWithHeadphones.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\HorseWithHeadphones.png" />
+      </Component>
+      <Component Id="House__Acid.png" Directory="Menus" Guid="{79188C24-4711-4054-ADC9-A43613EAEAAD}">
+        <File Id="House__Acid.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\House, Acid.png" />
+      </Component>
+      <Component Id="House__Ghetto.png" Directory="Menus" Guid="{42E9FD41-EE48-4DAF-AEE3-DCC81A7BF3C7}">
+        <File Id="House__Ghetto.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\House, Ghetto.png" />
+      </Component>
+      <Component Id="House__Pop.png" Directory="Menus" Guid="{B8893477-F0E2-43BA-9380-5ADA0ADAEECF}">
+        <File Id="House__Pop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\House, Pop.png" />
+      </Component>
+      <Component Id="house.png" Directory="Menus" Guid="{A6E6F1B5-C7E4-4E86-8B49-85E09173AAD1}">
+        <File Id="house.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\house.png" />
+      </Component>
+      <Component Id="Images.wxs" Directory="Menus" Guid="{19127C99-A403-4FED-9E41-706A8D424FB0}">
+        <File Id="Images.wxs" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\Images.wxs" />
+      </Component>
+      <Component Id="intelligent.png" Directory="Menus" Guid="{213341CF-DCC2-43CA-8080-69056E4E8BB0}">
+        <File Id="intelligent.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\intelligent.png" />
+      </Component>
+      <Component Id="italo_disco.png" Directory="Menus" Guid="{A31BE29E-3340-4CC7-82B0-ADEC4EF3EB26}">
+        <File Id="italo_disco.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\italo_disco.png" />
+      </Component>
+      <Component Id="jazz.png" Directory="Menus" Guid="{645D597F-99E6-4973-80B4-AC327C865BCC}">
+        <File Id="jazz.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jazz.png" />
+      </Component>
+      <Component Id="jazzstep.png" Directory="Menus" Guid="{79647BDE-D82B-4F20-A24F-F00EC93CC073}">
+        <File Id="jazzstep.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jazzstep.png" />
+      </Component>
+      <Component Id="jazz_funk.png" Directory="Menus" Guid="{898488A6-7E23-4960-8214-2D4C1D7AA3F6}">
+        <File Id="jazz_funk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jazz_funk.png" />
+      </Component>
+      <Component Id="jazz_fusion.png" Directory="Menus" Guid="{A0A7946C-2713-48E5-8480-5C1151787AF1}">
+        <File Id="jazz_fusion.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jazz_fusion.png" />
+      </Component>
+      <Component Id="jazz_future.png" Directory="Menus" Guid="{C51EC68C-BD9F-4558-BD9A-FBF783394D76}">
+        <File Id="jazz_future.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jazz_future.png" />
+      </Component>
+      <Component Id="jazz_swing.png" Directory="Menus" Guid="{EA90F56C-D0BB-453D-845A-1E324AB7612A}">
+        <File Id="jazz_swing.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jazz_swing.png" />
+      </Component>
+      <Component Id="jumpup.png" Directory="Menus" Guid="{06E3DDD7-E512-4696-91E8-0FECDA50BF4C}">
+        <File Id="jumpup.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jumpup.png" />
+      </Component>
+      <Component Id="jungle.png" Directory="Menus" Guid="{B2A58303-09BC-4752-AD82-432D9C8A6093}">
+        <File Id="jungle.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jungle.png" />
+      </Component>
+      <Component Id="junglednb.png" Directory="Menus" Guid="{01584745-A574-4437-AD7F-A729D77CE89F}">
+        <File Id="junglednb.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\junglednb.png" />
+      </Component>
+      <Component Id="jungle_ragga.png" Directory="Menus" Guid="{84755AAC-D87F-47BD-AA50-50D53E4A53AB}">
+        <File Id="jungle_ragga.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\jungle_ragga.png" />
+      </Component>
+      <Component Id="liquid.png" Directory="Menus" Guid="{F4517A0E-2C3E-4187-8E23-8434587B8787}">
+        <File Id="liquid.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\liquid.png" />
+      </Component>
+      <Component Id="minimal.png" Directory="Menus" Guid="{A9F5D1AE-5AD2-437C-B767-F2CD44289CEA}">
+        <File Id="minimal.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\minimal.png" />
+      </Component>
+      <Component Id="most_played.png" Directory="Menus" Guid="{C5DAF7A8-ADE3-4494-B8A3-DF901D77DB13}">
+        <File Id="most_played.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\most_played.png" />
+      </Component>
+      <Component Id="motown.png" Directory="Menus" Guid="{3468AE48-9C55-4D5A-83C4-02C7DECC55D9}">
+        <File Id="motown.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\motown.png" />
+      </Component>
+      <Component Id="neurofunk.png" Directory="Menus" Guid="{6983C8A0-1215-4380-8F1D-9D2097F690D6}">
+        <File Id="neurofunk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\neurofunk.png" />
+      </Component>
+      <Component Id="new_wave.png" Directory="Menus" Guid="{63ABA84E-F456-45F9-A0A3-10E0D734EB39}">
+        <File Id="new_wave.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\new_wave.png" />
+      </Component>
+      <Component Id="northern_soul.png" Directory="Menus" Guid="{BA902933-45C2-4848-9C35-9AEE1DBFE091}">
+        <File Id="northern_soul.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\northern_soul.png" />
+      </Component>
+      <Component Id="p_funk.png" Directory="Menus" Guid="{FE8954BE-0891-4244-B1D1-9B67FD5B8396}">
+        <File Id="p_funk.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\p-funk.png" />
+      </Component>
+      <Component Id="pop.png" Directory="Menus" Guid="{2BC60E4E-5814-4BA0-AB3D-5A7C898D3A49}">
+        <File Id="pop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\pop.png" />
+      </Component>
+      <Component Id="recently_added.png" Directory="Menus" Guid="{DB5B1FAE-FA24-4D87-9769-5B29DA2DB7B6}">
+        <File Id="recently_added.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\recently_added.png" />
+      </Component>
+      <Component Id="reggae.png" Directory="Menus" Guid="{ED1961D0-1ED7-44AA-A516-A91213E2887A}">
+        <File Id="reggae.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\reggae.png" />
+      </Component>
+      <Component Id="rnb.png" Directory="Menus" Guid="{4638A423-F37B-4135-93FC-A28C2F4956D8}">
+        <File Id="rnb.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\rnb.png" />
+      </Component>
+      <Component Id="rock.png" Directory="Menus" Guid="{F3C07880-F5D2-4B3C-9EFC-385C716E42B9}">
+        <File Id="rock.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\rock.png" />
+      </Component>
+      <Component Id="rockroll.png" Directory="Menus" Guid="{93D6F174-AA21-42A3-ADCE-C0BC587EC0C9}">
+        <File Id="rockroll.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\rockroll.png" />
+      </Component>
+      <Component Id="soul.png" Directory="Menus" Guid="{10795310-6179-4F2D-871F-0F478777002D}">
+        <File Id="soul.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\soul.png" />
+      </Component>
+      <Component Id="soundtrack.png" Directory="Menus" Guid="{53268F8C-DF91-492D-9EDE-183FA363B6DE}">
+        <File Id="soundtrack.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\soundtrack.png" />
+      </Component>
+      <Component Id="speedgarage.png" Directory="Menus" Guid="{3BED12A2-ABE3-4540-A3AD-55F80BE24451}">
+        <File Id="speedgarage.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\speedgarage.png" />
+      </Component>
+      <Component Id="synthwave.png" Directory="Menus" Guid="{4AFF9114-532A-4DFD-B749-AD4799227BBB}">
+        <File Id="synthwave.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\synthwave.png" />
+      </Component>
+      <Component Id="synth_pop.png" Directory="Menus" Guid="{27A5CC13-2A38-49E5-8B92-3D20BE766309}">
+        <File Id="synth_pop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\synth_pop.png" />
+      </Component>
+      <Component Id="technoid.png" Directory="Menus" Guid="{1BBA0A18-2324-4C50-9F16-2776652F490A}">
+        <File Id="technoid.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\technoid.png" />
+      </Component>
+      <Component Id="techstep.png" Directory="Menus" Guid="{23C4B530-9947-4787-BA59-B5833CA5B6B2}">
+        <File Id="techstep.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\techstep.png" />
+      </Component>
+      <Component Id="triphop.png" Directory="Menus" Guid="{E289C024-CC64-4A68-9336-D385E5452139}">
+        <File Id="triphop.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\triphop.png" />
+      </Component>
+      <Component Id="uk_garage.png" Directory="Menus" Guid="{9019474C-3F5B-4D1E-8ED8-C9D55C9F495A}">
+        <File Id="uk_garage.png" KeyPath="yes" Source="..\..\UI\Horsesoft.Shared\Resource\Images\Menus\uk_garage.png" />
       </Component>
     </ComponentGroup>
   </Fragment>

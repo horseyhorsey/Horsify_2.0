@@ -66,12 +66,15 @@ namespace Horsesoft.Horsify.ServicesModule
 
         public void SetPrecense(string state, string details, int songLength = 0, int position = 0)
         {
-            _presence.State = state;
-            _presence.Details = details;
-            
-             _presence.Timestamps = null;
-            var timeLeft = songLength - position;            
-            _discClient.UpdateEndTime(DateTime.Now.AddSeconds(timeLeft));
+            if (IsEnabled)
+            {
+                _presence.State = state;
+                _presence.Details = details;
+
+                _presence.Timestamps = null;
+                var timeLeft = songLength - position;
+                _discClient.UpdateEndTime(DateTime.Now.AddSeconds(timeLeft));
+            }
         }
 
         /// <summary>
@@ -95,8 +98,7 @@ namespace Horsesoft.Horsify.ServicesModule
         }
 
         public void Clear()
-        {
-            _discClient.ClearPresence();
+        {            
             this.Enable(false);
         }
 

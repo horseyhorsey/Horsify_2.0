@@ -6,6 +6,8 @@ using Prism.Interactivity.InteractionRequest;
 using Prism.Logging;
 using Prism.Mvvm;
 using Prism.Regions;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Horsesoft.Music.Horsify.WPF.Shell.ViewModels
@@ -28,6 +30,15 @@ namespace Horsesoft.Music.Horsify.WPF.Shell.ViewModels
             Log("Constructing MainWindowViewModel", Category.Debug, Priority.None);
 
             _regionManager = regionManager;
+
+            //Let the importer create db ... TODO: init Db before importer or jukebox is run from somwhere else.
+            if (!System.IO.File.Exists(@"C:\ProgramData\Horsify\Horsify.db"))
+            {
+                var msg = "Run the importer to initialize a database.";
+                System.Windows.MessageBox.Show(msg);
+                Log(msg);
+                throw new FileNotFoundException(msg);
+            }
 
             //Change Content regions view from here
             eventAggregator.GetEvent<OnNavigateViewEvent<string>>()

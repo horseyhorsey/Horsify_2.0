@@ -73,7 +73,7 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
         /// Kills the instance.
         /// </summary>
         /// <param name="code">The code.</param>
-        private static void ShutdownInstance(int code = 0)
+        internal static void ShutdownInstance(int code = 0)
         {
             if (_appInstance == null) return;
             if (code == 0)
@@ -95,12 +95,16 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            System.Windows.MessageBox.Show(e.Exception.Message);
-            System.Windows.MessageBox.Show(e.Exception.StackTrace);
+            //Only ask to shutdown if it was an initial importer error
+            if (!e.Exception.Message.Contains("Prism.Mvvm.ViewModelLocator.AutoWireViewModel"))
+            {
+                System.Windows.MessageBox.Show(e.Exception.Message);
+                System.Windows.MessageBox.Show(e.Exception.StackTrace);
 
-            var result = System.Windows.MessageBox.Show("Shutdown Horsify?", "", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.No)
-                e.Handled = true;
+                var result = System.Windows.MessageBox.Show("Shutdown Horsify?", "", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.No)
+                    e.Handled = true;
+            }    
         }
     }
 }

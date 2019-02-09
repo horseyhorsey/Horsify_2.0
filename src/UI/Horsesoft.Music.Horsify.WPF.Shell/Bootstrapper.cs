@@ -9,6 +9,7 @@ using Horsesoft.Horsify.ServicesModule;
 using Horsesoft.Horsify.DjHorsify.Model;
 using Prism.Logging;
 using Horsesoft.Music.Data.Model.Horsify;
+using System.IO;
 
 namespace Horsesoft.Music.Horsify.WPF.Shell
 {
@@ -59,11 +60,6 @@ namespace Horsesoft.Music.Horsify.WPF.Shell
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-
-            //Horsify Main WCF Service
-            //Container.RegisterInstance<Repositories.Services.IHorsifySongService>(
-            //        new Repositories.Services.HorsifySongService(),
-            //        new ContainerControlledLifetimeManager());
 
             var _logger = Container.Resolve<ILoggerFacade>();            
 
